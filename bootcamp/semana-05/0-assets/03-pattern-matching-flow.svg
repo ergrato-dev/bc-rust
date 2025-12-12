@@ -23,8 +23,8 @@
   
   <!-- Valor de entrada -->
   <rect x="30" y="80" width="180" height="60" rx="8" fill="#CE422B"/>
-  <text x="120" y="105" text-anchor="middle" class="label" fill="#fff">Valor a evaluar</text>
-  <text x="120" y="128" text-anchor="middle" class="code" fill="#fff">figura: Figura</text>
+  <text x="120" y="105" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11px" fill="#ffffff" font-weight="600">Valor a evaluar</text>
+  <text x="120" y="128" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12px" fill="#ffffff">figura: Figura</text>
   
   <!-- Flecha principal -->
   <path d="M 210 110 L 280 110" class="arrow" marker-end="url(#arrowhead)"/>
