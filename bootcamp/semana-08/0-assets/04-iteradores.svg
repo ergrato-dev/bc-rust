@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">Iteradores en Rust</text>
+
+  <!-- Pipeline visualization -->
+  <rect x="30" y="55" width="840" height="140" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="450" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Pipeline de Iteradores (Lazy)</text>
+
+  <!-- Source -->
+  <rect x="50" y="105" width="100" height="60" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="100" y="130" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">vec!</text>
+  <text x="100" y="150" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#d4d4d4">[1,2,3,4,5]</text>
+
+  <path d="M 155 135 L 195 135" stroke="#808080" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- iter() -->
+  <rect x="200" y="105" width="90" height="60" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="245" y="130" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0">.iter()</text>
+  <text x="245" y="150" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080">crear iter</text>
+
+  <path d="M 295 135 L 335 135" stroke="#808080" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- filter -->
+  <rect x="340" y="105" width="120" height="60" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="2"/>
+  <text x="400" y="125" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">.filter()</text>
+  <text x="400" y="145" text-anchor="middle" font-family="'Fira Code', monospace" font-size="9" fill="#d4d4d4">|x| x % 2 == 0</text>
+  <text x="400" y="160" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8" fill="#808080">→ [2, 4]</text>
+
+  <path d="M 465 135 L 505 135" stroke="#808080" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- map -->
+  <rect x="510" y="105" width="110" height="60" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="565" y="125" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#CE422B">.map()</text>
+  <text x="565" y="145" text-anchor="middle" font-family="'Fira Code', monospace" font-size="9" fill="#d4d4d4">|x| x * 10</text>
+  <text x="565" y="160" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8" fill="#808080">→ [20, 40]</text>
+
+  <path d="M 625 135 L 665 135" stroke="#808080" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <!-- collect -->
+  <rect x="670" y="105" width="100" height="60" rx="4" fill="#2d2d2d" stroke="#6a9955" stroke-width="2"/>
+  <text x="720" y="130" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">.collect()</text>
+  <text x="720" y="150" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080">ejecutar</text>
+
+  <path d="M 775 135 L 815 135" stroke="#6a9955" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <rect x="820" y="115" width="40" height="40" rx="4" fill="#1e1e1e" stroke="#6a9955" stroke-width="2"/>
+  <text x="840" y="140" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">Vec</text>
+
+  <defs>
+    <marker id="arrowGray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#808080"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6a9955"/>
+    </marker>
+  </defs>
+
+  <!-- Three iteration types -->
+  <rect x="30" y="210" width="270" height="175" rx="8" fill="#252526" stroke="#569cd6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="165" y="240" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#569cd6" font-weight="600">iter() - Referencias</text>
+
+  <text x="50" y="270" font-family="'Fira Code', monospace" font-size="10">
+    <tspan fill="#c586c0">for</tspan><tspan fill="#d4d4d4"> x </tspan><tspan fill="#c586c0">in</tspan><tspan fill="#d4d4d4"> v.</tspan><tspan fill="#dcdcaa">iter</tspan><tspan fill="#d4d4d4">() { }</tspan>
+  </text>
+  <text x="50" y="295" font-family="'Fira Code', monospace" font-size="10">
+    <tspan fill="#c586c0">for</tspan><tspan fill="#d4d4d4"> x </tspan><tspan fill="#c586c0">in</tspan><tspan fill="#d4d4d4"> &amp;v { }</tspan>
+  </text>
+  <text x="50" y="325" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• x es &amp;T</text>
+  <text x="50" y="345" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• v sigue siendo válido</text>
+  <text x="50" y="365" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• Solo lectura</text>
+
+  <rect x="315" y="210" width="270" height="175" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="450" y="240" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#dcdcaa" font-weight="600">iter_mut() - Mutables</text>
+
+  <text x="335" y="270" font-family="'Fira Code', monospace" font-size="10">
+    <tspan fill="#c586c0">for</tspan><tspan fill="#d4d4d4"> x </tspan><tspan fill="#c586c0">in</tspan><tspan fill="#d4d4d4"> v.</tspan><tspan fill="#dcdcaa">iter_mut</tspan><tspan fill="#d4d4d4">() {</tspan>
+  </text>
+  <text x="350" y="290" font-family="'Fira Code', monospace" font-size="10">
+    <tspan fill="#d4d4d4">*x *= </tspan><tspan fill="#b5cea8">2</tspan><tspan fill="#d4d4d4">;</tspan>
+  </text>
+  <text x="335" y="310" font-family="'Fira Code', monospace" font-size="10" fill="#d4d4d4">}</text>
+  <text x="335" y="340" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• x es &amp;mut T</text>
+  <text x="335" y="360" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• Modifica en lugar</text>
+
+  <rect x="600" y="210" width="270" height="175" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2" filter="url(#shadow)"/>
+  <text x="735" y="240" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#CE422B" font-weight="600">into_iter() - Ownership</text>
+
+  <text x="620" y="270" font-family="'Fira Code', monospace" font-size="10">
+    <tspan fill="#c586c0">for</tspan><tspan fill="#d4d4d4"> x </tspan><tspan fill="#c586c0">in</tspan><tspan fill="#d4d4d4"> v.</tspan><tspan fill="#dcdcaa">into_iter</tspan><tspan fill="#d4d4d4">() { }</tspan>
+  </text>
+  <text x="620" y="295" font-family="'Fira Code', monospace" font-size="10">
+    <tspan fill="#c586c0">for</tspan><tspan fill="#d4d4d4"> x </tspan><tspan fill="#c586c0">in</tspan><tspan fill="#d4d4d4"> v { }</tspan>
+  </text>
+  <text x="620" y="325" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• x es T (owned)</text>
+  <text x="620" y="345" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• v se consume</text>
+  <text x="620" y="365" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">• Mueve elementos</text>
+
+  <!-- Adaptadores -->
+  <rect x="30" y="400" width="420" height="185" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="430" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#d4d4d4" font-weight="600">Adaptadores (Lazy)</text>
+
+  <g transform="translate(50, 445)">
+    <rect x="0" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="45" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#4ec9b0">map</text>
+    
+    <rect x="100" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="145" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#4ec9b0">filter</text>
+    
+    <rect x="200" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="245" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#4ec9b0">enumerate</text>
+    
+    <rect x="300" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="345" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#4ec9b0">take</text>
+  </g>
+
+  <g transform="translate(50, 485)">
+    <rect x="0" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="45" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#dcdcaa">skip</text>
+    
+    <rect x="100" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="145" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#dcdcaa">flatten</text>
+    
+    <rect x="200" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="245" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#dcdcaa">chain</text>
+    
+    <rect x="300" y="0" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="345" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#dcdcaa">zip</text>
+  </g>
+
+  <text x="50" y="545" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">⚠️ No ejecutan hasta consumir con collect(), sum(), etc.</text>
+  <text x="50" y="565" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">✅ Se pueden encadenar sin crear copias intermedias</text>
+
+  <!-- Consumidores -->
+  <rect x="470" y="400" width="400" height="185" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="430" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#d4d4d4" font-weight="600">Consumidores (Ejecutan)</text>
+
+  <g transform="translate(490, 445)">
+    <rect x="0" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#6a9955"/>
+    <text x="42" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">collect</text>
+    
+    <rect x="95" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#6a9955"/>
+    <text x="137" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">fold</text>
+    
+    <rect x="190" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#6a9955"/>
+    <text x="232" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">sum</text>
+    
+    <rect x="285" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#6a9955"/>
+    <text x="327" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">count</text>
+  </g>
+
+  <g transform="translate(490, 485)">
+    <rect x="0" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
+    <text x="42" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#CE422B">find</text>
+    
+    <rect x="95" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
+    <text x="137" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#CE422B">any</text>
+    
+    <rect x="190" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
+    <text x="232" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#CE422B">all</text>
+    
+    <rect x="285" y="0" width="85" height="30" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
+    <text x="327" y="20" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#CE422B">max/min</text>
+  </g>
+
+  <text x="490" y="545" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">🔴 Consumen el iterador (no se puede reusar)</text>
+  <text x="490" y="565" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">✅ Producen resultado: Vec, i32, bool, Option...</text>
+</svg>

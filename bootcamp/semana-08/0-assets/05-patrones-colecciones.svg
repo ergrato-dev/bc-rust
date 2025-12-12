@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">¿Qué Colección Usar?</text>
+
+  <!-- Decision tree -->
+  <rect x="30" y="55" width="840" height="280" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="450" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Guía de Selección</text>
+
+  <!-- Question 1 -->
+  <rect x="350" y="105" width="200" height="45" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="450" y="133" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#d4d4d4">¿Necesitas clave-valor?</text>
+
+  <!-- Yes branch -->
+  <path d="M 350 127 L 200 127 L 200 170" stroke="#6a9955" stroke-width="2" fill="none"/>
+  <text x="275" y="120" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Sí</text>
+
+  <!-- HashMap -->
+  <rect x="100" y="170" width="200" height="70" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="200" y="195" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#4ec9b0">HashMap&lt;K, V&gt;</text>
+  <text x="200" y="215" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Búsqueda O(1)</text>
+  <text x="200" y="230" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Orden aleatorio</text>
+
+  <!-- No branch -->
+  <path d="M 550 127 L 700 127 L 700 170" stroke="#CE422B" stroke-width="2" fill="none"/>
+  <text x="625" y="120" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">No</text>
+
+  <!-- Question 2 -->
+  <rect x="600" y="170" width="200" height="45" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="700" y="198" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#d4d4d4">¿Elementos únicos?</text>
+
+  <!-- Yes to unique -->
+  <path d="M 600 192 L 500 192 L 500 245" stroke="#6a9955" stroke-width="2" fill="none"/>
+  <text x="550" y="185" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Sí</text>
+
+  <!-- HashSet -->
+  <rect x="400" y="245" width="200" height="70" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="2"/>
+  <text x="500" y="270" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#dcdcaa">HashSet&lt;T&gt;</text>
+  <text x="500" y="290" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Sin duplicados</text>
+  <text x="500" y="305" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Pertenencia O(1)</text>
+
+  <!-- No to unique -->
+  <path d="M 800 192 L 830 192 L 830 245" stroke="#CE422B" stroke-width="2" fill="none"/>
+  <text x="815" y="185" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">No</text>
+
+  <!-- Vec -->
+  <rect x="700" y="245" width="170" height="70" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="785" y="270" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#CE422B">Vec&lt;T&gt;</text>
+  <text x="785" y="290" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Lista ordenada</text>
+  <text x="785" y="305" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Acceso por índice</text>
+
+  <!-- BTree variants note -->
+  <rect x="50" y="255" width="200" height="65" rx="4" fill="#1e1e1e" stroke="#6a9955" stroke-width="1"/>
+  <text x="150" y="275" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">¿Necesitas orden?</text>
+  <text x="150" y="295" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#808080">BTreeMap / BTreeSet</text>
+  <text x="150" y="310" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080">Claves ordenadas</text>
+
+  <!-- Comparison table -->
+  <rect x="30" y="350" width="420" height="255" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="380" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Comparación de Colecciones</text>
+
+  <!-- Table header -->
+  <rect x="50" y="395" width="100" height="30" fill="#2d2d2d"/>
+  <rect x="150" y="395" width="80" height="30" fill="#2d2d2d"/>
+  <rect x="230" y="395" width="80" height="30" fill="#2d2d2d"/>
+  <rect x="310" y="395" width="120" height="30" fill="#2d2d2d"/>
+
+  <text x="100" y="415" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Colección</text>
+  <text x="190" y="415" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Acceso</text>
+  <text x="270" y="415" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Insert</text>
+  <text x="370" y="415" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Caso de uso</text>
+
+  <!-- Vec row -->
+  <text x="100" y="445" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#CE422B">Vec&lt;T&gt;</text>
+  <text x="190" y="445" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="270" y="445" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)*</text>
+  <text x="370" y="445" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Lista, Stack</text>
+
+  <!-- HashMap row -->
+  <text x="100" y="475" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#4ec9b0">HashMap</text>
+  <text x="190" y="475" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="270" y="475" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="370" y="475" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Lookup, Cache</text>
+
+  <!-- HashSet row -->
+  <text x="100" y="505" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#dcdcaa">HashSet</text>
+  <text x="190" y="505" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="270" y="505" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="370" y="505" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Únicos, Contains</text>
+
+  <!-- String row -->
+  <text x="100" y="535" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#569cd6">String</text>
+  <text x="190" y="535" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(n)</text>
+  <text x="270" y="535" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)*</text>
+  <text x="370" y="535" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Texto UTF-8</text>
+
+  <!-- VecDeque row -->
+  <text x="100" y="565" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">VecDeque</text>
+  <text x="190" y="565" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="270" y="565" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#d4d4d4">O(1)</text>
+  <text x="370" y="565" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Cola, Deque</text>
+
+  <text x="240" y="595" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080">* amortizado</text>
+
+  <!-- Best practices -->
+  <rect x="470" y="350" width="400" height="255" rx="8" fill="#252526" stroke="#6a9955" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="380" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Buenas Prácticas</text>
+
+  <text x="490" y="410" font-family="'Segoe UI', sans-serif" font-size="12" fill="#4ec9b0">✅ Preferir iteradores sobre índices</text>
+  <text x="510" y="430" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">for x in &amp;v { }</text>
+
+  <text x="490" y="460" font-family="'Segoe UI', sans-serif" font-size="12" fill="#4ec9b0">✅ Usar Entry API en HashMap</text>
+  <text x="510" y="480" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">m.entry(k).or_insert(v)</text>
+
+  <text x="490" y="510" font-family="'Segoe UI', sans-serif" font-size="12" fill="#4ec9b0">✅ Aceptar &amp;str en funciones</text>
+  <text x="510" y="530" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">fn f(s: &amp;str) { }</text>
+
+  <text x="490" y="560" font-family="'Segoe UI', sans-serif" font-size="12" fill="#CE422B">❌ Evitar collect() intermedios</text>
+  <text x="510" y="580" font-family="'Fira Code', monospace" font-size="10" fill="#808080">encadenar adaptadores</text>
+
+  <text x="490" y="600" font-family="'Segoe UI', sans-serif" font-size="12" fill="#CE422B">❌ Evitar clone() innecesario</text>
+</svg>
