@@ -1,5 +1,7 @@
 # 🏭 Funciones Asociadas
 
+![Método vs Función Asociada](../0-assets/03-metodo-vs-asociada.svg)
+
 ## ¿Qué son las Funciones Asociadas?
 
 Las **funciones asociadas** son funciones dentro de `impl` que **NO** reciben `self`. No operan sobre una instancia, sino sobre el tipo en sí.
@@ -18,6 +20,8 @@ Las **funciones asociadas** son funciones dentro de `impl` que **NO** reciben `s
 ---
 
 ## El Constructor new()
+
+![Patrón new()](../0-assets/05-patron-new.svg)
 
 El patrón más común es usar `new()` como constructor:
 

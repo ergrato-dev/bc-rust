@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520">
+  <style>
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #d4d4d4; font-weight: 600; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 13px; fill: #d4d4d4; font-weight: 500; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .field { fill: #9cdcfe; }
+    .string { fill: #ce9178; }
+    .number { fill: #b5cea8; }
+    .comment { fill: #6a9955; }
+    .accent { fill: #CE422B; }
+    .arrow { stroke: #CE422B; stroke-width: 2; fill: none; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
+    .highlight-box { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; rx: 6; }
+  </style>
+  
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="425" y="35" text-anchor="middle" class="title">Instanciación y Acceso a Structs</text>
+  <text x="425" y="55" text-anchor="middle" class="subtitle">Tres formas de crear y manipular instancias</text>
+  
+  <!-- Sección 1: Instanciación Básica -->
+  <rect x="20" y="75" width="260" height="180" class="box"/>
+  <text x="150" y="100" text-anchor="middle" class="label">1️⃣ Instanciación Básica</text>
+  
+  <text x="35" y="125" class="code">
+    <tspan class="keyword">let</tspan> usuario = <tspan class="type">Usuario</tspan> {
+  </text>
+  <text x="35" y="145" class="code">    nombre: <tspan class="string">"Ana"</tspan>.to_string(),</text>
+  <text x="35" y="165" class="code">    edad: <tspan class="number">28</tspan>,</text>
+  <text x="35" y="185" class="code">    activo: <tspan class="keyword">true</tspan>,</text>
+  <text x="35" y="205" class="code">};</text>
+  
+  <text x="35" y="235" class="code comment">// Acceso: usuario.nombre</text>
+  
+  <!-- Sección 2: Field Init Shorthand -->
+  <rect x="295" y="75" width="260" height="180" class="highlight-box"/>
+  <text x="425" y="100" text-anchor="middle" class="label" style="fill: #CE422B;">2️⃣ Field Init Shorthand</text>
+  
+  <text x="310" y="125" class="code">
+    <tspan class="keyword">let</tspan> nombre = <tspan class="string">"Ana"</tspan>.to_string();
+  </text>
+  <text x="310" y="145" class="code">
+    <tspan class="keyword">let</tspan> edad = <tspan class="number">28</tspan>;
+  </text>
+  <text x="310" y="175" class="code">
+    <tspan class="keyword">let</tspan> usuario = <tspan class="type">Usuario</tspan> {
+  </text>
+  <text x="310" y="195" class="code">    <tspan class="field">nombre</tspan>,     <tspan class="comment">// ← Sin repetir</tspan></text>
+  <text x="310" y="215" class="code">    <tspan class="field">edad</tspan>,       <tspan class="comment">// ← nombre: nombre</tspan></text>
+  <text x="310" y="235" class="code">    activo: <tspan class="keyword">true</tspan>,</text>
+  <text x="310" y="255" class="code">};</text>
+  
+  <!-- Sección 3: Struct Update Syntax -->
+  <rect x="570" y="75" width="260" height="180" class="box"/>
+  <text x="700" y="100" text-anchor="middle" class="label">3️⃣ Struct Update Syntax</text>
+  
+  <text x="585" y="125" class="code">
+    <tspan class="keyword">let</tspan> usuario2 = <tspan class="type">Usuario</tspan> {
+  </text>
+  <text x="585" y="145" class="code">    nombre: <tspan class="string">"Luis"</tspan>.to_string(),</text>
+  <text x="585" y="165" class="code">    <tspan class="accent">..</tspan>usuario  <tspan class="comment">// ← Resto de</tspan></text>
+  <text x="585" y="185" class="code">               <tspan class="comment">//   campos</tspan></text>
+  <text x="585" y="205" class="code">};</text>
+  
+  <text x="585" y="235" class="code comment">// usuario2.edad == 28</text>
+  
+  <!-- Diagrama Visual: Memoria -->
+  <rect x="20" y="275" width="810" height="110" class="box"/>
+  <text x="425" y="300" text-anchor="middle" class="label">📦 Representación en Memoria (Stack)</text>
+  
+  <!-- Struct en memoria -->
+  <rect x="180" y="315" width="490" height="55" fill="#2d2d2d" stroke="#454545" rx="4"/>
+  
+  <!-- Campos -->
+  <rect x="185" y="320" width="155" height="45" fill="#1e1e1e" stroke="#569cd6" rx="3"/>
+  <text x="262" y="340" text-anchor="middle" class="code field">nombre</text>
+  <text x="262" y="358" text-anchor="middle" class="code" style="font-size: 10px; fill: #808080;">ptr | len | cap</text>
+  
+  <rect x="345" y="320" width="100" height="45" fill="#1e1e1e" stroke="#b5cea8" rx="3"/>
+  <text x="395" y="340" text-anchor="middle" class="code field">edad</text>
+  <text x="395" y="358" text-anchor="middle" class="code number" style="font-size: 11px;">28u32</text>
+  
+  <rect x="450" y="320" width="100" height="45" fill="#1e1e1e" stroke="#569cd6" rx="3"/>
+  <text x="500" y="340" text-anchor="middle" class="code field">activo</text>
+  <text x="500" y="358" text-anchor="middle" class="code keyword" style="font-size: 11px;">true</text>
+  
+  <!-- Etiqueta Usuario -->
+  <text x="50" y="347" class="code type">Usuario</text>
+  <path d="M 115 347 L 175 347" class="arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Sección: Mutabilidad -->
+  <rect x="20" y="400" width="400" height="105" class="box"/>
+  <text x="220" y="425" text-anchor="middle" class="label">🔓 Mutabilidad: Todo o Nada</text>
+  
+  <text x="35" y="455" class="code">
+    <tspan class="keyword">let mut</tspan> usuario = <tspan class="type">Usuario</tspan> { <tspan class="comment">/* ... */</tspan> };
+  </text>
+  <text x="35" y="480" class="code">usuario.<tspan class="field">edad</tspan> = <tspan class="number">29</tspan>; <tspan class="comment">// ✅ Funciona</tspan></text>
+  
+  <!-- Sección: Ownership en Update -->
+  <rect x="435" y="400" width="395" height="105" class="box"/>
+  <text x="632" y="425" text-anchor="middle" class="label">⚠️ Ownership en Struct Update</text>
+  
+  <text x="450" y="455" class="code">
+    <tspan class="keyword">let</tspan> u2 = <tspan class="type">Usuario</tspan> { nombre: <tspan class="string">"X"</tspan>.into(), ..u1 };
+  </text>
+  <text x="450" y="480" class="code comment">// ⚠️ Si String se mueve → u1 parcialmente inválido</text>
+  <text x="450" y="495" class="code comment">// ✅ Solo Copy types (u32, bool) → u1 sigue válido</text>
+  
+  <!-- Marcador de flecha -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>

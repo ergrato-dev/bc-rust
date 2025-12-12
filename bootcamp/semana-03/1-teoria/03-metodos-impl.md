@@ -1,5 +1,7 @@
 # 🔨 Métodos con impl
 
+![Tipos de self en Métodos](../0-assets/02-tipos-self.svg)
+
 ## ¿Qué es un Método?
 
 Un **método** es una función asociada a un struct que tiene acceso a sus datos a través de `self`.

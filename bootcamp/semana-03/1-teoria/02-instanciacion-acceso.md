@@ -1,4 +1,6 @@
-# 🔧 Instanciación y Acceso a Campos
+# 🏗️ Instanciación y Acceso
+
+![Instanciación y Acceso a Structs](../0-assets/06-instanciacion-struct.svg)
 
 ## Crear una Instancia
 

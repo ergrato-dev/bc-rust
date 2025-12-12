@@ -1,5 +1,7 @@
 # 📦 Definición de Structs
 
+![Anatomía de un Struct](../0-assets/01-anatomia-struct.svg)
+
 ## ¿Qué es un Struct?
 
 Un **struct** (estructura) es un tipo de dato personalizado que agrupa valores relacionados bajo un mismo nombre. Es similar a una clase en otros lenguajes, pero sin herencia.

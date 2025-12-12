@@ -1,5 +1,7 @@
 # 📦 Tipos de Structs
 
+![Tipos de Structs](../0-assets/04-tipos-structs.svg)
+
 ## Tres Tipos de Structs en Rust
 
 | Tipo | Sintaxis | Uso |
