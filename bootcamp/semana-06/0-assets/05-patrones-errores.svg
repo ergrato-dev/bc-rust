@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">Patrones y Buenas Prácticas</text>
+
+  <!-- Best Practices Grid -->
+  <text x="50" y="70" font-family="'Segoe UI', sans-serif" font-size="16" fill="#6a9955" font-weight="600">✓ Buenas Prácticas</text>
+
+  <!-- Row 1 -->
+  <rect x="30" y="85" width="270" height="95" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1" filter="url(#shadow)"/>
+  <text x="50" y="110" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">Validar en Construcción</text>
+  <text x="50" y="130" font-family="'Fira Code', monospace" font-size="10" fill="#808080">Config::new() → Result&lt;Config&gt;</text>
+  <text x="50" y="150" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Estados inválidos irrepresentables</text>
+  <text x="50" y="170" font-family="'Segoe UI', sans-serif" font-size="10" fill="#569cd6">Si existe, es válido</text>
+
+  <rect x="315" y="85" width="270" height="95" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1" filter="url(#shadow)"/>
+  <text x="335" y="110" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">Tipos de Error Específicos</text>
+  <text x="335" y="130" font-family="'Fira Code', monospace" font-size="10" fill="#808080">enum AppError { Io, Parse, ... }</text>
+  <text x="335" y="150" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Información estructurada</text>
+  <text x="335" y="170" font-family="'Segoe UI', sans-serif" font-size="10" fill="#569cd6">Pattern matching para manejar</text>
+
+  <rect x="600" y="85" width="270" height="95" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1" filter="url(#shadow)"/>
+  <text x="620" y="110" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">Documentar Errores</text>
+  <text x="620" y="130" font-family="'Fira Code', monospace" font-size="10" fill="#808080">/// # Errors</text>
+  <text x="620" y="150" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Explicar qué puede fallar</text>
+  <text x="620" y="170" font-family="'Segoe UI', sans-serif" font-size="10" fill="#569cd6">Usuarios saben qué esperar</text>
+
+  <!-- Row 2 -->
+  <rect x="30" y="195" width="270" height="95" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1" filter="url(#shadow)"/>
+  <text x="50" y="220" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">Propagar con ?</text>
+  <text x="50" y="240" font-family="'Fira Code', monospace" font-size="10" fill="#808080">let x = operacion()?;</text>
+  <text x="50" y="260" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Código limpio y legible</text>
+  <text x="50" y="280" font-family="'Segoe UI', sans-serif" font-size="10" fill="#569cd6">Conversión automática con From</text>
+
+  <rect x="315" y="195" width="270" height="95" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1" filter="url(#shadow)"/>
+  <text x="335" y="220" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">Agregar Contexto</text>
+  <text x="335" y="240" font-family="'Fira Code', monospace" font-size="10" fill="#808080">.context("leyendo config")?</text>
+  <text x="335" y="260" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Información de dónde falló</text>
+  <text x="335" y="280" font-family="'Segoe UI', sans-serif" font-size="10" fill="#569cd6">Debugging más fácil</text>
+
+  <rect x="600" y="195" width="270" height="95" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1" filter="url(#shadow)"/>
+  <text x="620" y="220" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">Testear Casos de Error</text>
+  <text x="620" y="240" font-family="'Fira Code', monospace" font-size="10" fill="#808080">assert!(result.is_err())</text>
+  <text x="620" y="260" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Verificar errores esperados</text>
+  <text x="620" y="280" font-family="'Segoe UI', sans-serif" font-size="10" fill="#569cd6">matches!(err, AppError::Io)</text>
+
+  <!-- Anti-patterns -->
+  <text x="50" y="320" font-family="'Segoe UI', sans-serif" font-size="16" fill="#f14c4c" font-weight="600">✗ Anti-patrones a Evitar</text>
+
+  <!-- Anti-pattern Row 1 -->
+  <rect x="30" y="335" width="270" height="95" rx="6" fill="#252526" stroke="#f14c4c" stroke-width="1" filter="url(#shadow)"/>
+  <text x="50" y="360" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">❌ Swallowing Errors</text>
+  <text x="50" y="380" font-family="'Fira Code', monospace" font-size="10" fill="#f14c4c">let _ = operation();</text>
+  <text x="50" y="400" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">El error se pierde silenciosamente</text>
+  <text x="50" y="420" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">✓ Al menos: if let Err(e) = ... { log }</text>
+
+  <rect x="315" y="335" width="270" height="95" rx="6" fill="#252526" stroke="#f14c4c" stroke-width="1" filter="url(#shadow)"/>
+  <text x="335" y="360" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">❌ unwrap() en Producción</text>
+  <text x="335" y="380" font-family="'Fira Code', monospace" font-size="10" fill="#f14c4c">config.unwrap()</text>
+  <text x="335" y="400" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Puede causar panic en runtime</text>
+  <text x="335" y="420" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">✓ Usar: unwrap_or_else, ?, match</text>
+
+  <rect x="600" y="335" width="270" height="95" rx="6" fill="#252526" stroke="#f14c4c" stroke-width="1" filter="url(#shadow)"/>
+  <text x="620" y="360" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4" font-weight="600">❌ String como Error</text>
+  <text x="620" y="380" font-family="'Fira Code', monospace" font-size="10" fill="#f14c4c">Result&lt;T, String&gt;</text>
+  <text x="620" y="400" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Pierde información estructurada</text>
+  <text x="620" y="420" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">✓ Usar: enum o tipo específico</text>
+
+  <!-- When to use what -->
+  <rect x="30" y="450" width="840" height="115" rx="8" fill="#252526" stroke="#569cd6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="450" y="480" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#d4d4d4" font-weight="600">📋 Cuándo Usar Cada Estrategia</text>
+
+  <!-- Strategy table -->
+  <line x1="50" y1="495" x2="850" y2="495" stroke="#3c3c3c" stroke-width="1"/>
+
+  <text x="60" y="515" font-family="'Segoe UI', sans-serif" font-size="11" fill="#4ec9b0">Result + ?</text>
+  <text x="200" y="515" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">→ Errores esperados, recuperables</text>
+
+  <text x="60" y="535" font-family="'Segoe UI', sans-serif" font-size="11" fill="#f14c4c">panic!</text>
+  <text x="200" y="535" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">→ Bugs, invariantes violadas</text>
+
+  <text x="470" y="515" font-family="'Segoe UI', sans-serif" font-size="11" fill="#dcdcaa">thiserror</text>
+  <text x="610" y="515" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">→ Bibliotecas públicas</text>
+
+  <text x="470" y="535" font-family="'Segoe UI', sans-serif" font-size="11" fill="#dcdcaa">anyhow</text>
+  <text x="610" y="535" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">→ Aplicaciones CLI/servidor</text>
+
+  <text x="60" y="555" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Box&lt;dyn Error&gt;</text>
+  <text x="200" y="555" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">→ Prototipos, proyectos pequeños</text>
+
+  <text x="470" y="555" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">unwrap/expect</text>
+  <text x="610" y="555" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">→ Solo prototipos y tests</text>
+</svg>
