@@ -1,0 +1,8 @@
+[package]
+name = "practica-01-struct-basico"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica: Definición e instanciación de structs"
+authors = ["Bootcamp Rust"]
+
+[dependencies]

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 11px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .field { fill: #9cdcfe; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="380"/>
+  
+  <text x="400" y="35" class="title" text-anchor="middle">📦 Tipos de Structs</text>
+  
+  <!-- Named Struct -->
+  <g transform="translate(30, 60)">
+    <rect class="highlight" x="0" y="0" width="240" height="150" rx="6"/>
+    <text x="120" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Named Struct</text>
+    
+    <text x="15" y="55" class="code"><tspan class="keyword">struct</tspan> <tspan class="type">Usuario</tspan> {</text>
+    <text x="25" y="75" class="code"><tspan class="field">nombre</tspan>: <tspan class="type">String</tspan>,</text>
+    <text x="25" y="95" class="code"><tspan class="field">edad</tspan>: <tspan class="type">u32</tspan>,</text>
+    <text x="15" y="115" class="code">}</text>
+    
+    <text x="15" y="140" class="text" fill="#6a9955">// Acceso: user.nombre</text>
+  </g>
+  
+  <!-- Tuple Struct -->
+  <g transform="translate(285, 60)">
+    <rect class="box" x="0" y="0" width="240" height="150" rx="6"/>
+    <text x="120" y="25" fill="#808080" font-family="Inter, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Tuple Struct</text>
+    
+    <text x="15" y="55" class="code"><tspan class="keyword">struct</tspan> <tspan class="type">Color</tspan>(<tspan class="type">u8</tspan>, <tspan class="type">u8</tspan>, <tspan class="type">u8</tspan>);</text>
+    <text x="15" y="80" class="code"><tspan class="keyword">struct</tspan> <tspan class="type">Punto</tspan>(<tspan class="type">f64</tspan>, <tspan class="type">f64</tspan>);</text>
+    
+    <text x="15" y="115" class="text" fill="#6a9955">// Acceso: color.0, punto.1</text>
+    <text x="15" y="135" class="text" fill="#6a9955">// Ideal para 2-3 campos</text>
+  </g>
+  
+  <!-- Unit Struct -->
+  <g transform="translate(540, 60)">
+    <rect class="box" x="0" y="0" width="230" height="150" rx="6"/>
+    <text x="115" y="25" fill="#808080" font-family="Inter, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Unit Struct</text>
+    
+    <text x="15" y="55" class="code"><tspan class="keyword">struct</tspan> <tspan class="type">Marcador</tspan>;</text>
+    <text x="15" y="80" class="code"><tspan class="keyword">struct</tspan> <tspan class="type">Metros</tspan>;</text>
+    
+    <text x="15" y="115" class="text" fill="#6a9955">// Sin campos</text>
+    <text x="15" y="135" class="text" fill="#6a9955">// Para marcadores/traits</text>
+  </g>
+  
+  <!-- Cuándo usar -->
+  <g transform="translate(30, 230)">
+    <rect class="box" x="0" y="0" width="740" height="120" rx="6"/>
+    <text x="370" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">¿Cuándo usar cada uno?</text>
+    
+    <text x="40" y="55" class="text" font-weight="bold" fill="#4ec9b0">Named</text>
+    <text x="40" y="75" class="text">Datos complejos con muchos campos</text>
+    <text x="40" y="95" class="text">APIs públicas, claridad importante</text>
+    
+    <text x="300" y="55" class="text" font-weight="bold" fill="#808080">Tuple</text>
+    <text x="300" y="75" class="text">2-3 campos obvios (Punto, Color)</text>
+    <text x="300" y="95" class="text">Newtype pattern (UserId, Metros)</text>
+    
+    <text x="560" y="55" class="text" font-weight="bold" fill="#808080">Unit</text>
+    <text x="560" y="75" class="text">Implementar traits sin datos</text>
+    <text x="560" y="95" class="text">Marcadores de tipo/estado</text>
+  </g>
+  
+  <text x="400" y="370" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 03</text>
+</svg>

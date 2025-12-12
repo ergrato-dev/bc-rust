@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 11px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .func { fill: #dcdcaa; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .arrow { stroke: #CE422B; stroke-width: 2; fill: none; }
+  </style>
+  
+  <rect class="bg" width="800" height="400"/>
+  
+  <text x="400" y="35" class="title" text-anchor="middle">🏗️ Patrón Constructor new()</text>
+  
+  <!-- Definición del struct -->
+  <g transform="translate(30, 60)">
+    <rect class="box" x="0" y="0" width="220" height="100" rx="6"/>
+    <text x="110" y="22" fill="#808080" font-family="Inter, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Struct</text>
+    
+    <text x="15" y="50" class="code"><tspan class="keyword">struct</tspan> <tspan class="type">Usuario</tspan> {</text>
+    <text x="25" y="70" class="code">nombre: <tspan class="type">String</tspan>,</text>
+    <text x="25" y="85" class="code">activo: <tspan class="type">bool</tspan>,</text>
+    <text x="15" y="98" class="code">}</text>
+  </g>
+  
+  <!-- Flecha -->
+  <path class="arrow" d="M 260 110 L 300 110" marker-end="url(#arrowhead)"/>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Constructor -->
+  <g transform="translate(310, 60)">
+    <rect class="highlight" x="0" y="0" width="280" height="150" rx="6"/>
+    <text x="140" y="22" fill="#CE422B" font-family="Inter, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Constructor new()</text>
+    
+    <text x="15" y="50" class="code"><tspan class="keyword">impl</tspan> <tspan class="type">Usuario</tspan> {</text>
+    <text x="25" y="70" class="code"><tspan class="keyword">fn</tspan> <tspan class="func">new</tspan>(nombre: <tspan class="type">String</tspan>) -&gt; <tspan class="type">Self</tspan> {</text>
+    <text x="40" y="90" class="code"><tspan class="type">Self</tspan> {</text>
+    <text x="55" y="105" class="code">nombre,</text>
+    <text x="55" y="120" class="code">activo: <tspan class="keyword">true</tspan>,</text>
+    <text x="40" y="135" class="code">}</text>
+    <text x="25" y="147" class="code">}</text>
+  </g>
+  
+  <!-- Flecha 2 -->
+  <path class="arrow" d="M 600 135 L 640 135"/>
+  
+  <!-- Uso -->
+  <g transform="translate(650, 90)">
+    <rect class="box" x="0" y="0" width="130" height="90" rx="6"/>
+    <text x="65" y="22" fill="#808080" font-family="Inter, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Uso</text>
+    
+    <text x="10" y="50" class="code"><tspan class="keyword">let</tspan> u =</text>
+    <text x="10" y="70" class="code">  <tspan class="type">Usuario</tspan>::<tspan class="func">new</tspan>(</text>
+    <text x="10" y="85" class="code">    <tspan fill="#ce9178">"Ana"</tspan>.into());</text>
+  </g>
+  
+  <!-- Ventajas -->
+  <g transform="translate(30, 230)">
+    <rect class="box" x="0" y="0" width="740" height="140" rx="6"/>
+    <text x="370" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Ventajas del Patrón new()</text>
+    
+    <text x="40" y="55" class="text">✅ <tspan font-weight="bold">Encapsulación</tspan>: Puedes tener campos privados</text>
+    <text x="40" y="75" class="text">✅ <tspan font-weight="bold">Valores por defecto</tspan>: No hay que especificar todos los campos</text>
+    <text x="40" y="95" class="text">✅ <tspan font-weight="bold">Validación</tspan>: Puedes validar datos antes de crear</text>
+    <text x="40" y="115" class="text">✅ <tspan font-weight="bold">Convención</tspan>: Es el patrón idiomático en Rust</text>
+    
+    <text x="420" y="55" class="code"><tspan class="type">Self</tspan></text>
+    <text x="480" y="55" class="text">= alias del tipo dentro de impl</text>
+    
+    <text x="420" y="80" class="code"><tspan class="type">Usuario</tspan>::<tspan class="func">new</tspan>()</text>
+    <text x="540" y="80" class="text">= llamada sin instancia</text>
+    
+    <text x="420" y="105" class="code">nombre,</text>
+    <text x="540" y="105" class="text">= field init shorthand</text>
+  </g>
+  
+  <text x="400" y="390" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 03</text>
+</svg>
