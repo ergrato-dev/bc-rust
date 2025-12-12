@@ -1,0 +1,8 @@
+[package]
+name = "proyecto-calculadora-tipos"
+version = "0.1.0"
+edition = "2024"
+description = "Proyecto Semanal: Calculadora con exploración de tipos"
+authors = ["Bootcamp Rust"]
+
+[dependencies]
