@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <style>
+    .bg { fill: #1e1e1e; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="300" height="200"/>
+  
+  <!-- Crab body -->
+  <ellipse cx="150" cy="120" rx="60" ry="45" fill="#CE422B"/>
+  <ellipse cx="150" cy="115" rx="50" ry="36" fill="#A72145"/>
+  <ellipse cx="150" cy="120" rx="40" ry="28" fill="#CE422B"/>
+  
+  <!-- Eyes -->
+  <circle cx="130" cy="95" r="14" fill="#1e1e1e"/>
+  <circle cx="170" cy="95" r="14" fill="#1e1e1e"/>
+  <circle cx="133" cy="93" r="7" fill="#ffffff"/>
+  <circle cx="173" cy="93" r="7" fill="#ffffff"/>
+  <circle cx="135" cy="92" r="3" fill="#1e1e1e"/>
+  <circle cx="175" cy="92" r="3" fill="#1e1e1e"/>
+  
+  <!-- Claws left -->
+  <ellipse cx="70" cy="130" rx="22" ry="16" fill="#CE422B"/>
+  <ellipse cx="52" cy="124" rx="14" ry="10" fill="#CE422B"/>
+  <ellipse cx="48" cy="136" rx="14" ry="10" fill="#CE422B"/>
+  
+  <!-- Claws right -->
+  <ellipse cx="230" cy="130" rx="22" ry="16" fill="#CE422B"/>
+  <ellipse cx="248" cy="124" rx="14" ry="10" fill="#CE422B"/>
+  <ellipse cx="252" cy="136" rx="14" ry="10" fill="#CE422B"/>
+  
+  <!-- Legs left -->
+  <line x1="100" y1="145" x2="80" y2="175" stroke="#CE422B" stroke-width="10" stroke-linecap="round"/>
+  <line x1="115" y1="150" x2="100" y2="180" stroke="#CE422B" stroke-width="10" stroke-linecap="round"/>
+  <line x1="130" y1="155" x2="120" y2="185" stroke="#CE422B" stroke-width="10" stroke-linecap="round"/>
+  
+  <!-- Legs right -->
+  <line x1="200" y1="145" x2="220" y2="175" stroke="#CE422B" stroke-width="10" stroke-linecap="round"/>
+  <line x1="185" y1="150" x2="200" y2="180" stroke="#CE422B" stroke-width="10" stroke-linecap="round"/>
+  <line x1="170" y1="155" x2="180" y2="185" stroke="#CE422B" stroke-width="10" stroke-linecap="round"/>
+  
+  <!-- Smile -->
+  <path d="M 125 125 Q 150 145 175 125" stroke="#1e1e1e" stroke-width="4" fill="none" stroke-linecap="round"/>
+  
+  <!-- Name -->
+  <text x="150" y="30" font-family="Segoe UI, sans-serif" font-size="18" fill="#d4d4d4" text-anchor="middle" font-weight="bold">Ferris 🦀</text>
+  <text x="150" y="50" font-family="Segoe UI, sans-serif" font-size="12" fill="#808080" text-anchor="middle">La mascota de Rust</text>
+</svg>

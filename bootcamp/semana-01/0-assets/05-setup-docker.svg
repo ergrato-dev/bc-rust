@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .arrow { stroke: #CE422B; stroke-width: 2; fill: none; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="450"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" class="title" text-anchor="middle">🐳 Setup con Docker</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">Entorno de desarrollo consistente para todos</text>
+  
+  <!-- Flow diagram -->
+  
+  <!-- Step 1: Install Docker -->
+  <g transform="translate(50, 90)">
+    <rect class="highlight" x="0" y="0" width="200" height="80" rx="8"/>
+    <text x="100" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">1. Instalar Docker</text>
+    <text x="100" y="45" class="text" text-anchor="middle">Descargar Docker Desktop</text>
+    <text x="100" y="62" class="text" text-anchor="middle">docker.com/get-docker</text>
+  </g>
+  
+  <!-- Arrow 1 -->
+  <path d="M 260 130 L 300 130" class="arrow" marker-end="url(#arrowhead)"/>
+  
+  <!-- Step 2: Clone repo -->
+  <g transform="translate(310, 90)">
+    <rect class="highlight" x="0" y="0" width="200" height="80" rx="8"/>
+    <text x="100" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">2. Clonar Repo</text>
+    <text x="100" y="48" class="code" text-anchor="middle">git clone ...</text>
+    <text x="100" y="65" class="code" text-anchor="middle">cd bc-rust</text>
+  </g>
+  
+  <!-- Arrow 2 -->
+  <path d="M 520 130 L 560 130" class="arrow"/>
+  
+  <!-- Step 3: Open VS Code -->
+  <g transform="translate(570, 90)">
+    <rect class="highlight" x="0" y="0" width="180" height="80" rx="8"/>
+    <text x="90" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">3. VS Code</text>
+    <text x="90" y="45" class="text" text-anchor="middle">Abrir proyecto</text>
+    <text x="90" y="62" class="code" text-anchor="middle">code .</text>
+  </g>
+  
+  <!-- Container visualization -->
+  <g transform="translate(100, 200)">
+    <rect class="box" x="0" y="0" width="600" height="180" rx="8"/>
+    <text x="300" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">🐳 Contenedor Docker</text>
+    
+    <!-- Inside container -->
+    <g transform="translate(20, 45)">
+      <!-- Rust -->
+      <rect x="0" y="0" width="170" height="60" fill="#2d2d2d" stroke="#CE422B" stroke-width="1" rx="4"/>
+      <text x="85" y="20" class="text" text-anchor="middle" font-weight="bold">🦀 Rust 1.92</text>
+      <text x="85" y="38" class="code" text-anchor="middle">rustc, cargo</text>
+      <text x="85" y="52" class="code" text-anchor="middle">rustfmt, clippy</text>
+    </g>
+    
+    <g transform="translate(210, 45)">
+      <!-- Tools -->
+      <rect x="0" y="0" width="170" height="60" fill="#2d2d2d" stroke="#3c3c3c" stroke-width="1" rx="4"/>
+      <text x="85" y="20" class="text" text-anchor="middle" font-weight="bold">🔧 Herramientas</text>
+      <text x="85" y="38" class="code" text-anchor="middle">cargo-watch</text>
+      <text x="85" y="52" class="code" text-anchor="middle">cargo-edit, bacon</text>
+    </g>
+    
+    <g transform="translate(400, 45)">
+      <!-- Workspace -->
+      <rect x="0" y="0" width="170" height="60" fill="#2d2d2d" stroke="#3c3c3c" stroke-width="1" rx="4"/>
+      <text x="85" y="20" class="text" text-anchor="middle" font-weight="bold">📁 /workspace</text>
+      <text x="85" y="38" class="code" text-anchor="middle">Tu código aquí</text>
+      <text x="85" y="52" class="code" text-anchor="middle">(montado)</text>
+    </g>
+    
+    <!-- Command -->
+    <rect x="20" y="115" width="560" height="45" fill="#1e1e1e" rx="4"/>
+    <text x="40" y="135" class="code" fill="#808080">$</text>
+    <text x="55" y="135" class="code">docker compose run --rm rust-dev</text>
+    <text x="40" y="152" class="code" fill="#6a9955"># Inicia shell interactivo en el contenedor</text>
+  </g>
+  
+  <!-- Benefits -->
+  <g transform="translate(100, 400)">
+    <text x="0" y="0" class="subtitle">✅ Mismo entorno para todos</text>
+    <text x="200" y="0" class="subtitle">✅ Sin instalación local</text>
+    <text x="400" y="0" class="subtitle">✅ Rust 1.92 garantizado</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="440" font-family="Segoe UI, sans-serif" font-size="10" fill="#808080" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 01</text>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>

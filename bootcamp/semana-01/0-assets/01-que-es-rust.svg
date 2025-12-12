@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 28px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="450"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" class="title" text-anchor="middle">¿Qué es Rust?</text>
+  <text x="400" y="65" class="subtitle" text-anchor="middle">Un lenguaje de sistemas moderno, seguro y rápido</text>
+  
+  <!-- Three pillars -->
+  <g transform="translate(80, 100)">
+    <!-- Pillar 1: Safety -->
+    <rect class="highlight" x="0" y="0" width="180" height="160" rx="8"/>
+    <text x="90" y="30" class="title" text-anchor="middle" font-size="20">🔒</text>
+    <text x="90" y="55" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Seguridad</text>
+    <text x="90" y="80" class="text" text-anchor="middle" font-size="12">Sin null pointers</text>
+    <text x="90" y="100" class="text" text-anchor="middle" font-size="12">Sin data races</text>
+    <text x="90" y="120" class="text" text-anchor="middle" font-size="12">Sin buffer overflows</text>
+    <text x="90" y="140" class="text" text-anchor="middle" font-size="12">Errores en compilación</text>
+  </g>
+  
+  <g transform="translate(310, 100)">
+    <!-- Pillar 2: Speed -->
+    <rect class="highlight" x="0" y="0" width="180" height="160" rx="8"/>
+    <text x="90" y="30" class="title" text-anchor="middle" font-size="20">⚡</text>
+    <text x="90" y="55" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Velocidad</text>
+    <text x="90" y="80" class="text" text-anchor="middle" font-size="12">Sin garbage collector</text>
+    <text x="90" y="100" class="text" text-anchor="middle" font-size="12">Zero-cost abstractions</text>
+    <text x="90" y="120" class="text" text-anchor="middle" font-size="12">Compilado a nativo</text>
+    <text x="90" y="140" class="text" text-anchor="middle" font-size="12">Rendimiento de C/C++</text>
+  </g>
+  
+  <g transform="translate(540, 100)">
+    <!-- Pillar 3: Concurrency -->
+    <rect class="highlight" x="0" y="0" width="180" height="160" rx="8"/>
+    <text x="90" y="30" class="title" text-anchor="middle" font-size="20">🧵</text>
+    <text x="90" y="55" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Concurrencia</text>
+    <text x="90" y="80" class="text" text-anchor="middle" font-size="12">Fearless concurrency</text>
+    <text x="90" y="100" class="text" text-anchor="middle" font-size="12">Thread safety</text>
+    <text x="90" y="120" class="text" text-anchor="middle" font-size="12">Send/Sync traits</text>
+    <text x="90" y="140" class="text" text-anchor="middle" font-size="12">Async/await nativo</text>
+  </g>
+  
+  <!-- Timeline -->
+  <g transform="translate(80, 290)">
+    <text x="0" y="0" class="subtitle">Historia de Rust</text>
+    
+    <line x1="0" y1="30" x2="640" y2="30" stroke="#3c3c3c" stroke-width="2"/>
+    
+    <!-- Timeline points -->
+    <circle cx="0" cy="30" r="6" fill="#CE422B"/>
+    <text x="0" y="55" class="label" text-anchor="middle">2006</text>
+    <text x="0" y="70" class="text" text-anchor="middle" font-size="10">Inicio</text>
+    
+    <circle cx="160" cy="30" r="6" fill="#CE422B"/>
+    <text x="160" y="55" class="label" text-anchor="middle">2010</text>
+    <text x="160" y="70" class="text" text-anchor="middle" font-size="10">Mozilla</text>
+    
+    <circle cx="320" cy="30" r="6" fill="#CE422B"/>
+    <text x="320" y="55" class="label" text-anchor="middle">2015</text>
+    <text x="320" y="70" class="text" text-anchor="middle" font-size="10">v1.0</text>
+    
+    <circle cx="480" cy="30" r="6" fill="#CE422B"/>
+    <text x="480" y="55" class="label" text-anchor="middle">2021</text>
+    <text x="480" y="70" class="text" text-anchor="middle" font-size="10">Fundación</text>
+    
+    <circle cx="640" cy="30" r="6" fill="#CE422B"/>
+    <text x="640" y="55" class="label" text-anchor="middle">2025</text>
+    <text x="640" y="70" class="text" text-anchor="middle" font-size="10">v1.92</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="420" class="label" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 01</text>
+</svg>

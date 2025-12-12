@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="500"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" class="title" text-anchor="middle">📦 Cargo - El gestor de Rust</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">Build system + Package manager + más</text>
+  
+  <!-- Main commands -->
+  <g transform="translate(50, 80)">
+    <text x="0" y="0" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold">Comandos Esenciales</text>
+    
+    <rect class="box" x="0" y="15" width="330" height="200" rx="6"/>
+    
+    <text x="15" y="40" class="code"><tspan class="keyword">$</tspan> cargo new mi-proyecto</text>
+    <text x="15" y="55" class="code comment"># Crear nuevo proyecto</text>
+    
+    <text x="15" y="80" class="code"><tspan class="keyword">$</tspan> cargo build</text>
+    <text x="15" y="95" class="code comment"># Compilar</text>
+    
+    <text x="15" y="120" class="code"><tspan class="keyword">$</tspan> cargo run</text>
+    <text x="15" y="135" class="code comment"># Compilar y ejecutar</text>
+    
+    <text x="15" y="160" class="code"><tspan class="keyword">$</tspan> cargo test</text>
+    <text x="15" y="175" class="code comment"># Ejecutar tests</text>
+    
+    <text x="15" y="200" class="code"><tspan class="keyword">$</tspan> cargo check</text>
+    <text x="200" y="200" class="code comment"># Verificar errores</text>
+  </g>
+  
+  <!-- Project structure -->
+  <g transform="translate(420, 80)">
+    <text x="0" y="0" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold">Estructura del Proyecto</text>
+    
+    <rect class="highlight" x="0" y="15" width="330" height="200" rx="6"/>
+    
+    <text x="15" y="45" class="code">mi-proyecto/</text>
+    <text x="15" y="65" class="code">├── <tspan fill="#CE422B">Cargo.toml</tspan></text>
+    <text x="150" y="65" class="code comment"># Configuración</text>
+    <text x="15" y="85" class="code">├── Cargo.lock</text>
+    <text x="150" y="85" class="code comment"># Versiones exactas</text>
+    <text x="15" y="105" class="code">└── src/</text>
+    <text x="15" y="125" class="code">    └── <tspan fill="#CE422B">main.rs</tspan></text>
+    <text x="150" y="125" class="code comment"># Código fuente</text>
+    
+    <line x1="15" y1="145" x2="315" y2="145" stroke="#3c3c3c" stroke-width="1"/>
+    
+    <text x="15" y="165" class="code">target/</text>
+    <text x="80" y="165" class="code comment"># Archivos compilados</text>
+    <text x="15" y="185" class="code">├── debug/</text>
+    <text x="100" y="185" class="code comment"># Build debug</text>
+    <text x="15" y="205" class="code">└── release/</text>
+    <text x="110" y="205" class="code comment"># Build optimizado</text>
+  </g>
+  
+  <!-- Cargo.toml example -->
+  <g transform="translate(50, 310)">
+    <text x="0" y="0" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold">Cargo.toml</text>
+    
+    <rect class="box" x="0" y="15" width="330" height="150" rx="6"/>
+    
+    <text x="15" y="40" class="code"><tspan class="keyword">[package]</tspan></text>
+    <text x="15" y="58" class="code">name = <tspan class="string">"mi-proyecto"</tspan></text>
+    <text x="15" y="76" class="code">version = <tspan class="string">"0.1.0"</tspan></text>
+    <text x="15" y="94" class="code">edition = <tspan class="string">"2021"</tspan></text>
+    <text x="15" y="118" class="code"><tspan class="keyword">[dependencies]</tspan></text>
+    <text x="15" y="136" class="code comment"># serde = "1.0"</text>
+    <text x="15" y="154" class="code comment"># tokio = { version = "1", features = ["full"] }</text>
+  </g>
+  
+  <!-- Quality tools -->
+  <g transform="translate(420, 310)">
+    <text x="0" y="0" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold">Herramientas de Calidad</text>
+    
+    <rect class="box" x="0" y="15" width="330" height="150" rx="6"/>
+    
+    <text x="15" y="45" class="code"><tspan class="keyword">$</tspan> cargo fmt</text>
+    <text x="120" y="45" class="code comment"># Formatear código</text>
+    
+    <text x="15" y="75" class="code"><tspan class="keyword">$</tspan> cargo clippy</text>
+    <text x="130" y="75" class="code comment"># Linting</text>
+    
+    <text x="15" y="105" class="code"><tspan class="keyword">$</tspan> cargo doc --open</text>
+    <text x="170" y="105" class="code comment"># Documentación</text>
+    
+    <text x="15" y="135" class="code"><tspan class="keyword">$</tspan> cargo watch -x run</text>
+    <text x="180" y="135" class="code comment"># Hot reload</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="485" font-family="Segoe UI, sans-serif" font-size="10" fill="#808080" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 01</text>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .number { font-family: 'Segoe UI', sans-serif; font-size: 28px; fill: #CE422B; font-weight: bold; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="400"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" class="title" text-anchor="middle">¿Por qué aprender Rust?</text>
+  
+  <!-- 5 Reasons Grid -->
+  
+  <!-- Row 1 -->
+  <g transform="translate(50, 60)">
+    <rect class="highlight" x="0" y="0" width="220" height="100" rx="6"/>
+    <text x="20" y="35" class="number">1</text>
+    <text x="50" y="35" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">Seguridad</text>
+    <text x="20" y="55" class="text" font-size="11">Sin null pointers</text>
+    <text x="20" y="72" class="text" font-size="11">Sin memory leaks</text>
+    <text x="20" y="89" class="text" font-size="11">Sin data races</text>
+  </g>
+  
+  <g transform="translate(290, 60)">
+    <rect class="highlight" x="0" y="0" width="220" height="100" rx="6"/>
+    <text x="20" y="35" class="number">2</text>
+    <text x="50" y="35" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">Rendimiento</text>
+    <text x="20" y="55" class="text" font-size="11">Velocidad de C/C++</text>
+    <text x="20" y="72" class="text" font-size="11">Zero-cost abstractions</text>
+    <text x="20" y="89" class="text" font-size="11">Sin garbage collector</text>
+  </g>
+  
+  <g transform="translate(530, 60)">
+    <rect class="highlight" x="0" y="0" width="220" height="100" rx="6"/>
+    <text x="20" y="35" class="number">3</text>
+    <text x="50" y="35" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">Concurrencia</text>
+    <text x="20" y="55" class="text" font-size="11">Fearless concurrency</text>
+    <text x="20" y="72" class="text" font-size="11">Thread safety garantizada</text>
+    <text x="20" y="89" class="text" font-size="11">Async/await nativo</text>
+  </g>
+  
+  <!-- Row 2 -->
+  <g transform="translate(170, 180)">
+    <rect class="highlight" x="0" y="0" width="220" height="100" rx="6"/>
+    <text x="20" y="35" class="number">4</text>
+    <text x="50" y="35" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">Ecosistema</text>
+    <text x="20" y="55" class="text" font-size="11">Cargo (gestor de paquetes)</text>
+    <text x="20" y="72" class="text" font-size="11">140,000+ crates</text>
+    <text x="20" y="89" class="text" font-size="11">Excelentes herramientas</text>
+  </g>
+  
+  <g transform="translate(410, 180)">
+    <rect class="highlight" x="0" y="0" width="220" height="100" rx="6"/>
+    <text x="20" y="35" class="number">5</text>
+    <text x="50" y="35" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold">Empleabilidad</text>
+    <text x="20" y="55" class="text" font-size="11">Alta demanda laboral</text>
+    <text x="20" y="72" class="text" font-size="11">Salarios competitivos</text>
+    <text x="20" y="89" class="text" font-size="11">Empresas top (AWS, Google)</text>
+  </g>
+  
+  <!-- Bottom stats -->
+  <g transform="translate(50, 310)">
+    <rect class="box" x="0" y="0" width="700" height="60" rx="6"/>
+    
+    <text x="90" y="25" class="subtitle" text-anchor="middle">🏆 Más Amado</text>
+    <text x="90" y="45" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">8 años #1</text>
+    
+    <line x1="175" y1="10" x2="175" y2="50" stroke="#3c3c3c" stroke-width="1"/>
+    
+    <text x="290" y="25" class="subtitle" text-anchor="middle">💰 Salario USA</text>
+    <text x="290" y="45" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">$120K - $180K</text>
+    
+    <line x1="400" y1="10" x2="400" y2="50" stroke="#3c3c3c" stroke-width="1"/>
+    
+    <text x="510" y="25" class="subtitle" text-anchor="middle">📈 Crecimiento</text>
+    <text x="510" y="45" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">+200%</text>
+    
+    <line x1="610" y1="10" x2="610" y2="50" stroke="#3c3c3c" stroke-width="1"/>
+    
+    <text x="660" y="35" class="text" text-anchor="middle">Stack Overflow 2023</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="390" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 01</text>
+</svg>
