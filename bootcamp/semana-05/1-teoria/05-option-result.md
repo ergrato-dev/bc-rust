@@ -2,6 +2,8 @@
 
 > **Manejo de ausencia y errores sin null ni excepciones**
 
+![Option y Result](../0-assets/05-option-result.svg)
+
 ---
 
 ## El Problema de null

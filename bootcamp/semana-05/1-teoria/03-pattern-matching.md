@@ -2,6 +2,8 @@
 
 > **match** - Control de flujo potente y seguro
 
+![Flujo de Pattern Matching](../0-assets/03-pattern-matching-flow.svg)
+
 ---
 
 ## La Expresión match

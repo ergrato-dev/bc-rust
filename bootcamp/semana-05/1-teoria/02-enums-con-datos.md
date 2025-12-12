@@ -2,6 +2,8 @@
 
 > **El verdadero poder de los enums de Rust**
 
+![Estilos de Variantes](../0-assets/02-estilos-variantes.svg)
+
 ---
 
 ## Variantes con Datos

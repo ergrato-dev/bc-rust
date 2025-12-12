@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: 600; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .variant { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .number { fill: #b5cea8; }
+    .comment { fill: #6a9955; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
+    .option-box { fill: #2d2d2d; stroke: #dcdcaa; stroke-width: 2; rx: 8; }
+    .result-box { fill: #2d2d2d; stroke: #4ec9b0; stroke-width: 2; rx: 8; }
+    .some { fill: #16a34a; }
+    .none { fill: #6b7280; }
+    .ok { fill: #16a34a; }
+    .err { fill: #dc2626; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="400" y="30" text-anchor="middle" class="title">Option&lt;T&gt; y Result&lt;T, E&gt;</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">Reemplazando null y excepciones</text>
+  
+  <!-- Option Section -->
+  <rect x="30" y="70" width="360" height="220" class="option-box"/>
+  <text x="210" y="95" text-anchor="middle" class="title" style="font-size: 16px;"><tspan class="type">Option</tspan>&lt;T&gt;</text>
+  <text x="210" y="115" text-anchor="middle" class="subtitle">Valor que puede o no existir</text>
+  
+  <!-- Option definition -->
+  <text x="50" y="145" class="code"><tspan class="keyword">enum</tspan> <tspan class="type">Option</tspan>&lt;T&gt; {</text>
+  <text x="50" y="165" class="code">    <tspan class="variant">Some</tspan>(T),  <tspan class="comment">// Hay valor</tspan></text>
+  <text x="50" y="185" class="code">    <tspan class="variant">None</tspan>,     <tspan class="comment">// No hay valor</tspan></text>
+  <text x="50" y="205" class="code">}</text>
+  
+  <!-- Option visual -->
+  <g transform="translate(50, 220)">
+    <rect x="0" y="0" width="130" height="50" rx="6" class="some"/>
+    <text x="65" y="20" text-anchor="middle" class="code" fill="#fff">Some(42)</text>
+    <text x="65" y="40" text-anchor="middle" class="label" fill="#bbf7d0">✓ Tiene valor</text>
+  </g>
+  
+  <g transform="translate(200, 220)">
+    <rect x="0" y="0" width="130" height="50" rx="6" class="none"/>
+    <text x="65" y="20" text-anchor="middle" class="code" fill="#fff">None</text>
+    <text x="65" y="40" text-anchor="middle" class="label" fill="#e5e7eb">∅ Vacío</text>
+  </g>
+  
+  <!-- Result Section -->
+  <rect x="410" y="70" width="360" height="220" class="result-box"/>
+  <text x="590" y="95" text-anchor="middle" class="title" style="font-size: 16px;"><tspan class="type">Result</tspan>&lt;T, E&gt;</text>
+  <text x="590" y="115" text-anchor="middle" class="subtitle">Operación que puede fallar</text>
+  
+  <!-- Result definition -->
+  <text x="430" y="145" class="code"><tspan class="keyword">enum</tspan> <tspan class="type">Result</tspan>&lt;T, E&gt; {</text>
+  <text x="430" y="165" class="code">    <tspan class="variant">Ok</tspan>(T),   <tspan class="comment">// Éxito</tspan></text>
+  <text x="430" y="185" class="code">    <tspan class="variant">Err</tspan>(E),  <tspan class="comment">// Error</tspan></text>
+  <text x="430" y="205" class="code">}</text>
+  
+  <!-- Result visual -->
+  <g transform="translate(430, 220)">
+    <rect x="0" y="0" width="130" height="50" rx="6" class="ok"/>
+    <text x="65" y="20" text-anchor="middle" class="code" fill="#fff">Ok(data)</text>
+    <text x="65" y="40" text-anchor="middle" class="label" fill="#bbf7d0">✓ Éxito</text>
+  </g>
+  
+  <g transform="translate(580, 220)">
+    <rect x="0" y="0" width="130" height="50" rx="6" class="err"/>
+    <text x="65" y="20" text-anchor="middle" class="code" fill="#fff">Err(e)</text>
+    <text x="65" y="40" text-anchor="middle" class="label" fill="#fca5a5">✗ Error</text>
+  </g>
+  
+  <!-- Operador ? -->
+  <rect x="30" y="310" width="740" height="100" class="box"/>
+  <text x="400" y="340" text-anchor="middle" class="title" style="font-size: 16px;">El operador <tspan fill="#CE422B">?</tspan> - Propagación automática</text>
+  
+  <text x="50" y="375" class="code"><tspan class="keyword">fn</tspan> <tspan class="variant">leer_config</tspan>() -> <tspan class="type">Result</tspan>&lt;<tspan class="type">Config</tspan>, <tspan class="type">Error</tspan>&gt; {</text>
+  <text x="50" y="395" class="code">    <tspan class="keyword">let</tspan> archivo = <tspan class="type">File</tspan>::open(<tspan class="string">"config.txt"</tspan>)<tspan fill="#CE422B" style="font-size: 16px; font-weight: bold;">?</tspan>;  <tspan class="comment">// Retorna Err si falla</tspan></text>
+  
+  <!-- Métodos comunes -->
+  <rect x="30" y="420" width="360" height="115" class="box"/>
+  <text x="210" y="445" text-anchor="middle" class="label" fill="#dcdcaa">Métodos de Option</text>
+  
+  <text x="50" y="475" class="code">.<tspan class="variant">unwrap</tspan>()         <tspan class="comment">// panic si None</tspan></text>
+  <text x="50" y="495" class="code">.<tspan class="variant">unwrap_or</tspan>(def)   <tspan class="comment">// default si None</tspan></text>
+  <text x="50" y="515" class="code">.<tspan class="variant">map</tspan>(|x| ...)     <tspan class="comment">// transforma Some</tspan></text>
+  
+  <rect x="410" y="420" width="360" height="115" class="box"/>
+  <text x="590" y="445" text-anchor="middle" class="label" fill="#4ec9b0">Métodos de Result</text>
+  
+  <text x="430" y="475" class="code">.<tspan class="variant">unwrap</tspan>()         <tspan class="comment">// panic si Err</tspan></text>
+  <text x="430" y="495" class="code">.<tspan class="variant">ok</tspan>()             <tspan class="comment">// Result → Option</tspan></text>
+  <text x="430" y="515" class="code">.<tspan class="variant">map_err</tspan>(|e| ...) <tspan class="comment">// transforma Err</tspan></text>
+</svg>

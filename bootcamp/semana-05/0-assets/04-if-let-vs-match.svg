@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: 600; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .variant { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
+    .vs { fill: #CE422B; font-family: 'Segoe UI', sans-serif; font-size: 18px; font-weight: bold; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="400" y="35" text-anchor="middle" class="title">if let vs match: Cuándo usar cada uno</text>
+  
+  <!-- Lado izquierdo: match -->
+  <rect x="30" y="60" width="350" height="200" class="box" stroke="#569cd6"/>
+  <rect x="30" y="60" width="350" height="30" rx="6" fill="#569cd6"/>
+  <text x="205" y="82" text-anchor="middle" class="label" fill="#fff" style="font-size: 14px; font-weight: 600;">match</text>
+  
+  <text x="50" y="115" class="code"><tspan class="keyword">match</tspan> resultado {</text>
+  <text x="50" y="140" class="code">    <tspan class="type">Ok</tspan>(valor) => {</text>
+  <text x="50" y="160" class="code">        procesar(valor)</text>
+  <text x="50" y="180" class="code">    }</text>
+  <text x="50" y="200" class="code">    <tspan class="type">Err</tspan>(e) => {</text>
+  <text x="50" y="220" class="code">        manejar_error(e)</text>
+  <text x="50" y="240" class="code">    }</text>
+  <text x="50" y="260" class="code">}</text>
+  
+  <!-- VS -->
+  <text x="400" y="165" text-anchor="middle" class="vs">VS</text>
+  
+  <!-- Lado derecho: if let -->
+  <rect x="420" y="60" width="350" height="200" class="box" stroke="#4ec9b0"/>
+  <rect x="420" y="60" width="350" height="30" rx="6" fill="#4ec9b0"/>
+  <text x="595" y="82" text-anchor="middle" class="label" fill="#1e1e1e" style="font-size: 14px; font-weight: 600;">if let</text>
+  
+  <text x="440" y="115" class="code"><tspan class="keyword">if let</tspan> <tspan class="type">Ok</tspan>(valor) = resultado {</text>
+  <text x="440" y="140" class="code">    procesar(valor)</text>
+  <text x="440" y="165" class="code">}</text>
+  <text x="440" y="200" class="code comment">// Solo nos importa el caso Ok</text>
+  <text x="440" y="225" class="code comment">// Ignoramos Err</text>
+  
+  <!-- Comparación -->
+  <g transform="translate(30, 280)">
+    <rect x="0" y="0" width="350" height="180" class="box"/>
+    <text x="175" y="25" text-anchor="middle" class="label" fill="#569cd6" style="font-size: 13px;">✓ Usar match cuando:</text>
+    
+    <text x="20" y="55" class="label">• Necesitas manejar TODOS los casos</text>
+    <text x="20" y="80" class="label">• Quieres exhaustividad del compilador</text>
+    <text x="20" y="105" class="label">• Hay múltiples variantes importantes</text>
+    <text x="20" y="130" class="label">• Quieres retornar valor de cada brazo</text>
+    <text x="20" y="155" class="label">• Patrones complejos con guardas</text>
+  </g>
+  
+  <g transform="translate(420, 280)">
+    <rect x="0" y="0" width="350" height="180" class="box"/>
+    <text x="175" y="25" text-anchor="middle" class="label" fill="#4ec9b0" style="font-size: 13px;">✓ Usar if let cuando:</text>
+    
+    <text x="20" y="55" class="label">• Solo te importa UN caso</text>
+    <text x="20" y="80" class="label">• Quieres ignorar el resto</text>
+    <text x="20" y="105" class="label">• Código más conciso y legible</text>
+    <text x="20" y="130" class="label">• Verificación simple con else</text>
+    <text x="20" y="155" class="label">• Extracción rápida de Option/Result</text>
+  </g>
+  
+  <!-- while let ejemplo -->
+  <g transform="translate(220, 465)">
+    <rect x="0" y="0" width="360" height="5" rx="2" fill="#CE422B"/>
+  </g>
+</svg>

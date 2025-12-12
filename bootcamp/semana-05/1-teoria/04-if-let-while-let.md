@@ -2,6 +2,8 @@
 
 > **Sintaxis concisa para un solo patrón**
 
+![if let vs match](../0-assets/04-if-let-vs-match.svg)
+
 ---
 
 ## El Problema con match

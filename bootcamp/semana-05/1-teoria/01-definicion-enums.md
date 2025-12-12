@@ -2,6 +2,8 @@
 
 > **Enums** - Tipos que pueden ser una de varias variantes
 
+![Anatomía de un Enum](../0-assets/01-anatomia-enum.svg)
+
 ---
 
 ## ¿Qué es un Enum?
