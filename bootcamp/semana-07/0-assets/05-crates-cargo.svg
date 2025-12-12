@@ -41,8 +41,8 @@
   </text>
   <text x="210" y="295" font-family="'Segoe UI', sans-serif" font-size="9" fill="#6a9955"># solo para tests</text>
 
-  <text x="50" y="325" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[features]</text>
-  <text x="50" y="345" font-family="'Fira Code', monospace" font-size="11">
+  <text x="50" y="320" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[features]</text>
+  <text x="50" y="335" font-family="'Fira Code', monospace" font-size="11">
     <tspan fill="#d4d4d4">default = [</tspan><tspan fill="#ce9178">"json"</tspan><tspan fill="#d4d4d4">]</tspan>
   </text>
 
