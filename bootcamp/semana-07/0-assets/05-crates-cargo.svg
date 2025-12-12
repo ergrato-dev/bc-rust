@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">Crates y Cargo</text>
+
+  <!-- Cargo.toml -->
+  <rect x="30" y="55" width="420" height="290" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Cargo.toml</text>
+
+  <text x="50" y="115" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[package]</text>
+  <text x="50" y="135" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">name = </tspan><tspan fill="#ce9178">"mi-proyecto"</tspan>
+  </text>
+  <text x="50" y="155" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">version = </tspan><tspan fill="#ce9178">"0.1.0"</tspan>
+  </text>
+  <text x="50" y="175" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">edition = </tspan><tspan fill="#ce9178">"2024"</tspan>
+  </text>
+
+  <text x="50" y="205" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[dependencies]</text>
+  <text x="50" y="225" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">serde = </tspan><tspan fill="#ce9178">"1.0"</tspan>
+  </text>
+  <text x="210" y="225" font-family="'Segoe UI', sans-serif" font-size="9" fill="#6a9955"># última 1.x</text>
+  <text x="50" y="245" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">tokio = { version = </tspan><tspan fill="#ce9178">"1"</tspan><tspan fill="#d4d4d4">, features = [</tspan><tspan fill="#ce9178">"full"</tspan><tspan fill="#d4d4d4">] }</tspan>
+  </text>
+
+  <text x="50" y="275" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[dev-dependencies]</text>
+  <text x="50" y="295" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">criterion = </tspan><tspan fill="#ce9178">"0.5"</tspan>
+  </text>
+  <text x="210" y="295" font-family="'Segoe UI', sans-serif" font-size="9" fill="#6a9955"># solo para tests</text>
+
+  <text x="50" y="325" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[features]</text>
+  <text x="50" y="345" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">default = [</tspan><tspan fill="#ce9178">"json"</tspan><tspan fill="#d4d4d4">]</tspan>
+  </text>
+
+  <!-- crates.io -->
+  <rect x="470" y="55" width="400" height="290" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Ecosistema de Crates</text>
+
+  <!-- Popular crates -->
+  <rect x="490" y="105" width="170" height="55" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="575" y="125" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#CE422B" font-weight="600">serde</text>
+  <text x="575" y="145" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Serialización</text>
+
+  <rect x="680" y="105" width="170" height="55" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="765" y="125" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#4ec9b0" font-weight="600">tokio</text>
+  <text x="765" y="145" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Async Runtime</text>
+
+  <rect x="490" y="175" width="170" height="55" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="575" y="195" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#dcdcaa" font-weight="600">anyhow</text>
+  <text x="575" y="215" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Error Handling</text>
+
+  <rect x="680" y="175" width="170" height="55" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="1"/>
+  <text x="765" y="195" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#569cd6" font-weight="600">clap</text>
+  <text x="765" y="215" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">CLI Arguments</text>
+
+  <!-- Commands -->
+  <rect x="490" y="245" width="360" height="90" rx="4" fill="#1e1e1e" stroke="#6a9955" stroke-width="1"/>
+  <text x="500" y="265" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955"># Comandos útiles</text>
+  <text x="500" y="285" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">cargo add serde</tspan>
+  </text>
+  <text x="640" y="285" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080"># agregar dep</text>
+  <text x="500" y="305" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">cargo update</tspan>
+  </text>
+  <text x="620" y="305" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080"># actualizar</text>
+  <text x="500" y="325" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">cargo tree</tspan>
+  </text>
+  <text x="600" y="325" font-family="'Segoe UI', sans-serif" font-size="9" fill="#808080"># ver árbol deps</text>
+
+  <!-- Workspace -->
+  <rect x="30" y="360" width="420" height="225" rx="8" fill="#252526" stroke="#569cd6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="390" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Workspace (Monorepo)</text>
+
+  <text x="50" y="420" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955"># Cargo.toml en la raíz</text>
+  <text x="50" y="445" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa">[workspace]</text>
+  <text x="50" y="465" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#d4d4d4">members = [</tspan>
+  </text>
+  <text x="70" y="485" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#ce9178">"core"</tspan><tspan fill="#d4d4d4">,</tspan>
+  </text>
+  <text x="70" y="505" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#ce9178">"cli"</tspan><tspan fill="#d4d4d4">,</tspan>
+  </text>
+  <text x="70" y="525" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#ce9178">"server"</tspan><tspan fill="#d4d4d4">,</tspan>
+  </text>
+  <text x="50" y="545" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">]</text>
+
+  <text x="50" y="575" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">Comparten Cargo.lock y target/</text>
+
+  <!-- Crate types -->
+  <rect x="470" y="360" width="400" height="225" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="390" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Tipos de Crates</text>
+
+  <!-- Binary -->
+  <rect x="490" y="410" width="170" height="70" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="575" y="435" text-anchor="middle" font-family="'Fira Code', monospace" font-size="13" fill="#CE422B" font-weight="600">Binary</text>
+  <text x="575" y="455" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">src/main.rs</text>
+  <text x="575" y="470" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Ejecutable</text>
+
+  <!-- Library -->
+  <rect x="680" y="410" width="170" height="70" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="765" y="435" text-anchor="middle" font-family="'Fira Code', monospace" font-size="13" fill="#4ec9b0" font-weight="600">Library</text>
+  <text x="765" y="455" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">src/lib.rs</text>
+  <text x="765" y="470" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Reutilizable</text>
+
+  <!-- Both -->
+  <rect x="585" y="495" width="170" height="80" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="2"/>
+  <text x="670" y="520" text-anchor="middle" font-family="'Fira Code', monospace" font-size="13" fill="#dcdcaa" font-weight="600">Ambos</text>
+  <text x="670" y="540" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">main.rs + lib.rs</text>
+  <text x="670" y="555" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">CLI usa la biblioteca</text>
+  <text x="670" y="570" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#6a9955">⭐ Patrón recomendado</text>
+</svg>
