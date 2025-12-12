@@ -2,6 +2,8 @@
 
 > **El concepto más importante de Rust** - La base de la seguridad de memoria
 
+![Las 3 Reglas del Ownership](../0-assets/01-reglas-ownership.svg)
+
 ---
 
 ## ¿Por Qué Ownership?

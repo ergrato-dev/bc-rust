@@ -2,6 +2,8 @@
 
 > **El guardián de la seguridad de memoria**
 
+![El Borrow Checker](../0-assets/04-borrow-checker.svg)
+
 ---
 
 ## Las Reglas Fundamentales

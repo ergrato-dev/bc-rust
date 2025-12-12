@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520">
+  <style>
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: 600; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 13px; fill: #808080; }
+    .label { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; font-weight: 500; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
+    .immut-box { fill: #2d2d3d; stroke: #569cd6; stroke-width: 2; rx: 6; }
+    .mut-box { fill: #3d2d2d; stroke: #CE422B; stroke-width: 2; rx: 6; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .ref-arrow { stroke: #569cd6; stroke-width: 2; fill: none; marker-end: url(#bluearrow); }
+    .mut-arrow { stroke: #CE422B; stroke-width: 2; fill: none; marker-end: url(#redarrow); }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+    <marker id="bluearrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#569cd6"/>
+    </marker>
+    <marker id="redarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="425" y="30" text-anchor="middle" class="title">Referencias y Borrowing</text>
+  <text x="425" y="50" text-anchor="middle" class="subtitle">Acceder a datos sin tomar ownership</text>
+  
+  <!-- Sección Referencia Inmutable -->
+  <rect x="20" y="70" width="400" height="200" class="immut-box"/>
+  <text x="220" y="95" text-anchor="middle" class="label" style="fill: #569cd6; font-size: 14px;">&amp;T - Referencia Inmutable</text>
+  
+  <text x="40" y="125" class="code">
+    <tspan class="keyword">let</tspan> s = <tspan class="type">String</tspan>::from(<tspan class="string">"hola"</tspan>);
+  </text>
+  <text x="40" y="145" class="code">
+    <tspan class="keyword">let</tspan> r = <tspan class="accent">&amp;</tspan>s;  <tspan class="comment">// r "toma prestado" s</tspan>
+  </text>
+  <text x="40" y="175" class="code">println!(<tspan class="string">"{}"</tspan>, r);  <tspan class="comment">// ✅ Leer: OK</tspan></text>
+  <text x="40" y="195" class="code comment">// r.push('!');     // ❌ Modificar: ERROR</text>
+  
+  <!-- Diagrama inmutable -->
+  <rect x="60" y="215" width="50" height="30" fill="#1e1e1e" stroke="#569cd6" rx="3"/>
+  <text x="85" y="235" text-anchor="middle" class="code" style="font-size: 10px;">r</text>
+  
+  <path d="M 110 230 L 150 230" class="ref-arrow"/>
+  
+  <rect x="155" y="215" width="50" height="30" fill="#1e1e1e" stroke="#4ec9b0" rx="3"/>
+  <text x="180" y="235" text-anchor="middle" class="code" style="font-size: 10px;">s</text>
+  
+  <path d="M 205 230 L 245 230" class="arrow"/>
+  
+  <rect x="250" y="210" width="80" height="40" fill="#1e1e1e" stroke="#3c3c3c" rx="3"/>
+  <text x="290" y="228" text-anchor="middle" class="code string" style="font-size: 10px;">"hola"</text>
+  <text x="290" y="243" text-anchor="middle" class="subtitle" style="font-size: 9px;">HEAP</text>
+  
+  <text x="345" y="240" class="label" style="fill: #569cd6; font-size: 10px;">solo lectura</text>
+  
+  <!-- Sección Referencia Mutable -->
+  <rect x="430" y="70" width="400" height="200" class="mut-box"/>
+  <text x="630" y="95" text-anchor="middle" class="label" style="fill: #CE422B; font-size: 14px;">&amp;mut T - Referencia Mutable</text>
+  
+  <text x="450" y="125" class="code">
+    <tspan class="keyword">let mut</tspan> s = <tspan class="type">String</tspan>::from(<tspan class="string">"hola"</tspan>);
+  </text>
+  <text x="450" y="145" class="code">
+    <tspan class="keyword">let</tspan> r = <tspan class="accent">&amp;mut</tspan> s;
+  </text>
+  <text x="450" y="175" class="code">r.push_str(<tspan class="string">"!"</tspan>);  <tspan class="comment">// ✅ Modificar: OK</tspan></text>
+  <text x="450" y="195" class="code">println!(<tspan class="string">"{}"</tspan>, r);   <tspan class="comment">// "hola!"</tspan></text>
+  
+  <!-- Diagrama mutable -->
+  <rect x="470" y="215" width="50" height="30" fill="#1e1e1e" stroke="#CE422B" rx="3"/>
+  <text x="495" y="235" text-anchor="middle" class="code" style="font-size: 10px;">r</text>
+  
+  <path d="M 520 230 L 560 230" class="mut-arrow"/>
+  
+  <rect x="565" y="215" width="50" height="30" fill="#1e1e1e" stroke="#4ec9b0" rx="3"/>
+  <text x="590" y="235" text-anchor="middle" class="code" style="font-size: 10px;">s</text>
+  
+  <path d="M 615 230 L 655 230" class="arrow"/>
+  
+  <rect x="660" y="210" width="80" height="40" fill="#1e1e1e" stroke="#3c3c3c" rx="3"/>
+  <text x="700" y="228" text-anchor="middle" class="code string" style="font-size: 10px;">"hola!"</text>
+  <text x="700" y="243" text-anchor="middle" class="subtitle" style="font-size: 9px;">HEAP</text>
+  
+  <text x="755" y="240" class="label" style="fill: #CE422B; font-size: 10px;">lectura+escritura</text>
+  
+  <!-- Reglas del Borrowing -->
+  <rect x="20" y="285" width="810" height="120" class="box"/>
+  <text x="425" y="310" text-anchor="middle" class="label" style="font-size: 14px;">⚖️ Las Reglas del Borrowing</text>
+  
+  <text x="120" y="345" text-anchor="middle" class="code" style="fill: #4ec9b0; font-size: 13px;">✅ PERMITIDO</text>
+  <text x="120" y="370" class="code">Múltiples <tspan class="keyword">&amp;T</tspan></text>
+  <text x="120" y="390" class="code">Una sola <tspan class="keyword">&amp;mut T</tspan></text>
+  
+  <text x="425" y="345" text-anchor="middle" class="code" style="fill: #CE422B; font-size: 13px;">❌ PROHIBIDO</text>
+  <text x="425" y="370" class="code">Múltiples <tspan class="keyword">&amp;mut T</tspan></text>
+  <text x="425" y="390" class="code"><tspan class="keyword">&amp;T</tspan> + <tspan class="keyword">&amp;mut T</tspan> al mismo tiempo</text>
+  
+  <text x="700" y="345" text-anchor="middle" class="code" style="fill: #dcdcaa; font-size: 13px;">💡 RAZÓN</text>
+  <text x="610" y="370" class="code">Prevenir data races</text>
+  <text x="610" y="390" class="code">Garantizar seguridad de memoria</text>
+  
+  <!-- Ejemplo visual de reglas -->
+  <rect x="20" y="420" width="265" height="85" class="box"/>
+  <text x="152" y="445" text-anchor="middle" class="label" style="fill: #4ec9b0;">Múltiples &amp;T ✅</text>
+  <text x="40" y="470" class="code">
+    <tspan class="keyword">let</tspan> r1 = <tspan class="keyword">&amp;</tspan>s;
+  </text>
+  <text x="40" y="490" class="code">
+    <tspan class="keyword">let</tspan> r2 = <tspan class="keyword">&amp;</tspan>s; <tspan class="comment">// ✅ OK</tspan>
+  </text>
+  
+  <rect x="292" y="420" width="265" height="85" class="box"/>
+  <text x="425" y="445" text-anchor="middle" class="label" style="fill: #CE422B;">Múltiples &amp;mut T ❌</text>
+  <text x="312" y="470" class="code">
+    <tspan class="keyword">let</tspan> r1 = <tspan class="keyword">&amp;mut</tspan> s;
+  </text>
+  <text x="312" y="490" class="code">
+    <tspan class="keyword">let</tspan> r2 = <tspan class="keyword">&amp;mut</tspan> s; <tspan class="comment">// ❌ ERROR</tspan>
+  </text>
+  
+  <rect x="564" y="420" width="265" height="85" class="box"/>
+  <text x="697" y="445" text-anchor="middle" class="label" style="fill: #CE422B;">&amp;T + &amp;mut T ❌</text>
+  <text x="584" y="470" class="code">
+    <tspan class="keyword">let</tspan> r1 = <tspan class="keyword">&amp;</tspan>s;
+  </text>
+  <text x="584" y="490" class="code">
+    <tspan class="keyword">let</tspan> r2 = <tspan class="keyword">&amp;mut</tspan> s; <tspan class="comment">// ❌ ERROR</tspan>
+  </text>
+</svg>

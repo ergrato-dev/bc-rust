@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <style>
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #d4d4d4; font-weight: 600; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 13px; fill: #d4d4d4; font-weight: 500; }
+    .rule { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 15px; fill: #d4d4d4; }
+    .number { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 28px; fill: #CE422B; font-weight: 700; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 8; }
+    .rule-box { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; rx: 8; }
+  </style>
+  
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="400" y="35" text-anchor="middle" class="title">📦 Las 3 Reglas del Ownership</text>
+  <text x="400" y="55" text-anchor="middle" class="subtitle">El corazón del sistema de seguridad de Rust</text>
+  
+  <!-- Regla 1 -->
+  <rect x="20" y="80" width="760" height="100" class="rule-box"/>
+  <text x="55" y="130" class="number">1</text>
+  <text x="90" y="120" class="rule">Cada valor tiene UN único dueño (owner)</text>
+  <text x="90" y="145" class="code">
+    <tspan class="keyword">let</tspan> s = <tspan class="type">String</tspan>::from(<tspan class="string">"hola"</tspan>);  <tspan class="comment">// s es el DUEÑO</tspan>
+  </text>
+  <text x="90" y="165" class="code comment">// El String pertenece SOLO a s</text>
+  
+  <!-- Regla 2 -->
+  <rect x="20" y="195" width="760" height="100" class="rule-box"/>
+  <text x="55" y="245" class="number">2</text>
+  <text x="90" y="235" class="rule">Solo puede haber UN dueño a la vez</text>
+  <text x="90" y="260" class="code">
+    <tspan class="keyword">let</tspan> s2 = s;  <tspan class="comment">// Ownership MOVIDO a s2</tspan>
+  </text>
+  <text x="90" y="280" class="code comment">// s ya NO es válido - solo s2 es el dueño ahora</text>
+  
+  <!-- Regla 3 -->
+  <rect x="20" y="310" width="760" height="100" class="rule-box"/>
+  <text x="55" y="360" class="number">3</text>
+  <text x="90" y="350" class="rule">Cuando el dueño sale del scope, el valor se elimina (drop)</text>
+  <text x="90" y="375" class="code">}  <tspan class="comment">// s2 sale del scope → Rust llama drop(s2)</tspan></text>
+  <text x="90" y="395" class="code comment">// La memoria se libera automáticamente</text>
+  
+  <!-- Indicadores visuales -->
+  <circle cx="750" cy="130" r="15" fill="#4ec9b0" opacity="0.8"/>
+  <text x="750" y="135" text-anchor="middle" style="fill: #1e1e1e; font-size: 12px; font-weight: bold;">✓</text>
+  
+  <circle cx="750" cy="245" r="15" fill="#CE422B" opacity="0.8"/>
+  <text x="750" y="250" text-anchor="middle" style="fill: #fff; font-size: 12px; font-weight: bold;">→</text>
+  
+  <circle cx="750" cy="360" r="15" fill="#569cd6" opacity="0.8"/>
+  <text x="750" y="365" text-anchor="middle" style="fill: #1e1e1e; font-size: 12px; font-weight: bold;">🗑</text>
+  
+  <!-- Footer -->
+  <text x="400" y="435" text-anchor="middle" class="subtitle">Sin garbage collector • Sin manejo manual • Verificado en compilación</text>
+</svg>

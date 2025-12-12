@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480">
+  <style>
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: 600; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 13px; fill: #808080; }
+    .label { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; font-weight: 500; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .error { fill: #f14c4c; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
+    .error-box { fill: #2d2020; stroke: #f14c4c; stroke-width: 2; rx: 6; }
+    .ok-box { fill: #202d20; stroke: #4ec9b0; stroke-width: 2; rx: 6; }
+  </style>
+  
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="425" y="30" text-anchor="middle" class="title">⚖️ El Borrow Checker</text>
+  <text x="425" y="50" text-anchor="middle" class="subtitle">El guardián de la seguridad de memoria en Rust</text>
+  
+  <!-- Error 1: Usar después de mover -->
+  <rect x="20" y="70" width="400" height="130" class="error-box"/>
+  <text x="220" y="95" text-anchor="middle" class="label" style="fill: #f14c4c;">❌ Error: Value borrowed after move</text>
+  
+  <text x="40" y="120" class="code">
+    <tspan class="keyword">let</tspan> s1 = <tspan class="type">String</tspan>::from(<tspan class="string">"hola"</tspan>);
+  </text>
+  <text x="40" y="140" class="code">
+    <tspan class="keyword">let</tspan> s2 = s1;       <tspan class="comment">// s1 se MUEVE a s2</tspan>
+  </text>
+  <text x="40" y="160" class="code">println!(<tspan class="string">"{}"</tspan>, s1);  <tspan class="error">// ❌ s1 ya no existe</tspan></text>
+  
+  <text x="40" y="185" class="comment">Solución: usar s1.clone() o &amp;s1</text>
+  
+  <!-- Error 2: Mutable mientras inmutable -->
+  <rect x="430" y="70" width="400" height="130" class="error-box"/>
+  <text x="630" y="95" text-anchor="middle" class="label" style="fill: #f14c4c;">❌ Error: Cannot borrow as mutable</text>
+  
+  <text x="450" y="120" class="code">
+    <tspan class="keyword">let mut</tspan> v = <tspan class="keyword">vec!</tspan>[<tspan class="string">1, 2, 3</tspan>];
+  </text>
+  <text x="450" y="140" class="code">
+    <tspan class="keyword">let</tspan> first = <tspan class="keyword">&amp;</tspan>v[<tspan class="string">0</tspan>];  <tspan class="comment">// préstamo inmutable</tspan>
+  </text>
+  <text x="450" y="160" class="code">v.push(<tspan class="string">4</tspan>);          <tspan class="error">// ❌ necesita &amp;mut v</tspan></text>
+  <text x="450" y="180" class="code">println!(<tspan class="string">"{}"</tspan>, first);</text>
+  
+  <!-- NLL explicación -->
+  <rect x="20" y="215" width="810" height="120" class="box"/>
+  <text x="425" y="240" text-anchor="middle" class="label" style="fill: #dcdcaa; font-size: 14px;">💡 Non-Lexical Lifetimes (NLL)</text>
+  <text x="425" y="260" text-anchor="middle" class="subtitle">El borrow checker analiza el ÚLTIMO USO, no el scope completo</text>
+  
+  <text x="40" y="290" class="code">
+    <tspan class="keyword">let mut</tspan> s = <tspan class="type">String</tspan>::from(<tspan class="string">"hola"</tspan>);
+  </text>
+  <text x="40" y="310" class="code">
+    <tspan class="keyword">let</tspan> r1 = <tspan class="keyword">&amp;</tspan>s;              <tspan class="comment">// ─┐ r1 vive aquí</tspan>
+  </text>
+  <text x="550" y="310" class="code">println!(<tspan class="string">"{}"</tspan>, r1);       <tspan class="comment">// ─┘ último uso de r1</tspan></text>
+  <text x="40" y="325" class="code">
+    <tspan class="keyword">let</tspan> r2 = <tspan class="keyword">&amp;mut</tspan> s;         <tspan class="type">// ✅ OK: r1 ya "murió"</tspan>
+  </text>
+  
+  <!-- Soluciones -->
+  <rect x="20" y="350" width="265" height="115" class="ok-box"/>
+  <text x="152" y="375" text-anchor="middle" class="label" style="fill: #4ec9b0;">✅ Solución 1: Scope interno</text>
+  
+  <text x="35" y="400" class="code">
+    <tspan class="keyword">let mut</tspan> data = <tspan class="keyword">vec!</tspan>[<tspan class="string">1,2,3</tspan>];
+  </text>
+  <text x="35" y="420" class="code">{</text>
+  <text x="35" y="435" class="code">    <tspan class="keyword">let</tspan> r = <tspan class="keyword">&amp;mut</tspan> data;</text>
+  <text x="35" y="450" class="code">} <tspan class="comment">// r termina aquí</tspan></text>
+  
+  <rect x="292" y="350" width="265" height="115" class="ok-box"/>
+  <text x="425" y="375" text-anchor="middle" class="label" style="fill: #4ec9b0;">✅ Solución 2: Clonar</text>
+  
+  <text x="307" y="400" class="code">
+    <tspan class="keyword">let</tspan> s1 = <tspan class="type">String</tspan>::from(<tspan class="string">"hi"</tspan>);
+  </text>
+  <text x="307" y="420" class="code">
+    <tspan class="keyword">let</tspan> s2 = s1.<tspan class="type">clone</tspan>();
+  </text>
+  <text x="307" y="440" class="code comment">// Ambos válidos ahora</text>
+  <text x="307" y="455" class="code">println!(<tspan class="string">"{} {}"</tspan>, s1, s2);</text>
+  
+  <rect x="564" y="350" width="265" height="115" class="ok-box"/>
+  <text x="697" y="375" text-anchor="middle" class="label" style="fill: #4ec9b0;">✅ Solución 3: Reorganizar</text>
+  
+  <text x="579" y="400" class="code">
+    <tspan class="keyword">let mut</tspan> v = <tspan class="keyword">vec!</tspan>[<tspan class="string">1,2,3</tspan>];
+  </text>
+  <text x="579" y="420" class="code">v.push(<tspan class="string">4</tspan>);         <tspan class="comment">// Modificar primero</tspan></text>
+  <text x="579" y="440" class="code">
+    <tspan class="keyword">let</tspan> first = <tspan class="keyword">&amp;</tspan>v[<tspan class="string">0</tspan>]; <tspan class="comment">// Prestar después</tspan>
+  </text>
+  <text x="579" y="455" class="code">println!(<tspan class="string">"{}"</tspan>, first);</text>
+</svg>

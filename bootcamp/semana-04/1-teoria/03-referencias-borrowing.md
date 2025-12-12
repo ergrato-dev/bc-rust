@@ -2,6 +2,8 @@
 
 > **¿Cómo usar un valor sin tomar ownership?**
 
+![Referencias y Borrowing](../0-assets/03-referencias-borrowing.svg)
+
 ---
 
 ## El Problema

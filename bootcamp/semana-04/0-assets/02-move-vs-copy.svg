@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500">
+  <style>
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: 600; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 13px; fill: #808080; }
+    .label { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; font-weight: 500; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .string { fill: #ce9178; }
+    .number { fill: #b5cea8; }
+    .comment { fill: #6a9955; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
+    .copy-box { fill: #2d3d2d; stroke: #4ec9b0; stroke-width: 2; rx: 6; }
+    .move-box { fill: #3d2d2d; stroke: #CE422B; stroke-width: 2; rx: 6; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; }
+  </style>
+  
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="425" y="30" text-anchor="middle" class="title">Move Semantics vs Copy Semantics</text>
+  
+  <!-- Sección COPY -->
+  <rect x="20" y="50" width="400" height="210" class="copy-box"/>
+  <text x="220" y="75" text-anchor="middle" class="label" style="fill: #4ec9b0; font-size: 14px;">✅ COPY (tipos simples)</text>
+  
+  <text x="40" y="105" class="code">
+    <tspan class="keyword">let</tspan> x = <tspan class="number">5</tspan>;       <tspan class="comment">// i32 es Copy</tspan>
+  </text>
+  <text x="40" y="125" class="code">
+    <tspan class="keyword">let</tspan> y = x;       <tspan class="comment">// Se COPIA</tspan>
+  </text>
+  <text x="40" y="155" class="code">println!(<tspan class="string">"{} {}"</tspan>, x, y); <tspan class="comment">// ✅ Ambos válidos</tspan></text>
+  
+  <!-- Diagrama Copy -->
+  <rect x="40" y="175" width="70" height="35" fill="#1e1e1e" stroke="#4ec9b0" rx="4"/>
+  <text x="75" y="197" text-anchor="middle" class="code">x = 5</text>
+  
+  <text x="130" y="197" class="label" style="fill: #4ec9b0;">→ copia →</text>
+  
+  <rect x="200" y="175" width="70" height="35" fill="#1e1e1e" stroke="#4ec9b0" rx="4"/>
+  <text x="235" y="197" text-anchor="middle" class="code">y = 5</text>
+  
+  <text x="290" y="197" class="comment" style="font-size: 11px;">bits duplicados</text>
+  
+  <text x="40" y="240" class="subtitle">Tipos Copy: i32, f64, bool, char, (T, T), [T; N], &amp;T</text>
+  
+  <!-- Sección MOVE -->
+  <rect x="430" y="50" width="400" height="210" class="move-box"/>
+  <text x="630" y="75" text-anchor="middle" class="label" style="fill: #CE422B; font-size: 14px;">❌ MOVE (tipos heap)</text>
+  
+  <text x="450" y="105" class="code">
+    <tspan class="keyword">let</tspan> s1 = <tspan class="type">String</tspan>::from(<tspan class="string">"hi"</tspan>);
+  </text>
+  <text x="450" y="125" class="code">
+    <tspan class="keyword">let</tspan> s2 = s1;    <tspan class="comment">// Se MUEVE</tspan>
+  </text>
+  <text x="450" y="155" class="code">println!(<tspan class="string">"{}"</tspan>, s1); <tspan class="comment">// ❌ ERROR: movido</tspan></text>
+  
+  <!-- Diagrama Move -->
+  <rect x="450" y="175" width="70" height="35" fill="#1e1e1e" stroke="#555" rx="4" stroke-dasharray="4"/>
+  <text x="485" y="197" text-anchor="middle" class="code" style="fill: #555;">s1 ✗</text>
+  
+  <text x="540" y="197" class="label" style="fill: #CE422B;">→ move →</text>
+  
+  <rect x="610" y="175" width="70" height="35" fill="#1e1e1e" stroke="#CE422B" rx="4"/>
+  <text x="645" y="197" text-anchor="middle" class="code">s2 ✓</text>
+  
+  <text x="700" y="197" class="comment" style="font-size: 11px;">ownership transferido</text>
+  
+  <text x="450" y="240" class="subtitle">Tipos Move: String, Vec, Box, HashMap, structs</text>
+  
+  <!-- Sección CLONE -->
+  <rect x="20" y="275" width="810" height="105" class="box"/>
+  <text x="425" y="300" text-anchor="middle" class="label" style="fill: #dcdcaa;">🔄 CLONE (copia explícita)</text>
+  
+  <text x="40" y="330" class="code">
+    <tspan class="keyword">let</tspan> s1 = <tspan class="type">String</tspan>::from(<tspan class="string">"hola"</tspan>);
+  </text>
+  <text x="40" y="350" class="code">
+    <tspan class="keyword">let</tspan> s2 = s1.<tspan class="type">clone</tspan>();   <tspan class="comment">// Copia EXPLÍCITA - nueva memoria en heap</tspan>
+  </text>
+  <text x="40" y="370" class="code">println!(<tspan class="string">"{} {}"</tspan>, s1, s2);  <tspan class="comment">// ✅ Ambos válidos (son copias independientes)</tspan></text>
+  
+  <!-- Diagrama Clone -->
+  <rect x="550" y="315" width="60" height="30" fill="#1e1e1e" stroke="#dcdcaa" rx="3"/>
+  <text x="580" y="335" text-anchor="middle" class="code" style="font-size: 10px;">s1→HEAP1</text>
+  
+  <text x="625" y="335" class="label" style="fill: #dcdcaa; font-size: 10px;">.clone()</text>
+  
+  <rect x="680" y="315" width="60" height="30" fill="#1e1e1e" stroke="#dcdcaa" rx="3"/>
+  <text x="710" y="335" text-anchor="middle" class="code" style="font-size: 10px;">s2→HEAP2</text>
+  
+  <!-- Tabla resumen -->
+  <rect x="20" y="395" width="810" height="90" class="box"/>
+  <text x="425" y="418" text-anchor="middle" class="label">Resumen</text>
+  
+  <!-- Headers -->
+  <text x="120" y="445" text-anchor="middle" class="subtitle" style="fill: #d4d4d4;">Operación</text>
+  <text x="300" y="445" text-anchor="middle" class="subtitle" style="fill: #d4d4d4;">Original válido</text>
+  <text x="480" y="445" text-anchor="middle" class="subtitle" style="fill: #d4d4d4;">Costo</text>
+  <text x="680" y="445" text-anchor="middle" class="subtitle" style="fill: #d4d4d4;">Uso</text>
+  
+  <!-- Row 1 -->
+  <text x="120" y="465" text-anchor="middle" class="code" style="fill: #4ec9b0;">Copy</text>
+  <text x="300" y="465" text-anchor="middle" class="code">✅ Sí</text>
+  <text x="480" y="465" text-anchor="middle" class="code">Bajo (stack)</text>
+  <text x="680" y="465" text-anchor="middle" class="code">Automático</text>
+  
+  <!-- Row 2 -->
+  <text x="120" y="480" text-anchor="middle" class="code" style="fill: #CE422B;">Move</text>
+  <text x="300" y="480" text-anchor="middle" class="code">❌ No</text>
+  <text x="480" y="480" text-anchor="middle" class="code">Cero</text>
+  <text x="680" y="480" text-anchor="middle" class="code">Automático</text>
+</svg>

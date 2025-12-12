@@ -2,6 +2,8 @@
 
 > **¿Cómo diseñar funciones que manejen ownership correctamente?**
 
+![Ownership en Funciones](../0-assets/05-ownership-funciones.svg)
+
 ---
 
 ## Tres Formas de Recibir Parámetros

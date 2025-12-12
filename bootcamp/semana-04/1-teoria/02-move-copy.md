@@ -2,6 +2,8 @@
 
 > **¿Por qué algunos tipos se mueven y otros se copian?**
 
+![Move vs Copy](../0-assets/02-move-vs-copy.svg)
+
 ---
 
 ## El Problema del Move
