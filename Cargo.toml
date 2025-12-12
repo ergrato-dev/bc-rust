@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+
+members = [
+    # Semana 00 - Setup
+    # "bootcamp/semana-00/2-practica/ejercicio-01-hello-world",
+    
+    # Agregar ejercicios aquí conforme se crean
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Bootcamp Rust"]
+license = "MIT"
+
+[workspace.dependencies]
+# Dependencias comunes del workspace

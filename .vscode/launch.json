@@ -1,0 +1,56 @@
+{
+    // ═══════════════════════════════════════════════════════════════
+    // 🦀 BOOTCAMP RUST - DEBUG CONFIGURATIONS
+    // ═══════════════════════════════════════════════════════════════
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "🦀 Debug (current package)",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=${fileBasenameNoExtension}"
+                ],
+                "filter": {
+                    "name": "${fileBasenameNoExtension}",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "terminal": "integrated"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "🧪 Debug Tests (current package)",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--package=${workspaceFolderBasename}"
+                ],
+                "filter": {
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "🦀 Debug Workspace",
+            "cargo": {
+                "args": [
+                    "build"
+                ]
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "terminal": "integrated"
+        }
+    ]
+}

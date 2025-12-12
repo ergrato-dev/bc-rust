@@ -1,0 +1,31 @@
+{
+  "name": "Bootcamp Rust",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "rust-analyzer.cargo.allFeatures": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "rust-lang.rust-analyzer",
+        "[rust]": {
+          "editor.defaultFormatter": "rust-lang.rust-analyzer",
+          "editor.formatOnSave": true
+        }
+      },
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "usernamehw.errorlens",
+        "serayuzgur.crates",
+        "vadimcn.vscode-lldb",
+        "fill-labs.dependi"
+      ]
+    }
+  },
+  "postCreateCommand": "rustc --version && cargo --version",
+  "remoteUser": "root"
+}

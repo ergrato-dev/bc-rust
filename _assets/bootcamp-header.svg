@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300">
+  <defs>
+    <style>
+      .bg { fill: #1e1e1e; }
+      .accent { fill: #CE422B; }
+      .accent-dark { fill: #A72145; }
+      .accent-light { fill: #F46623; }
+      .text-primary { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #d4d4d4; }
+      .text-secondary { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #808080; }
+      .text-white { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #ffffff; }
+      .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; fill: #d4d4d4; }
+      .keyword { fill: #569cd6; }
+      .function { fill: #dcdcaa; }
+      .string { fill: #ce9178; }
+      .comment { fill: #6a9955; }
+      .type { fill: #4ec9b0; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="1200" height="300"/>
+  
+  <!-- Decorative accent bar top -->
+  <rect class="accent" x="0" y="0" width="1200" height="4"/>
+  
+  <!-- Decorative circuit pattern left -->
+  <g opacity="0.15">
+    <line x1="50" y1="50" x2="50" y2="250" stroke="#CE422B" stroke-width="2"/>
+    <line x1="50" y1="100" x2="100" y2="100" stroke="#CE422B" stroke-width="2"/>
+    <circle cx="100" cy="100" r="4" fill="#CE422B"/>
+    <line x1="50" y1="200" x2="120" y2="200" stroke="#CE422B" stroke-width="2"/>
+    <circle cx="120" cy="200" r="4" fill="#CE422B"/>
+    <line x1="80" y1="50" x2="80" y2="150" stroke="#CE422B" stroke-width="2"/>
+    <circle cx="80" cy="150" r="4" fill="#CE422B"/>
+  </g>
+  
+  <!-- Decorative circuit pattern right -->
+  <g opacity="0.15">
+    <line x1="1150" y1="50" x2="1150" y2="250" stroke="#CE422B" stroke-width="2"/>
+    <line x1="1100" y1="100" x2="1150" y2="100" stroke="#CE422B" stroke-width="2"/>
+    <circle cx="1100" cy="100" r="4" fill="#CE422B"/>
+    <line x1="1080" y1="200" x2="1150" y2="200" stroke="#CE422B" stroke-width="2"/>
+    <circle cx="1080" cy="200" r="4" fill="#CE422B"/>
+    <line x1="1120" y1="50" x2="1120" y2="150" stroke="#CE422B" stroke-width="2"/>
+    <circle cx="1120" cy="150" r="4" fill="#CE422B"/>
+  </g>
+  
+  <!-- Rust Crab (Ferris) simplified -->
+  <g transform="translate(180, 90)">
+    <!-- Crab body -->
+    <ellipse cx="0" cy="50" rx="55" ry="40" fill="#CE422B"/>
+    <!-- Crab shell pattern -->
+    <ellipse cx="0" cy="45" rx="45" ry="32" fill="#A72145"/>
+    <ellipse cx="0" cy="50" rx="35" ry="25" fill="#CE422B"/>
+    
+    <!-- Eyes -->
+    <circle cx="-15" cy="30" r="12" fill="#1e1e1e"/>
+    <circle cx="15" cy="30" r="12" fill="#1e1e1e"/>
+    <circle cx="-12" cy="28" r="6" fill="#ffffff"/>
+    <circle cx="18" cy="28" r="6" fill="#ffffff"/>
+    <circle cx="-10" cy="27" r="3" fill="#1e1e1e"/>
+    <circle cx="20" cy="27" r="3" fill="#1e1e1e"/>
+    
+    <!-- Claws left -->
+    <ellipse cx="-70" cy="60" rx="20" ry="15" fill="#CE422B"/>
+    <ellipse cx="-85" cy="55" rx="12" ry="8" fill="#CE422B"/>
+    <ellipse cx="-90" cy="65" rx="12" ry="8" fill="#CE422B"/>
+    
+    <!-- Claws right -->
+    <ellipse cx="70" cy="60" rx="20" ry="15" fill="#CE422B"/>
+    <ellipse cx="85" cy="55" rx="12" ry="8" fill="#CE422B"/>
+    <ellipse cx="90" cy="65" rx="12" ry="8" fill="#CE422B"/>
+    
+    <!-- Legs left -->
+    <line x1="-45" y1="70" x2="-60" y2="95" stroke="#CE422B" stroke-width="8" stroke-linecap="round"/>
+    <line x1="-35" y1="75" x2="-45" y2="100" stroke="#CE422B" stroke-width="8" stroke-linecap="round"/>
+    <line x1="-25" y1="78" x2="-30" y2="105" stroke="#CE422B" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Legs right -->
+    <line x1="45" y1="70" x2="60" y2="95" stroke="#CE422B" stroke-width="8" stroke-linecap="round"/>
+    <line x1="35" y1="75" x2="45" y2="100" stroke="#CE422B" stroke-width="8" stroke-linecap="round"/>
+    <line x1="25" y1="78" x2="30" y2="105" stroke="#CE422B" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Smile -->
+    <path d="M -20 55 Q 0 70 20 55" stroke="#1e1e1e" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Main title -->
+  <text x="340" y="110" class="text-white" font-size="52" font-weight="bold">Bootcamp Rust</text>
+  
+  <!-- Subtitle -->
+  <text x="340" y="155" class="text-secondary" font-size="28">Zero to Hero</text>
+  
+  <!-- Code snippet decoration -->
+  <g transform="translate(340, 175)">
+    <text class="code" font-size="16">
+      <tspan class="keyword">fn</tspan>
+      <tspan class="function"> main</tspan>
+      <tspan class="text-primary">() {</tspan>
+      <tspan class="function"> println!</tspan>
+      <tspan class="text-primary">(</tspan>
+      <tspan class="string">"Hello, Rustacean!"</tspan>
+      <tspan class="text-primary">); }</tspan>
+    </text>
+  </g>
+  
+  <!-- Info badges -->
+  <g transform="translate(340, 220)">
+    <!-- Duration badge -->
+    <rect x="0" y="0" width="120" height="28" rx="4" fill="#252526"/>
+    <text x="60" y="19" class="text-primary" font-size="13" text-anchor="middle">📅 16 semanas</text>
+    
+    <!-- Hours badge -->
+    <rect x="130" y="0" width="100" height="28" rx="4" fill="#252526"/>
+    <text x="180" y="19" class="text-primary" font-size="13" text-anchor="middle">⏱️ 64 horas</text>
+    
+    <!-- Docker badge -->
+    <rect x="240" y="0" width="90" height="28" rx="4" fill="#252526"/>
+    <text x="285" y="19" class="text-primary" font-size="13" text-anchor="middle">🐳 Docker</text>
+  </g>
+  
+  <!-- Version and year -->
+  <g transform="translate(900, 250)">
+    <rect x="0" y="0" width="100" height="24" rx="12" fill="#CE422B"/>
+    <text x="50" y="16" class="text-white" font-size="12" text-anchor="middle" font-weight="bold">v1.0 • 2025</text>
+  </g>
+  
+  <!-- Decorative accent bar bottom -->
+  <rect class="accent" x="0" y="296" width="1200" height="4"/>
+</svg>

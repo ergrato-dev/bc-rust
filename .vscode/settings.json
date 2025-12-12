@@ -1,0 +1,139 @@
+{
+  // ═══════════════════════════════════════════════════════════════
+  // 🦀 BOOTCAMP RUST - PERFIL VS CODE
+  // ═══════════════════════════════════════════════════════════════
+  // ─────────────────────────────────────────────────────────────────
+  // 🎨 TEMA Y COLORES (Rust Orange #CE422B)
+  // ─────────────────────────────────────────────────────────────────
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#db6551",
+    "activityBar.background": "#db6551",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#61de73",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#db6551",
+    "sideBar.border": "#db6551",
+    "statusBar.background": "#ce422b",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#db6551",
+    "statusBarItem.remoteBackground": "#ce422b",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#ce422b",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#ce422b99",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#CE422B",
+  // ─────────────────────────────────────────────────────────────────
+  // 🦀 RUST ANALYZER
+  // ─────────────────────────────────────────────────────────────────
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.cargo.allFeatures": true,
+  "rust-analyzer.inlayHints.parameterHints.enable": true,
+  "rust-analyzer.inlayHints.typeHints.enable": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": true,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": true,
+  "rust-analyzer.lens.enable": true,
+  "rust-analyzer.lens.run.enable": true,
+  "rust-analyzer.lens.debug.enable": true,
+  "rust-analyzer.hover.actions.enable": true,
+  "rust-analyzer.procMacro.enable": true,
+  // ─────────────────────────────────────────────────────────────────
+  // ✏️ EDITOR
+  // ─────────────────────────────────────────────────────────────────
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.defaultFormatter": "rust-lang.rust-analyzer",
+  "editor.fontSize": 14,
+  "editor.fontFamily": "'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas, monospace",
+  "editor.fontLigatures": true,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.rulers": [
+    100
+  ],
+  "editor.wordWrap": "off",
+  "editor.minimap.enabled": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  // ─────────────────────────────────────────────────────────────────
+  // 📄 ARCHIVOS Y LENGUAJES
+  // ─────────────────────────────────────────────────────────────────
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    }
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "files.associations": {
+    "*.rs": "rust",
+    "Cargo.toml": "toml",
+    "Cargo.lock": "toml",
+    "*.md": "markdown"
+  },
+  // ─────────────────────────────────────────────────────────────────
+  // 📁 EXPLORADOR DE ARCHIVOS
+  // ─────────────────────────────────────────────────────────────────
+  "files.exclude": {
+    "**/target": true,
+    "**/.git": true,
+    "**/Cargo.lock": false
+  },
+  "files.watcherExclude": {
+    "**/target/**": true
+  },
+  "search.exclude": {
+    "**/target": true
+  },
+  // ─────────────────────────────────────────────────────────────────
+  // 🐳 DOCKER
+  // ─────────────────────────────────────────────────────────────────
+  "docker.showStartPage": false,
+  // ─────────────────────────────────────────────────────────────────
+  // 💻 TERMINAL
+  // ─────────────────────────────────────────────────────────────────
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.fontFamily": "'Fira Code', 'JetBrains Mono', monospace",
+  "terminal.integrated.fontSize": 13,
+  // ─────────────────────────────────────────────────────────────────
+  // 🔍 ERROR LENS
+  // ─────────────────────────────────────────────────────────────────
+  "errorLens.enabledDiagnosticLevels": [
+    "error",
+    "warning"
+  ],
+  "errorLens.fontSize": "12",
+  "errorLens.fontWeight": "normal",
+  // ─────────────────────────────────────────────────────────────────
+  // 🧪 TESTING
+  // ─────────────────────────────────────────────────────────────────
+  "testing.automaticallyOpenPeekView": "failureVisible",
+  // ─────────────────────────────────────────────────────────────────
+  // 📦 CRATES (Cargo.toml)
+  // ─────────────────────────────────────────────────────────────────
+  "crates.listPreReleases": false
+}

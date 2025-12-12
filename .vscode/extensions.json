@@ -1,0 +1,32 @@
+{
+  // ═══════════════════════════════════════════════════════════════
+  // 🦀 BOOTCAMP RUST - EXTENSIONES RECOMENDADAS
+  // ═══════════════════════════════════════════════════════════════
+  "recommendations": [
+    // Rust Core
+    "rust-lang.rust-analyzer",
+    "vadimcn.vscode-lldb",
+    // Cargo & TOML
+    "tamasfe.even-better-toml",
+    "serayuzgur.crates",
+    "fill-labs.dependi",
+    // Developer Experience
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-spanish",
+    // Docker & Containers
+    "ms-vscode-remote.remote-containers",
+    "ms-azuretools.vscode-docker",
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    // Markdown & Docs
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-preview-github-styles",
+    // Theme & Colors
+    "johnpapa.vscode-peacock",
+    // Icons
+    "pkief.material-icon-theme"
+  ],
+  "unwantedRecommendations": []
+}

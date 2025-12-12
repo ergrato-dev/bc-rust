@@ -1,0 +1,69 @@
+services:
+  # Contenedor principal de desarrollo
+  rust-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bc-rust-dev
+    volumes:
+      - .:/workspace
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/workspace/target
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    command: bash
+
+  # Contenedor para ejecutar código
+  rust-run:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/workspace/target
+    working_dir: /workspace
+    command: cargo run
+
+  # Contenedor para tests
+  rust-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/workspace/target
+    working_dir: /workspace
+    command: cargo test --workspace
+
+  # Contenedor para watch mode (hot reload)
+  rust-watch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/workspace/target
+    working_dir: /workspace
+    command: cargo watch -x run
+
+  # Contenedor para linting
+  rust-lint:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+      - cargo-cache:/usr/local/cargo/registry
+      - target-cache:/workspace/target
+    working_dir: /workspace
+    command: sh -c "cargo fmt --check && cargo clippy -- -D warnings"
+
+volumes:
+  cargo-cache:
+    name: bc-rust-cargo-cache
+  target-cache:
+    name: bc-rust-target-cache

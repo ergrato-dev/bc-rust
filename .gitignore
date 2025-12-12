@@ -1,0 +1,46 @@
+# Rust compiled files
+/target/
+**/target/
+
+# Cargo lock (for binaries, keep for libraries)
+# Cargo.lock
+
+# Editor directories and files
+.idea/
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Coverage reports
+*.profraw
+coverage/
+
+# Documentation build
+/doc/
+
+# Rust specific
+**/*.rs.bk
+
+# Environment
+.env
+.env.local
