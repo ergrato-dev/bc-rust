@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">Visibilidad en Rust</text>
+
+  <!-- Visibility levels -->
+  <rect x="30" y="55" width="840" height="120" rx="8" fill="#252526" stroke="#3c3c3c" stroke-width="1" filter="url(#shadow)"/>
+  <text x="450" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Niveles de Visibilidad</text>
+
+  <!-- Level boxes -->
+  <rect x="50" y="100" width="150" height="55" rx="6" fill="#2d2d2d" stroke="#f14c4c" stroke-width="2"/>
+  <text x="125" y="122" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#f14c4c">(privado)</text>
+  <text x="125" y="142" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Solo este módulo</text>
+
+  <rect x="220" y="100" width="150" height="55" rx="6" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="2"/>
+  <text x="295" y="122" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#dcdcaa">pub(super)</text>
+  <text x="295" y="142" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Módulo padre</text>
+
+  <rect x="390" y="100" width="150" height="55" rx="6" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="465" y="122" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#569cd6">pub(crate)</text>
+  <text x="465" y="142" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Todo el crate</text>
+
+  <rect x="560" y="100" width="150" height="55" rx="6" fill="#2d2d2d" stroke="#6a9955" stroke-width="2"/>
+  <text x="635" y="122" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#6a9955">pub</text>
+  <text x="635" y="142" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Público total</text>
+
+  <rect x="730" y="100" width="120" height="55" rx="6" fill="#2d2d2d" stroke="#c586c0" stroke-width="2"/>
+  <text x="790" y="122" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#c586c0">pub(in path)</text>
+  <text x="790" y="142" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Path específico</text>
+
+  <!-- Diagram -->
+  <rect x="30" y="190" width="420" height="330" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="220" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Ejemplo Visual</text>
+
+  <!-- Crate boundary -->
+  <rect x="50" y="240" width="380" height="260" rx="6" fill="none" stroke="#569cd6" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="60" y="260" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">crate</text>
+
+  <!-- Module A -->
+  <rect x="70" y="275" width="160" height="200" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="150" y="295" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0">mod padre</text>
+
+  <!-- Items in A -->
+  <rect x="85" y="310" width="130" height="25" rx="3" fill="#1e1e1e" stroke="#6a9955" stroke-width="1"/>
+  <text x="150" y="327" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">pub fn publica()</text>
+
+  <rect x="85" y="345" width="130" height="25" rx="3" fill="#1e1e1e" stroke="#569cd6" stroke-width="1"/>
+  <text x="150" y="362" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#569cd6">pub(crate) fn crate_()</text>
+
+  <rect x="85" y="380" width="130" height="25" rx="3" fill="#1e1e1e" stroke="#f14c4c" stroke-width="1"/>
+  <text x="150" y="397" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#f14c4c">fn privada()</text>
+
+  <!-- Submodule -->
+  <rect x="85" y="415" width="130" height="50" rx="3" fill="#1e1e1e" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="150" y="435" text-anchor="middle" font-family="'Fira Code', monospace" font-size="10" fill="#dcdcaa">mod hijo</text>
+  <text x="150" y="455" text-anchor="middle" font-family="'Fira Code', monospace" font-size="9" fill="#808080">pub(super) fn()</text>
+
+  <!-- Module B -->
+  <rect x="250" y="275" width="160" height="100" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="330" y="295" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0">mod otro</text>
+
+  <text x="265" y="320" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">✓ publica()</text>
+  <text x="265" y="340" font-family="'Fira Code', monospace" font-size="10" fill="#569cd6">✓ crate_()</text>
+  <text x="265" y="360" font-family="'Fira Code', monospace" font-size="10" fill="#f14c4c">✗ privada()</text>
+
+  <!-- Outside crate -->
+  <rect x="250" y="390" width="160" height="70" rx="4" fill="#2d2d2d" stroke="#808080" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="330" y="415" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">Código externo</text>
+  <text x="265" y="440" font-family="'Fira Code', monospace" font-size="10" fill="#6a9955">✓ publica()</text>
+  <text x="265" y="455" font-family="'Fira Code', monospace" font-size="10" fill="#f14c4c">✗ todo lo demás</text>
+
+  <!-- Struct example -->
+  <rect x="470" y="190" width="400" height="330" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="220" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Structs: Campos Individuales</text>
+
+  <text x="490" y="255" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">pub struct</text>
+  <text x="570" y="255" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0"> Usuario</text>
+  <text x="630" y="255" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> {</text>
+
+  <text x="510" y="280" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">pub</text>
+  <text x="540" y="280" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> nombre:</text>
+  <text x="610" y="280" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0"> String</text>
+  <text x="665" y="280" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">,</text>
+  <text x="700" y="280" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">// público</text>
+
+  <text x="510" y="305" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">pub</text>
+  <text x="540" y="305" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> email:</text>
+  <text x="600" y="305" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0"> String</text>
+  <text x="655" y="305" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">,</text>
+  <text x="700" y="305" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">// público</text>
+
+  <text x="510" y="330" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">password_hash:</text>
+  <text x="640" y="330" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0"> String</text>
+  <text x="695" y="330" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">,</text>
+  <text x="700" y="330" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f14c4c">// ¡privado!</text>
+
+  <text x="490" y="355" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">}</text>
+
+  <!-- Usage -->
+  <line x1="490" y1="375" x2="850" y2="375" stroke="#3c3c3c" stroke-width="1"/>
+
+  <text x="490" y="400" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// En código externo:</text>
+  <text x="490" y="425" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">usuario.nombre</text>
+  <text x="610" y="425" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">✓ OK</text>
+
+  <text x="490" y="450" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">usuario.email</text>
+  <text x="600" y="450" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">✓ OK</text>
+
+  <text x="490" y="475" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">usuario.password_hash</text>
+  <text x="680" y="475" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f14c4c">✗ Error!</text>
+
+  <text x="490" y="505" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">Los datos sensibles permanecen protegidos</text>
+</svg>

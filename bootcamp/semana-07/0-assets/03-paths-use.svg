@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">Paths y use</text>
+
+  <!-- use syntax -->
+  <rect x="30" y="55" width="420" height="220" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Sintaxis de use</text>
+
+  <text x="50" y="115" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// Importar un item</text>
+  <text x="50" y="135" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#d4d4d4"> std::collections::HashMap;</tspan>
+  </text>
+
+  <text x="50" y="160" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// Importar múltiples items</text>
+  <text x="50" y="180" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#d4d4d4"> std::io::{self, Read, Write};</tspan>
+  </text>
+
+  <text x="50" y="205" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// Renombrar con as</text>
+  <text x="50" y="225" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#d4d4d4"> std::fmt::Result</tspan><tspan fill="#569cd6"> as</tspan><tspan fill="#d4d4d4"> FmtResult;</tspan>
+  </text>
+
+  <text x="50" y="250" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// Re-exportar</text>
+  <text x="50" y="270" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">pub use</tspan><tspan fill="#d4d4d4"> interno::funcion;</tspan>
+  </text>
+
+  <!-- Path types -->
+  <rect x="470" y="55" width="400" height="220" rx="8" fill="#252526" stroke="#569cd6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Tipos de Paths</text>
+
+  <!-- Absolute -->
+  <rect x="490" y="105" width="360" height="50" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="500" y="125" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B" font-weight="600">Absoluto</text>
+  <text x="500" y="145" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">crate::</tspan><tspan fill="#d4d4d4">modulo::funcion()</tspan>
+  </text>
+
+  <!-- Self -->
+  <rect x="490" y="165" width="360" height="50" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="500" y="185" font-family="'Segoe UI', sans-serif" font-size="11" fill="#4ec9b0" font-weight="600">Módulo actual</text>
+  <text x="500" y="205" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">self::</tspan><tspan fill="#d4d4d4">funcion_local()</tspan>
+  </text>
+
+  <!-- Super -->
+  <rect x="490" y="225" width="360" height="50" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="500" y="245" font-family="'Segoe UI', sans-serif" font-size="11" fill="#dcdcaa" font-weight="600">Módulo padre</text>
+  <text x="500" y="265" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">super::</tspan><tspan fill="#d4d4d4">funcion_padre()</tspan>
+  </text>
+
+  <!-- Import order convention -->
+  <rect x="30" y="290" width="420" height="210" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="240" y="320" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Orden de Imports (Convención)</text>
+
+  <text x="50" y="350" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// 1. Biblioteca estándar</text>
+  <text x="50" y="370" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#d4d4d4"> std::collections::HashMap;</tspan>
+  </text>
+
+  <text x="50" y="395" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// 2. Crates externos</text>
+  <text x="50" y="415" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#d4d4d4"> serde::Serialize;</tspan>
+  </text>
+
+  <text x="50" y="440" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// 3. Crate actual</text>
+  <text x="50" y="460" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#569cd6"> crate::</tspan><tspan fill="#d4d4d4">config::Config;</tspan>
+  </text>
+
+  <text x="50" y="485" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">// 4. Relativos</text>
+  <text x="50" y="505" font-family="'Fira Code', monospace" font-size="11">
+    <tspan fill="#569cd6">use</tspan><tspan fill="#569cd6"> super::</tspan><tspan fill="#d4d4d4">padre;</tspan>
+  </text>
+
+  <!-- Best practices -->
+  <rect x="470" y="290" width="400" height="210" rx="8" fill="#252526" stroke="#6a9955" stroke-width="2" filter="url(#shadow)"/>
+  <text x="670" y="320" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">Convenciones</text>
+
+  <text x="490" y="355" font-family="'Segoe UI', sans-serif" font-size="12" fill="#6a9955">✓ Funciones: importar módulo padre</text>
+  <text x="510" y="375" font-family="'Fira Code', monospace" font-size="10" fill="#d4d4d4">use std::fs;</text>
+  <text x="510" y="390" font-family="'Fira Code', monospace" font-size="10" fill="#808080">fs::read_to_string()</text>
+
+  <text x="490" y="420" font-family="'Segoe UI', sans-serif" font-size="12" fill="#6a9955">✓ Structs/Enums: importar directamente</text>
+  <text x="510" y="440" font-family="'Fira Code', monospace" font-size="10" fill="#d4d4d4">use std::collections::HashMap;</text>
+  <text x="510" y="455" font-family="'Fira Code', monospace" font-size="10" fill="#808080">HashMap::new()</text>
+
+  <text x="490" y="485" font-family="'Segoe UI', sans-serif" font-size="12" fill="#f14c4c">✗ Evitar: use path::*</text>
+  <text x="510" y="500" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Glob imports ocultan dependencias</text>
+</svg>
