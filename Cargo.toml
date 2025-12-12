@@ -5,7 +5,12 @@ members = [
     # Semana 00 - Setup
     # "bootcamp/semana-00/2-practica/ejercicio-01-hello-world",
     
-    # Agregar ejercicios aquí conforme se crean
+    # Semana 07 - Módulos y Crates
+    "bootcamp/semana-07/2-practica/practica-01-modulos-basicos",
+    "bootcamp/semana-07/2-practica/practica-02-visibilidad",
+    "bootcamp/semana-07/2-practica/practica-03-estructura-archivos",
+    "bootcamp/semana-07/2-practica/practica-04-crates-externos",
+    "bootcamp/semana-07/3-proyecto/proyecto-geometria",
 ]
 
 [workspace.package]
