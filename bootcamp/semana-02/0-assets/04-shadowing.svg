@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 13px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="400"/>
+  
+  <text x="400" y="35" class="title" text-anchor="middle">🔄 Shadowing en Rust</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">Re-declarar una variable con el mismo nombre</text>
+  
+  <!-- Ejemplo básico -->
+  <g transform="translate(50, 80)">
+    <rect class="highlight" x="0" y="0" width="320" height="140" rx="6"/>
+    <text x="160" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Shadowing Básico</text>
+    
+    <text x="20" y="55" class="code"><tspan class="keyword">let</tspan> x = 5;</text>
+    <text x="200" y="55" class="text" fill="#808080">// x = 5</text>
+    <text x="20" y="80" class="code"><tspan class="keyword">let</tspan> x = x + 1;</text>
+    <text x="200" y="80" class="text" fill="#808080">// x = 6</text>
+    <text x="20" y="105" class="code"><tspan class="keyword">let</tspan> x = x * 2;</text>
+    <text x="200" y="105" class="text" fill="#808080">// x = 12</text>
+    <text x="20" y="130" class="code">println!("{}", x);</text>
+    <text x="200" y="130" class="text" fill="#4ec9b0">// 12</text>
+  </g>
+  
+  <!-- Cambio de tipo -->
+  <g transform="translate(430, 80)">
+    <rect class="highlight" x="0" y="0" width="320" height="140" rx="6"/>
+    <text x="160" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Cambio de Tipo</text>
+    
+    <text x="20" y="55" class="code"><tspan class="keyword">let</tspan> texto = "hola";</text>
+    <text x="210" y="55" class="text" fill="#808080">// &amp;str</text>
+    <text x="20" y="80" class="code"><tspan class="keyword">let</tspan> texto = texto.len();</text>
+    <text x="210" y="80" class="text" fill="#808080">// usize</text>
+    <text x="20" y="105" class="code">println!("{}", texto);</text>
+    <text x="210" y="105" class="text" fill="#4ec9b0">// 4</text>
+    <text x="20" y="130" class="text" fill="#6a9955">// ¡Diferente tipo, mismo nombre!</text>
+  </g>
+  
+  <!-- Comparación -->
+  <g transform="translate(50, 250)">
+    <rect class="box" x="0" y="0" width="700" height="120" rx="6"/>
+    <text x="350" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Shadowing vs Mutabilidad</text>
+    
+    <text x="30" y="55" class="text" font-weight="bold">Shadowing (let x = ...)</text>
+    <text x="30" y="75" class="text">• Crea nueva variable</text>
+    <text x="30" y="95" class="text">• Puede cambiar tipo</text>
+    <text x="30" y="115" class="text">• Requiere 'let' cada vez</text>
+    
+    <text x="380" y="55" class="text" font-weight="bold">Mutabilidad (let mut x)</text>
+    <text x="380" y="75" class="text">• Misma variable</text>
+    <text x="380" y="95" class="text">• NO puede cambiar tipo</text>
+    <text x="380" y="115" class="text">• Solo asigna (x = valor)</text>
+  </g>
+  
+  <text x="400" y="390" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 02</text>
+</svg>

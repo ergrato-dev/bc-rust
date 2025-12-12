@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 13px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .success { fill: #4ec9b0; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="400"/>
+  
+  <text x="400" y="35" class="title" text-anchor="middle">🔓 Variables Mutables</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">Usa 'mut' para permitir cambios en una variable</text>
+  
+  <!-- Código mutable -->
+  <g transform="translate(50, 80)">
+    <rect class="highlight" x="0" y="0" width="340" height="160" rx="6"/>
+    <text x="170" y="25" class="success" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Variable Mutable</text>
+    
+    <text x="20" y="55" class="code"><tspan class="keyword">let mut</tspan> contador = 0;</text>
+    <text x="20" y="80" class="code">println!("{}", contador); <tspan fill="#6a9955">// 0</tspan></text>
+    <text x="20" y="105" class="code">contador = contador + 1;</text>
+    <text x="20" y="130" class="code">println!("{}", contador); <tspan fill="#6a9955">// 1</tspan></text>
+    <text x="20" y="155" class="code">contador += 1; <tspan fill="#6a9955">// Shorthand</tspan></text>
+  </g>
+  
+  <!-- Comparación -->
+  <g transform="translate(430, 80)">
+    <rect class="box" x="0" y="0" width="320" height="160" rx="6"/>
+    <text x="160" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Comparación</text>
+    
+    <text x="20" y="55" class="code"><tspan class="keyword">let</tspan> x = 5;</text>
+    <text x="20" y="75" class="text" fill="#808080">→ Inmutable, no puede cambiar</text>
+    
+    <text x="20" y="105" class="code"><tspan class="keyword">let mut</tspan> y = 5;</text>
+    <text x="20" y="125" class="text" fill="#808080">→ Mutable, puede cambiar</text>
+    
+    <text x="20" y="155" class="code">y = 10; <tspan fill="#4ec9b0">// ✅ OK</tspan></text>
+  </g>
+  
+  <!-- Casos de uso -->
+  <g transform="translate(50, 270)">
+    <rect class="box" x="0" y="0" width="700" height="100" rx="6"/>
+    <text x="350" y="22" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">¿Cuándo usar mut?</text>
+    
+    <text x="30" y="50" class="text">✅ Contadores: <tspan class="code">let mut count = 0;</tspan></text>
+    <text x="30" y="75" class="text">✅ Acumuladores: <tspan class="code">let mut suma = 0;</tspan></text>
+    
+    <text x="380" y="50" class="text">✅ Estados: <tspan class="code">let mut activo = false;</tspan></text>
+    <text x="380" y="75" class="text">✅ Buffers: <tspan class="code">let mut vec = Vec::new();</tspan></text>
+  </g>
+  
+  <text x="400" y="390" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 02</text>
+</svg>

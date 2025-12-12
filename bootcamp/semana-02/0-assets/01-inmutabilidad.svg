@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 13px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .error { fill: #f44747; }
+    .success { fill: #4ec9b0; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="400"/>
+  
+  <text x="400" y="35" class="title" text-anchor="middle">🔒 Variables Inmutables</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">Por defecto, las variables en Rust no pueden cambiar</text>
+  
+  <!-- Código correcto -->
+  <g transform="translate(50, 80)">
+    <rect class="highlight" x="0" y="0" width="320" height="140" rx="6"/>
+    <text x="160" y="25" class="success" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">✅ Correcto</text>
+    
+    <text x="20" y="55" class="code"><tspan class="keyword">let</tspan> x = 5;</text>
+    <text x="20" y="80" class="code"><tspan class="keyword">let</tspan> y = x + 10;</text>
+    <text x="20" y="105" class="code">println!("{}", y);</text>
+    <text x="20" y="130" class="code" fill="#6a9955">// Output: 15</text>
+  </g>
+  
+  <!-- Código con error -->
+  <g transform="translate(430, 80)">
+    <rect class="box" x="0" y="0" width="320" height="140" rx="6" stroke="#f44747"/>
+    <text x="160" y="25" class="error" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">❌ Error</text>
+    
+    <text x="20" y="55" class="code"><tspan class="keyword">let</tspan> x = 5;</text>
+    <text x="20" y="80" class="code"><tspan class="error">x = 10;</tspan>  <tspan fill="#6a9955">// ❌ Error!</tspan></text>
+    <text x="20" y="105" class="code">println!("{}", x);</text>
+  </g>
+  
+  <!-- Explicación -->
+  <g transform="translate(50, 250)">
+    <rect class="box" x="0" y="0" width="700" height="120" rx="6"/>
+    <text x="350" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">¿Por qué inmutable por defecto?</text>
+    
+    <text x="30" y="55" class="text">🔒 <tspan font-weight="bold">Seguridad:</tspan> Evita cambios accidentales que causan bugs</text>
+    <text x="30" y="80" class="text">🔮 <tspan font-weight="bold">Predecibilidad:</tspan> Si x=5, siempre será 5 en ese scope</text>
+    <text x="30" y="105" class="text">⚡ <tspan font-weight="bold">Optimización:</tspan> El compilador puede optimizar mejor valores fijos</text>
+    
+    <text x="400" y="55" class="text">🧵 <tspan font-weight="bold">Concurrencia:</tspan> Datos inmutables son thread-safe</text>
+    <text x="400" y="80" class="text">📖 <tspan font-weight="bold">Legibilidad:</tspan> Más fácil razonar sobre el código</text>
+    <text x="400" y="105" class="text">🎯 <tspan font-weight="bold">Intención:</tspan> mut es explícito cuando lo necesitas</text>
+  </g>
+  
+  <text x="400" y="390" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 02</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 20px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 13px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 11px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .type { fill: #4ec9b0; font-weight: bold; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="350"/>
+  
+  <text x="400" y="30" class="title" text-anchor="middle">🔢 Rangos de Tipos Enteros</text>
+  
+  <!-- Tabla de tipos -->
+  <g transform="translate(50, 50)">
+    <!-- Header -->
+    <rect x="0" y="0" width="700" height="30" fill="#333333" rx="4"/>
+    <text x="60" y="20" class="text" fill="#ffffff" font-weight="bold">Tipo</text>
+    <text x="140" y="20" class="text" fill="#ffffff" font-weight="bold">Bits</text>
+    <text x="220" y="20" class="text" fill="#ffffff" font-weight="bold">Mínimo</text>
+    <text x="380" y="20" class="text" fill="#ffffff" font-weight="bold">Máximo</text>
+    <text x="560" y="20" class="text" fill="#ffffff" font-weight="bold">Uso típico</text>
+    
+    <!-- i8 -->
+    <rect x="0" y="35" width="700" height="28" fill="#252526"/>
+    <text x="60" y="53" class="code type">i8</text>
+    <text x="140" y="53" class="text">8</text>
+    <text x="220" y="53" class="code">-128</text>
+    <text x="380" y="53" class="code">127</text>
+    <text x="560" y="53" class="text">Datos pequeños</text>
+    
+    <!-- u8 -->
+    <rect x="0" y="63" width="700" height="28" fill="#2d2d2d"/>
+    <text x="60" y="81" class="code type">u8</text>
+    <text x="140" y="81" class="text">8</text>
+    <text x="220" y="81" class="code">0</text>
+    <text x="380" y="81" class="code">255</text>
+    <text x="560" y="81" class="text">Bytes, ASCII, colores</text>
+    
+    <!-- i32 -->
+    <rect x="0" y="91" width="700" height="28" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+    <text x="60" y="109" class="code type">i32 ★</text>
+    <text x="140" y="109" class="text">32</text>
+    <text x="220" y="109" class="code">-2,147,483,648</text>
+    <text x="380" y="109" class="code">2,147,483,647</text>
+    <text x="560" y="109" class="text" fill="#CE422B">Default, uso general</text>
+    
+    <!-- u32 -->
+    <rect x="0" y="119" width="700" height="28" fill="#2d2d2d"/>
+    <text x="60" y="137" class="code type">u32</text>
+    <text x="140" y="137" class="text">32</text>
+    <text x="220" y="137" class="code">0</text>
+    <text x="380" y="137" class="code">4,294,967,295</text>
+    <text x="560" y="137" class="text">IDs, contadores</text>
+    
+    <!-- i64 -->
+    <rect x="0" y="147" width="700" height="28" fill="#252526"/>
+    <text x="60" y="165" class="code type">i64</text>
+    <text x="140" y="165" class="text">64</text>
+    <text x="220" y="165" class="code">-9.2×10¹⁸</text>
+    <text x="380" y="165" class="code">9.2×10¹⁸</text>
+    <text x="560" y="165" class="text">Timestamps, grandes</text>
+    
+    <!-- usize -->
+    <rect x="0" y="175" width="700" height="28" fill="#2d2d2d"/>
+    <text x="60" y="193" class="code type">usize</text>
+    <text x="140" y="193" class="text">32/64</text>
+    <text x="220" y="193" class="code">0</text>
+    <text x="380" y="193" class="code">depende arch</text>
+    <text x="560" y="193" class="text">Índices, tamaños</text>
+    
+    <!-- f32 -->
+    <rect x="0" y="208" width="700" height="28" fill="#252526"/>
+    <text x="60" y="226" class="code type">f32</text>
+    <text x="140" y="226" class="text">32</text>
+    <text x="220" y="226" class="code">~7 dígitos precisión</text>
+    <text x="380" y="226" class="code">±3.4×10³⁸</text>
+    <text x="560" y="226" class="text">Gráficos, juegos</text>
+    
+    <!-- f64 -->
+    <rect x="0" y="236" width="700" height="28" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+    <text x="60" y="254" class="code type">f64 ★</text>
+    <text x="140" y="254" class="text">64</text>
+    <text x="220" y="254" class="code">~15 dígitos precisión</text>
+    <text x="380" y="254" class="code">±1.8×10³⁰⁸</text>
+    <text x="560" y="254" class="text" fill="#CE422B">Default flotante</text>
+  </g>
+  
+  <text x="400" y="320" class="text" fill="#CE422B">★ = Tipo por defecto cuando no se especifica</text>
+  <text x="400" y="340" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 02</text>
+</svg>

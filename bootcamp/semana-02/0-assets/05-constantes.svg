@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .string { fill: #ce9178; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="400"/>
+  
+  <text x="400" y="35" class="title" text-anchor="middle">📌 Constantes en Rust</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">const vs static vs let</text>
+  
+  <!-- const -->
+  <g transform="translate(30, 80)">
+    <rect class="highlight" x="0" y="0" width="235" height="150" rx="6"/>
+    <text x="117" y="25" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">const</text>
+    
+    <text x="15" y="50" class="code"><tspan class="keyword">const</tspan> PI: <tspan class="type">f64</tspan> = 3.14;</text>
+    <text x="15" y="75" class="text">• Valor fijo en compilación</text>
+    <text x="15" y="95" class="text">• Tipo obligatorio</text>
+    <text x="15" y="115" class="text">• SCREAMING_CASE</text>
+    <text x="15" y="135" class="text">• Se "copia" donde se usa</text>
+  </g>
+  
+  <!-- static -->
+  <g transform="translate(282, 80)">
+    <rect class="box" x="0" y="0" width="235" height="150" rx="6"/>
+    <text x="117" y="25" fill="#808080" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">static</text>
+    
+    <text x="15" y="50" class="code"><tspan class="keyword">static</tspan> MSG: <tspan class="type">&amp;str</tspan> = <tspan class="string">"Hi"</tspan>;</text>
+    <text x="15" y="75" class="text">• Ubicación fija en memoria</text>
+    <text x="15" y="95" class="text">• Tipo obligatorio</text>
+    <text x="15" y="115" class="text">• SCREAMING_CASE</text>
+    <text x="15" y="135" class="text">• Una sola instancia</text>
+  </g>
+  
+  <!-- let -->
+  <g transform="translate(534, 80)">
+    <rect class="box" x="0" y="0" width="235" height="150" rx="6"/>
+    <text x="117" y="25" fill="#808080" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">let</text>
+    
+    <text x="15" y="50" class="code"><tspan class="keyword">let</tspan> x = 5;</text>
+    <text x="15" y="75" class="text">• Valor en runtime</text>
+    <text x="15" y="95" class="text">• Tipo inferible</text>
+    <text x="15" y="115" class="text">• snake_case</text>
+    <text x="15" y="135" class="text">• Vive en el stack</text>
+  </g>
+  
+  <!-- Cuándo usar -->
+  <g transform="translate(30, 255)">
+    <rect class="box" x="0" y="0" width="740" height="115" rx="6"/>
+    <text x="370" y="22" fill="#CE422B" font-family="Inter, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">¿Cuándo usar cada uno?</text>
+    
+    <text x="25" y="50" class="text" font-weight="bold" fill="#4ec9b0">const</text>
+    <text x="25" y="70" class="text">Configuración, valores matemáticos</text>
+    <text x="25" y="90" class="code">const MAX_USERS: u32 = 100;</text>
+    
+    <text x="280" y="50" class="text" font-weight="bold" fill="#808080">static</text>
+    <text x="280" y="70" class="text">Datos globales, interop con C</text>
+    <text x="280" y="90" class="code">static DATA: &amp;[u8] = &amp;[1,2,3];</text>
+    
+    <text x="530" y="50" class="text" font-weight="bold" fill="#808080">let</text>
+    <text x="530" y="70" class="text">Variables normales, runtime</text>
+    <text x="530" y="90" class="code">let result = calculate();</text>
+  </g>
+  
+  <text x="400" y="390" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 02</text>
+</svg>

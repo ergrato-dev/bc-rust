@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 20px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 12px; fill: #808080; }
+    .text { font-family: Inter, 'Segoe UI', Roboto, sans-serif; font-size: 11px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 11px; fill: #d4d4d4; }
+    .type { fill: #4ec9b0; font-weight: bold; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <rect class="bg" width="800" height="500"/>
+  
+  <text x="400" y="30" class="title" text-anchor="middle">📊 Tipos Primitivos de Rust</text>
+  
+  <!-- Enteros con signo -->
+  <g transform="translate(30, 50)">
+    <rect class="highlight" x="0" y="0" width="175" height="170" rx="6"/>
+    <text x="87" y="20" class="type" text-anchor="middle">Enteros (signo)</text>
+    
+    <text x="10" y="45" class="code">i8   <tspan fill="#808080">-128 a 127</tspan></text>
+    <text x="10" y="65" class="code">i16  <tspan fill="#808080">±32K</tspan></text>
+    <text x="10" y="85" class="code">i32  <tspan fill="#808080">±2.1B</tspan> <tspan fill="#CE422B">★</tspan></text>
+    <text x="10" y="105" class="code">i64  <tspan fill="#808080">±9.2×10¹⁸</tspan></text>
+    <text x="10" y="125" class="code">i128 <tspan fill="#808080">±1.7×10³⁸</tspan></text>
+    <text x="10" y="145" class="code">isize <tspan fill="#808080">arch</tspan></text>
+    <text x="10" y="165" class="text" fill="#CE422B">★ Default</text>
+  </g>
+  
+  <!-- Enteros sin signo -->
+  <g transform="translate(220, 50)">
+    <rect class="box" x="0" y="0" width="175" height="170" rx="6"/>
+    <text x="87" y="20" class="type" text-anchor="middle">Enteros (sin signo)</text>
+    
+    <text x="10" y="45" class="code">u8   <tspan fill="#808080">0 a 255</tspan></text>
+    <text x="10" y="65" class="code">u16  <tspan fill="#808080">0 a 65K</tspan></text>
+    <text x="10" y="85" class="code">u32  <tspan fill="#808080">0 a 4.2B</tspan></text>
+    <text x="10" y="105" class="code">u64  <tspan fill="#808080">0 a 1.8×10¹⁹</tspan></text>
+    <text x="10" y="125" class="code">u128 <tspan fill="#808080">0 a 3.4×10³⁸</tspan></text>
+    <text x="10" y="145" class="code">usize <tspan fill="#808080">arch</tspan></text>
+    <text x="10" y="165" class="text" fill="#808080">Para índices</text>
+  </g>
+  
+  <!-- Flotantes -->
+  <g transform="translate(410, 50)">
+    <rect class="highlight" x="0" y="0" width="175" height="170" rx="6"/>
+    <text x="87" y="20" class="type" text-anchor="middle">Flotantes</text>
+    
+    <text x="10" y="55" class="code">f32</text>
+    <text x="10" y="75" class="text" fill="#808080">32 bits, ~7 dígitos</text>
+    
+    <text x="10" y="105" class="code">f64 <tspan fill="#CE422B">★</tspan></text>
+    <text x="10" y="125" class="text" fill="#808080">64 bits, ~15 dígitos</text>
+    
+    <text x="10" y="155" class="text" fill="#CE422B">★ Default</text>
+  </g>
+  
+  <!-- Bool y Char -->
+  <g transform="translate(600, 50)">
+    <rect class="box" x="0" y="0" width="175" height="170" rx="6"/>
+    <text x="87" y="20" class="type" text-anchor="middle">Bool &amp; Char</text>
+    
+    <text x="10" y="50" class="code">bool</text>
+    <text x="10" y="70" class="text" fill="#808080">true / false</text>
+    <text x="10" y="90" class="text" fill="#808080">1 byte</text>
+    
+    <text x="10" y="120" class="code">char</text>
+    <text x="10" y="140" class="text" fill="#808080">Unicode (4 bytes)</text>
+    <text x="10" y="160" class="text" fill="#808080">'R', '🦀', '中'</text>
+  </g>
+  
+  <!-- Ejemplos -->
+  <g transform="translate(30, 240)">
+    <rect class="box" x="0" y="0" width="740" height="130" rx="6"/>
+    <text x="370" y="20" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Ejemplos de Declaración</text>
+    
+    <text x="20" y="50" class="code"><tspan fill="#569cd6">let</tspan> edad: <tspan class="type">u8</tspan> = 25;</text>
+    <text x="20" y="70" class="code"><tspan fill="#569cd6">let</tspan> precio: <tspan class="type">f64</tspan> = 99.99;</text>
+    <text x="20" y="90" class="code"><tspan fill="#569cd6">let</tspan> activo: <tspan class="type">bool</tspan> = true;</text>
+    <text x="20" y="110" class="code"><tspan fill="#569cd6">let</tspan> inicial: <tspan class="type">char</tspan> = 'R';</text>
+    
+    <text x="300" y="50" class="code"><tspan fill="#569cd6">let</tspan> numero = 42; <tspan fill="#808080">// i32 inferido</tspan></text>
+    <text x="300" y="70" class="code"><tspan fill="#569cd6">let</tspan> decimal = 3.14; <tspan fill="#808080">// f64 inferido</tspan></text>
+    <text x="300" y="90" class="code"><tspan fill="#569cd6">let</tspan> hex = 0xff; <tspan fill="#808080">// 255</tspan></text>
+    <text x="300" y="110" class="code"><tspan fill="#569cd6">let</tspan> binario = 0b1010; <tspan fill="#808080">// 10</tspan></text>
+    
+    <text x="560" y="50" class="code"><tspan fill="#569cd6">let</tspan> grande = 1_000_000;</text>
+    <text x="560" y="70" class="code"><tspan fill="#569cd6">let</tspan> byte = b'A'; <tspan fill="#808080">// u8: 65</tspan></text>
+    <text x="560" y="90" class="code"><tspan fill="#569cd6">let</tspan> sufijo = 42<tspan class="type">i64</tspan>;</text>
+  </g>
+  
+  <!-- Guía rápida -->
+  <g transform="translate(30, 390)">
+    <rect class="box" x="0" y="0" width="740" height="80" rx="6"/>
+    <text x="370" y="20" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">¿Qué Tipo Usar?</text>
+    
+    <text x="30" y="50" class="text">📊 General → <tspan class="type">i32</tspan></text>
+    <text x="150" y="50" class="text">📏 Índices → <tspan class="type">usize</tspan></text>
+    <text x="280" y="50" class="text">💾 Bytes → <tspan class="type">u8</tspan></text>
+    <text x="390" y="50" class="text">💰 Dinero → <tspan class="type">f64</tspan></text>
+    <text x="510" y="50" class="text">✅ Flags → <tspan class="type">bool</tspan></text>
+    <text x="630" y="50" class="text">🔤 Letra → <tspan class="type">char</tspan></text>
+  </g>
+  
+  <text x="400" y="490" class="subtitle" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 02</text>
+</svg>
