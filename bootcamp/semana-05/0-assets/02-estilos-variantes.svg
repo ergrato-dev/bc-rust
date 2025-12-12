@@ -9,7 +9,7 @@
     .string { fill: #ce9178; }
     .number { fill: #b5cea8; }
     .label { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
-    .label-white { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .label-white { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #ffffff; font-weight: 600; }
     .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; rx: 6; }
     .accent { fill: #CE422B; }
   </style>
@@ -22,7 +22,7 @@
   <!-- Estilo 1: Unit -->
   <rect x="30" y="55" width="240" height="150" class="box"/>
   <rect x="30" y="55" width="240" height="28" rx="6" fill="#CE422B"/>
-  <text x="150" y="75" text-anchor="middle" class="label-white">Unit (Sin datos)</text>
+  <text x="150" y="75" text-anchor="middle" class="label-white" fill="#ffffff">Unit (Sin datos)</text>
   
   <text x="50" y="105" class="code"><tspan class="keyword">enum</tspan> <tspan class="type">Comando</tspan> {</text>
   <text x="50" y="125" class="code">    <tspan class="variant">Pausar</tspan>,</text>
@@ -43,7 +43,7 @@
   <!-- Estilo 2: Tuple -->
   <rect x="280" y="55" width="240" height="150" class="box"/>
   <rect x="280" y="55" width="240" height="28" rx="6" fill="#569cd6"/>
-  <text x="400" y="75" text-anchor="middle" class="label-white">Tuple (Datos posicionales)</text>
+  <text x="400" y="75" text-anchor="middle" class="label-white" fill="#ffffff">Tuple (Datos posicionales)</text>
   
   <text x="300" y="105" class="code"><tspan class="keyword">enum</tspan> <tspan class="type">Evento</tspan> {</text>
   <text x="300" y="125" class="code">    <tspan class="variant">Click</tspan>(<tspan class="type">i32</tspan>, <tspan class="type">i32</tspan>),</text>
