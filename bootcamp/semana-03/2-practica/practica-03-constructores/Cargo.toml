@@ -1,0 +1,8 @@
+[package]
+name = "practica-03-constructores"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica: Funciones asociadas y constructores"
+authors = ["Bootcamp Rust"]
+
+[dependencies]
