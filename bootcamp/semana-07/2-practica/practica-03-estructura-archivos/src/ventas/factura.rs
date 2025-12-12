@@ -157,7 +157,7 @@ mod tests {
         let factura = Factura::desde_carrito(&carrito, "Juan");
         let texto = factura.generar();
 
-        assert!(texto.contains("FACTURA"));
+        assert!(texto.contains("F A C T U R A"));
         assert!(texto.contains("Juan"));
         assert!(texto.contains("Producto A"));
         assert!(texto.contains("TOTAL"));

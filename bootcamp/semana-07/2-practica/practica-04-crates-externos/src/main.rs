@@ -256,7 +256,7 @@ fn main() {
 
     let mut tarea_urgente = Tarea::nueva("Revisar código", Some(1));
     let tarea_normal = Tarea::nueva("Documentar API", Some(7));
-    let mut tarea_vencida = Tarea::nueva("Tarea atrasada", Some(-2)); // Vencida hace 2 días
+    let tarea_vencida = Tarea::nueva("Tarea atrasada", Some(-2)); // Vencida hace 2 días
     let tarea_sin_limite = Tarea::nueva("Tarea eventual", None);
 
     println!("Tarea urgente: {}", tarea_urgente.descripcion_tiempo());
