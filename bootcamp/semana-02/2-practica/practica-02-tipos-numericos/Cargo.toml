@@ -1,0 +1,8 @@
+[package]
+name = "practica-02-tipos-numericos"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica: Tipos numéricos enteros y flotantes"
+authors = ["Bootcamp Rust"]
+
+[dependencies]
