@@ -237,16 +237,64 @@ Cada sesión de 4 horas sigue esta estructura:
 
 ## 🤝 Contribuir
 
-¡Las contribuciones son bienvenidas! Por favor, lee [CONTRIBUTING.md](CONTRIBUTING.md) antes de enviar un PR.
+¡Las contribuciones son bienvenidas! Este es un proyecto **open source** y valoramos tu participación.
+
+### Formas de Contribuir
+
+- 📚 **Contenido**: Mejorar explicaciones, agregar ejemplos
+- 💻 **Código**: Nuevos ejercicios, mejoras, tests
+- 🐛 **Bugs**: Reportar errores en contenido o código
+- 🎨 **Diseño**: Crear diagramas SVG educativos
+- 🌐 **Traducciones**: Traducir contenido a otros idiomas
+
+### Primeros Pasos
+
+1. Lee nuestra [Guía de Contribución](CONTRIBUTING.md)
+2. Revisa el [Código de Conducta](CODE_OF_CONDUCT.md)
+3. Busca issues con etiqueta `good first issue`
+4. ¡Haz tu primer PR!
+
+---
+
+## 🔒 Seguridad
+
+Para reportar vulnerabilidades de seguridad, consulta nuestra [Política de Seguridad](SECURITY.md).
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la licencia **MIT**. Ver [LICENSE](LICENSE) para más detalles.
+
+Esto significa que puedes:
+- ✅ Usar el material libremente
+- ✅ Modificar y adaptar
+- ✅ Distribuir copias
+- ✅ Uso comercial
+
+---
+
+## 🙏 Agradecimientos
+
+- 🦀 [Rust Community](https://www.rust-lang.org/community) por el increíble lenguaje
+- 📚 [The Rust Book](https://doc.rust-lang.org/book/) como referencia principal
+- 🐳 [Docker](https://www.docker.com/) por el entorno containerizado
+- 💜 Todos los contribuidores del proyecto
+
+---
+
+## ⭐ Apoya el Proyecto
+
+Si este bootcamp te es útil:
+
+- ⭐ Dale una estrella al repositorio
+- 🔀 Compártelo con otros
+- 🤝 Contribuye con mejoras
+- 📢 Menciónalo en redes sociales
 
 ---
 
 **Última actualización**: Diciembre 2025  
 **Versión**: 1.0  
-**Autor**: [ergrato-dev](https://github.com/ergrato-dev)
+**Autor**: [ergrato-dev](https://github.com/ergrato-dev)  
+**Licencia**: MIT
