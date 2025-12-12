@@ -38,7 +38,7 @@
   <!-- Lado derecho: if let -->
   <rect x="420" y="60" width="350" height="200" class="box" stroke="#4ec9b0"/>
   <rect x="420" y="60" width="350" height="30" rx="6" fill="#4ec9b0"/>
-  <text x="595" y="82" text-anchor="middle" class="label" fill="#1e1e1e" style="font-size: 14px; font-weight: 600;">if let</text>
+  <text x="595" y="82" text-anchor="middle" class="label" fill="#ffffff" style="font-size: 14px; font-weight: 600;">if let</text>
   
   <text x="440" y="115" class="code"><tspan class="keyword">if let</tspan> <tspan class="type">Ok</tspan>(valor) = resultado {</text>
   <text x="440" y="140" class="code">    procesar(valor)</text>
