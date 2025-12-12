@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="450"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" class="title" text-anchor="middle">🔄 Preview: Ownership (Semana 02)</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">El concepto más importante y único de Rust</text>
+  
+  <!-- Three rules -->
+  <g transform="translate(50, 80)">
+    <text x="0" y="0" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold">Las 3 Reglas de Ownership</text>
+    
+    <!-- Rule 1 -->
+    <g transform="translate(0, 25)">
+      <rect class="highlight" x="0" y="0" width="220" height="80" rx="6"/>
+      <text x="110" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">1</text>
+      <text x="110" y="50" class="text" text-anchor="middle">Cada valor tiene un</text>
+      <text x="110" y="68" class="text" text-anchor="middle" font-weight="bold">único dueño</text>
+    </g>
+    
+    <!-- Rule 2 -->
+    <g transform="translate(240, 25)">
+      <rect class="highlight" x="0" y="0" width="220" height="80" rx="6"/>
+      <text x="110" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">2</text>
+      <text x="110" y="50" class="text" text-anchor="middle">Solo un dueño</text>
+      <text x="110" y="68" class="text" text-anchor="middle" font-weight="bold">a la vez</text>
+    </g>
+    
+    <!-- Rule 3 -->
+    <g transform="translate(480, 25)">
+      <rect class="highlight" x="0" y="0" width="220" height="80" rx="6"/>
+      <text x="110" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">3</text>
+      <text x="110" y="50" class="text" text-anchor="middle">El valor se libera cuando</text>
+      <text x="110" y="68" class="text" text-anchor="middle" font-weight="bold">el dueño sale del scope</text>
+    </g>
+  </g>
+  
+  <!-- Visual diagram -->
+  <g transform="translate(50, 200)">
+    <text x="0" y="0" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="16" font-weight="bold">Visualización</text>
+    
+    <!-- Stack -->
+    <g transform="translate(0, 25)">
+      <rect class="box" x="0" y="0" width="150" height="150" rx="6"/>
+      <text x="75" y="20" class="subtitle" text-anchor="middle">Stack</text>
+      
+      <rect x="15" y="35" width="120" height="30" fill="#2d2d2d" stroke="#CE422B" stroke-width="1" rx="3"/>
+      <text x="75" y="55" class="text" text-anchor="middle">s → ptr</text>
+      
+      <rect x="15" y="75" width="120" height="30" fill="#2d2d2d" stroke="#3c3c3c" stroke-width="1" rx="3"/>
+      <text x="75" y="95" class="text" text-anchor="middle">len: 5</text>
+      
+      <rect x="15" y="115" width="120" height="30" fill="#2d2d2d" stroke="#3c3c3c" stroke-width="1" rx="3"/>
+      <text x="75" y="135" class="text" text-anchor="middle">cap: 5</text>
+    </g>
+    
+    <!-- Arrow -->
+    <path d="M 160 90 L 230 90" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    
+    <!-- Heap -->
+    <g transform="translate(240, 25)">
+      <rect class="box" x="0" y="0" width="200" height="150" rx="6"/>
+      <text x="100" y="20" class="subtitle" text-anchor="middle">Heap</text>
+      
+      <g transform="translate(15, 40)">
+        <rect x="0" y="0" width="30" height="25" fill="#CE422B" rx="2"/>
+        <text x="15" y="17" class="text" text-anchor="middle" fill="#ffffff">'H'</text>
+        
+        <rect x="35" y="0" width="30" height="25" fill="#CE422B" rx="2"/>
+        <text x="50" y="17" class="text" text-anchor="middle" fill="#ffffff">'e'</text>
+        
+        <rect x="70" y="0" width="30" height="25" fill="#CE422B" rx="2"/>
+        <text x="85" y="17" class="text" text-anchor="middle" fill="#ffffff">'l'</text>
+        
+        <rect x="105" y="0" width="30" height="25" fill="#CE422B" rx="2"/>
+        <text x="120" y="17" class="text" text-anchor="middle" fill="#ffffff">'l'</text>
+        
+        <rect x="140" y="0" width="30" height="25" fill="#CE422B" rx="2"/>
+        <text x="155" y="17" class="text" text-anchor="middle" fill="#ffffff">'o'</text>
+      </g>
+      
+      <text x="100" y="95" class="label" text-anchor="middle">String "Hello"</text>
+      <text x="100" y="115" class="label" text-anchor="middle">almacenado en heap</text>
+      <text x="100" y="135" class="label" text-anchor="middle">(memoria dinámica)</text>
+    </g>
+    
+    <!-- What this prevents -->
+    <g transform="translate(480, 25)">
+      <rect class="box" x="0" y="0" width="220" height="150" rx="6"/>
+      <text x="110" y="20" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">¿Qué previene?</text>
+      
+      <text x="20" y="50" class="text">❌ Double free</text>
+      <text x="20" y="75" class="text">❌ Use after free</text>
+      <text x="20" y="100" class="text">❌ Memory leaks</text>
+      <text x="20" y="125" class="text">❌ Data races</text>
+    </g>
+  </g>
+  
+  <!-- Coming next -->
+  <g transform="translate(50, 400)">
+    <rect class="box" x="0" y="0" width="700" height="35" rx="6"/>
+    <text x="350" y="22" class="subtitle" text-anchor="middle">📅 Semana 02: Profundizaremos en Ownership, Borrowing y References</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="448" font-family="Segoe UI, sans-serif" font-size="10" fill="#808080" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 01</text>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>

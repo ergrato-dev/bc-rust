@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    .bg { fill: #1e1e1e; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; fill: #ffffff; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .string { fill: #ce9178; }
+    .function { fill: #dcdcaa; }
+    .macro { fill: #4ec9b0; }
+    .comment { fill: #6a9955; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .output { fill: #1e1e1e; stroke: #454545; stroke-width: 1; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="400"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" class="title" text-anchor="middle">🎉 Tu Primer Programa en Rust</text>
+  <text x="400" y="55" class="subtitle" text-anchor="middle">Hello, World! - El clásico de toda la vida</text>
+  
+  <!-- Code editor -->
+  <g transform="translate(50, 80)">
+    <rect class="highlight" x="0" y="0" width="400" height="180" rx="8"/>
+    
+    <!-- Title bar -->
+    <rect x="0" y="0" width="400" height="28" fill="#333333" rx="8"/>
+    <rect x="0" y="20" width="400" height="10" fill="#333333"/>
+    <circle cx="18" cy="14" r="6" fill="#ff5f57"/>
+    <circle cx="38" cy="14" r="6" fill="#febc2e"/>
+    <circle cx="58" cy="14" r="6" fill="#28c840"/>
+    <text x="200" y="18" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080" text-anchor="middle">main.rs</text>
+    
+    <!-- Line numbers -->
+    <text x="15" y="55" class="code" fill="#808080">1</text>
+    <text x="15" y="75" class="code" fill="#808080">2</text>
+    <text x="15" y="95" class="code" fill="#808080">3</text>
+    <text x="15" y="115" class="code" fill="#808080">4</text>
+    <text x="15" y="135" class="code" fill="#808080">5</text>
+    
+    <!-- Code -->
+    <text x="35" y="55" class="code"><tspan class="comment">// Mi primer programa en Rust</tspan></text>
+    <text x="35" y="75" class="code"><tspan class="keyword">fn</tspan> <tspan class="function">main</tspan>() {</text>
+    <text x="35" y="95" class="code">    <tspan class="macro">println!</tspan>(<tspan class="string">"Hello, World!"</tspan>);</text>
+    <text x="35" y="115" class="code">}</text>
+    <text x="35" y="135" class="code"></text>
+    
+    <!-- Annotations -->
+    <path d="M 390 75 L 420 75" stroke="#CE422B" stroke-width="1"/>
+    <text x="430" y="78" class="text" fill="#CE422B" font-size="11">Función principal</text>
+    
+    <path d="M 200 95 L 200 115 L 430 115" stroke="#CE422B" stroke-width="1" fill="none"/>
+    <text x="435" y="118" class="text" fill="#CE422B" font-size="11">Macro para imprimir</text>
+  </g>
+  
+  <!-- Terminal output -->
+  <g transform="translate(50, 280)">
+    <rect class="output" x="0" y="0" width="400" height="80" rx="6"/>
+    
+    <text x="15" y="20" class="code" fill="#808080">$</text>
+    <text x="30" y="20" class="code">cargo run</text>
+    
+    <text x="15" y="40" class="code" fill="#6a9955">   Compiling</text>
+    <text x="110" y="40" class="code">hello-world v0.1.0</text>
+    
+    <text x="15" y="55" class="code" fill="#6a9955">    Finished</text>
+    <text x="100" y="55" class="code">`dev` profile [unoptimized]</text>
+    
+    <text x="15" y="70" class="code" fill="#CE422B" font-weight="bold">Hello, World!</text>
+  </g>
+  
+  <!-- Explanation boxes -->
+  <g transform="translate(480, 80)">
+    <rect class="box" x="0" y="0" width="270" height="280" rx="6"/>
+    
+    <text x="135" y="25" fill="#CE422B" font-family="Segoe UI, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Anatomía del Código</text>
+    
+    <text x="15" y="55" class="code keyword">fn</text>
+    <text x="50" y="55" class="text">Define una función</text>
+    
+    <text x="15" y="85" class="code function">main()</text>
+    <text x="75" y="85" class="text">Punto de entrada</text>
+    
+    <text x="15" y="115" class="code">{ }</text>
+    <text x="50" y="115" class="text">Bloque de código</text>
+    
+    <text x="15" y="145" class="code macro">println!</text>
+    <text x="80" y="145" class="text">Macro de impresión</text>
+    
+    <text x="15" y="175" class="code string">"..."</text>
+    <text x="60" y="175" class="text">String literal</text>
+    
+    <text x="15" y="205" class="code">;</text>
+    <text x="35" y="205" class="text">Fin de expresión</text>
+    
+    <line x1="15" y1="225" x2="255" y2="225" stroke="#3c3c3c" stroke-width="1"/>
+    
+    <text x="15" y="250" class="text" fill="#808080">💡 println! es un macro,</text>
+    <text x="15" y="268" class="text" fill="#808080">   no una función (nota el !)</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="385" font-family="Segoe UI, sans-serif" font-size="10" fill="#808080" text-anchor="middle">Bootcamp Rust: Zero to Hero • Semana 01</text>
+</svg>

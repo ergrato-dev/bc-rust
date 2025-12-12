@@ -1,0 +1,8 @@
+[package]
+name = "proyecto-info-system"
+version = "0.1.0"
+edition = "2021"
+description = "Proyecto Semana 01: Sistema de Información Personal"
+authors = ["Bootcamp Rust"]
+
+[dependencies]
