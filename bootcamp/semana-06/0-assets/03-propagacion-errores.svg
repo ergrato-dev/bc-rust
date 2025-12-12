@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="22" fill="#CE422B" font-weight="600">Propagación de Errores con ?</text>
+
+  <!-- Without ? operator -->
+  <rect x="30" y="55" width="410" height="230" rx="8" fill="#252526" stroke="#f14c4c" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="55" width="410" height="35" rx="8" fill="#f14c4c"/>
+  <text x="235" y="78" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#ffffff" font-weight="600">❌ Sin el operador ?</text>
+
+  <text x="50" y="110" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="70" y="110" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa"> leer_config</text>
+  <text x="155" y="110" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">() -&gt; Result&lt;Config, Error&gt; {</text>
+
+  <text x="60" y="130" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="85" y="130" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> contenido =</text>
+  <text x="175" y="130" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6"> match</text>
+  <text x="215" y="130" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> read_file() {</text>
+
+  <text x="80" y="150" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0">Ok</text>
+  <text x="100" y="150" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">(c) =&gt; c,</text>
+
+  <text x="80" y="170" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0">Err</text>
+  <text x="105" y="170" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">(e) =&gt;</text>
+  <text x="155" y="170" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6"> return</text>
+  <text x="210" y="170" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0"> Err</text>
+  <text x="235" y="170" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">(e),</text>
+
+  <text x="60" y="190" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">};</text>
+
+  <text x="60" y="210" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="85" y="210" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> config =</text>
+  <text x="145" y="210" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6"> match</text>
+  <text x="185" y="210" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4"> parse(contenido) {</text>
+
+  <text x="80" y="230" font-family="'Fira Code', monospace" font-size="11" fill="#808080">// ... más match ...</text>
+
+  <text x="60" y="250" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">};</text>
+  <text x="60" y="270" font-family="'Fira Code', monospace" font-size="11" fill="#4ec9b0">Ok</text>
+  <text x="80" y="270" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">(config)</text>
+  <text x="50" y="275" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">}</text>
+
+  <!-- With ? operator -->
+  <rect x="460" y="55" width="410" height="230" rx="8" fill="#252526" stroke="#6a9955" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="460" y="55" width="410" height="35" rx="8" fill="#6a9955"/>
+  <text x="665" y="78" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" fill="#ffffff" font-weight="600">✓ Con el operador ?</text>
+
+  <text x="480" y="110" font-family="'Fira Code', monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="500" y="110" font-family="'Fira Code', monospace" font-size="11" fill="#dcdcaa"> leer_config</text>
+  <text x="585" y="110" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">() -&gt; Result&lt;Config, Error&gt; {</text>
+
+  <text x="490" y="145" font-family="'Fira Code', monospace" font-size="12" fill="#569cd6">let</text>
+  <text x="515" y="145" font-family="'Fira Code', monospace" font-size="12" fill="#d4d4d4"> contenido = read_file()</text>
+  <text x="695" y="145" font-family="'Fira Code', monospace" font-size="12" fill="#CE422B" font-weight="bold">?</text>
+  <text x="705" y="145" font-family="'Fira Code', monospace" font-size="12" fill="#d4d4d4">;</text>
+
+  <text x="490" y="175" font-family="'Fira Code', monospace" font-size="12" fill="#569cd6">let</text>
+  <text x="515" y="175" font-family="'Fira Code', monospace" font-size="12" fill="#d4d4d4"> config = parse(contenido)</text>
+  <text x="712" y="175" font-family="'Fira Code', monospace" font-size="12" fill="#CE422B" font-weight="bold">?</text>
+  <text x="722" y="175" font-family="'Fira Code', monospace" font-size="12" fill="#d4d4d4">;</text>
+
+  <text x="490" y="205" font-family="'Fira Code', monospace" font-size="12" fill="#4ec9b0">Ok</text>
+  <text x="510" y="205" font-family="'Fira Code', monospace" font-size="12" fill="#d4d4d4">(config)</text>
+
+  <text x="480" y="240" font-family="'Fira Code', monospace" font-size="11" fill="#d4d4d4">}</text>
+
+  <!-- Benefit note -->
+  <text x="490" y="270" font-family="'Segoe UI', sans-serif" font-size="11" fill="#808080">Menos código, misma funcionalidad</text>
+
+  <!-- How ? works -->
+  <rect x="30" y="300" width="840" height="200" rx="8" fill="#252526" stroke="#569cd6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="450" y="330" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#d4d4d4" font-weight="600">¿Cómo funciona el operador ?</text>
+
+  <!-- Flow diagram -->
+  <rect x="60" y="360" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="130" y="390" text-anchor="middle" font-family="'Fira Code', monospace" font-size="12" fill="#569cd6">operacion()?</text>
+
+  <line x1="200" y1="385" x2="260" y2="385" stroke="#CE422B" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Decision diamond -->
+  <polygon points="330,360 390,385 330,410 270,385" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="330" y="390" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#d4d4d4">Result?</text>
+
+  <!-- Ok path -->
+  <line x1="390" y1="385" x2="450" y2="385" stroke="#6a9955" stroke-width="2"/>
+  <text x="420" y="375" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6a9955">Ok</text>
+  <rect x="460" y="360" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#6a9955" stroke-width="2"/>
+  <text x="530" y="382" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#6a9955">Extrae valor T</text>
+  <text x="530" y="400" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Continúa ejecución</text>
+
+  <!-- Err path -->
+  <line x1="330" y1="410" x2="330" y2="440" stroke="#f14c4c" stroke-width="2"/>
+  <text x="350" y="430" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f14c4c">Err</text>
+  <line x1="330" y1="440" x2="680" y2="440" stroke="#f14c4c" stroke-width="2"/>
+  <rect x="680" y="415" width="170" height="50" rx="6" fill="#2d2d2d" stroke="#f14c4c" stroke-width="2"/>
+  <text x="765" y="435" text-anchor="middle" font-family="'Fira Code', monospace" font-size="11" fill="#f14c4c">return Err(e)</text>
+  <text x="765" y="455" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#808080">Sale de la función</text>
+
+  <!-- From trait note -->
+  <text x="450" y="490" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#569cd6">El trait From&lt;E&gt; convierte automáticamente el tipo de error si es necesario</text>
+</svg>

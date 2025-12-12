@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="24" fill="#CE422B" font-weight="600">Tipos de Errores en Rust</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="60" x2="800" y2="60" stroke="#3c3c3c" stroke-width="1"/>
+
+  <!-- Left side: Recoverable -->
+  <rect x="50" y="90" width="380" height="380" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="50" y="90" width="380" height="45" rx="8" fill="#4ec9b0"/>
+  <text x="240" y="120" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="18" fill="#ffffff" font-weight="600">Recuperables (Result)</text>
+
+  <!-- Result diagram -->
+  <rect x="80" y="160" width="320" height="60" rx="6" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="240" y="185" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#4ec9b0">Result&lt;T, E&gt;</text>
+  <text x="240" y="208" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#808080">Puede ser Ok(valor) o Err(error)</text>
+
+  <!-- Ok branch -->
+  <line x1="160" y1="220" x2="160" y2="260" stroke="#6a9955" stroke-width="2"/>
+  <rect x="80" y="260" width="160" height="50" rx="6" fill="#2d2d2d" stroke="#6a9955" stroke-width="2"/>
+  <text x="160" y="290" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#6a9955">Ok(T)</text>
+
+  <!-- Err branch -->
+  <line x1="320" y1="220" x2="320" y2="260" stroke="#f14c4c" stroke-width="2"/>
+  <rect x="240" y="260" width="160" height="50" rx="6" fill="#2d2d2d" stroke="#f14c4c" stroke-width="2"/>
+  <text x="320" y="290" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#f14c4c">Err(E)</text>
+
+  <!-- Examples -->
+  <text x="80" y="345" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4">Ejemplos:</text>
+  <text x="90" y="370" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• Archivo no encontrado</text>
+  <text x="90" y="390" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• Error de parsing</text>
+  <text x="90" y="410" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• Conexión rechazada</text>
+  <text x="90" y="430" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• Validación fallida</text>
+  <text x="90" y="455" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">→ El programa puede continuar</text>
+
+  <!-- Right side: Unrecoverable -->
+  <rect x="470" y="90" width="380" height="380" rx="8" fill="#252526" stroke="#f14c4c" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="470" y="90" width="380" height="45" rx="8" fill="#f14c4c"/>
+  <text x="660" y="120" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="18" fill="#ffffff" font-weight="600">Irrecuperables (panic!)</text>
+
+  <!-- Panic flow -->
+  <rect x="500" y="160" width="320" height="60" rx="6" fill="#2d2d2d" stroke="#f14c4c" stroke-width="1"/>
+  <text x="660" y="185" text-anchor="middle" font-family="'Fira Code', monospace" font-size="14" fill="#f14c4c">panic!("mensaje")</text>
+  <text x="660" y="208" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#808080">Termina el programa inmediatamente</text>
+
+  <!-- Stack unwinding -->
+  <line x1="660" y1="220" x2="660" y2="260" stroke="#f14c4c" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="540" y="260" width="240" height="50" rx="6" fill="#2d2d2d" stroke="#f14c4c" stroke-width="2"/>
+  <text x="660" y="290" text-anchor="middle" font-family="'Fira Code', monospace" font-size="13" fill="#f14c4c">Stack Unwinding</text>
+
+  <!-- Examples -->
+  <text x="500" y="345" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d4d4d4">Ejemplos:</text>
+  <text x="510" y="370" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• Índice fuera de rango</text>
+  <text x="510" y="390" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• División por cero</text>
+  <text x="510" y="410" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• unwrap() en None</text>
+  <text x="510" y="430" font-family="'Fira Code', monospace" font-size="11" fill="#808080">• Invariante violada</text>
+  <text x="510" y="455" font-family="'Segoe UI', sans-serif" font-size="11" fill="#f14c4c">→ Bug que no debería ocurrir</text>
+
+  <!-- Bottom note -->
+  <text x="450" y="490" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#569cd6">Rust te obliga a manejar los errores recuperables con Result</text>
+</svg>
