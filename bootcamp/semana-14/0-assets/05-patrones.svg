@@ -1,10 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
   <style>
-    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
-    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
-    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
-    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
-    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 10px; fill: #d4d4d4; }
     .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
     .producer { fill: #264f78; stroke: #569cd6; stroke-width: 2; }
     .worker { fill: #4d3319; stroke: #CE422B; stroke-width: 2; }
@@ -14,151 +13,169 @@
   </style>
   
   <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#808080"/>
     </marker>
   </defs>
   
   <rect width="100%" height="100%" fill="#1e1e1e"/>
   
-  <text x="400" y="35" text-anchor="middle" class="title">Patrones de Concurrencia</text>
+  <text x="400" y="30" text-anchor="middle" class="title">Patrones de Concurrencia</text>
   
   <!-- Pattern 1: Producer-Consumer -->
-  <rect x="40" y="60" width="230" height="180" class="box" rx="4"/>
-  <text x="155" y="85" text-anchor="middle" class="label">Producer-Consumer</text>
+  <rect x="30" y="50" width="235" height="150" class="box" rx="4"/>
+  <text x="147" y="72" text-anchor="middle" class="label">Producer-Consumer</text>
   
-  <rect x="60" y="100" width="70" height="35" class="producer" rx="4"/>
-  <text x="95" y="122" text-anchor="middle" class="code">Producer</text>
+  <rect x="50" y="90" width="60" height="30" class="producer" rx="4"/>
+  <text x="80" y="110" text-anchor="middle" class="code">Producer</text>
   
-  <rect x="90" y="150" width="50" height="25" class="queue" rx="4"/>
-  <text x="115" y="167" text-anchor="middle" class="code">chan</text>
+  <rect x="85" y="135" width="45" height="22" class="queue" rx="4"/>
+  <text x="107" y="150" text-anchor="middle" class="code">chan</text>
   
-  <rect x="150" y="100" width="70" height="35" class="consumer" rx="4"/>
-  <text x="185" y="122" text-anchor="middle" class="code">Consumer</text>
+  <rect x="150" y="90" width="60" height="30" class="consumer" rx="4"/>
+  <text x="180" y="110" text-anchor="middle" class="code">Consumer</text>
   
-  <path d="M 95 135 L 95 150" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 140 162 L 165 162 L 165 135" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 80 120 L 80 135" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 130 146 L 160 146 L 160 120" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <text x="155" y="200" text-anchor="middle" class="small">Un productor,</text>
-  <text x="155" y="215" text-anchor="middle" class="small">un consumidor</text>
+  <text x="147" y="178" text-anchor="middle" class="small">Un productor, un consumidor</text>
   
   <!-- Pattern 2: Worker Pool -->
-  <rect x="285" y="60" width="230" height="180" class="box" rx="4"/>
-  <text x="400" y="85" text-anchor="middle" class="label">Worker Pool</text>
+  <rect x="282" y="50" width="235" height="150" class="box" rx="4"/>
+  <text x="400" y="72" text-anchor="middle" class="label">Worker Pool</text>
   
-  <rect x="305" y="105" width="50" height="30" class="queue" rx="4"/>
-  <text x="330" y="125" text-anchor="middle" class="code">Jobs</text>
+  <rect x="300" y="95" width="45" height="25" class="queue" rx="4"/>
+  <text x="322" y="112" text-anchor="middle" class="code">Jobs</text>
   
-  <rect x="380" y="95" width="55" height="25" class="worker" rx="4"/>
-  <text x="407" y="112" text-anchor="middle" class="code">W1</text>
+  <rect x="370" y="85" width="45" height="22" class="worker" rx="4"/>
+  <text x="392" y="100" text-anchor="middle" class="code">W1</text>
   
-  <rect x="380" y="125" width="55" height="25" class="worker" rx="4"/>
-  <text x="407" y="142" text-anchor="middle" class="code">W2</text>
+  <rect x="370" y="112" width="45" height="22" class="worker" rx="4"/>
+  <text x="392" y="127" text-anchor="middle" class="code">W2</text>
   
-  <rect x="380" y="155" width="55" height="25" class="worker" rx="4"/>
-  <text x="407" y="172" text-anchor="middle" class="code">W3</text>
+  <rect x="370" y="139" width="45" height="22" class="worker" rx="4"/>
+  <text x="392" y="154" text-anchor="middle" class="code">W3</text>
   
-  <rect x="460" y="105" width="50" height="70" class="consumer" rx="4"/>
-  <text x="485" y="145" text-anchor="middle" class="code">Out</text>
+  <rect x="440" y="100" width="45" height="50" class="consumer" rx="4"/>
+  <text x="462" y="130" text-anchor="middle" class="code">Out</text>
   
-  <path d="M 355 120 L 380 108" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 355 120 L 380 137" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 355 120 L 380 167" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 345 107 L 370 96" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 345 107 L 370 123" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 345 107 L 370 150" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <path d="M 435 108 L 460 125" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 435 137 L 460 140" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 435 167 L 460 155" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 415 96 L 440 115" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 415 123 L 440 125" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 415 150 L 440 135" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <text x="400" y="200" text-anchor="middle" class="small">N workers procesan</text>
-  <text x="400" y="215" text-anchor="middle" class="small">tareas en paralelo</text>
+  <text x="400" y="178" text-anchor="middle" class="small">N workers en paralelo</text>
   
   <!-- Pattern 3: Pipeline -->
-  <rect x="530" y="60" width="230" height="180" class="box" rx="4"/>
-  <text x="645" y="85" text-anchor="middle" class="label">Pipeline</text>
+  <rect x="534" y="50" width="235" height="150" class="box" rx="4"/>
+  <text x="651" y="72" text-anchor="middle" class="label">Pipeline</text>
   
-  <rect x="550" y="115" width="50" height="30" class="producer" rx="4"/>
-  <text x="575" y="135" text-anchor="middle" class="code">S1</text>
+  <rect x="555" y="105" width="45" height="28" class="producer" rx="4"/>
+  <text x="577" y="123" text-anchor="middle" class="code">S1</text>
   
-  <rect x="615" y="115" width="50" height="30" class="worker" rx="4"/>
-  <text x="640" y="135" text-anchor="middle" class="code">S2</text>
+  <rect x="620" y="105" width="45" height="28" class="worker" rx="4"/>
+  <text x="642" y="123" text-anchor="middle" class="code">S2</text>
   
-  <rect x="680" y="115" width="50" height="30" class="consumer" rx="4"/>
-  <text x="705" y="135" text-anchor="middle" class="code">S3</text>
+  <rect x="685" y="105" width="45" height="28" class="consumer" rx="4"/>
+  <text x="707" y="123" text-anchor="middle" class="code">S3</text>
   
-  <path d="M 600 130 L 615 130" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 665 130 L 680 130" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 600 119 L 620 119" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 665 119 L 685 119" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <text x="645" y="170" text-anchor="middle" class="small">Etapas encadenadas</text>
-  <text x="645" y="185" text-anchor="middle" class="small">via channels</text>
+  <text x="651" y="158" text-anchor="middle" class="small">Etapas encadenadas</text>
+  <text x="651" y="172" text-anchor="middle" class="small">via channels</text>
   
   <!-- Pattern 4: Fork-Join -->
-  <rect x="40" y="260" width="230" height="180" class="box" rx="4"/>
-  <text x="155" y="285" text-anchor="middle" class="label">Fork-Join</text>
+  <rect x="30" y="220" width="235" height="150" class="box" rx="4"/>
+  <text x="147" y="242" text-anchor="middle" class="label">Fork-Join</text>
   
-  <rect x="130" y="300" width="50" height="30" class="producer" rx="4"/>
-  <text x="155" y="320" text-anchor="middle" class="code">Main</text>
+  <rect x="122" y="255" width="50" height="25" class="producer" rx="4"/>
+  <text x="147" y="272" text-anchor="middle" class="code">Main</text>
   
-  <rect x="60" y="360" width="45" height="25" class="worker" rx="4"/>
-  <text x="82" y="377" text-anchor="middle" class="code">T1</text>
+  <rect x="55" y="305" width="40" height="22" class="worker" rx="4"/>
+  <text x="75" y="320" text-anchor="middle" class="code">T1</text>
   
-  <rect x="115" y="360" width="45" height="25" class="worker" rx="4"/>
-  <text x="137" y="377" text-anchor="middle" class="code">T2</text>
+  <rect x="107" y="305" width="40" height="22" class="worker" rx="4"/>
+  <text x="127" y="320" text-anchor="middle" class="code">T2</text>
   
-  <rect x="170" y="360" width="45" height="25" class="worker" rx="4"/>
-  <text x="192" y="377" text-anchor="middle" class="code">T3</text>
+  <rect x="159" y="305" width="40" height="22" class="worker" rx="4"/>
+  <text x="179" y="320" text-anchor="middle" class="code">T3</text>
   
-  <rect x="130" y="405" width="50" height="30" class="consumer" rx="4"/>
-  <text x="155" y="425" text-anchor="middle" class="code">Join</text>
+  <rect x="122" y="345" width="50" height="25" class="consumer" rx="4"/>
+  <text x="147" y="362" text-anchor="middle" class="code">Join</text>
   
-  <path d="M 140 330 L 82 360" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 155 330 L 137 360" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 170 330 L 192 360" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 135 280 L 75 305" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 147 280 L 127 305" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 159 280 L 179 305" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <path d="M 82 385 L 140 405" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 137 385 L 155 405" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 192 385 L 170 405" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 75 327 L 135 345" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 127 327 L 147 345" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 179 327 L 159 345" class="arrow" marker-end="url(#arrowhead)"/>
   
   <!-- Pattern 5: Map-Reduce -->
-  <rect x="285" y="260" width="230" height="180" class="box" rx="4"/>
-  <text x="400" y="285" text-anchor="middle" class="label">Map-Reduce</text>
+  <rect x="282" y="220" width="235" height="150" class="box" rx="4"/>
+  <text x="400" y="242" text-anchor="middle" class="label">Map-Reduce</text>
   
-  <rect x="305" y="305" width="60" height="25" class="queue" rx="4"/>
-  <text x="335" y="322" text-anchor="middle" class="code">Data</text>
+  <rect x="300" y="265" width="50" height="22" class="queue" rx="4"/>
+  <text x="325" y="280" text-anchor="middle" class="code">Data</text>
   
-  <rect x="390" y="300" width="40" height="20" class="worker" rx="4"/>
-  <text x="410" y="314" text-anchor="middle" class="code">M</text>
-  <rect x="390" y="325" width="40" height="20" class="worker" rx="4"/>
-  <text x="410" y="339" text-anchor="middle" class="code">M</text>
-  <rect x="390" y="350" width="40" height="20" class="worker" rx="4"/>
-  <text x="410" y="364" text-anchor="middle" class="code">M</text>
+  <rect x="375" y="255" width="35" height="18" class="worker" rx="4"/>
+  <text x="392" y="268" text-anchor="middle" class="code">M</text>
+  <rect x="375" y="278" width="35" height="18" class="worker" rx="4"/>
+  <text x="392" y="291" text-anchor="middle" class="code">M</text>
+  <rect x="375" y="301" width="35" height="18" class="worker" rx="4"/>
+  <text x="392" y="314" text-anchor="middle" class="code">M</text>
   
-  <rect x="455" y="320" width="50" height="35" class="consumer" rx="4"/>
-  <text x="480" y="342" text-anchor="middle" class="code">Reduce</text>
+  <rect x="435" y="270" width="50" height="35" class="consumer" rx="4"/>
+  <text x="460" y="292" text-anchor="middle" class="code">Reduce</text>
   
-  <path d="M 365 317 L 390 310" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 365 317 L 390 335" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 365 317 L 390 360" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 350 276 L 375 264" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 350 276 L 375 287" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 350 276 L 375 310" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <path d="M 430 310 L 455 330" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 430 335 L 455 337" class="arrow" marker-end="url(#arrowhead)"/>
-  <path d="M 430 360 L 455 345" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 410 264 L 435 280" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 410 287 L 435 287" class="arrow" marker-end="url(#arrowhead)"/>
+  <path d="M 410 310 L 435 295" class="arrow" marker-end="url(#arrowhead)"/>
   
-  <text x="400" y="400" text-anchor="middle" class="small">Dividir, procesar</text>
-  <text x="400" y="415" text-anchor="middle" class="small">y combinar</text>
+  <text x="400" y="345" text-anchor="middle" class="small">Dividir, procesar, combinar</text>
   
   <!-- Summary -->
-  <rect x="530" y="260" width="230" height="180" class="box" rx="4"/>
-  <text x="645" y="285" text-anchor="middle" class="label">Cuando Usar</text>
+  <rect x="534" y="220" width="235" height="150" class="box" rx="4"/>
+  <text x="651" y="242" text-anchor="middle" class="label">Cuando Usar</text>
   
-  <text x="550" y="315" class="small">Producer-Consumer:</text>
-  <text x="560" y="330" class="code">Items en stream</text>
+  <text x="555" y="268" class="small">Producer-Consumer:</text>
+  <text x="565" y="282" class="code">Items en stream</text>
   
-  <text x="550" y="355" class="small">Worker Pool:</text>
-  <text x="560" y="370" class="code">Tareas paralelas</text>
+  <text x="555" y="302" class="small">Worker Pool:</text>
+  <text x="565" y="316" class="code">Tareas paralelas</text>
   
-  <text x="550" y="395" class="small">Pipeline:</text>
-  <text x="560" y="410" class="code">Procesamiento etapas</text>
+  <text x="555" y="336" class="small">Pipeline:</text>
+  <text x="565" y="350" class="code">Procesamiento etapas</text>
   
-  <text x="550" y="435" class="small">Fork-Join:</text>
-  <text x="560" y="450" class="code">Dividir y conquistar</text>
+  <!-- Legend -->
+  <rect x="30" y="385" width="739" height="120" class="box" rx="4"/>
+  <text x="400" y="408" text-anchor="middle" class="label">Leyenda de Colores</text>
+  
+  <rect x="80" y="425" width="60" height="25" class="producer" rx="4"/>
+  <text x="110" y="442" text-anchor="middle" class="code">Origen</text>
+  <text x="110" y="475" text-anchor="middle" class="small">Productor/Inicio</text>
+  
+  <rect x="220" y="425" width="60" height="25" class="worker" rx="4"/>
+  <text x="250" y="442" text-anchor="middle" class="code">Worker</text>
+  <text x="250" y="475" text-anchor="middle" class="small">Procesamiento</text>
+  
+  <rect x="360" y="425" width="60" height="25" class="consumer" rx="4"/>
+  <text x="390" y="442" text-anchor="middle" class="code">Destino</text>
+  <text x="390" y="475" text-anchor="middle" class="small">Consumidor/Fin</text>
+  
+  <rect x="500" y="425" width="60" height="25" class="queue" rx="4"/>
+  <text x="530" y="442" text-anchor="middle" class="code">Cola</text>
+  <text x="530" y="475" text-anchor="middle" class="small">Buffer/Channel</text>
+  
+  <rect x="640" y="425" width="80" height="25" class="box" rx="4"/>
+  <text x="680" y="442" text-anchor="middle" class="code">Flecha</text>
+  <text x="680" y="475" text-anchor="middle" class="small">Flujo de datos</text>
 </svg>
