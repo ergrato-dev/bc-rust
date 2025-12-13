@@ -7,81 +7,81 @@ use std::collections::HashMap;
 
 /// Representa un usuario del sistema.
 #[derive(Debug, Clone, PartialEq)]
-pub struct Usuario {
+pub struct User {
     pub id: u32,
-    pub nombre: String,
+    pub name: String,
     pub email: String,
-    pub activo: bool,
+    pub active: bool,
 }
 
-impl Usuario {
+impl User {
     /// Crea un nuevo usuario.
-    pub fn new(id: u32, nombre: &str, email: &str) -> Self {
-        Usuario {
+    pub fn new(id: u32, name: &str, email: &str) -> Self {
+        User {
             id,
-            nombre: nombre.to_string(),
+            name: name.to_string(),
             email: email.to_string(),
-            activo: true,
+            active: true,
         }
     }
 
     /// Desactiva el usuario.
-    pub fn desactivar(&mut self) {
-        self.activo = false;
+    pub fn deactivate(&mut self) {
+        self.active = false;
     }
 }
 
 /// Almacen de usuarios en memoria.
 #[derive(Debug, Default)]
-pub struct AlmacenUsuarios {
-    usuarios: HashMap<u32, Usuario>,
-    siguiente_id: u32,
+pub struct UserStore {
+    users: HashMap<u32, User>,
+    next_id: u32,
 }
 
-impl AlmacenUsuarios {
+impl UserStore {
     /// Crea un nuevo almacen vacio.
     pub fn new() -> Self {
-        AlmacenUsuarios {
-            usuarios: HashMap::new(),
-            siguiente_id: 1,
+        UserStore {
+            users: HashMap::new(),
+            next_id: 1,
         }
     }
 
     /// Agrega un usuario y retorna su ID.
-    pub fn agregar(&mut self, nombre: &str, email: &str) -> u32 {
-        let id = self.siguiente_id;
-        let usuario = Usuario::new(id, nombre, email);
-        self.usuarios.insert(id, usuario);
-        self.siguiente_id += 1;
+    pub fn add(&mut self, name: &str, email: &str) -> u32 {
+        let id = self.next_id;
+        let user = User::new(id, name, email);
+        self.users.insert(id, user);
+        self.next_id += 1;
         id
     }
 
     /// Busca un usuario por ID.
-    pub fn buscar(&self, id: u32) -> Option<&Usuario> {
-        self.usuarios.get(&id)
+    pub fn find(&self, id: u32) -> Option<&User> {
+        self.users.get(&id)
     }
 
     /// Busca usuarios por nombre (parcial).
-    pub fn buscar_por_nombre(&self, nombre: &str) -> Vec<&Usuario> {
-        self.usuarios
+    pub fn find_by_name(&self, name: &str) -> Vec<&User> {
+        self.users
             .values()
-            .filter(|u| u.nombre.to_lowercase().contains(&nombre.to_lowercase()))
+            .filter(|u| u.name.to_lowercase().contains(&name.to_lowercase()))
             .collect()
     }
 
     /// Elimina un usuario.
-    pub fn eliminar(&mut self, id: u32) -> Option<Usuario> {
-        self.usuarios.remove(&id)
+    pub fn remove(&mut self, id: u32) -> Option<User> {
+        self.users.remove(&id)
     }
 
     /// Retorna el total de usuarios.
     pub fn total(&self) -> usize {
-        self.usuarios.len()
+        self.users.len()
     }
 
     /// Lista todos los usuarios activos.
-    pub fn listar_activos(&self) -> Vec<&Usuario> {
-        self.usuarios.values().filter(|u| u.activo).collect()
+    pub fn list_active(&self) -> Vec<&User> {
+        self.users.values().filter(|u| u.active).collect()
     }
 }
 
@@ -91,25 +91,25 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_crear_usuario() {
-        let usuario = Usuario::new(1, "Juan", "juan@email.com");
-        assert_eq!(usuario.id, 1);
-        assert_eq!(usuario.nombre, "Juan");
-        assert!(usuario.activo);
+    fn test_create_user() {
+        let user = User::new(1, "Juan", "juan@email.com");
+        assert_eq!(user.id, 1);
+        assert_eq!(user.name, "Juan");
+        assert!(user.active);
     }
 
     #[test]
-    fn test_desactivar_usuario() {
-        let mut usuario = Usuario::new(1, "Juan", "juan@email.com");
-        usuario.desactivar();
-        assert!(!usuario.activo);
+    fn test_deactivate_user() {
+        let mut user = User::new(1, "Juan", "juan@email.com");
+        user.deactivate();
+        assert!(!user.active);
     }
 
     #[test]
-    fn test_almacen_agregar() {
-        let mut almacen = AlmacenUsuarios::new();
-        let id = almacen.agregar("Ana", "ana@email.com");
+    fn test_store_add() {
+        let mut store = UserStore::new();
+        let id = store.add("Ana", "ana@email.com");
         assert_eq!(id, 1);
-        assert_eq!(almacen.total(), 1);
+        assert_eq!(store.total(), 1);
     }
 }

@@ -1,54 +1,54 @@
 //! Tests de integracion para el almacen de usuarios
 
-use practica_02_integration::{AlmacenUsuarios, Usuario};
+use practice_02_integration::{UserStore, User};
 
 mod common;
 
 #[test]
-fn test_flujo_completo_agregar_buscar() {
-    let mut almacen = AlmacenUsuarios::new();
+fn test_full_flow_add_find() {
+    let mut store = UserStore::new();
 
     // Agregar usuarios
-    let id1 = almacen.agregar("Juan", "juan@email.com");
-    let id2 = almacen.agregar("Ana", "ana@email.com");
+    let id1 = store.add("Juan", "juan@email.com");
+    let id2 = store.add("Ana", "ana@email.com");
 
     // Buscar por ID
-    let usuario1 = almacen.buscar(id1).unwrap();
-    assert_eq!(usuario1.nombre, "Juan");
+    let user1 = store.find(id1).unwrap();
+    assert_eq!(user1.name, "Juan");
 
-    let usuario2 = almacen.buscar(id2).unwrap();
-    assert_eq!(usuario2.nombre, "Ana");
+    let user2 = store.find(id2).unwrap();
+    assert_eq!(user2.name, "Ana");
 }
 
 #[test]
-fn test_buscar_por_nombre() {
-    let almacen = common::crear_almacen_prueba();
+fn test_find_by_name() {
+    let store = common::create_test_store();
 
-    let resultados = almacen.buscar_por_nombre("garcia");
-    assert_eq!(resultados.len(), 1);
-    assert_eq!(resultados[0].nombre, "Ana Garcia");
+    let results = store.find_by_name("garcia");
+    assert_eq!(results.len(), 1);
+    assert_eq!(results[0].name, "Ana Garcia");
 }
 
 #[test]
-fn test_eliminar_usuario() {
-    let mut almacen = common::crear_almacen_prueba();
-    let total_inicial = almacen.total();
+fn test_remove_user() {
+    let mut store = common::create_test_store();
+    let initial_total = store.total();
 
-    let eliminado = almacen.eliminar(1);
-    assert!(eliminado.is_some());
-    assert_eq!(almacen.total(), total_inicial - 1);
-    assert!(almacen.buscar(1).is_none());
+    let removed = store.remove(1);
+    assert!(removed.is_some());
+    assert_eq!(store.total(), initial_total - 1);
+    assert!(store.find(1).is_none());
 }
 
 #[test]
-fn test_listar_activos() {
-    let almacen = common::crear_almacen_prueba();
-    let activos = almacen.listar_activos();
-    assert_eq!(activos.len(), 3);
+fn test_list_active() {
+    let store = common::create_test_store();
+    let active = store.list_active();
+    assert_eq!(active.len(), 3);
 }
 
 #[test]
-fn test_usuario_no_encontrado() {
-    let almacen = AlmacenUsuarios::new();
-    assert!(almacen.buscar(999).is_none());
+fn test_user_not_found() {
+    let store = UserStore::new();
+    assert!(store.find(999).is_none());
 }

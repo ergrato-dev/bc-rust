@@ -70,7 +70,7 @@ members = [
     "bootcamp/week-16/2-practice/practice-02-integration",
     "bootcamp/week-16/2-practice/practice-03-doctests",
     "bootcamp/week-16/2-practice/practice-04-tdd",
-    "bootcamp/week-16/2-practice/project-calculadora-testeada",
+    "bootcamp/week-16/2-practice/project-tested-calculator",
     
     # Week 17 - REST API with Axum
     "bootcamp/week-17/2-practice/practice-01-hello-axum",
