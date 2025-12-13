@@ -37,19 +37,19 @@ fn main() {
 // ============================================================
 
 fn ejercicio_1_referencia() {
-    let mensaje = String::from("Hola, Rust!");
+    let message = String::from("Hola, Rust!");
     
-    // TODO: Crea un closure 'imprimir' que imprima 'mensaje'
+    // TODO: Crea un closure 'print_msg' que imprima 'message'
     // El closure debe capturar por referencia (&String)
-    let imprimir = || {
-        todo!("Implementa el closure que imprime mensaje")
+    let print_msg = || {
+        todo!("Implementa el closure que imprime message")
     };
     
-    imprimir();
-    imprimir(); // Debe poder llamarse múltiples veces
+    print_msg();
+    print_msg(); // Debe poder llamarse múltiples veces
     
-    // mensaje debe seguir disponible
-    println!("Ejercicio 1 - Original: {}", mensaje);
+    // message debe seguir disponible
+    println!("Ejercicio 1 - Original: {}", message);
 }
 
 // ============================================================
@@ -63,19 +63,19 @@ fn ejercicio_1_referencia() {
 fn ejercicio_2_referencia_mut() {
     let mut buffer = String::new();
     
-    // TODO: Crea un closure 'agregar' que agregue texto a buffer
+    // TODO: Crea un closure 'append' que agregue texto a buffer
     // Debe capturar &mut buffer
     // El closure también debe ser mut
-    let mut agregar = |texto: &str| {
+    let mut append = |text: &str| {
         todo!("Implementa el closure que agrega texto a buffer")
     };
     
-    agregar("Hola");
-    agregar(" ");
-    agregar("Mundo");
+    append("Hola");
+    append(" ");
+    append("Mundo");
     
     // El closure debe liberarse antes de usar buffer
-    drop(agregar);
+    drop(append);
     
     println!("Ejercicio 2 - Buffer: {}", buffer);
     assert_eq!(buffer, "Hola Mundo");
@@ -90,17 +90,17 @@ fn ejercicio_2_referencia_mut() {
 // ============================================================
 
 fn ejercicio_3_move() {
-    let datos = vec![1, 2, 3, 4, 5];
+    let data = vec![1, 2, 3, 4, 5];
     
-    // TODO: Crea un closure con 'move' que tome ownership de 'datos'
+    // TODO: Crea un closure con 'move' que tome ownership de 'data'
     // y retorne la suma de sus elementos
-    let calcular_suma: fn() -> i32 = || todo!("Implementa closure con move");
+    let calculate_sum: fn() -> i32 = || todo!("Implementa closure con move");
     
-    let suma = calcular_suma();
-    println!("Ejercicio 3 - Suma: {}", suma);
+    let sum = calculate_sum();
+    println!("Ejercicio 3 - Suma: {}", sum);
     
-    // datos ya no debe estar disponible (comentado intencionalmente)
-    // println!("{:?}", datos); // ERROR: datos fue movido
+    // data ya no debe estar disponible (comentado intencionalmente)
+    // println!("{:?}", data); // ERROR: data fue movido
 }
 
 // ============================================================
@@ -112,27 +112,27 @@ fn ejercicio_3_move() {
 // ============================================================
 
 fn ejercicio_4_multiples() {
-    let constante = 10;           // Se leerá
-    let mut contador = 0;         // Se modificará
-    let mensaje = String::from("Procesando"); // Se leerá
+    let constant = 10;           // Se leerá
+    let mut counter = 0;         // Se modificará
+    let message = String::from("Procesando"); // Se leerá
     
     // TODO: Completa el closure que:
-    // - Lee 'constante' (captura &i32)
-    // - Modifica 'contador' (captura &mut i32)
-    // - Lee 'mensaje' (captura &String)
-    let mut procesar = || {
+    // - Lee 'constant' (captura &i32)
+    // - Modifica 'counter' (captura &mut i32)
+    // - Lee 'message' (captura &String)
+    let mut process = || {
         todo!("Implementa el closure con múltiples capturas")
-        // Incrementa contador y retorna constante + contador
-        // También imprime el mensaje
+        // Incrementa counter y retorna constant + counter
+        // También imprime el message
     };
     
-    let r1 = procesar();
-    let r2 = procesar();
+    let r1 = process();
+    let r2 = process();
     
-    drop(procesar);
+    drop(process);
     
     println!("Ejercicio 4 - Resultados: {}, {}", r1, r2);
-    println!("Ejercicio 4 - Contador final: {}", contador);
+    println!("Ejercicio 4 - Contador final: {}", counter);
 }
 
 // ============================================================
@@ -144,15 +144,15 @@ fn ejercicio_4_multiples() {
 // ============================================================
 
 fn ejercicio_5_move_copy() {
-    let numero = 42; // i32 implementa Copy
+    let number = 42; // i32 implementa Copy
     
-    // TODO: Crea un closure con move que use 'numero'
-    let mostrar: fn() = || todo!("Implementa closure con move para tipo Copy");
+    // TODO: Crea un closure con move que use 'number'
+    let show: fn() = || todo!("Implementa closure con move para tipo Copy");
     
-    mostrar();
+    show();
     
-    // numero sigue disponible porque se copió
-    println!("Ejercicio 5 - Numero original: {}", numero);
+    // number sigue disponible porque se copió
+    println!("Ejercicio 5 - Numero original: {}", number);
 }
 
 // ============================================================

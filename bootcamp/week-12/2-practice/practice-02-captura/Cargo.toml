@@ -1,5 +1,5 @@
 [package]
-name = "practica-02-captura"
+name = "practice-02-capture"
 version = "0.1.0"
 edition = "2024"
 description = "Práctica de modos de captura de closures"

@@ -11,35 +11,35 @@ fn main() {
 
     // Ejercicio 1: Transformar con map y filter
     println!("Ejercicio 1: Map y Filter");
-    let numeros = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let resultado = cuadrados_pares(&numeros);
-    println!("  Cuadrados de pares: {:?}\n", resultado);
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let result = cuadrados_pares(&numbers);
+    println!("  Cuadrados de pares: {:?}\n", result);
 
     // Ejercicio 2: Usar fold para acumular
     println!("Ejercicio 2: Fold");
-    let palabras = vec!["Hola", " ", "Rust", "!"];
-    let concatenado = concatenar(&palabras);
-    println!("  Concatenado: {}\n", concatenado);
+    let words = vec!["Hola", " ", "Rust", "!"];
+    let concatenated = concatenar(&words);
+    println!("  Concatenado: {}\n", concatenated);
 
     // Ejercicio 3: Encontrar elementos
     println!("Ejercicio 3: Find y Position");
-    let datos = vec![10, 25, 30, 45, 50];
-    if let Some((pos, val)) = primer_mayor_que(&datos, 28) {
+    let data = vec![10, 25, 30, 45, 50];
+    if let Some((pos, val)) = primer_mayor_que(&data, 28) {
         println!("  Primer mayor que 28: {} en posición {}\n", val, pos);
     }
 
     // Ejercicio 4: Zip y enumerate
     println!("Ejercicio 4: Zip");
-    let nombres = vec!["Ana", "Bob", "Carlos"];
-    let edades = vec![25, 30, 35];
-    let personas = combinar_datos(&nombres, &edades);
-    println!("  Personas: {:?}\n", personas);
+    let names = vec!["Ana", "Bob", "Carlos"];
+    let ages = vec![25, 30, 35];
+    let people = combinar_datos(&names, &ages);
+    println!("  Personas: {:?}\n", people);
 
     // Ejercicio 5: Implementar Iterator
     println!("Ejercicio 5: Iterator personalizado");
     let fib = Fibonacci::new();
-    let primeros_10: Vec<u64> = fib.take(10).collect();
-    println!("  Fibonacci: {:?}\n", primeros_10);
+    let first_10: Vec<u64> = fib.take(10).collect();
+    println!("  Fibonacci: {:?}\n", first_10);
 
     println!("✅ Todos los ejercicios completados!");
 }
@@ -93,7 +93,7 @@ fn primer_mayor_que(datos: &[i32], umbral: i32) -> Option<(usize, i32)> {
 // TODO: Usa zip y collect
 // ============================================================
 
-fn combinar_datos<'a>(nombres: &'a [&str], edades: &[i32]) -> Vec<(&'a str, i32)> {
+fn combinar_datos<'a>(names: &'a [&str], ages: &[i32]) -> Vec<(&'a str, i32)> {
     // TODO: Implementa usando zip
     todo!("Implementa combinar_datos")
 }
@@ -108,15 +108,15 @@ fn combinar_datos<'a>(nombres: &'a [&str], edades: &[i32]) -> Vec<(&'a str, i32)
 // ============================================================
 
 struct Fibonacci {
-    actual: u64,
-    siguiente: u64,
+    current: u64,
+    next: u64,
 }
 
 impl Fibonacci {
     fn new() -> Self {
         Fibonacci {
-            actual: 0,
-            siguiente: 1,
+            current: 0,
+            next: 1,
         }
     }
 }

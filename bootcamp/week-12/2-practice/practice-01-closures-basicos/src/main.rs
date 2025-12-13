@@ -9,28 +9,28 @@ fn main() {
     println!("=== Práctica 01: Closures Básicos ===\n");
 
     // Ejercicio 1: Crear closures simples
-    let duplicar = crear_duplicador();
-    println!("Ejercicio 1 - Duplicar 5: {}", duplicar(5));
+    let double = crear_duplicador();
+    println!("Ejercicio 1 - Duplicar 5: {}", double(5));
 
     // Ejercicio 2: Closure que suma
-    let resultado = aplicar_operacion(10, 20, crear_sumador());
-    println!("Ejercicio 2 - Suma: {}", resultado);
+    let result = aplicar_operacion(10, 20, crear_sumador());
+    println!("Ejercicio 2 - Suma: {}", result);
 
     // Ejercicio 3: Closure con múltiples operaciones
-    let numeros = vec![1, 2, 3, 4, 5];
-    let procesados = procesar_lista(&numeros, crear_transformador());
-    println!("Ejercicio 3 - Procesados: {:?}", procesados);
+    let numbers = vec![1, 2, 3, 4, 5];
+    let processed = procesar_lista(&numbers, crear_transformador());
+    println!("Ejercicio 3 - Procesados: {:?}", processed);
 
     // Ejercicio 4: Closure como filtro
-    let filtrados: Vec<i32> = numeros.iter()
+    let filtered: Vec<i32> = numbers.iter()
         .filter(crear_filtro_pares())
         .copied()
         .collect();
-    println!("Ejercicio 4 - Pares: {:?}", filtrados);
+    println!("Ejercicio 4 - Pares: {:?}", filtered);
 
     // Ejercicio 5: Closure que retorna closure
-    let multiplicador = crear_multiplicador(3);
-    println!("Ejercicio 5 - 7 * 3 = {}", multiplicador(7));
+    let multiplier = crear_multiplicador(3);
+    println!("Ejercicio 5 - 7 * 3 = {}", multiplier(7));;
 
     println!("\n✅ Todos los ejercicios completados!");
 }

@@ -1,5 +1,5 @@
 [package]
-name = "practica-04-iteradores-avanzados"
+name = "practice-04-iterators-advanced"
 version = "0.1.0"
 edition = "2024"
 description = "Práctica de iteradores y sus métodos"

@@ -11,43 +11,43 @@ fn main() {
     // Ejercicio 1: Usar Fn
     println!("Ejercicio 1: Fn");
     let x = 10;
-    let suma = |y| x + y;
-    let resultado = aplicar_fn(5, suma);
-    println!("  Resultado: {}\n", resultado);
+    let add = |y| x + y;
+    let result = aplicar_fn(5, add);
+    println!("  Resultado: {}\n", result);
 
     // Ejercicio 2: Usar FnMut
     println!("Ejercicio 2: FnMut");
-    let mut contador = 0;
-    let mut incrementar = || {
-        contador += 1;
-        contador
+    let mut counter = 0;
+    let mut increment = || {
+        counter += 1;
+        counter
     };
-    let resultados = aplicar_fn_mut_veces(&mut incrementar, 3);
-    println!("  Resultados: {:?}\n", resultados);
+    let results = aplicar_fn_mut_veces(&mut increment, 3);
+    println!("  Resultados: {:?}\n", results);
 
     // Ejercicio 3: Usar FnOnce
     println!("Ejercicio 3: FnOnce");
-    let datos = vec![1, 2, 3, 4, 5];
-    let consumir = move || {
-        let suma: i32 = datos.iter().sum();
-        suma
+    let data = vec![1, 2, 3, 4, 5];
+    let consume = move || {
+        let sum: i32 = data.iter().sum();
+        sum
     };
-    let total = aplicar_fn_once(consumir);
+    let total = aplicar_fn_once(consume);
     println!("  Total: {}\n", total);
 
     // Ejercicio 4: Función que acepta cualquier closure
     println!("Ejercicio 4: Genérico con Fn");
     let nums = vec![1, 2, 3, 4, 5];
-    let pares = filtrar(&nums, |x| x % 2 == 0);
-    let mayores_3 = filtrar(&nums, |x| *x > 3);
-    println!("  Pares: {:?}", pares);
-    println!("  Mayores a 3: {:?}\n", mayores_3);
+    let evens = filtrar(&nums, |x| x % 2 == 0);
+    let greater_than_3 = filtrar(&nums, |x| *x > 3);
+    println!("  Pares: {:?}", evens);
+    println!("  Mayores a 3: {:?}\n", greater_than_3);
 
     // Ejercicio 5: Retornar closure con Box<dyn Fn>
     println!("Ejercicio 5: Box<dyn Fn>");
-    let multiplicador = crear_multiplicador_boxed(5);
-    println!("  3 * 5 = {}", multiplicador(3));
-    println!("  7 * 5 = {}", multiplicador(7));
+    let multiplier = crear_multiplicador_boxed(5);
+    println!("  3 * 5 = {}", multiplier(3));
+    println!("  7 * 5 = {}", multiplier(7));
 
     println!("\n✅ Todos los ejercicios completados!");
 }

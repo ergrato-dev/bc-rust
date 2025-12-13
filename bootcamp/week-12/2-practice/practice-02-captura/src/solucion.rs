@@ -14,17 +14,17 @@ fn main() {
 
 // SOLUCIÓN Ejercicio 1: Captura por referencia
 fn ejercicio_1_referencia() {
-    let mensaje = String::from("Hola, Rust!");
+    let message = String::from("Hola, Rust!");
     
-    // Captura &mensaje (referencia inmutable)
-    let imprimir = || {
-        println!("  -> {}", mensaje);
+    // Captura &message (referencia inmutable)
+    let print_msg = || {
+        println!("  -> {}", message);
     };
     
-    imprimir();
-    imprimir();
+    print_msg();
+    print_msg();
     
-    println!("Ejercicio 1 - Original: {}", mensaje);
+    println!("Ejercicio 1 - Original: {}", message);
 }
 
 // SOLUCIÓN Ejercicio 2: Captura por referencia mutable
@@ -32,15 +32,15 @@ fn ejercicio_2_referencia_mut() {
     let mut buffer = String::new();
     
     // Captura &mut buffer
-    let mut agregar = |texto: &str| {
-        buffer.push_str(texto);
+    let mut append = |text: &str| {
+        buffer.push_str(text);
     };
     
-    agregar("Hola");
-    agregar(" ");
-    agregar("Mundo");
+    append("Hola");
+    append(" ");
+    append("Mundo");
     
-    drop(agregar);
+    drop(append);
     
     println!("Ejercicio 2 - Buffer: {}", buffer);
     assert_eq!(buffer, "Hola Mundo");
@@ -48,52 +48,52 @@ fn ejercicio_2_referencia_mut() {
 
 // SOLUCIÓN Ejercicio 3: Move
 fn ejercicio_3_move() {
-    let datos = vec![1, 2, 3, 4, 5];
+    let data = vec![1, 2, 3, 4, 5];
     
-    // move transfiere ownership de datos al closure
-    let calcular_suma = move || -> i32 {
-        datos.iter().sum()
+    // move transfiere ownership de data al closure
+    let calculate_sum = move || -> i32 {
+        data.iter().sum()
     };
     
-    let suma = calcular_suma();
-    println!("Ejercicio 3 - Suma: {}", suma);
-    // datos ya no disponible
+    let sum = calculate_sum();
+    println!("Ejercicio 3 - Suma: {}", sum);
+    // data ya no disponible
 }
 
 // SOLUCIÓN Ejercicio 4: Múltiples capturas
 fn ejercicio_4_multiples() {
-    let constante = 10;
-    let mut contador = 0;
-    let mensaje = String::from("Procesando");
+    let constant = 10;
+    let mut counter = 0;
+    let message = String::from("Procesando");
     
-    let mut procesar = || {
-        println!("  -> {}", mensaje);  // &String
-        contador += 1;                   // &mut i32
-        constante + contador             // &i32
+    let mut process = || {
+        println!("  -> {}", message);  // &String
+        counter += 1;                   // &mut i32
+        constant + counter             // &i32
     };
     
-    let r1 = procesar();
-    let r2 = procesar();
+    let r1 = process();
+    let r2 = process();
     
-    drop(procesar);
+    drop(process);
     
     println!("Ejercicio 4 - Resultados: {}, {}", r1, r2);
-    println!("Ejercicio 4 - Contador final: {}", contador);
+    println!("Ejercicio 4 - Contador final: {}", counter);
 }
 
 // SOLUCIÓN Ejercicio 5: Move con Copy
 fn ejercicio_5_move_copy() {
-    let numero = 42;
+    let number = 42;
     
     // move copia el valor porque i32: Copy
-    let mostrar = move || {
-        println!("  -> Número en closure: {}", numero);
+    let show = move || {
+        println!("  -> Número en closure: {}", number);
     };
     
-    mostrar();
+    show();
     
-    // numero sigue disponible
-    println!("Ejercicio 5 - Numero original: {}", numero);
+    // number sigue disponible
+    println!("Ejercicio 5 - Numero original: {}", number);
 }
 
 #[cfg(test)]

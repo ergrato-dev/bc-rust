@@ -4,28 +4,28 @@ fn main() {
     println!("=== Soluciones: Closures Básicos ===\n");
 
     // Ejercicio 1
-    let duplicar = crear_duplicador();
-    println!("Duplicar 5: {}", duplicar(5));
+    let double = crear_duplicador();
+    println!("Duplicar 5: {}", double(5));
 
     // Ejercicio 2
-    let resultado = aplicar_operacion(10, 20, crear_sumador());
-    println!("Suma: {}", resultado);
+    let result = aplicar_operacion(10, 20, crear_sumador());
+    println!("Suma: {}", result);
 
     // Ejercicio 3
-    let numeros = vec![1, 2, 3, 4, 5];
-    let procesados = procesar_lista(&numeros, crear_transformador());
-    println!("Procesados: {:?}", procesados);
+    let numbers = vec![1, 2, 3, 4, 5];
+    let processed = procesar_lista(&numbers, crear_transformador());
+    println!("Procesados: {:?}", processed);
 
     // Ejercicio 4
-    let filtrados: Vec<i32> = numeros.iter()
+    let filtered: Vec<i32> = numbers.iter()
         .filter(crear_filtro_pares())
         .copied()
         .collect();
-    println!("Pares: {:?}", filtrados);
+    println!("Pares: {:?}", filtered);
 
     // Ejercicio 5
-    let multiplicador = crear_multiplicador(3);
-    println!("7 * 3 = {}", multiplicador(7));
+    let multiplier = crear_multiplicador(3);
+    println!("7 * 3 = {}", multiplier(7));;
 
     println!("\n✅ Todas las soluciones funcionan!");
 }

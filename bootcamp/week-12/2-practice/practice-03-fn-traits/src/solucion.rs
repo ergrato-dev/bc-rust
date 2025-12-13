@@ -5,29 +5,29 @@ fn main() {
 
     // Ejercicio 1
     let x = 10;
-    let suma = |y| x + y;
-    let resultado = aplicar_fn(5, suma);
-    println!("Ejercicio 1 - Fn: {}", resultado);
+    let add = |y| x + y;
+    let result = aplicar_fn(5, add);
+    println!("Ejercicio 1 - Fn: {}", result);
 
     // Ejercicio 2
-    let mut contador = 0;
-    let mut incrementar = || {
-        contador += 1;
-        contador
+    let mut counter = 0;
+    let mut increment = || {
+        counter += 1;
+        counter
     };
-    let resultados = aplicar_fn_mut_veces(&mut incrementar, 3);
-    println!("Ejercicio 2 - FnMut: {:?}", resultados);
+    let results = aplicar_fn_mut_veces(&mut increment, 3);
+    println!("Ejercicio 2 - FnMut: {:?}", results);
 
     // Ejercicio 3
-    let datos = vec![1, 2, 3, 4, 5];
-    let consumir = move || datos.iter().sum();
-    let total = aplicar_fn_once(consumir);
+    let data = vec![1, 2, 3, 4, 5];
+    let consume = move || data.iter().sum();
+    let total = aplicar_fn_once(consume);
     println!("Ejercicio 3 - FnOnce: {}", total);
 
     // Ejercicio 4
     let nums = vec![1, 2, 3, 4, 5];
-    let pares = filtrar(&nums, |x| x % 2 == 0);
-    println!("Ejercicio 4 - Filtrar pares: {:?}", pares);
+    let evens = filtrar(&nums, |x| x % 2 == 0);
+    println!("Ejercicio 4 - Filtrar pares: {:?}", evens);
 
     // Ejercicio 5
     let mult = crear_multiplicador_boxed(5);

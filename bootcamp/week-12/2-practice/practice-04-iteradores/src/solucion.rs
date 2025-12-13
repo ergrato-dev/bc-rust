@@ -4,23 +4,23 @@ fn main() {
     println!("=== Soluciones: Iteradores ===\n");
 
     // Ejercicio 1
-    let numeros = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    println!("Cuadrados de pares: {:?}", cuadrados_pares(&numeros));
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    println!("Cuadrados de pares: {:?}", cuadrados_pares(&numbers));
 
     // Ejercicio 2
-    let palabras = vec!["Hola", " ", "Rust", "!"];
-    println!("Concatenado: {}", concatenar(&palabras));
+    let words = vec!["Hola", " ", "Rust", "!"];
+    println!("Concatenado: {}", concatenar(&words));
 
     // Ejercicio 3
-    let datos = vec![10, 25, 30, 45, 50];
-    if let Some((pos, val)) = primer_mayor_que(&datos, 28) {
+    let data = vec![10, 25, 30, 45, 50];
+    if let Some((pos, val)) = primer_mayor_que(&data, 28) {
         println!("Primer mayor que 28: {} en pos {}", val, pos);
     }
 
     // Ejercicio 4
-    let nombres = vec!["Ana", "Bob", "Carlos"];
-    let edades = vec![25, 30, 35];
-    println!("Personas: {:?}", combinar_datos(&nombres, &edades));
+    let names = vec!["Ana", "Bob", "Carlos"];
+    let ages = vec![25, 30, 35];
+    println!("Personas: {:?}", combinar_datos(&names, &ages));
 
     // Ejercicio 5
     let fib: Vec<u64> = Fibonacci::new().take(10).collect();
@@ -60,25 +60,25 @@ fn primer_mayor_que(datos: &[i32], umbral: i32) -> Option<(usize, i32)> {
 }
 
 // SOLUCIÓN Ejercicio 4
-fn combinar_datos<'a>(nombres: &'a [&str], edades: &[i32]) -> Vec<(&'a str, i32)> {
-    nombres
+fn combinar_datos<'a>(names: &'a [&str], ages: &[i32]) -> Vec<(&'a str, i32)> {
+    names
         .iter()
-        .zip(edades.iter())
-        .map(|(&nombre, &edad)| (nombre, edad))
+        .zip(ages.iter())
+        .map(|(&name, &age)| (name, age))
         .collect()
 }
 
 // SOLUCIÓN Ejercicio 5
 struct Fibonacci {
-    actual: u64,
-    siguiente: u64,
+    current: u64,
+    next: u64,
 }
 
 impl Fibonacci {
     fn new() -> Self {
         Fibonacci {
-            actual: 0,
-            siguiente: 1,
+            current: 0,
+            next: 1,
         }
     }
 }
@@ -87,13 +87,13 @@ impl Iterator for Fibonacci {
     type Item = u64;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let valor_actual = self.actual;
-        let nuevo_siguiente = self.actual + self.siguiente;
+        let current_value = self.current;
+        let new_next = self.current + self.next;
         
-        self.actual = self.siguiente;
-        self.siguiente = nuevo_siguiente;
+        self.current = self.next;
+        self.next = new_next;
         
-        Some(valor_actual)
+        Some(current_value)
     }
 }
 
