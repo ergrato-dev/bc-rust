@@ -59,7 +59,7 @@ members = [
     "bootcamp/week-14/2-practice/project-workers",
     
     # Week 15 - Async/Await
-    "bootcamp/week-15/2-practice/practice-01-async-basico",
+    "bootcamp/week-15/2-practice/practice-01-async-basic",
     "bootcamp/week-15/2-practice/practice-02-tokio",
     "bootcamp/week-15/2-practice/practice-03-io-async",
     "bootcamp/week-15/2-practice/practice-04-channels",

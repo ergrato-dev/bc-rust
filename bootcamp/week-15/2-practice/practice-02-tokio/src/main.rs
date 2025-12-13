@@ -20,13 +20,13 @@ use tokio::time::{interval, sleep, timeout};
 /// Tick 2
 /// Tick 3
 /// ```
-pub async fn contador_intervalo(n: u32) {
+pub async fn interval_counter(n: u32) {
     // TODO: Implementar usando tokio::time::interval
     // 1. Crear un interval de 1 segundo
     // 2. En un loop de n iteraciones:
     //    - Esperar el tick
     //    - Imprimir "Tick {i}"
-    todo!("Implementar contador_intervalo")
+    todo!("Implementar interval_counter")
 }
 
 // =============================================================================
@@ -36,20 +36,20 @@ pub async fn contador_intervalo(n: u32) {
 /// Ejecuta una operación con timeout y reintentos.
 ///
 /// - Intenta ejecutar la operación
-/// - Si excede el timeout, reintenta hasta `max_intentos`
+/// - Si excede el timeout, reintenta hasta `max_attempts`
 /// - Retorna Some(resultado) si tiene éxito, None si todos los intentos fallan
-pub async fn con_reintentos<T, F, Fut>(max_intentos: u32, timeout_ms: u64, operacion: F) -> Option<T>
+pub async fn with_retries<T, F, Fut>(max_attempts: u32, timeout_ms: u64, operation: F) -> Option<T>
 where
     F: Fn() -> Fut,
     Fut: Future<Output = T>,
 {
     // TODO: Implementar
-    // 1. Loop hasta max_intentos
+    // 1. Loop hasta max_attempts
     // 2. En cada intento, usar tokio::time::timeout
     // 3. Si timeout, imprimir "Intento {i} fallido, reintentando..."
     // 4. Si éxito, retornar Some(resultado)
     // 5. Si todos fallan, retornar None
-    todo!("Implementar con_reintentos")
+    todo!("Implementar with_retries")
 }
 
 // =============================================================================
@@ -69,19 +69,19 @@ pub enum Evento {
 /// - Si llega un mensaje del usuario, retorna Evento::Usuario
 /// - Si llega la señal de shutdown, retorna Evento::Shutdown
 /// - Si expira el timeout, retorna Evento::Timer
-pub async fn esperar_evento(
-    rx_usuario: &mut mpsc::Receiver<String>,
+pub async fn wait_for_event(
+    rx_user: &mut mpsc::Receiver<String>,
     rx_shutdown: &mut oneshot::Receiver<()>,
     timeout_ms: u64,
 ) -> Evento {
     // TODO: Implementar usando tokio::select!
     // Pista:
     // tokio::select! {
-    //     Some(msg) = rx_usuario.recv() => Evento::Usuario(msg),
+    //     Some(msg) = rx_user.recv() => Evento::Usuario(msg),
     //     _ = rx_shutdown => Evento::Shutdown,
     //     _ = sleep(Duration::from_millis(timeout_ms)) => Evento::Timer,
     // }
-    todo!("Implementar esperar_evento")
+    todo!("Implementar wait_for_event")
 }
 
 // =============================================================================
@@ -89,7 +89,7 @@ pub async fn esperar_evento(
 // =============================================================================
 
 /// Simula fetch de una URL (retorna después de un delay aleatorio).
-async fn simular_fetch(url: String) -> String {
+async fn simulate_fetch(url: String) -> String {
     // Simular latencia variable basada en la longitud de la URL
     let delay_ms = (url.len() as u64 * 10) % 500 + 100;
     sleep(Duration::from_millis(delay_ms)).await;
@@ -99,13 +99,13 @@ async fn simular_fetch(url: String) -> String {
 /// Ejecuta fetch de múltiples URLs y retorna los primeros `n` resultados.
 ///
 /// Usa JoinSet para manejar las tareas dinámicamente.
-pub async fn fetch_primeros(urls: Vec<String>, n: usize) -> Vec<String> {
+pub async fn fetch_first(urls: Vec<String>, n: usize) -> Vec<String> {
     // TODO: Implementar usando tokio::task::JoinSet
     // 1. Crear un JoinSet
     // 2. Agregar una task por cada URL usando set.spawn()
     // 3. Esperar los primeros n resultados con set.join_next()
     // 4. Retornar los resultados
-    todo!("Implementar fetch_primeros")
+    todo!("Implementar fetch_first")
 }
 
 // =============================================================================
@@ -118,47 +118,47 @@ async fn main() {
 
     // Ejercicio 1
     println!("--- Ejercicio 1: Contador Intervalo ---");
-    contador_intervalo(3).await;
+    interval_counter(3).await;
     println!();
 
     // Ejercicio 2
     println!("--- Ejercicio 2: Timeout con Reintentos ---");
 
     // Operación que siempre tarda más que el timeout
-    let resultado_timeout = con_reintentos(3, 50, || async {
+    let result_timeout = with_retries(3, 50, || async {
         sleep(Duration::from_millis(200)).await;
         "Resultado"
     })
     .await;
-    println!("Resultado (timeout esperado): {:?}", resultado_timeout);
+    println!("Resultado (timeout esperado): {:?}", result_timeout);
 
     // Operación que completa a tiempo
-    let resultado_ok = con_reintentos(3, 200, || async {
+    let result_ok = with_retries(3, 200, || async {
         sleep(Duration::from_millis(50)).await;
         "Éxito!"
     })
     .await;
-    println!("Resultado (éxito esperado): {:?}", resultado_ok);
+    println!("Resultado (éxito esperado): {:?}", result_ok);
     println!();
 
     // Ejercicio 3
     println!("--- Ejercicio 3: Select Múltiples Fuentes ---");
-    let (tx_usuario, mut rx_usuario) = mpsc::channel::<String>(10);
+    let (tx_user, mut rx_user) = mpsc::channel::<String>(10);
     let (tx_shutdown, mut rx_shutdown) = oneshot::channel::<()>();
 
     // Enviar mensaje de usuario después de 100ms
     tokio::spawn(async move {
         sleep(Duration::from_millis(100)).await;
-        tx_usuario.send("Hola!".to_string()).await.ok();
+        tx_user.send("Hola!".to_string()).await.ok();
     });
 
-    let evento = esperar_evento(&mut rx_usuario, &mut rx_shutdown, 500).await;
-    println!("Evento recibido: {:?}", evento);
+    let event = wait_for_event(&mut rx_user, &mut rx_shutdown, 500).await;
+    println!("Evento recibido: {:?}", event);
 
     // Probar timeout
     let (_tx_shutdown2, mut rx_shutdown2) = oneshot::channel::<()>();
-    let evento_timeout = esperar_evento(&mut rx_usuario, &mut rx_shutdown2, 50).await;
-    println!("Evento (timeout): {:?}", evento_timeout);
+    let event_timeout = wait_for_event(&mut rx_user, &mut rx_shutdown2, 50).await;
+    println!("Evento (timeout): {:?}", event_timeout);
     println!();
 
     // Ejercicio 4
@@ -171,9 +171,9 @@ async fn main() {
         "https://docs.rs".to_string(),
     ];
 
-    let primeros = fetch_primeros(urls, 3).await;
+    let first_results = fetch_first(urls, 3).await;
     println!("Primeros 3 resultados:");
-    for r in &primeros {
+    for r in &first_results {
         println!("  {}", r);
     }
 }
@@ -200,60 +200,60 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_reintentos_exito() {
-        let resultado = con_reintentos(3, 200, || async {
+    async fn test_retries_success() {
+        let result = with_retries(3, 200, || async {
             sleep(Duration::from_millis(50)).await;
             42
         })
         .await;
 
-        assert_eq!(resultado, Some(42));
+        assert_eq!(result, Some(42));
     }
 
     #[tokio::test]
-    async fn test_reintentos_fallo() {
-        let resultado = con_reintentos(2, 50, || async {
+    async fn test_retries_failure() {
+        let result = with_retries(2, 50, || async {
             sleep(Duration::from_millis(200)).await;
             42
         })
         .await;
 
-        assert_eq!(resultado, None);
+        assert_eq!(result, None);
     }
 
     #[tokio::test]
-    async fn test_evento_usuario() {
+    async fn test_event_user() {
         let (tx, mut rx) = mpsc::channel::<String>(1);
         let (_tx_shutdown, mut rx_shutdown) = oneshot::channel::<()>();
 
         tx.send("Test".to_string()).await.unwrap();
 
-        let evento = esperar_evento(&mut rx, &mut rx_shutdown, 1000).await;
-        assert_eq!(evento, Evento::Usuario("Test".to_string()));
+        let event = wait_for_event(&mut rx, &mut rx_shutdown, 1000).await;
+        assert_eq!(event, Evento::Usuario("Test".to_string()));
     }
 
     #[tokio::test]
-    async fn test_evento_shutdown() {
+    async fn test_event_shutdown() {
         let (_tx, mut rx) = mpsc::channel::<String>(1);
         let (tx_shutdown, mut rx_shutdown) = oneshot::channel::<()>();
 
         tx_shutdown.send(()).unwrap();
 
-        let evento = esperar_evento(&mut rx, &mut rx_shutdown, 1000).await;
-        assert_eq!(evento, Evento::Shutdown);
+        let event = wait_for_event(&mut rx, &mut rx_shutdown, 1000).await;
+        assert_eq!(event, Evento::Shutdown);
     }
 
     #[tokio::test]
-    async fn test_evento_timer() {
+    async fn test_event_timer() {
         let (_tx, mut rx) = mpsc::channel::<String>(1);
         let (_tx_shutdown, mut rx_shutdown) = oneshot::channel::<()>();
 
-        let evento = esperar_evento(&mut rx, &mut rx_shutdown, 50).await;
-        assert_eq!(evento, Evento::Timer);
+        let event = wait_for_event(&mut rx, &mut rx_shutdown, 50).await;
+        assert_eq!(event, Evento::Timer);
     }
 
     #[tokio::test]
-    async fn test_fetch_primeros_cantidad() {
+    async fn test_fetch_first_count() {
         let urls = vec![
             "a".to_string(),
             "bb".to_string(),
@@ -261,16 +261,16 @@ mod tests {
             "dddd".to_string(),
         ];
 
-        let resultados = fetch_primeros(urls, 2).await;
-        assert_eq!(resultados.len(), 2);
+        let results = fetch_first(urls, 2).await;
+        assert_eq!(results.len(), 2);
     }
 
     #[tokio::test]
-    async fn test_fetch_primeros_contenido() {
+    async fn test_fetch_first_content() {
         let urls = vec!["test".to_string()];
 
-        let resultados = fetch_primeros(urls, 1).await;
-        assert_eq!(resultados.len(), 1);
-        assert!(resultados[0].contains("test"));
+        let results = fetch_first(urls, 1).await;
+        assert_eq!(results.len(), 1);
+        assert!(results[0].contains("test"));
     }
 }

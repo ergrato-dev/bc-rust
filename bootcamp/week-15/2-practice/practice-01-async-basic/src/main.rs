@@ -10,17 +10,17 @@ use tokio::time::sleep;
 // EJERCICIO 1: Primera Función Async
 // =============================================================================
 
-/// Simula una operación lenta que toma `segundos` segundos.
+/// Simula una operación lenta que toma `seconds` segundos.
 ///
 /// # Comportamiento esperado
-/// 1. Imprime "Iniciando {nombre}..."
-/// 2. Espera `segundos` segundos
-/// 3. Imprime "{nombre} completada"
-/// 4. Retorna "{nombre} OK"
-pub async fn operacion_lenta(nombre: &str, segundos: u64) -> String {
+/// 1. Imprime "Iniciando {name}..."
+/// 2. Espera `seconds` segundos
+/// 3. Imprime "{name} completada"
+/// 4. Retorna "{name} OK"
+pub async fn slow_operation(name: &str, seconds: u64) -> String {
     // TODO: Implementar
-    // Pista: usa tokio::time::sleep(Duration::from_secs(segundos)).await
-    todo!("Implementar operacion_lenta")
+    // Pista: usa tokio::time::sleep(Duration::from_secs(seconds)).await
+    todo!("Implementar slow_operation")
 }
 
 // =============================================================================
@@ -29,32 +29,32 @@ pub async fn operacion_lenta(nombre: &str, segundos: u64) -> String {
 
 /// Ejecuta tres operaciones de forma secuencial (una después de otra).
 /// Retorna el tiempo total de ejecución.
-pub async fn secuencial() -> Duration {
-    let inicio = Instant::now();
+pub async fn sequential() -> Duration {
+    let start = Instant::now();
 
     // TODO: Ejecutar secuencialmente:
-    // - operacion_lenta("Tarea A", 1)
-    // - operacion_lenta("Tarea B", 1)
-    // - operacion_lenta("Tarea C", 1)
+    // - slow_operation("Tarea A", 1)
+    // - slow_operation("Tarea B", 1)
+    // - slow_operation("Tarea C", 1)
     // Tiempo esperado: ~3 segundos
     todo!("Implementar ejecución secuencial")
 
-    // inicio.elapsed()
+    // start.elapsed()
 }
 
 /// Ejecuta tres operaciones de forma concurrente.
 /// Retorna el tiempo total de ejecución.
-pub async fn concurrente() -> Duration {
-    let inicio = Instant::now();
+pub async fn concurrent() -> Duration {
+    let start = Instant::now();
 
     // TODO: Ejecutar concurrentemente con tokio::join!:
-    // - operacion_lenta("Tarea A", 1)
-    // - operacion_lenta("Tarea B", 1)
-    // - operacion_lenta("Tarea C", 1)
+    // - slow_operation("Tarea A", 1)
+    // - slow_operation("Tarea B", 1)
+    // - slow_operation("Tarea C", 1)
     // Tiempo esperado: ~1 segundo
     todo!("Implementar ejecución concurrente")
 
-    // inicio.elapsed()
+    // start.elapsed()
 }
 
 // =============================================================================
@@ -83,14 +83,14 @@ pub async fn spawn_tasks(n: u32) -> Vec<String> {
 ///
 /// - Si el future completa antes del timeout, retorna Some(resultado)
 /// - Si el timeout expira primero, retorna None
-pub async fn con_timeout<T>(future: impl Future<Output = T>, timeout_ms: u64) -> Option<T> {
+pub async fn with_timeout<T>(future: impl Future<Output = T>, timeout_ms: u64) -> Option<T> {
     // TODO: Implementar usando tokio::select!
     // Pista:
     // tokio::select! {
-    //     resultado = future => Some(resultado),
+    //     result = future => Some(result),
     //     _ = sleep(Duration::from_millis(timeout_ms)) => None,
     // }
-    todo!("Implementar con_timeout")
+    todo!("Implementar with_timeout")
 }
 
 // =============================================================================
@@ -103,32 +103,32 @@ async fn main() {
 
     // Ejercicio 1
     println!("--- Ejercicio 1: Operación Lenta ---");
-    let resultado = operacion_lenta("MiTarea", 1).await;
-    println!("Resultado: {}\n", resultado);
+    let result = slow_operation("MiTarea", 1).await;
+    println!("Resultado: {}\n", result);
 
     // Ejercicio 2
     println!("--- Ejercicio 2: Secuencial vs Concurrente ---");
-    let tiempo_sec = secuencial().await;
-    println!("Tiempo secuencial: {:?}", tiempo_sec);
+    let time_seq = sequential().await;
+    println!("Tiempo secuencial: {:?}", time_seq);
 
-    let tiempo_con = concurrente().await;
-    println!("Tiempo concurrente: {:?}", tiempo_con);
+    let time_con = concurrent().await;
+    println!("Tiempo concurrente: {:?}", time_con);
     println!(
         "Speedup: {:.2}x\n",
-        tiempo_sec.as_secs_f64() / tiempo_con.as_secs_f64()
+        time_seq.as_secs_f64() / time_con.as_secs_f64()
     );
 
     // Ejercicio 3
     println!("--- Ejercicio 3: Spawn Tasks ---");
-    let resultados = spawn_tasks(5).await;
-    for r in &resultados {
+    let results = spawn_tasks(5).await;
+    for r in &results {
         println!("  {}", r);
     }
     println!();
 
     // Ejercicio 4
     println!("--- Ejercicio 4: Timeout ---");
-    let rapido = con_timeout(
+    let fast = with_timeout(
         async {
             sleep(Duration::from_millis(50)).await;
             "Rápido!"
@@ -136,9 +136,9 @@ async fn main() {
         100,
     )
     .await;
-    println!("Operación rápida: {:?}", rapido);
+    println!("Operación rápida: {:?}", fast);
 
-    let lento = con_timeout(
+    let slow = with_timeout(
         async {
             sleep(Duration::from_millis(200)).await;
             "Lento!"
@@ -146,7 +146,7 @@ async fn main() {
         100,
     )
     .await;
-    println!("Operación lenta: {:?}", lento);
+    println!("Operación lenta: {:?}", slow);
 }
 
 // =============================================================================
@@ -158,48 +158,48 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_operacion_lenta() {
-        let inicio = Instant::now();
-        let resultado = operacion_lenta("Test", 1).await;
-        let duracion = inicio.elapsed();
+    async fn test_slow_operation() {
+        let start = Instant::now();
+        let result = slow_operation("Test", 1).await;
+        let duration = start.elapsed();
 
-        assert!(resultado.contains("Test"));
-        assert!(resultado.contains("OK"));
-        assert!(duracion >= Duration::from_millis(900)); // Al menos 0.9 segundos
+        assert!(result.contains("Test"));
+        assert!(result.contains("OK"));
+        assert!(duration >= Duration::from_millis(900)); // Al menos 0.9 segundos
     }
 
     #[tokio::test]
-    async fn test_secuencial_es_lento() {
-        let duracion = secuencial().await;
+    async fn test_sequential_is_slow() {
+        let duration = sequential().await;
         // Secuencial debe tomar al menos 2.5 segundos
-        assert!(duracion >= Duration::from_millis(2500));
+        assert!(duration >= Duration::from_millis(2500));
     }
 
     #[tokio::test]
-    async fn test_concurrente_es_rapido() {
-        let duracion = concurrente().await;
+    async fn test_concurrent_is_fast() {
+        let duration = concurrent().await;
         // Concurrente debe tomar menos de 1.5 segundos
-        assert!(duracion < Duration::from_millis(1500));
+        assert!(duration < Duration::from_millis(1500));
     }
 
     #[tokio::test]
-    async fn test_spawn_tasks_cantidad() {
-        let resultados = spawn_tasks(10).await;
-        assert_eq!(resultados.len(), 10);
+    async fn test_spawn_tasks_count() {
+        let results = spawn_tasks(10).await;
+        assert_eq!(results.len(), 10);
     }
 
     #[tokio::test]
-    async fn test_spawn_tasks_contenido() {
-        let resultados = spawn_tasks(3).await;
+    async fn test_spawn_tasks_content() {
+        let results = spawn_tasks(3).await;
         // Verificar que cada resultado contiene "completada"
-        for r in resultados {
+        for r in results {
             assert!(r.contains("completada"));
         }
     }
 
     #[tokio::test]
-    async fn test_timeout_completa() {
-        let resultado = con_timeout(
+    async fn test_timeout_completes() {
+        let result = with_timeout(
             async {
                 sleep(Duration::from_millis(10)).await;
                 42
@@ -208,12 +208,12 @@ mod tests {
         )
         .await;
 
-        assert_eq!(resultado, Some(42));
+        assert_eq!(result, Some(42));
     }
 
     #[tokio::test]
-    async fn test_timeout_expira() {
-        let resultado = con_timeout(
+    async fn test_timeout_expires() {
+        let result = with_timeout(
             async {
                 sleep(Duration::from_millis(200)).await;
                 42
@@ -222,6 +222,6 @@ mod tests {
         )
         .await;
 
-        assert_eq!(resultado, None);
+        assert_eq!(result, None);
     }
 }
