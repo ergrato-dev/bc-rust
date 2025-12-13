@@ -30,7 +30,7 @@ Al completar este proyecto, habrás practicado:
 3. **Información del bootcamp**:
    - Semana actual
    - Temas de la semana
-   - Progreso (1/16 semanas)
+   - Progreso (1/17 semanas)
 4. **Estadísticas del día**:
    - Fecha actual (puedes hardcodear)
    - Horas de estudio planeadas
@@ -46,7 +46,7 @@ Al completar este proyecto, habrás practicado:
 ║  Rol: [Tu Rol]                           ║
 ║  Ubicación: [Tu Ciudad]                  ║
 ╠══════════════════════════════════════════╣
-║  📅 Semana: 01/16                        ║
+║  📅 Semana: 01/17                        ║
 ║  📚 Tema: Introducción a Rust            ║
 ║  📊 Progreso: ▓░░░░░░░░░░░░░░░ 6%       ║
 ╠══════════════════════════════════════════╣

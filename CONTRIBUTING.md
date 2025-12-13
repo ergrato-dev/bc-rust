@@ -197,7 +197,7 @@ Footer opcional (referencias a issues, breaking changes, etc.)
 
 ### Scopes Comunes
 
-- `semana-00` a `semana-15` - Contenido por semana
+- `semana-01` a `semana-17` - Contenido por semana
 - `docker` - Configuración Docker
 - `assets` - Recursos visuales
 - `docs` - Documentación general

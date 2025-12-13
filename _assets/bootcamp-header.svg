@@ -108,11 +108,11 @@
   <g transform="translate(340, 220)">
     <!-- Duration badge -->
     <rect x="0" y="0" width="120" height="28" rx="4" fill="#252526"/>
-    <text x="60" y="19" class="text-primary" font-size="13" text-anchor="middle">📅 16 semanas</text>
+    <text x="60" y="19" class="text-primary" font-size="13" text-anchor="middle">📅 17 semanas</text>
     
     <!-- Hours badge -->
     <rect x="130" y="0" width="100" height="28" rx="4" fill="#252526"/>
-    <text x="180" y="19" class="text-primary" font-size="13" text-anchor="middle">⏱️ 64 horas</text>
+    <text x="180" y="19" class="text-primary" font-size="13" text-anchor="middle">⏱️ 68 horas</text>
     
     <!-- Docker badge -->
     <rect x="240" y="0" width="90" height="28" rx="4" fill="#252526"/>

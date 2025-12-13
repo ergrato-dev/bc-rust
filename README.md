@@ -119,10 +119,10 @@ bc-rust/
 ├── _docs/                   # Documentación adicional
 ├── _scripts/                # Scripts de utilidad
 ├── bootcamp/
-│   ├── semana-00/           # Setup y Hello World
-│   ├── semana-01/           # Variables y Tipos
+│   ├── semana-01/           # Setup y Hello World
+│   ├── semana-02/           # Variables y Tipos
 │   ├── ...
-│   └── semana-15/           # Testing y Docs
+│   └── semana-17/           # API REST con Axum
 ├── Cargo.toml               # Workspace configuration
 ├── docker-compose.yml
 ├── Dockerfile

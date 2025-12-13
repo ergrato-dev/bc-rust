@@ -113,4 +113,4 @@ Ver [rúbrica de evaluación](rubrica-evaluacion.md) para criterios detallados.
 ---
 
 **Última actualización**: Diciembre 2025  
-**Bootcamp**: Rust Zero to Hero - Semana 01/16
+**Bootcamp**: Rust Zero to Hero - Semana 01/17
