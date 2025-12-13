@@ -1,0 +1,8 @@
+[package]
+name = "practica-01-threads"
+version = "0.1.0"
+edition = "2024"
+authors = ["Bootcamp Rust"]
+description = "Práctica 01: Creación y gestión de threads"
+
+[dependencies]
