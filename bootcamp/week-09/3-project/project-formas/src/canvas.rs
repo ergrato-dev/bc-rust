@@ -2,88 +2,88 @@
 //!
 //! Proporciona un canvas simple para visualizar formas.
 
-use crate::traits::{Forma, Dibujable, FormaComparable};
+use crate::traits::{Shape, Drawable, ComparableShape};
 
 /// Canvas para organizar y mostrar formas
 #[derive(Debug, Clone)]
 pub struct Canvas {
-    ancho: usize,
-    alto: usize,
-    titulo: String,
+    width: usize,
+    height: usize,
+    title: String,
 }
 
 impl Canvas {
     /// Crea un nuevo canvas
-    pub fn new(ancho: usize, alto: usize) -> Self {
+    pub fn new(width: usize, height: usize) -> Self {
         Self {
-            ancho,
-            alto,
-            titulo: String::from("Canvas"),
+            width,
+            height,
+            title: String::from("Canvas"),
         }
     }
     
     /// Crea un canvas con título
-    pub fn con_titulo(ancho: usize, alto: usize, titulo: &str) -> Self {
+    pub fn with_title(width: usize, height: usize, title: &str) -> Self {
         Self {
-            ancho,
-            alto,
-            titulo: titulo.to_string(),
+            width,
+            height,
+            title: title.to_string(),
         }
     }
     
     /// Muestra información de una forma
-    pub fn mostrar_info<F: Forma>(&self, forma: &F) {
-        println!("╔{}╗", "═".repeat(self.ancho - 2));
-        println!("║ {} {}", self.titulo, " ".repeat(self.ancho - 4 - self.titulo.len()));
-        println!("╠{}╣", "═".repeat(self.ancho - 2));
-        println!("║ Forma: {:<width$}║", forma.nombre(), width = self.ancho - 11);
-        println!("║ Área: {:<width$.2}║", forma.area(), width = self.ancho - 10);
-        println!("║ Perímetro: {:<width$.2}║", forma.perimetro(), width = self.ancho - 15);
-        println!("╚{}╝", "═".repeat(self.ancho - 2));
+    pub fn show_info<F: Shape>(&self, shape: &F) {
+        println!("╔{}╗", "═".repeat(self.width - 2));
+        println!("║ {} {}", self.title, " ".repeat(self.width - 4 - self.title.len()));
+        println!("╠{}╣", "═".repeat(self.width - 2));
+        println!("║ Forma: {:<width$}║", shape.name(), width = self.width - 11);
+        println!("║ Área: {:<width$.2}║", shape.area(), width = self.width - 10);
+        println!("║ Perímetro: {:<width$.2}║", shape.perimeter(), width = self.width - 15);
+        println!("╚{}╝", "═".repeat(self.width - 2));
     }
     
     /// Dibuja una forma en el canvas
-    pub fn dibujar<F: Dibujable>(&self, forma: &F) -> String {
-        let mut resultado = String::new();
+    pub fn draw<F: Drawable>(&self, shape: &F) -> String {
+        let mut result = String::new();
         
         // Borde superior
-        resultado.push_str(&format!("┌{}┐\n", "─".repeat(self.ancho - 2)));
-        resultado.push_str(&format!("│ {} {}│\n", 
-            self.titulo, 
-            " ".repeat(self.ancho - 4 - self.titulo.len())));
-        resultado.push_str(&format!("├{}┤\n", "─".repeat(self.ancho - 2)));
+        result.push_str(&format!("┌{}┐\n", "─".repeat(self.width - 2)));
+        result.push_str(&format!("│ {} {}│\n", 
+            self.title, 
+            " ".repeat(self.width - 4 - self.title.len())));
+        result.push_str(&format!("├{}┤\n", "─".repeat(self.width - 2)));
         
         // Contenido del dibujo
-        let dibujo = forma.dibujar();
-        for linea in dibujo.lines() {
-            let padding = self.ancho.saturating_sub(linea.chars().count() + 4);
-            resultado.push_str(&format!("│ {}{} │\n", linea, " ".repeat(padding)));
+        let drawing = shape.draw();
+        for line in drawing.lines() {
+            let padding = self.width.saturating_sub(line.chars().count() + 4);
+            result.push_str(&format!("│ {}{} │\n", line, " ".repeat(padding)));
         }
         
         // Borde inferior
-        resultado.push_str(&format!("└{}┘\n", "─".repeat(self.ancho - 2)));
+        result.push_str(&format!("└{}┘\n", "─".repeat(self.width - 2)));
         
-        resultado
+        result
     }
     
     /// Compara dos formas
-    pub fn comparar<F1, F2>(forma1: &F1, forma2: &F2) 
+    pub fn compare<F1, F2>(shape1: &F1, shape2: &F2) 
     where
-        F1: FormaComparable,
-        F2: FormaComparable,
+        F1: ComparableShape,
+        F2: ComparableShape,
     {
         println!("\n📊 Comparación de Formas:");
         println!("─────────────────────────────────────");
-        println!("{:<15} │ {:<15} │ {:<15}", "", forma1.nombre(), forma2.nombre());
+        println!("{:<15} │ {:<15} │ {:<15}", "", shape1.name(), shape2.name());
         println!("─────────────────────────────────────");
-        println!("{:<15} │ {:>15.2} │ {:>15.2}", "Área", forma1.area(), forma2.area());
-        println!("{:<15} │ {:>15.2} │ {:>15.2}", "Perímetro", forma1.perimetro(), forma2.perimetro());
+        println!("{:<15} │ {:>15.2} │ {:>15.2}", "Área", shape1.area(), shape2.area());
+        println!("{:<15} │ {:>15.2} │ {:>15.2}", "Perímetro", shape1.perimeter(), shape2.perimeter());
         println!("─────────────────────────────────────");
         
-        if forma1.es_mas_grande_que(forma2) {
-            println!("✓ {} es más grande", forma1.nombre());
-        } else if forma2.es_mas_grande_que(forma1) {
-            println!("✓ {} es más grande", forma2.nombre());
+        if shape1.is_larger_than(shape2) {
+            println!("✓ {} es más grande", shape1.name());
+        } else if shape2.is_larger_than(shape1) {
+            println!("✓ {} es más grande", shape2.name());
         } else {
             println!("✓ Tienen la misma área");
         }
@@ -97,23 +97,23 @@ impl Default for Canvas {
 }
 
 /// Función helper para imprimir cualquier forma
-pub fn imprimir_forma<F: Forma>(forma: &F) {
-    println!("📐 {}", forma.nombre());
-    println!("   Área: {:.2}", forma.area());
-    println!("   Perímetro: {:.2}", forma.perimetro());
+pub fn print_shape<F: Shape>(shape: &F) {
+    println!("📐 {}", shape.name());
+    println!("   Área: {:.2}", shape.area());
+    println!("   Perímetro: {:.2}", shape.perimeter());
 }
 
 /// Función helper para imprimir múltiples formas
-pub fn imprimir_formas(formas: &[&dyn Forma]) {
+pub fn print_shapes(shapes: &[&dyn Shape]) {
     println!("\n📋 Lista de Formas:");
     println!("═══════════════════════════════════════");
     
-    for (i, forma) in formas.iter().enumerate() {
+    for (i, shape) in shapes.iter().enumerate() {
         println!("{}. {} - Área: {:.2}, Perímetro: {:.2}",
             i + 1,
-            forma.nombre(),
-            forma.area(),
-            forma.perimetro()
+            shape.name(),
+            shape.area(),
+            shape.perimeter()
         );
     }
     
@@ -121,62 +121,62 @@ pub fn imprimir_formas(formas: &[&dyn Forma]) {
 }
 
 /// Encuentra la forma con mayor área
-pub fn forma_mayor_area<'a>(formas: &[&'a dyn Forma]) -> Option<&'a dyn Forma> {
-    formas.iter()
+pub fn shape_with_largest_area<'a>(shapes: &[&'a dyn Shape]) -> Option<&'a dyn Shape> {
+    shapes.iter()
         .max_by(|a, b| a.area().partial_cmp(&b.area()).unwrap())
         .copied()
 }
 
 /// Calcula el área total de todas las formas
-pub fn area_total(formas: &[&dyn Forma]) -> f64 {
-    formas.iter().map(|f| f.area()).sum()
+pub fn total_area(shapes: &[&dyn Shape]) -> f64 {
+    shapes.iter().map(|f| f.area()).sum()
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::formas::{Circulo, Rectangulo, Cuadrado};
+    use crate::shapes::{Circle, Rectangle, Square};
     
     #[test]
     fn test_canvas_new() {
         let canvas = Canvas::new(50, 30);
-        assert_eq!(canvas.ancho, 50);
-        assert_eq!(canvas.alto, 30);
+        assert_eq!(canvas.width, 50);
+        assert_eq!(canvas.height, 30);
     }
     
     #[test]
-    fn test_canvas_con_titulo() {
-        let canvas = Canvas::con_titulo(50, 30, "Mi Canvas");
-        assert_eq!(canvas.titulo, "Mi Canvas");
+    fn test_canvas_with_title() {
+        let canvas = Canvas::with_title(50, 30, "Mi Canvas");
+        assert_eq!(canvas.title, "Mi Canvas");
     }
     
     #[test]
-    fn test_canvas_dibujar() {
+    fn test_canvas_draw() {
         let canvas = Canvas::new(30, 10);
-        let cuadrado = Cuadrado::new(3.0);
-        let resultado = canvas.dibujar(&cuadrado);
-        assert!(resultado.contains("Canvas"));
+        let square = Square::new(3.0);
+        let result = canvas.draw(&square);
+        assert!(result.contains("Canvas"));
     }
     
     #[test]
-    fn test_forma_mayor_area() {
-        let c = Circulo::new(1.0);
-        let r = Rectangulo::new(10.0, 10.0);
-        let s = Cuadrado::new(5.0);
+    fn test_shape_with_largest_area() {
+        let c = Circle::new(1.0);
+        let r = Rectangle::new(10.0, 10.0);
+        let s = Square::new(5.0);
         
-        let formas: Vec<&dyn Forma> = vec![&c, &r, &s];
-        let mayor = forma_mayor_area(&formas).unwrap();
+        let shapes: Vec<&dyn Shape> = vec![&c, &r, &s];
+        let largest = shape_with_largest_area(&shapes).unwrap();
         
-        assert_eq!(mayor.nombre(), "Rectángulo");
+        assert_eq!(largest.name(), "Rectángulo");
     }
     
     #[test]
-    fn test_area_total() {
-        let c = Cuadrado::new(2.0); // área = 4
-        let r = Rectangulo::new(2.0, 3.0); // área = 6
+    fn test_total_area() {
+        let c = Square::new(2.0); // área = 4
+        let r = Rectangle::new(2.0, 3.0); // área = 6
         
-        let formas: Vec<&dyn Forma> = vec![&c, &r];
-        let total = area_total(&formas);
+        let shapes: Vec<&dyn Shape> = vec![&c, &r];
+        let total = total_area(&shapes);
         
         assert!((total - 10.0).abs() < f64::EPSILON);
     }

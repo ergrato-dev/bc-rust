@@ -4,27 +4,27 @@
 //!
 //! ## Módulos
 //!
-//! - `traits`: Definición de traits (Forma, Dibujable, Transformable)
-//! - `formas`: Implementación de formas (Círculo, Rectángulo, Cuadrado, Triángulo)
+//! - `traits`: Definición de traits (Shape, Drawable, Transformable)
+//! - `shapes`: Implementación de formas (Circle, Rectangle, Square, Triangle)
 //! - `canvas`: Utilidades para visualización
 //!
 //! ## Ejemplo
 //!
 //! ```rust
-//! use proyecto_formas::*;
+//! use project_formas::*;
 //!
-//! let circulo = Circulo::new(5.0);
-//! let rectangulo = Rectangulo::new(10.0, 5.0);
+//! let circle = Circle::new(5.0);
+//! let rectangle = Rectangle::new(10.0, 5.0);
 //!
-//! println!("Área del círculo: {:.2}", circulo.area());
-//! println!("Perímetro del rectángulo: {:.2}", rectangulo.perimetro());
+//! println!("Área del círculo: {:.2}", circle.area());
+//! println!("Perímetro del rectángulo: {:.2}", rectangle.perimeter());
 //! ```
 
 pub mod traits;
-pub mod formas;
+pub mod shapes;
 pub mod canvas;
 
 // Re-exportar tipos principales
-pub use traits::{Forma, Dibujable, Transformable, Posicionable, FormaCompleta, FormaComparable};
-pub use formas::{Circulo, Rectangulo, Cuadrado, Triangulo};
-pub use canvas::{Canvas, imprimir_forma, imprimir_formas, forma_mayor_area, area_total};
+pub use traits::{Shape, Drawable, Transformable, Positionable, CompleteShape, ComparableShape};
+pub use shapes::{Circle, Rectangle, Square, Triangle};
+pub use canvas::{Canvas, print_shape, print_shapes, shape_with_largest_area, total_area};
