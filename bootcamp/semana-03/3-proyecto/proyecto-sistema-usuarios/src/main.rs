@@ -1,14 +1,14 @@
 // ============================================
-// Proyecto Semanal: Sistema de Usuarios
+// Weekly Project: User System
 // ============================================
-// Semana 03: Structs y Métodos
-// ============================================
-
-// ============================================
-// NIVEL 1: STRUCTS BÁSICOS
+// Week 03: Structs and Methods
 // ============================================
 
-/// ID único de usuario (newtype pattern)
+// ============================================
+// LEVEL 1: BASIC STRUCTS
+// ============================================
+
+/// Unique user ID (newtype pattern)
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct UserId(u64);
 
@@ -17,288 +17,288 @@ impl UserId {
         Self(id)
     }
 
-    fn valor(&self) -> u64 {
+    fn value(&self) -> u64 {
         self.0
     }
 }
 
-/// Representa un usuario del sistema
-struct Usuario {
+/// Represents a system user
+struct User {
     id: UserId,
-    nombre: String,
+    name: String,
     email: String,
-    edad: u32,
-    activo: bool,
+    age: u32,
+    active: bool,
 }
 
-impl Usuario {
+impl User {
     // -----------------------------------------
-    // Constructores
+    // Constructors
     // -----------------------------------------
     
-    /// Constructor principal
-    fn new(id: u64, nombre: String, email: String) -> Self {
+    /// Main constructor
+    fn new(id: u64, name: String, email: String) -> Self {
         Self {
             id: UserId::new(id),
-            nombre,
+            name,
             email,
-            edad: 0,
-            activo: true,
+            age: 0,
+            active: true,
         }
     }
 
-    /// Constructor con todos los datos
-    fn completo(id: u64, nombre: String, email: String, edad: u32) -> Self {
+    /// Constructor with all data
+    fn complete(id: u64, name: String, email: String, age: u32) -> Self {
         Self {
             id: UserId::new(id),
-            nombre,
+            name,
             email,
-            edad,
-            activo: true,
+            age,
+            active: true,
         }
     }
 
     // -----------------------------------------
-    // Métodos de Lectura
+    // Read Methods
     // -----------------------------------------
     
     fn id(&self) -> UserId {
         self.id
     }
 
-    fn nombre(&self) -> &str {
-        &self.nombre
+    fn name(&self) -> &str {
+        &self.name
     }
 
     fn email(&self) -> &str {
         &self.email
     }
 
-    fn edad(&self) -> u32 {
-        self.edad
+    fn age(&self) -> u32 {
+        self.age
     }
 
-    fn esta_activo(&self) -> bool {
-        self.activo
+    fn is_active(&self) -> bool {
+        self.active
     }
 
-    fn es_adulto(&self) -> bool {
-        self.edad >= 18
+    fn is_adult(&self) -> bool {
+        self.age >= 18
     }
 
-    fn mostrar(&self) {
+    fn display(&self) {
         println!(
-            "[{}] {} ({}) - {} años - {}",
-            self.id.valor(),
-            self.nombre,
+            "[{}] {} ({}) - {} years old - {}",
+            self.id.value(),
+            self.name,
             self.email,
-            self.edad,
-            if self.activo { "✓ Activo" } else { "✗ Inactivo" }
+            self.age,
+            if self.active { "✓ Active" } else { "✗ Inactive" }
         );
     }
 
     // -----------------------------------------
-    // Métodos de Modificación
+    // Mutation Methods
     // -----------------------------------------
     
-    fn cumplir_anios(&mut self) {
-        self.edad += 1;
+    fn have_birthday(&mut self) {
+        self.age += 1;
     }
 
-    fn cambiar_email(&mut self, nuevo_email: String) {
-        self.email = nuevo_email;
+    fn change_email(&mut self, new_email: String) {
+        self.email = new_email;
     }
 
-    fn activar(&mut self) {
-        self.activo = true;
+    fn activate(&mut self) {
+        self.active = true;
     }
 
-    fn desactivar(&mut self) {
-        self.activo = false;
+    fn deactivate(&mut self) {
+        self.active = false;
     }
 }
 
 // ============================================
-// NIVEL 1: PERFIL DE USUARIO
+// LEVEL 1: USER PROFILE
 // ============================================
 
-/// Información adicional del perfil
-struct Perfil {
+/// Additional profile information
+struct Profile {
     bio: String,
-    sitio_web: Option<String>,
-    ubicacion: String,
+    website: Option<String>,
+    location: String,
 }
 
-impl Perfil {
-    fn new(bio: String, ubicacion: String) -> Self {
+impl Profile {
+    fn new(bio: String, location: String) -> Self {
         Self {
             bio,
-            sitio_web: None,
-            ubicacion,
+            website: None,
+            location,
         }
     }
 
-    fn con_sitio_web(bio: String, ubicacion: String, sitio: String) -> Self {
+    fn with_website(bio: String, location: String, site: String) -> Self {
         Self {
             bio,
-            sitio_web: Some(sitio),
-            ubicacion,
+            website: Some(site),
+            location,
         }
     }
 
-    fn mostrar(&self) {
+    fn display(&self) {
         println!("  Bio: {}", self.bio);
-        println!("  Ubicación: {}", self.ubicacion);
-        match &self.sitio_web {
+        println!("  Location: {}", self.location);
+        match &self.website {
             Some(url) => println!("  Web: {}", url),
-            None => println!("  Web: No especificado"),
+            None => println!("  Web: Not specified"),
         }
     }
 
-    fn set_sitio_web(&mut self, url: String) {
-        self.sitio_web = Some(url);
+    fn set_website(&mut self, url: String) {
+        self.website = Some(url);
     }
 }
 
 // ============================================
-// NIVEL 1: USUARIO COMPLETO
+// LEVEL 1: COMPLETE USER
 // ============================================
 
-/// Usuario con perfil completo
-struct UsuarioCompleto {
-    usuario: Usuario,
-    perfil: Perfil,
+/// User with complete profile
+struct CompleteUser {
+    user: User,
+    profile: Profile,
 }
 
-impl UsuarioCompleto {
-    fn new(usuario: Usuario, perfil: Perfil) -> Self {
-        Self { usuario, perfil }
+impl CompleteUser {
+    fn new(user: User, profile: Profile) -> Self {
+        Self { user, profile }
     }
 
-    fn mostrar(&self) {
+    fn display(&self) {
         println!("╔══════════════════════════════╗");
-        println!("║       USUARIO COMPLETO       ║");
+        println!("║       COMPLETE USER          ║");
         println!("╠══════════════════════════════╣");
-        self.usuario.mostrar();
-        self.perfil.mostrar();
+        self.user.display();
+        self.profile.display();
         println!("╚══════════════════════════════╝");
     }
 
-    // Acceso delegado
-    fn nombre(&self) -> &str {
-        self.usuario.nombre()
+    // Delegated access
+    fn name(&self) -> &str {
+        self.user.name()
     }
 
-    fn ubicacion(&self) -> &str {
-        &self.perfil.ubicacion
+    fn location(&self) -> &str {
+        &self.profile.location
     }
 
-    fn es_adulto(&self) -> bool {
-        self.usuario.es_adulto()
+    fn is_adult(&self) -> bool {
+        self.user.is_adult()
     }
 }
 
 // ============================================
-// NIVEL 2: SISTEMA DE ROLES
+// LEVEL 2: ROLE SYSTEM
 // ============================================
 
-/// Roles disponibles en el sistema
-struct Rol {
-    nombre: String,
-    puede_editar: bool,
-    puede_eliminar: bool,
-    es_admin: bool,
+/// Available roles in the system
+struct Role {
+    name: String,
+    can_edit: bool,
+    can_delete: bool,
+    is_admin: bool,
 }
 
-impl Rol {
-    fn usuario() -> Self {
+impl Role {
+    fn user() -> Self {
         Self {
-            nombre: String::from("Usuario"),
-            puede_editar: false,
-            puede_eliminar: false,
-            es_admin: false,
+            name: String::from("User"),
+            can_edit: false,
+            can_delete: false,
+            is_admin: false,
         }
     }
 
     fn editor() -> Self {
         Self {
-            nombre: String::from("Editor"),
-            puede_editar: true,
-            puede_eliminar: false,
-            es_admin: false,
+            name: String::from("Editor"),
+            can_edit: true,
+            can_delete: false,
+            is_admin: false,
         }
     }
 
     fn admin() -> Self {
         Self {
-            nombre: String::from("Administrador"),
-            puede_editar: true,
-            puede_eliminar: true,
-            es_admin: true,
+            name: String::from("Administrator"),
+            can_edit: true,
+            can_delete: true,
+            is_admin: true,
         }
     }
 
-    fn mostrar(&self) {
+    fn display(&self) {
         println!(
-            "Rol: {} [editar:{}, eliminar:{}, admin:{}]",
-            self.nombre,
-            self.puede_editar,
-            self.puede_eliminar,
-            self.es_admin
+            "Role: {} [edit:{}, delete:{}, admin:{}]",
+            self.name,
+            self.can_edit,
+            self.can_delete,
+            self.is_admin
         );
     }
 }
 
 // ============================================
-// NIVEL 3: GESTOR DE USUARIOS
+// LEVEL 3: USER MANAGER
 // ============================================
 
-/// Gestor que contiene múltiples usuarios
-struct GestorUsuarios {
-    usuarios: Vec<Usuario>,
-    siguiente_id: u64,
+/// Manager that contains multiple users
+struct UserManager {
+    users: Vec<User>,
+    next_id: u64,
 }
 
-impl GestorUsuarios {
+impl UserManager {
     fn new() -> Self {
         Self {
-            usuarios: Vec::new(),
-            siguiente_id: 1,
+            users: Vec::new(),
+            next_id: 1,
         }
     }
 
-    fn agregar(&mut self, nombre: String, email: String, edad: u32) -> UserId {
-        let id = self.siguiente_id;
-        self.siguiente_id += 1;
+    fn add(&mut self, name: String, email: String, age: u32) -> UserId {
+        let id = self.next_id;
+        self.next_id += 1;
         
-        let usuario = Usuario::completo(id, nombre, email, edad);
-        let user_id = usuario.id();
-        self.usuarios.push(usuario);
+        let user = User::complete(id, name, email, age);
+        let user_id = user.id();
+        self.users.push(user);
         
         user_id
     }
 
-    fn cantidad(&self) -> usize {
-        self.usuarios.len()
+    fn count(&self) -> usize {
+        self.users.len()
     }
 
-    fn listar(&self) {
-        println!("\n=== Lista de Usuarios ({}) ===", self.cantidad());
-        for usuario in &self.usuarios {
-            usuario.mostrar();
+    fn list(&self) {
+        println!("\n=== User List ({}) ===", self.count());
+        for user in &self.users {
+            user.display();
         }
     }
 
-    fn buscar_por_id(&self, id: UserId) -> Option<&Usuario> {
-        self.usuarios.iter().find(|u| u.id() == id)
+    fn find_by_id(&self, id: UserId) -> Option<&User> {
+        self.users.iter().find(|u| u.id() == id)
     }
 
-    fn usuarios_activos(&self) -> Vec<&Usuario> {
-        self.usuarios.iter().filter(|u| u.esta_activo()).collect()
+    fn active_users(&self) -> Vec<&User> {
+        self.users.iter().filter(|u| u.is_active()).collect()
     }
 
-    fn usuarios_adultos(&self) -> Vec<&Usuario> {
-        self.usuarios.iter().filter(|u| u.es_adulto()).collect()
+    fn adult_users(&self) -> Vec<&User> {
+        self.users.iter().filter(|u| u.is_adult()).collect()
     }
 }
 
@@ -308,110 +308,110 @@ impl GestorUsuarios {
 
 fn main() {
     println!("╔════════════════════════════════════════╗");
-    println!("║   👥 SISTEMA DE USUARIOS - RUST       ║");
-    println!("║      Proyecto Semana 03               ║");
+    println!("║   👥 USER SYSTEM - RUST               ║");
+    println!("║      Week 03 Project                  ║");
     println!("╚════════════════════════════════════════╝\n");
 
     // -----------------------------------------
-    // Nivel 1: Usuarios básicos
+    // Level 1: Basic users
     // -----------------------------------------
-    println!("═══ NIVEL 1: USUARIOS BÁSICOS ═══\n");
+    println!("═══ LEVEL 1: BASIC USERS ═══\n");
     
-    let mut usuario1 = Usuario::new(
+    let mut user1 = User::new(
         1,
-        String::from("Ana García"),
+        String::from("Ana Garcia"),
         String::from("ana@email.com"),
     );
-    usuario1.cumplir_anios();
-    usuario1.cumplir_anios();
+    user1.have_birthday();
+    user1.have_birthday();
     
-    let usuario2 = Usuario::completo(
+    let user2 = User::complete(
         2,
-        String::from("Carlos López"),
+        String::from("Carlos Lopez"),
         String::from("carlos@email.com"),
         25,
     );
 
-    println!("--- Usuarios creados ---");
-    usuario1.mostrar();
-    usuario2.mostrar();
+    println!("--- Created users ---");
+    user1.display();
+    user2.display();
 
-    println!("\n¿Ana es adulta?: {}", usuario1.es_adulto());
-    println!("¿Carlos es adulto?: {}", usuario2.es_adulto());
+    println!("\nIs Ana an adult?: {}", user1.is_adult());
+    println!("Is Carlos an adult?: {}", user2.is_adult());
 
     // -----------------------------------------
-    // Nivel 1: Usuario completo con perfil
+    // Level 1: Complete user with profile
     // -----------------------------------------
-    println!("\n═══ USUARIO COMPLETO ═══\n");
+    println!("\n═══ COMPLETE USER ═══\n");
     
-    let usuario = Usuario::completo(
+    let user = User::complete(
         3,
-        String::from("María Rodríguez"),
+        String::from("Maria Rodriguez"),
         String::from("maria@email.com"),
         30,
     );
     
-    let perfil = Perfil::con_sitio_web(
-        String::from("Desarrolladora Rust apasionada"),
-        String::from("Madrid, España"),
+    let profile = Profile::with_website(
+        String::from("Passionate Rust developer"),
+        String::from("Madrid, Spain"),
         String::from("https://maria.dev"),
     );
 
-    let usuario_completo = UsuarioCompleto::new(usuario, perfil);
-    usuario_completo.mostrar();
+    let complete_user = CompleteUser::new(user, profile);
+    complete_user.display();
 
     // -----------------------------------------
-    // Nivel 2: Roles
+    // Level 2: Roles
     // -----------------------------------------
-    println!("\n═══ NIVEL 2: ROLES ═══\n");
+    println!("\n═══ LEVEL 2: ROLES ═══\n");
     
-    let rol_user = Rol::usuario();
-    let rol_editor = Rol::editor();
-    let rol_admin = Rol::admin();
+    let user_role = Role::user();
+    let editor_role = Role::editor();
+    let admin_role = Role::admin();
 
-    rol_user.mostrar();
-    rol_editor.mostrar();
-    rol_admin.mostrar();
+    user_role.display();
+    editor_role.display();
+    admin_role.display();
 
     // -----------------------------------------
-    // Nivel 3: Gestor de usuarios
+    // Level 3: User manager
     // -----------------------------------------
-    println!("\n═══ NIVEL 3: GESTOR ═══");
+    println!("\n═══ LEVEL 3: MANAGER ═══");
     
-    let mut gestor = GestorUsuarios::new();
+    let mut manager = UserManager::new();
     
-    let id1 = gestor.agregar(
+    let id1 = manager.add(
         String::from("Pedro"),
         String::from("pedro@email.com"),
         17,
     );
     
-    gestor.agregar(
+    manager.add(
         String::from("Laura"),
         String::from("laura@email.com"),
         22,
     );
     
-    gestor.agregar(
+    manager.add(
         String::from("Miguel"),
         String::from("miguel@email.com"),
         35,
     );
 
-    gestor.listar();
+    manager.list();
 
-    println!("\n--- Búsqueda por ID ---");
-    if let Some(usuario) = gestor.buscar_por_id(id1) {
-        print!("Encontrado: ");
-        usuario.mostrar();
+    println!("\n--- Search by ID ---");
+    if let Some(user) = manager.find_by_id(id1) {
+        print!("Found: ");
+        user.display();
     }
 
-    println!("\n--- Usuarios adultos ({}) ---", gestor.usuarios_adultos().len());
-    for u in gestor.usuarios_adultos() {
-        println!("  - {}", u.nombre());
+    println!("\n--- Adult users ({}) ---", manager.adult_users().len());
+    for u in manager.adult_users() {
+        println!("  - {}", u.name());
     }
 
-    println!("\n✅ Proyecto completado");
+    println!("\n✅ Project completed");
 }
 
 // ============================================
@@ -423,90 +423,90 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_usuario_new() {
-        let u = Usuario::new(1, String::from("Test"), String::from("t@t.com"));
+    fn test_user_new() {
+        let u = User::new(1, String::from("Test"), String::from("t@t.com"));
         
-        assert_eq!(u.id().valor(), 1);
-        assert_eq!(u.nombre(), "Test");
-        assert!(u.esta_activo());
+        assert_eq!(u.id().value(), 1);
+        assert_eq!(u.name(), "Test");
+        assert!(u.is_active());
     }
 
     #[test]
-    fn test_usuario_es_adulto() {
-        let menor = Usuario::completo(1, String::from("A"), String::from("a@a"), 17);
-        let adulto = Usuario::completo(2, String::from("B"), String::from("b@b"), 18);
+    fn test_user_is_adult() {
+        let minor = User::complete(1, String::from("A"), String::from("a@a"), 17);
+        let adult = User::complete(2, String::from("B"), String::from("b@b"), 18);
         
-        assert!(!menor.es_adulto());
-        assert!(adulto.es_adulto());
+        assert!(!minor.is_adult());
+        assert!(adult.is_adult());
     }
 
     #[test]
-    fn test_usuario_cumplir_anios() {
-        let mut u = Usuario::new(1, String::from("T"), String::from("t@t"));
-        assert_eq!(u.edad(), 0);
+    fn test_user_have_birthday() {
+        let mut u = User::new(1, String::from("T"), String::from("t@t"));
+        assert_eq!(u.age(), 0);
         
-        u.cumplir_anios();
-        assert_eq!(u.edad(), 1);
+        u.have_birthday();
+        assert_eq!(u.age(), 1);
     }
 
     #[test]
-    fn test_usuario_desactivar() {
-        let mut u = Usuario::new(1, String::from("T"), String::from("t@t"));
-        assert!(u.esta_activo());
+    fn test_user_deactivate() {
+        let mut u = User::new(1, String::from("T"), String::from("t@t"));
+        assert!(u.is_active());
         
-        u.desactivar();
-        assert!(!u.esta_activo());
+        u.deactivate();
+        assert!(!u.is_active());
     }
 
     #[test]
-    fn test_perfil_sin_web() {
-        let p = Perfil::new(String::from("Bio"), String::from("Ciudad"));
-        assert!(p.sitio_web.is_none());
+    fn test_profile_without_website() {
+        let p = Profile::new(String::from("Bio"), String::from("City"));
+        assert!(p.website.is_none());
     }
 
     #[test]
-    fn test_perfil_con_web() {
-        let p = Perfil::con_sitio_web(
+    fn test_profile_with_website() {
+        let p = Profile::with_website(
             String::from("Bio"),
-            String::from("Ciudad"),
+            String::from("City"),
             String::from("https://example.com"),
         );
-        assert!(p.sitio_web.is_some());
+        assert!(p.website.is_some());
     }
 
     #[test]
-    fn test_rol_admin() {
-        let admin = Rol::admin();
-        assert!(admin.es_admin);
-        assert!(admin.puede_editar);
-        assert!(admin.puede_eliminar);
+    fn test_role_admin() {
+        let admin = Role::admin();
+        assert!(admin.is_admin);
+        assert!(admin.can_edit);
+        assert!(admin.can_delete);
     }
 
     #[test]
-    fn test_gestor_agregar() {
-        let mut g = GestorUsuarios::new();
-        g.agregar(String::from("A"), String::from("a@a"), 20);
-        g.agregar(String::from("B"), String::from("b@b"), 25);
+    fn test_manager_add() {
+        let mut m = UserManager::new();
+        m.add(String::from("A"), String::from("a@a"), 20);
+        m.add(String::from("B"), String::from("b@b"), 25);
         
-        assert_eq!(g.cantidad(), 2);
+        assert_eq!(m.count(), 2);
     }
 
     #[test]
-    fn test_gestor_buscar() {
-        let mut g = GestorUsuarios::new();
-        let id = g.agregar(String::from("Test"), String::from("t@t"), 20);
+    fn test_manager_find() {
+        let mut m = UserManager::new();
+        let id = m.add(String::from("Test"), String::from("t@t"), 20);
         
-        let encontrado = g.buscar_por_id(id);
-        assert!(encontrado.is_some());
-        assert_eq!(encontrado.unwrap().nombre(), "Test");
+        let found = m.find_by_id(id);
+        assert!(found.is_some());
+        assert_eq!(found.unwrap().name(), "Test");
     }
 
     #[test]
-    fn test_gestor_adultos() {
-        let mut g = GestorUsuarios::new();
-        g.agregar(String::from("Menor"), String::from("m@m"), 15);
-        g.agregar(String::from("Adulto"), String::from("a@a"), 25);
+    fn test_manager_adults() {
+        let mut m = UserManager::new();
+        m.add(String::from("Minor"), String::from("m@m"), 15);
+        m.add(String::from("Adult"), String::from("a@a"), 25);
         
-        assert_eq!(g.usuarios_adultos().len(), 1);
+        assert_eq!(m.adult_users().len(), 1);
     }
 }

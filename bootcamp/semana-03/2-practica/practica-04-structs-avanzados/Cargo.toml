@@ -2,7 +2,6 @@
 name = "practica-04-structs-avanzados"
 version = "0.1.0"
 edition = "2024"
-description = "Práctica: Tuple structs, unit structs y structs anidados"
-authors = ["Bootcamp Rust"]
+description = "Week 03 Practice: Structs and methods"
 
-[dependencies]
+[workspace]

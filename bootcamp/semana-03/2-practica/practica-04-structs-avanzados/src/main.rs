@@ -1,14 +1,14 @@
 // ============================================
-// Práctica 04: Structs Avanzados
+// Practice 04: Advanced Structs
 // ============================================
-// Objetivo: Tuple, Unit y Structs Anidados
+// Objective: Tuple, Unit and Nested Structs
 // ============================================
 
 // -----------------------------------------
-// PARTE 1: Tuple Structs
+// PART 1: Tuple Structs
 // -----------------------------------------
 
-/// Color RGB (0-255 cada componente)
+/// RGB Color (0-255 each component)
 struct Color(u8, u8, u8);
 
 impl Color {
@@ -16,44 +16,44 @@ impl Color {
         Self(r, g, b)
     }
 
-    fn rojo() -> Self {
+    fn red() -> Self {
         Self(255, 0, 0)
     }
 
-    fn verde() -> Self {
+    fn green() -> Self {
         Self(0, 255, 0)
     }
 
-    fn azul() -> Self {
+    fn blue() -> Self {
         Self(0, 0, 255)
     }
 
-    fn blanco() -> Self {
+    fn white() -> Self {
         Self(255, 255, 255)
     }
 
-    fn negro() -> Self {
+    fn black() -> Self {
         Self(0, 0, 0)
     }
 
-    fn mostrar(&self) {
+    fn display(&self) {
         println!("RGB({}, {}, {})", self.0, self.1, self.2);
     }
 
-    fn es_gris(&self) -> bool {
+    fn is_gray(&self) -> bool {
         self.0 == self.1 && self.1 == self.2
     }
 }
 
-/// Punto en 2D
-struct Punto(f64, f64);
+/// 2D Point
+struct Point(f64, f64);
 
-impl Punto {
+impl Point {
     fn new(x: f64, y: f64) -> Self {
         Self(x, y)
     }
 
-    fn origen() -> Self {
+    fn origin() -> Self {
         Self(0.0, 0.0)
     }
 
@@ -65,25 +65,25 @@ impl Punto {
         self.1
     }
 
-    fn distancia_al_origen(&self) -> f64 {
+    fn distance_to_origin(&self) -> f64 {
         (self.0 * self.0 + self.1 * self.1).sqrt()
     }
 
-    fn distancia_a(&self, otro: &Punto) -> f64 {
-        let dx = self.0 - otro.0;
-        let dy = self.1 - otro.1;
+    fn distance_to(&self, other: &Point) -> f64 {
+        let dx = self.0 - other.0;
+        let dy = self.1 - other.1;
         (dx * dx + dy * dy).sqrt()
     }
 }
 
 // -----------------------------------------
-// PARTE 2: Newtype Pattern
+// PART 2: Newtype Pattern
 // -----------------------------------------
 
-/// ID de usuario (no se puede confundir con ProductId)
+/// User ID (cannot be confused with ProductId)
 struct UserId(u64);
 
-/// ID de producto (tipo distinto a UserId)
+/// Product ID (different type from UserId)
 struct ProductId(u64);
 
 impl UserId {
@@ -91,7 +91,7 @@ impl UserId {
         Self(id)
     }
 
-    fn valor(&self) -> u64 {
+    fn value(&self) -> u64 {
         self.0
     }
 }
@@ -101,185 +101,212 @@ impl ProductId {
         Self(id)
     }
 
-    fn valor(&self) -> u64 {
+    fn value(&self) -> u64 {
         self.0
     }
 }
 
-// Funciones que solo aceptan el tipo correcto
-fn obtener_usuario(id: UserId) {
-    println!("Buscando usuario con ID: {}", id.valor());
+// Functions that only accept the correct type
+fn get_user(id: UserId) {
+    println!("Searching for user with ID: {}", id.value());
 }
 
-fn obtener_producto(id: ProductId) {
-    println!("Buscando producto con ID: {}", id.valor());
-}
-
-// -----------------------------------------
-// PARTE 3: Structs Anidados
-// -----------------------------------------
-
-struct Direccion {
-    calle: String,
-    ciudad: String,
-    codigo_postal: String,
-}
-
-impl Direccion {
-    fn new(calle: String, ciudad: String, codigo_postal: String) -> Self {
-        Self { calle, ciudad, codigo_postal }
-    }
-
-    fn mostrar(&self) {
-        println!("{}, {} ({})", self.calle, self.ciudad, self.codigo_postal);
-    }
-}
-
-struct Persona {
-    nombre: String,
-    edad: u32,
-    direccion: Direccion,
-}
-
-impl Persona {
-    fn new(nombre: String, edad: u32, direccion: Direccion) -> Self {
-        Self { nombre, edad, direccion }
-    }
-
-    fn mostrar(&self) {
-        println!("Nombre: {}", self.nombre);
-        println!("Edad: {}", self.edad);
-        print!("Dirección: ");
-        self.direccion.mostrar();
-    }
-
-    fn ciudad(&self) -> &str {
-        &self.direccion.ciudad
-    }
+fn get_product(id: ProductId) {
+    println!("Searching for product with ID: {}", id.value());
 }
 
 // -----------------------------------------
-// PARTE 4: Unit Struct (Marcador)
+// PART 3: Nested Structs
 // -----------------------------------------
 
-struct Validado;
-struct NoValidado;
+struct Address {
+    street: String,
+    city: String,
+    postal_code: String,
+}
 
-// Podría usarse para type-state pattern (avanzado)
+impl Address {
+    fn new(street: String, city: String, postal_code: String) -> Self {
+        Self { street, city, postal_code }
+    }
+
+    fn display(&self) {
+        println!("{}, {} ({})", self.street, self.city, self.postal_code);
+    }
+}
+
+struct Person {
+    name: String,
+    age: u32,
+    address: Address,
+}
+
+impl Person {
+    fn new(name: String, age: u32, address: Address) -> Self {
+        Self { name, age, address }
+    }
+
+    fn display(&self) {
+        println!("Name: {}", self.name);
+        println!("Age: {}", self.age);
+        print!("Address: ");
+        self.address.display();
+    }
+
+    fn city(&self) -> &str {
+        &self.address.city
+    }
+}
+
+// -----------------------------------------
+// PART 4: Unit Struct (Marker)
+// -----------------------------------------
+
+struct Validated;
+struct NotValidated;
+
+// Could be used for type-state pattern (advanced)
 
 fn main() {
-    println!("=== Práctica 04: Structs Avanzados ===\n");
+    println!("=== Practice 04: Advanced Structs ===\n");
 
     // -----------------------------------------
     // Tuple Structs
     // -----------------------------------------
     println!("--- Tuple Structs: Color ---");
     
-    let rojo = Color::rojo();
+    let red = Color::red();
     let custom = Color::new(128, 64, 255);
-    let gris = Color::new(100, 100, 100);
+    let gray = Color::new(100, 100, 100);
     
-    print!("Rojo: "); rojo.mostrar();
-    print!("Custom: "); custom.mostrar();
-    print!("Gris: "); gris.mostrar();
-    println!("¿Es gris?: {}", gris.es_gris());
+    print!("Red: "); red.display();
+    print!("Custom: "); custom.display();
+    print!("Gray: "); gray.display();
+    println!("Is gray?: {}", gray.is_gray());
 
-    println!("\n--- Tuple Structs: Punto ---");
+    println!("\n--- Tuple Structs: Point ---");
     
-    let p1 = Punto::new(3.0, 4.0);
-    let p2 = Punto::new(6.0, 8.0);
-    let origen = Punto::origen();
+    let p1 = Point::new(3.0, 4.0);
+    let p2 = Point::new(6.0, 8.0);
+    let origin = Point::origin();
     
     println!("P1: ({}, {})", p1.x(), p1.y());
-    println!("Distancia de P1 al origen: {:.2}", p1.distancia_al_origen());
-    println!("Distancia de P1 a P2: {:.2}", p1.distancia_a(&p2));
+    println!("Distance from P1 to origin: {:.2}", p1.distance_to_origin());
+    println!("Distance from P1 to P2: {:.2}", p1.distance_to(&p2));
 
     // -----------------------------------------
     // Newtype Pattern
     // -----------------------------------------
     println!("\n--- Newtype Pattern ---");
     
-    let user_id = UserId::new(12345);
-    let product_id = ProductId::new(67890);
+    let user_id = UserId::new(42);
+    let product_id = ProductId::new(42);
     
-    obtener_usuario(user_id);
-    obtener_producto(product_id);
+    // These are different types even though they contain the same value
+    get_user(user_id);
+    get_product(product_id);
     
-    // Esto NO compilaría (tipos diferentes):
-    // obtener_usuario(product_id);  // Error!
+    // This would NOT compile - type safety!
+    // get_user(product_id);  // Error!
+    // get_product(user_id);  // Error!
 
     // -----------------------------------------
-    // Structs Anidados
+    // Nested Structs
     // -----------------------------------------
-    println!("\n--- Structs Anidados ---");
+    println!("\n--- Nested Structs ---");
     
-    let direccion = Direccion::new(
-        String::from("Calle Mayor 123"),
-        String::from("Madrid"),
-        String::from("28001"),
+    let address = Address::new(
+        String::from("123 Main Street"),
+        String::from("New York"),
+        String::from("10001"),
     );
-
-    let persona = Persona::new(
-        String::from("María García"),
-        28,
-        direccion,
+    
+    let person = Person::new(
+        String::from("John Doe"),
+        30,
+        address,
     );
+    
+    person.display();
+    println!("\nCity: {}", person.city());
 
-    persona.mostrar();
-    println!("Vive en: {}", persona.ciudad());
+    // -----------------------------------------
+    // Unit Structs
+    // -----------------------------------------
+    println!("\n--- Unit Structs ---");
+    let _validated = Validated;
+    let _not_validated = NotValidated;
+    println!("Unit structs created (used as markers)");
 
-    println!("\n✅ Práctica completada");
+    println!("\n✅ Practice completed");
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    // Color tests
     #[test]
-    fn test_color() {
-        let c = Color::rojo();
+    fn test_color_red() {
+        let c = Color::red();
         assert_eq!(c.0, 255);
         assert_eq!(c.1, 0);
         assert_eq!(c.2, 0);
     }
 
     #[test]
-    fn test_color_es_gris() {
-        let gris = Color::new(50, 50, 50);
-        let no_gris = Color::new(50, 60, 70);
+    fn test_color_is_gray() {
+        let gray = Color::new(100, 100, 100);
+        let not_gray = Color::new(100, 50, 100);
         
-        assert!(gris.es_gris());
-        assert!(!no_gris.es_gris());
+        assert!(gray.is_gray());
+        assert!(!not_gray.is_gray());
+    }
+
+    // Point tests
+    #[test]
+    fn test_point_origin() {
+        let p = Point::origin();
+        assert!((p.x() - 0.0).abs() < 0.001);
+        assert!((p.y() - 0.0).abs() < 0.001);
     }
 
     #[test]
-    fn test_punto_origen() {
-        let p = Punto::origen();
-        assert_eq!(p.x(), 0.0);
-        assert_eq!(p.y(), 0.0);
+    fn test_point_distance_to_origin() {
+        let p = Point::new(3.0, 4.0);
+        assert!((p.distance_to_origin() - 5.0).abs() < 0.001);
     }
 
     #[test]
-    fn test_punto_distancia() {
-        let p = Punto::new(3.0, 4.0);
-        assert!((p.distancia_al_origen() - 5.0).abs() < 0.001);
+    fn test_point_distance_to() {
+        let p1 = Point::new(0.0, 0.0);
+        let p2 = Point::new(3.0, 4.0);
+        assert!((p1.distance_to(&p2) - 5.0).abs() < 0.001);
     }
 
+    // Newtype tests
     #[test]
     fn test_user_id() {
-        let id = UserId::new(100);
-        assert_eq!(id.valor(), 100);
+        let id = UserId::new(42);
+        assert_eq!(id.value(), 42);
     }
 
     #[test]
-    fn test_persona_ciudad() {
-        let dir = Direccion::new(
-            String::from("Calle"),
-            String::from("Barcelona"),
-            String::from("08001"),
+    fn test_product_id() {
+        let id = ProductId::new(100);
+        assert_eq!(id.value(), 100);
+    }
+
+    // Address and Person tests
+    #[test]
+    fn test_person_city() {
+        let address = Address::new(
+            String::from("123 Main"),
+            String::from("Boston"),
+            String::from("02101"),
         );
-        let persona = Persona::new(String::from("Test"), 25, dir);
+        let person = Person::new(String::from("Test"), 25, address);
         
-        assert_eq!(persona.ciudad(), "Barcelona");
+        assert_eq!(person.city(), "Boston");
     }
 }

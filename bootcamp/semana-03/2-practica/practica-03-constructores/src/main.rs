@@ -1,171 +1,171 @@
 // ============================================
-// Práctica 03: Constructores
+// Practice 03: Constructors
 // ============================================
-// Objetivo: Funciones asociadas y new()
+// Objective: Associated functions and new()
 // ============================================
 
-struct Usuario {
-    nombre: String,
+struct User {
+    name: String,
     email: String,
-    edad: u32,
-    activo: bool,
+    age: u32,
+    active: bool,
 }
 
-impl Usuario {
+impl User {
     // -----------------------------------------
-    // PARTE 1: Constructor Básico
+    // PART 1: Basic Constructor
     // -----------------------------------------
     
-    /// Constructor principal
-    fn new(nombre: String, email: String) -> Self {
+    /// Main constructor
+    fn new(name: String, email: String) -> Self {
         Self {
-            nombre,
+            name,
             email,
-            edad: 0,
-            activo: true,
+            age: 0,
+            active: true,
         }
     }
 
     // -----------------------------------------
-    // PARTE 2: Múltiples Constructores
+    // PART 2: Multiple Constructors
     // -----------------------------------------
     
-    /// Constructor con todos los datos
-    fn con_edad(nombre: String, email: String, edad: u32) -> Self {
+    /// Constructor with all data
+    fn with_age(name: String, email: String, age: u32) -> Self {
         Self {
-            nombre,
+            name,
             email,
-            edad,
-            activo: true,
+            age,
+            active: true,
         }
     }
 
-    /// Constructor para usuario anónimo
-    fn anonimo() -> Self {
+    /// Constructor for anonymous user
+    fn anonymous() -> Self {
         Self {
-            nombre: String::from("Anónimo"),
-            email: String::from("anonimo@temp.com"),
-            edad: 0,
-            activo: false,
+            name: String::from("Anonymous"),
+            email: String::from("anonymous@temp.com"),
+            age: 0,
+            active: false,
         }
     }
 
-    // TODO: Implementa un constructor desde_email que extraiga el nombre del email
-    // Ejemplo: "juan.perez@mail.com" -> nombre = "juan.perez"
-    // fn desde_email(email: String) -> Self { ... }
+    // TODO: Implement from_email that extracts name from email
+    // Example: "john.doe@mail.com" -> name = "john.doe"
+    // fn from_email(email: String) -> Self { ... }
 
     // -----------------------------------------
-    // PARTE 3: Validación (Avanzado)
+    // PART 3: Validation (Advanced)
     // -----------------------------------------
     
-    /// Constructor con validación de edad
-    /// Retorna None si la edad es mayor a 150
-    fn validado(nombre: String, email: String, edad: u32) -> Option<Self> {
-        if edad > 150 {
+    /// Constructor with age validation
+    /// Returns None if age is greater than 150
+    fn validated(name: String, email: String, age: u32) -> Option<Self> {
+        if age > 150 {
             None
         } else {
             Some(Self {
-                nombre,
+                name,
                 email,
-                edad,
-                activo: true,
+                age,
+                active: true,
             })
         }
     }
 
     // -----------------------------------------
-    // Métodos de la instancia
+    // Instance methods
     // -----------------------------------------
     
-    fn mostrar(&self) {
+    fn display(&self) {
         println!(
-            "Usuario: {} ({}) - {} años - {}",
-            self.nombre,
+            "User: {} ({}) - {} years old - {}",
+            self.name,
             self.email,
-            self.edad,
-            if self.activo { "activo" } else { "inactivo" }
+            self.age,
+            if self.active { "active" } else { "inactive" }
         );
     }
 
-    fn cumplir_anios(&mut self) {
-        self.edad += 1;
+    fn have_birthday(&mut self) {
+        self.age += 1;
     }
 
-    fn desactivar(&mut self) {
-        self.activo = false;
+    fn deactivate(&mut self) {
+        self.active = false;
     }
 }
 
 fn main() {
-    println!("=== Práctica 03: Constructores ===\n");
+    println!("=== Practice 03: Constructors ===\n");
 
     // -----------------------------------------
-    // Usando new()
+    // Using new()
     // -----------------------------------------
     println!("--- Constructor new() ---");
     
-    let mut usuario1 = Usuario::new(
-        String::from("Ana García"),
+    let mut user1 = User::new(
+        String::from("Ana Garcia"),
         String::from("ana@email.com"),
     );
-    usuario1.mostrar();
+    user1.display();
 
     // -----------------------------------------
-    // Usando con_edad()
+    // Using with_age()
     // -----------------------------------------
-    println!("\n--- Constructor con_edad() ---");
+    println!("\n--- Constructor with_age() ---");
     
-    let usuario2 = Usuario::con_edad(
-        String::from("Carlos López"),
+    let user2 = User::with_age(
+        String::from("Carlos Lopez"),
         String::from("carlos@email.com"),
         30,
     );
-    usuario2.mostrar();
+    user2.display();
 
     // -----------------------------------------
-    // Usando anonimo()
+    // Using anonymous()
     // -----------------------------------------
-    println!("\n--- Constructor anonimo() ---");
+    println!("\n--- Constructor anonymous() ---");
     
-    let anonimo = Usuario::anonimo();
-    anonimo.mostrar();
+    let anonymous = User::anonymous();
+    anonymous.display();
 
     // -----------------------------------------
-    // Usando validado()
+    // Using validated()
     // -----------------------------------------
-    println!("\n--- Constructor validado() ---");
+    println!("\n--- Constructor validated() ---");
     
-    // Caso válido
-    if let Some(usuario) = Usuario::validado(
-        String::from("María"),
+    // Valid case
+    if let Some(user) = User::validated(
+        String::from("Maria"),
         String::from("maria@email.com"),
         25,
     ) {
-        println!("Usuario creado:");
-        usuario.mostrar();
+        println!("User created:");
+        user.display();
     }
 
-    // Caso inválido
-    match Usuario::validado(
-        String::from("Imposible"),
+    // Invalid case
+    match User::validated(
+        String::from("Impossible"),
         String::from("imp@email.com"),
         200,
     ) {
-        Some(u) => u.mostrar(),
-        None => println!("Error: edad inválida (> 150)"),
+        Some(u) => u.display(),
+        None => println!("Error: invalid age (> 150)"),
     }
 
     // -----------------------------------------
-    // Modificar con métodos
+    // Modify with methods
     // -----------------------------------------
-    println!("\n--- Modificar Usuario ---");
+    println!("\n--- Modify User ---");
     
-    usuario1.cumplir_anios();
-    usuario1.cumplir_anios();
-    println!("Después de 2 cumpleaños:");
-    usuario1.mostrar();
+    user1.have_birthday();
+    user1.have_birthday();
+    println!("After 2 birthdays:");
+    user1.display();
 
-    println!("\n✅ Práctica completada");
+    println!("\n✅ Practice completed");
 }
 
 #[cfg(test)]
@@ -174,60 +174,68 @@ mod tests {
 
     #[test]
     fn test_new() {
-        let u = Usuario::new(String::from("Test"), String::from("test@t.com"));
+        let u = User::new(String::from("Test"), String::from("test@t.com"));
         
-        assert_eq!(u.nombre, "Test");
+        assert_eq!(u.name, "Test");
         assert_eq!(u.email, "test@t.com");
-        assert_eq!(u.edad, 0);
-        assert!(u.activo);
+        assert_eq!(u.age, 0);
+        assert!(u.active);
     }
 
     #[test]
-    fn test_con_edad() {
-        let u = Usuario::con_edad(
+    fn test_with_age() {
+        let u = User::with_age(
             String::from("Test"),
             String::from("test@t.com"),
             25,
         );
         
-        assert_eq!(u.edad, 25);
+        assert_eq!(u.age, 25);
     }
 
     #[test]
-    fn test_anonimo() {
-        let u = Usuario::anonimo();
+    fn test_anonymous() {
+        let u = User::anonymous();
         
-        assert_eq!(u.nombre, "Anónimo");
-        assert!(!u.activo);
+        assert_eq!(u.name, "Anonymous");
+        assert!(!u.active);
     }
 
     #[test]
-    fn test_validado_ok() {
-        let u = Usuario::validado(
+    fn test_validated_ok() {
+        let result = User::validated(
             String::from("Test"),
-            String::from("t@t.com"),
-            50,
+            String::from("test@t.com"),
+            25,
         );
         
-        assert!(u.is_some());
+        assert!(result.is_some());
     }
 
     #[test]
-    fn test_validado_error() {
-        let u = Usuario::validado(
+    fn test_validated_fail() {
+        let result = User::validated(
             String::from("Test"),
-            String::from("t@t.com"),
+            String::from("test@t.com"),
             200,
         );
         
-        assert!(u.is_none());
+        assert!(result.is_none());
     }
 
     #[test]
-    fn test_cumplir_anios() {
-        let mut u = Usuario::new(String::from("T"), String::from("t@t.com"));
-        u.cumplir_anios();
+    fn test_have_birthday() {
+        let mut u = User::new(String::from("Test"), String::from("test@t.com"));
+        u.have_birthday();
         
-        assert_eq!(u.edad, 1);
+        assert_eq!(u.age, 1);
+    }
+
+    #[test]
+    fn test_deactivate() {
+        let mut u = User::new(String::from("Test"), String::from("test@t.com"));
+        u.deactivate();
+        
+        assert!(!u.active);
     }
 }

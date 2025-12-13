@@ -2,7 +2,6 @@
 name = "practica-02-metodos"
 version = "0.1.0"
 edition = "2024"
-description = "Práctica: Implementar métodos con impl"
-authors = ["Bootcamp Rust"]
+description = "Week 03 Practice: Structs and methods"
 
-[dependencies]
+[workspace]
