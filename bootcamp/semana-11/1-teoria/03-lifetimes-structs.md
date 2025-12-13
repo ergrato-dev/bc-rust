@@ -1,5 +1,7 @@
 # 📚 Lifetimes en Structs
 
+![Lifetimes en Structs](../0-assets/03-lifetimes-structs.svg)
+
 ## 🎯 Objetivos de Aprendizaje
 
 - Declarar structs que contienen referencias

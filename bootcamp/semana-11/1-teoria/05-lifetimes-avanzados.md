@@ -1,5 +1,7 @@
 # 📚 Lifetimes Avanzados
 
+![Lifetimes Avanzados](../0-assets/05-lifetimes-avanzados.svg)
+
 ## 🎯 Objetivos de Aprendizaje
 
 - Entender el lifetime `'static`

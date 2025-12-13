@@ -1,5 +1,7 @@
 # 📚 Reglas de Elision de Lifetimes
 
+![Reglas de Elision](../0-assets/04-elision-rules.svg)
+
 ## 🎯 Objetivos de Aprendizaje
 
 - Conocer las 3 reglas de elision

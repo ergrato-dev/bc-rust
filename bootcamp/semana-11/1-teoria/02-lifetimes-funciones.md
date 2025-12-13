@@ -1,5 +1,7 @@
 # 📚 Lifetimes en Funciones
 
+![Lifetimes en Funciones](../0-assets/02-lifetimes-funciones.svg)
+
 ## 🎯 Objetivos de Aprendizaje
 
 - Anotar lifetimes en parámetros de funciones

@@ -1,5 +1,7 @@
 # 📚 Introducción a Lifetimes
 
+![Introducción a Lifetimes](../0-assets/01-introduccion-lifetimes.svg)
+
 ## 🎯 Objetivos de Aprendizaje
 
 - Comprender qué son los lifetimes
