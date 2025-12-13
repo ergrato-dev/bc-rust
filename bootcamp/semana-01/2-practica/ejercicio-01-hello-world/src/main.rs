@@ -1,27 +1,27 @@
 // ============================================
 // 🦀 Bootcamp Rust: Zero to Hero
-// Semana 01 - Ejercicio 01: Hello World
+// Week 01 - Exercise 01: Hello World
 // ============================================
 //
-// INSTRUCCIONES:
-// 1. Modifica este archivo para imprimir un saludo personalizado
-// 2. Agrega al menos 3 líneas de output
-// 3. Usa la macro println! con formato
+// INSTRUCTIONS:
+// 1. Modify this file to print a personalized greeting
+// 2. Add at least 3 lines of output
+// 3. Use the println! macro with formatting
 //
-// EJECUTAR:
+// RUN:
 // $ cargo run
 //
 // ============================================
 
 fn main() {
-    // TODO: Reemplaza esta línea con tu código
+    // TODO: Replace this line with your code
     println!("Hello, World!");
 
-    // TODO: Agrega un saludo con tu nombre
-    // Ejemplo: println!("¡Hola, {}!", nombre);
+    // TODO: Add a greeting with your name
+    // Example: println!("Hello, {}!", name);
 
-    // TODO: Imprime el año actual
-    // Ejemplo: let anio = 2025;
+    // TODO: Print the current year
+    // Example: let year = 2025;
 
-    // TODO: Agrega una frase motivacional
+    // TODO: Add a motivational quote
 }

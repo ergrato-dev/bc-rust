@@ -2,7 +2,9 @@
 name = "ejercicio-01-hello-world"
 version = "0.1.0"
 edition = "2021"
-description = "Primer ejercicio del Bootcamp Rust: Hello World"
-authors = ["Bootcamp Rust"]
+description = "First Rust Bootcamp exercise: Hello World"
+authors = ["Rust Bootcamp"]
 
 [dependencies]
+
+[workspace]
