@@ -13,8 +13,8 @@ use axum::{
     Router,
 };
 
-/// Handler para la ruta raíz
-async fn raiz() -> &'static str {
+/// Root route handler
+async fn root() -> &'static str {
     "¡Bienvenido a mi primera API con Axum! 🦀"
 }
 
@@ -23,12 +23,12 @@ async fn health() -> &'static str {
     "OK"
 }
 
-/// Handler con parámetro de ruta
+/// Route parameter handler
 ///
-/// # Ejemplo
-/// GET /saludo/Ana -> "¡Hola, Ana! 👋"
-async fn saludar(Path(nombre): Path<String>) -> String {
-    format!("¡Hola, {}! 👋", nombre)
+/// # Example
+/// GET /greet/Ana -> "¡Hola, Ana! 👋"
+async fn greet(Path(name): Path<String>) -> String {
+    format!("¡Hola, {}! 👋", name)
 }
 
 /// Handler que retorna información del API
@@ -44,10 +44,10 @@ async fn info() -> &'static str {
 async fn main() {
     // Crear el router con las rutas
     let app = Router::new()
-        .route("/", get(raiz))
+        .route("/", get(root))
         .route("/health", get(health))
         .route("/info", get(info))
-        .route("/saludo/{nombre}", get(saludar));
+        .route("/greet/{name}", get(greet));
 
     // Crear el listener TCP
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
@@ -60,9 +60,9 @@ async fn main() {
     println!("   GET /           - Página principal");
     println!("   GET /health     - Estado del servicio");
     println!("   GET /info       - Información del API");
-    println!("   GET /saludo/:n  - Saludo personalizado");
+    println!("   GET /greet/:n   - Personalized greeting");
     println!();
-    println!("💡 Prueba: curl http://localhost:3000/saludo/Rust");
+    println!("💡 Try: curl http://localhost:3000/greet/Rust");
 
     // Iniciar el servidor
     axum::serve(listener, app)
@@ -75,21 +75,21 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_raiz() {
-        let resultado = raiz().await;
-        assert!(resultado.contains("Axum"));
+    async fn test_root() {
+        let result = root().await;
+        assert!(result.contains("Axum"));
     }
 
     #[tokio::test]
     async fn test_health() {
-        let resultado = health().await;
-        assert_eq!(resultado, "OK");
+        let result = health().await;
+        assert_eq!(result, "OK");
     }
 
     #[tokio::test]
-    async fn test_saludar() {
-        let resultado = saludar(Path("Ana".to_string())).await;
-        assert!(resultado.contains("Ana"));
-        assert!(resultado.contains("Hola"));
+    async fn test_greet() {
+        let result = greet(Path("Ana".to_string())).await;
+        assert!(result.contains("Ana"));
+        assert!(result.contains("Hola"));
     }
 }

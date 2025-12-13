@@ -12,67 +12,67 @@ use axum::{
 use serde::{Deserialize, Serialize};
 
 // =============================================================================
-// MODELOS
+// MODELS
 // =============================================================================
 
-/// Datos para registrar un usuario
+/// User registration data
 #[derive(Debug, Deserialize)]
-pub struct RegistroUsuario {
-    pub nombre: String,
+pub struct UserRegistration {
+    pub name: String,
     pub email: String,
-    pub edad: u8,
+    pub age: u8,
     pub password: String,
 }
 
-/// Usuario registrado (sin password)
+/// Registered user (without password)
 #[derive(Debug, Serialize)]
-pub struct Usuario {
+pub struct User {
     pub id: u64,
-    pub nombre: String,
+    pub name: String,
     pub email: String,
-    pub edad: u8,
+    pub age: u8,
 }
 
-/// Respuesta de error estructurada
+/// Structured error response
 #[derive(Debug, Serialize)]
 pub struct ErrorResponse {
     pub error: String,
-    pub codigo: u16,
+    pub code: u16,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub detalles: Option<Vec<String>>,
+    pub details: Option<Vec<String>>,
 }
 
 // =============================================================================
-// ERROR PERSONALIZADO
+// CUSTOM ERROR
 // =============================================================================
 
-/// Errores de la API
+/// API errors
 pub enum ApiError {
-    /// Error de validación con detalles
-    Validacion(Vec<String>),
-    /// JSON malformado
-    JsonInvalido(String),
+    /// Validation error with details
+    Validation(Vec<String>),
+    /// Malformed JSON
+    InvalidJson(String),
 }
 
 impl IntoResponse for ApiError {
     fn into_response(self) -> Response {
-        let (status, error, detalles) = match self {
-            ApiError::Validacion(errores) => (
+        let (status, error, details) = match self {
+            ApiError::Validation(errors) => (
                 StatusCode::BAD_REQUEST,
-                "Error de validación".to_string(),
-                Some(errores),
+                "Validation error".to_string(),
+                Some(errors),
             ),
-            ApiError::JsonInvalido(msg) => (
+            ApiError::InvalidJson(msg) => (
                 StatusCode::BAD_REQUEST,
-                format!("JSON inválido: {}", msg),
+                format!("Invalid JSON: {}", msg),
                 None,
             ),
         };
 
         let body = ErrorResponse {
             error,
-            codigo: status.as_u16(),
-            detalles,
+            code: status.as_u16(),
+            details,
         };
 
         (status, Json(body)).into_response()
@@ -80,51 +80,51 @@ impl IntoResponse for ApiError {
 }
 
 // =============================================================================
-// VALIDACIÓN
+// VALIDATION
 // =============================================================================
 
-/// Validar datos de registro
-fn validar_registro(datos: &RegistroUsuario) -> Result<(), Vec<String>> {
-    let mut errores = Vec::new();
+/// Validate registration data
+fn validate_registration(data: &UserRegistration) -> Result<(), Vec<String>> {
+    let mut errors = Vec::new();
 
-    // Validar nombre
-    if datos.nombre.trim().is_empty() {
-        errores.push("El nombre es requerido".to_string());
-    } else if datos.nombre.len() < 2 {
-        errores.push("El nombre debe tener al menos 2 caracteres".to_string());
-    } else if datos.nombre.len() > 100 {
-        errores.push("El nombre no puede exceder 100 caracteres".to_string());
-    }
-
-    // Validar email
-    if datos.email.trim().is_empty() {
-        errores.push("El email es requerido".to_string());
-    } else if !datos.email.contains('@') || !datos.email.contains('.') {
-        errores.push("El email no tiene un formato válido".to_string());
+    // Validate name
+    if data.name.trim().is_empty() {
+        errors.push("El nombre es requerido".to_string());
+    } else if data.name.len() < 2 {
+        errors.push("El nombre debe tener al menos 2 caracteres".to_string());
+    } else if data.name.len() > 100 {
+        errors.push("El nombre no puede exceder 100 caracteres".to_string());
     }
 
-    // Validar edad
-    if datos.edad < 18 {
-        errores.push("Debes ser mayor de 18 años".to_string());
-    } else if datos.edad > 120 {
-        errores.push("Edad no válida".to_string());
+    // Validate email
+    if data.email.trim().is_empty() {
+        errors.push("El email es requerido".to_string());
+    } else if !data.email.contains('@') || !data.email.contains('.') {
+        errors.push("El email no tiene un formato válido".to_string());
     }
 
-    // Validar password
-    if datos.password.len() < 8 {
-        errores.push("La contraseña debe tener al menos 8 caracteres".to_string());
-    }
-    if !datos.password.chars().any(|c| c.is_uppercase()) {
-        errores.push("La contraseña debe contener al menos una mayúscula".to_string());
-    }
-    if !datos.password.chars().any(|c| c.is_numeric()) {
-        errores.push("La contraseña debe contener al menos un número".to_string());
+    // Validate age
+    if data.age < 18 {
+        errors.push("Debes ser mayor de 18 años".to_string());
+    } else if data.age > 120 {
+        errors.push("Edad no válida".to_string());
     }
 
-    if errores.is_empty() {
+    // Validate password
+    if data.password.len() < 8 {
+        errors.push("La contraseña debe tener al menos 8 caracteres".to_string());
+    }
+    if !data.password.chars().any(|c| c.is_uppercase()) {
+        errors.push("La contraseña debe contener al menos una mayúscula".to_string());
+    }
+    if !data.password.chars().any(|c| c.is_numeric()) {
+        errors.push("La contraseña debe contener al menos un número".to_string());
+    }
+
+    if errors.is_empty() {
         Ok(())
     } else {
-        Err(errores)
+        Err(errors)
     }
 }
 
@@ -132,64 +132,64 @@ fn validar_registro(datos: &RegistroUsuario) -> Result<(), Vec<String>> {
 // HANDLERS
 // =============================================================================
 
-/// POST /registro - Registrar nuevo usuario con validación
-async fn registrar(
-    payload: Result<Json<RegistroUsuario>, JsonRejection>,
-) -> Result<(StatusCode, Json<Usuario>), ApiError> {
-    // Primero verificar que el JSON sea válido
-    let Json(datos) = payload.map_err(|e| ApiError::JsonInvalido(e.to_string()))?;
+/// POST /register - Register new user with validation
+async fn register(
+    payload: Result<Json<UserRegistration>, JsonRejection>,
+) -> Result<(StatusCode, Json<User>), ApiError> {
+    // First verify JSON is valid
+    let Json(data) = payload.map_err(|e| ApiError::InvalidJson(e.to_string()))?;
 
-    // Validar los datos
-    validar_registro(&datos).map_err(ApiError::Validacion)?;
+    // Validate data
+    validate_registration(&data).map_err(ApiError::Validation)?;
 
-    // Crear usuario (simulado)
-    let usuario = Usuario {
+    // Create user (simulated)
+    let user = User {
         id: 1,
-        nombre: datos.nombre,
-        email: datos.email,
-        edad: datos.edad,
+        name: data.name,
+        email: data.email,
+        age: data.age,
     };
 
-    Ok((StatusCode::CREATED, Json(usuario)))
+    Ok((StatusCode::CREATED, Json(user)))
 }
 
-/// POST /contacto - Formulario de contacto simple
-async fn contacto(
-    payload: Result<Json<ContactoForm>, JsonRejection>,
-) -> Result<Json<ContactoResponse>, ApiError> {
-    let Json(datos) = payload.map_err(|e| ApiError::JsonInvalido(e.to_string()))?;
+/// POST /contact - Simple contact form
+async fn contact(
+    payload: Result<Json<ContactForm>, JsonRejection>,
+) -> Result<Json<ContactResponse>, ApiError> {
+    let Json(data) = payload.map_err(|e| ApiError::InvalidJson(e.to_string()))?;
 
-    let mut errores = Vec::new();
+    let mut errors = Vec::new();
 
-    if datos.nombre.trim().is_empty() {
-        errores.push("El nombre es requerido".to_string());
+    if data.name.trim().is_empty() {
+        errors.push("El nombre es requerido".to_string());
     }
-    if datos.mensaje.trim().is_empty() {
-        errores.push("El mensaje es requerido".to_string());
-    } else if datos.mensaje.len() < 10 {
-        errores.push("El mensaje debe tener al menos 10 caracteres".to_string());
-    }
-
-    if !errores.is_empty() {
-        return Err(ApiError::Validacion(errores));
+    if data.message.trim().is_empty() {
+        errors.push("El mensaje es requerido".to_string());
+    } else if data.message.len() < 10 {
+        errors.push("El mensaje debe tener al menos 10 caracteres".to_string());
     }
 
-    Ok(Json(ContactoResponse {
-        mensaje: "Mensaje recibido correctamente".to_string(),
-        id_ticket: "TKT-001".to_string(),
+    if !errors.is_empty() {
+        return Err(ApiError::Validation(errors));
+    }
+
+    Ok(Json(ContactResponse {
+        message: "Mensaje recibido correctamente".to_string(),
+        ticket_id: "TKT-001".to_string(),
     }))
 }
 
 #[derive(Debug, Deserialize)]
-pub struct ContactoForm {
-    pub nombre: String,
-    pub mensaje: String,
+pub struct ContactForm {
+    pub name: String,
+    pub message: String,
 }
 
 #[derive(Debug, Serialize)]
-pub struct ContactoResponse {
-    pub mensaje: String,
-    pub id_ticket: String,
+pub struct ContactResponse {
+    pub message: String,
+    pub ticket_id: String,
 }
 
 // =============================================================================

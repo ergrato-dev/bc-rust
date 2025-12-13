@@ -17,49 +17,49 @@ use std::{
 use tokio::sync::RwLock;
 
 // =============================================================================
-// MODELOS
+// MODELS
 // =============================================================================
 
-/// Usuario del sistema
+/// System user
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Usuario {
+pub struct User {
     pub id: u64,
-    pub nombre: String,
+    pub name: String,
     pub email: String,
-    pub activo: bool,
+    pub active: bool,
 }
 
-/// DTO para crear usuario (sin ID)
+/// DTO to create user (without ID)
 #[derive(Debug, Deserialize)]
-pub struct CrearUsuario {
-    pub nombre: String,
+pub struct CreateUser {
+    pub name: String,
     pub email: String,
 }
 
-/// DTO para actualizar usuario (campos opcionales)
+/// DTO to update user (optional fields)
 #[derive(Debug, Deserialize)]
-pub struct ActualizarUsuario {
-    pub nombre: Option<String>,
+pub struct UpdateUser {
+    pub name: Option<String>,
     pub email: Option<String>,
-    pub activo: Option<bool>,
+    pub active: Option<bool>,
 }
 
 // =============================================================================
-// ESTADO
+// STATE
 // =============================================================================
 
-/// Estado compartido de la aplicación
+/// Application shared state
 #[derive(Clone)]
 pub struct AppState {
-    pub usuarios: Arc<RwLock<HashMap<u64, Usuario>>>,
-    pub contador: Arc<RwLock<u64>>,
+    pub users: Arc<RwLock<HashMap<u64, User>>>,
+    pub counter: Arc<RwLock<u64>>,
 }
 
 impl AppState {
     pub fn new() -> Self {
         Self {
-            usuarios: Arc::new(RwLock::new(HashMap::new())),
-            contador: Arc::new(RwLock::new(0)),
+            users: Arc::new(RwLock::new(HashMap::new())),
+            counter: Arc::new(RwLock::new(0)),
         }
     }
 }
@@ -74,88 +74,88 @@ impl Default for AppState {
 // HANDLERS
 // =============================================================================
 
-/// GET /usuarios - Listar todos los usuarios
-async fn listar_usuarios(
+/// GET /users - List all users
+async fn list_users(
     State(state): State<AppState>,
-) -> Json<Vec<Usuario>> {
-    let usuarios = state.usuarios.read().await;
-    let lista: Vec<Usuario> = usuarios.values().cloned().collect();
-    Json(lista)
+) -> Json<Vec<User>> {
+    let users = state.users.read().await;
+    let list: Vec<User> = users.values().cloned().collect();
+    Json(list)
 }
 
-/// GET /usuarios/:id - Obtener un usuario por ID
-async fn obtener_usuario(
+/// GET /users/:id - Get a user by ID
+async fn get_user(
     State(state): State<AppState>,
     Path(id): Path<u64>,
-) -> Result<Json<Usuario>, StatusCode> {
-    let usuarios = state.usuarios.read().await;
+) -> Result<Json<User>, StatusCode> {
+    let users = state.users.read().await;
     
-    usuarios
+    users
         .get(&id)
         .cloned()
         .map(Json)
         .ok_or(StatusCode::NOT_FOUND)
 }
 
-/// POST /usuarios - Crear nuevo usuario
-async fn crear_usuario(
+/// POST /users - Create new user
+async fn create_user(
     State(state): State<AppState>,
-    Json(datos): Json<CrearUsuario>,
-) -> (StatusCode, Json<Usuario>) {
-    // Generar nuevo ID
-    let mut contador = state.contador.write().await;
-    *contador += 1;
-    let id = *contador;
+    Json(data): Json<CreateUser>,
+) -> (StatusCode, Json<User>) {
+    // Generate new ID
+    let mut counter = state.counter.write().await;
+    *counter += 1;
+    let id = *counter;
     
-    // Crear usuario
-    let usuario = Usuario {
+    // Create user
+    let user = User {
         id,
-        nombre: datos.nombre,
-        email: datos.email,
-        activo: true,
+        name: data.name,
+        email: data.email,
+        active: true,
     };
     
-    // Guardar en el estado
-    let mut usuarios = state.usuarios.write().await;
-    usuarios.insert(id, usuario.clone());
+    // Save in state
+    let mut users = state.users.write().await;
+    users.insert(id, user.clone());
     
-    (StatusCode::CREATED, Json(usuario))
+    (StatusCode::CREATED, Json(user))
 }
 
-/// PUT /usuarios/:id - Actualizar usuario existente
-async fn actualizar_usuario(
+/// PUT /users/:id - Update existing user
+async fn update_user(
     State(state): State<AppState>,
     Path(id): Path<u64>,
-    Json(datos): Json<ActualizarUsuario>,
-) -> Result<Json<Usuario>, StatusCode> {
-    let mut usuarios = state.usuarios.write().await;
+    Json(data): Json<UpdateUser>,
+) -> Result<Json<User>, StatusCode> {
+    let mut users = state.users.write().await;
     
-    let usuario = usuarios
+    let user = users
         .get_mut(&id)
         .ok_or(StatusCode::NOT_FOUND)?;
     
-    // Actualizar campos proporcionados
-    if let Some(nombre) = datos.nombre {
-        usuario.nombre = nombre;
+    // Update provided fields
+    if let Some(name) = data.name {
+        user.name = name;
     }
-    if let Some(email) = datos.email {
-        usuario.email = email;
+    if let Some(email) = data.email {
+        user.email = email;
     }
-    if let Some(activo) = datos.activo {
-        usuario.activo = activo;
+    if let Some(active) = data.active {
+        user.active = active;
     }
     
-    Ok(Json(usuario.clone()))
+    Ok(Json(user.clone()))
 }
 
-/// DELETE /usuarios/:id - Eliminar usuario
-async fn eliminar_usuario(
+/// DELETE /users/:id - Delete user
+async fn delete_user(
     State(state): State<AppState>,
     Path(id): Path<u64>,
 ) -> StatusCode {
-    let mut usuarios = state.usuarios.write().await;
+    let mut users = state.users.write().await;
     
-    if usuarios.remove(&id).is_some() {
+    if users.remove(&id).is_some() {
         StatusCode::NO_CONTENT
     } else {
         StatusCode::NOT_FOUND
@@ -166,14 +166,14 @@ async fn eliminar_usuario(
 // ROUTER
 // =============================================================================
 
-/// Crear el router de la aplicación
-pub fn crear_app(state: AppState) -> Router {
+/// Create application router
+pub fn create_app(state: AppState) -> Router {
     Router::new()
-        .route("/usuarios", get(listar_usuarios).post(crear_usuario))
-        .route("/usuarios/{id}", 
-            get(obtener_usuario)
-                .put(actualizar_usuario)
-                .delete(eliminar_usuario)
+        .route("/users", get(list_users).post(create_user))
+        .route("/users/{id}", 
+            get(get_user)
+                .put(update_user)
+                .delete(delete_user)
         )
         .with_state(state)
 }
@@ -185,21 +185,21 @@ pub fn crear_app(state: AppState) -> Router {
 #[tokio::main]
 async fn main() {
     let state = AppState::new();
-    let app = crear_app(state);
+    let app = create_app(state);
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
         .await
-        .expect("No se pudo iniciar el servidor");
+        .expect("Could not start server");
 
-    println!("🚀 API CRUD de Usuarios");
+    println!("🚀 User CRUD API");
     println!("   http://localhost:3000");
     println!();
     println!("📝 Endpoints:");
-    println!("   GET    /usuarios      - Listar todos");
-    println!("   POST   /usuarios      - Crear usuario");
-    println!("   GET    /usuarios/:id  - Obtener uno");
-    println!("   PUT    /usuarios/:id  - Actualizar");
-    println!("   DELETE /usuarios/:id  - Eliminar");
+    println!("   GET    /users      - List all");
+    println!("   POST   /users      - Create user");
+    println!("   GET    /users/:id  - Get one");
+    println!("   PUT    /users/:id  - Update");
+    println!("   DELETE /users/:id  - Delete");
 
     axum::serve(listener, app).await.unwrap();
 }
@@ -217,18 +217,18 @@ mod tests {
     };
     use tower::ServiceExt;
 
-    fn crear_app_test() -> Router {
-        crear_app(AppState::new())
+    fn create_test_app() -> Router {
+        create_app(AppState::new())
     }
 
     #[tokio::test]
-    async fn test_listar_vacio() {
-        let app = crear_app_test();
+    async fn test_list_empty() {
+        let app = create_test_app();
         
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/usuarios")
+                    .uri("/users")
                     .body(Body::empty())
                     .unwrap()
             )
@@ -239,16 +239,16 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_crear_usuario() {
-        let app = crear_app_test();
+    async fn test_create_user() {
+        let app = create_test_app();
         
         let response = app
             .oneshot(
                 Request::builder()
                     .method("POST")
-                    .uri("/usuarios")
+                    .uri("/users")
                     .header("Content-Type", "application/json")
-                    .body(Body::from(r#"{"nombre":"Ana","email":"ana@test.com"}"#))
+                    .body(Body::from(r#"{"name":"Ana","email":"ana@test.com"}"#))
                     .unwrap()
             )
             .await
@@ -258,13 +258,13 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_usuario_no_encontrado() {
-        let app = crear_app_test();
+    async fn test_user_not_found() {
+        let app = create_test_app();
         
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/usuarios/999")
+                    .uri("/users/999")
                     .body(Body::empty())
                     .unwrap()
             )

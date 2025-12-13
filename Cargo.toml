@@ -75,9 +75,9 @@ members = [
     # Week 17 - REST API with Axum
     "bootcamp/week-17/2-practice/practice-01-hello-axum",
     "bootcamp/week-17/2-practice/practice-02-crud",
-    "bootcamp/week-17/2-practice/practice-03-validacion",
+    "bootcamp/week-17/2-practice/practice-03-validation",
     "bootcamp/week-17/2-practice/practice-04-middleware",
-    "bootcamp/week-17/2-practice/project-api-tareas",
+    "bootcamp/week-17/2-practice/project-task-api",
 ]
 
 [workspace.package]
