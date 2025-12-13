@@ -1,193 +1,193 @@
-//! Módulo de generación de reportes
+//! Report generation module
 
-use crate::inventario::Inventario;
+use crate::inventory::Inventory;
 
-/// Generador de reportes para el inventario
-pub struct GeneradorReportes<'a> {
-    inventario: &'a Inventario,
+/// Report generator for the inventory
+pub struct ReportGenerator<'a> {
+    inventory: &'a Inventory,
 }
 
-impl<'a> GeneradorReportes<'a> {
-    /// Crea un nuevo generador de reportes
-    pub fn new(inventario: &'a Inventario) -> Self {
-        Self { inventario }
+impl<'a> ReportGenerator<'a> {
+    /// Creates a new report generator
+    pub fn new(inventory: &'a Inventory) -> Self {
+        Self { inventory }
     }
 
-    /// Genera un reporte resumen del inventario
-    pub fn reporte_resumen(&self) -> String {
-        let mut reporte = String::new();
+    /// Generates a summary report of the inventory
+    pub fn summary_report(&self) -> String {
+        let mut report = String::new();
 
-        reporte.push_str("╔══════════════════════════════════════════════════════╗\n");
-        reporte.push_str("║         📊 REPORTE DE INVENTARIO                     ║\n");
-        reporte.push_str("╠══════════════════════════════════════════════════════╣\n");
+        report.push_str("╔══════════════════════════════════════════════════════╗\n");
+        report.push_str("║         📊 INVENTORY REPORT                          ║\n");
+        report.push_str("╠══════════════════════════════════════════════════════╣\n");
 
-        // Estadísticas generales
-        reporte.push_str(&format!(
-            "║ Total productos:     {:>10}                     ║\n",
-            self.inventario.total_productos()
+        // General statistics
+        report.push_str(&format!(
+            "║ Total products:      {:>10}                     ║\n",
+            self.inventory.total_products()
         ));
-        reporte.push_str(&format!(
-            "║ Total unidades:      {:>10}                     ║\n",
-            self.inventario.total_unidades()
+        report.push_str(&format!(
+            "║ Total units:         {:>10}                     ║\n",
+            self.inventory.total_units()
         ));
-        reporte.push_str(&format!(
-            "║ Valor total:         ${:>9.2}                     ║\n",
-            self.inventario.valor_total()
+        report.push_str(&format!(
+            "║ Total value:         ${:>9.2}                     ║\n",
+            self.inventory.total_value()
         ));
-        reporte.push_str(&format!(
-            "║ Precio promedio:     ${:>9.2}                     ║\n",
-            self.inventario.precio_promedio()
+        report.push_str(&format!(
+            "║ Average price:       ${:>9.2}                     ║\n",
+            self.inventory.average_price()
         ));
 
-        reporte.push_str("╚══════════════════════════════════════════════════════╝\n");
+        report.push_str("╚══════════════════════════════════════════════════════╝\n");
 
-        reporte
+        report
     }
 
-    /// Genera un reporte de productos por categoría
-    pub fn reporte_por_categoria(&self) -> String {
-        let mut reporte = String::new();
+    /// Generates a report of products by category
+    pub fn category_report(&self) -> String {
+        let mut report = String::new();
 
-        reporte.push_str("\n📁 PRODUCTOS POR CATEGORÍA\n");
-        reporte.push_str("─".repeat(50).as_str());
-        reporte.push('\n');
+        report.push_str("\n📁 PRODUCTS BY CATEGORY\n");
+        report.push_str("─".repeat(50).as_str());
+        report.push('\n');
 
-        for categoria in self.inventario.categorias() {
-            let productos = self.inventario.buscar_por_categoria(&categoria);
-            let valor: f64 = productos.iter().map(|p| p.valor_inventario()).sum();
+        for category in self.inventory.categories() {
+            let products = self.inventory.search_by_category(&category);
+            let value: f64 = products.iter().map(|p| p.inventory_value()).sum();
 
-            reporte.push_str(&format!("\n🏷️  {} ({} productos, valor: ${:.2})\n",
-                categoria, productos.len(), valor));
+            report.push_str(&format!("\n🏷️  {} ({} products, value: ${:.2})\n",
+                category, products.len(), value));
 
-            for producto in productos {
-                reporte.push_str(&format!(
+            for product in products {
+                report.push_str(&format!(
                     "   • {} - ${:.2} (Stock: {})\n",
-                    producto.nombre, producto.precio, producto.stock
+                    product.name, product.price, product.stock
                 ));
             }
         }
 
-        reporte
+        report
     }
 
-    /// Genera un reporte de alertas de stock
-    pub fn reporte_alertas(&self, umbral_bajo: u32) -> String {
-        let mut reporte = String::new();
+    /// Generates a stock alerts report
+    pub fn alerts_report(&self, low_threshold: u32) -> String {
+        let mut report = String::new();
 
-        reporte.push_str("\n⚠️  ALERTAS DE STOCK\n");
-        reporte.push_str("─".repeat(50).as_str());
-        reporte.push('\n');
+        report.push_str("\n⚠️  STOCK ALERTS\n");
+        report.push_str("─".repeat(50).as_str());
+        report.push('\n');
 
-        // Sin stock
-        let sin_stock = self.inventario.productos_sin_stock();
-        if !sin_stock.is_empty() {
-            reporte.push_str("\n🔴 SIN STOCK:\n");
-            for producto in &sin_stock {
-                reporte.push_str(&format!("   • {} [{}]\n", producto.nombre, producto.categoria));
+        // Out of stock
+        let out_of_stock = self.inventory.out_of_stock_products();
+        if !out_of_stock.is_empty() {
+            report.push_str("\n🔴 OUT OF STOCK:\n");
+            for product in &out_of_stock {
+                report.push_str(&format!("   • {} [{}]\n", product.name, product.category));
             }
         }
 
-        // Stock bajo
-        let stock_bajo: Vec<_> = self.inventario.productos_stock_bajo(umbral_bajo)
+        // Low stock
+        let low_stock: Vec<_> = self.inventory.low_stock_products(low_threshold)
             .into_iter()
             .filter(|p| p.stock > 0)
             .collect();
 
-        if !stock_bajo.is_empty() {
-            reporte.push_str(&format!("\n🟡 STOCK BAJO (< {} unidades):\n", umbral_bajo));
-            for producto in stock_bajo {
-                reporte.push_str(&format!(
-                    "   • {} - {} unidades [{}]\n",
-                    producto.nombre, producto.stock, producto.categoria
+        if !low_stock.is_empty() {
+            report.push_str(&format!("\n🟡 LOW STOCK (< {} units):\n", low_threshold));
+            for product in low_stock {
+                report.push_str(&format!(
+                    "   • {} - {} units [{}]\n",
+                    product.name, product.stock, product.category
                 ));
             }
         }
 
-        if sin_stock.is_empty() && self.inventario.productos_stock_bajo(umbral_bajo).is_empty() {
-            reporte.push_str("\n✅ No hay alertas de stock\n");
+        if out_of_stock.is_empty() && self.inventory.low_stock_products(low_threshold).is_empty() {
+            report.push_str("\n✅ No stock alerts\n");
         }
 
-        reporte
+        report
     }
 
-    /// Genera un reporte de top productos por valor
-    pub fn reporte_top_valor(&self, n: usize) -> String {
-        let mut reporte = String::new();
+    /// Generates a top products by value report
+    pub fn top_value_report(&self, n: usize) -> String {
+        let mut report = String::new();
 
-        reporte.push_str(&format!("\n🏆 TOP {} PRODUCTOS POR VALOR\n", n));
-        reporte.push_str("─".repeat(50).as_str());
-        reporte.push('\n');
+        report.push_str(&format!("\n🏆 TOP {} PRODUCTS BY VALUE\n", n));
+        report.push_str("─".repeat(50).as_str());
+        report.push('\n');
 
-        let top = self.inventario.top_productos_por_valor(n);
+        let top = self.inventory.top_products_by_value(n);
 
-        for (i, producto) in top.iter().enumerate() {
-            reporte.push_str(&format!(
+        for (i, product) in top.iter().enumerate() {
+            report.push_str(&format!(
                 "   {}. {} - ${:.2} ({}×${:.2})\n",
                 i + 1,
-                producto.nombre,
-                producto.valor_inventario(),
-                producto.stock,
-                producto.precio
+                product.name,
+                product.inventory_value(),
+                product.stock,
+                product.price
             ));
         }
 
-        reporte
+        report
     }
 
-    /// Genera un reporte de historial de transacciones
-    pub fn reporte_transacciones(&self) -> String {
-        let mut reporte = String::new();
+    /// Generates a transaction history report
+    pub fn transactions_report(&self) -> String {
+        let mut report = String::new();
 
-        reporte.push_str("\n📋 HISTORIAL DE TRANSACCIONES\n");
-        reporte.push_str("─".repeat(50).as_str());
-        reporte.push('\n');
+        report.push_str("\n📋 TRANSACTION HISTORY\n");
+        report.push_str("─".repeat(50).as_str());
+        report.push('\n');
 
-        let transacciones = self.inventario.historial_transacciones();
+        let transactions = self.inventory.transaction_history();
 
-        if transacciones.is_empty() {
-            reporte.push_str("\nNo hay transacciones registradas.\n");
+        if transactions.is_empty() {
+            report.push_str("\nNo transactions recorded.\n");
         } else {
-            for transaccion in transacciones.iter().rev().take(10) {
-                let producto_nombre = self.inventario
-                    .obtener_producto(transaccion.producto_id)
-                    .map(|p| p.nombre.as_str())
-                    .unwrap_or("Producto eliminado");
+            for transaction in transactions.iter().rev().take(10) {
+                let product_name = self.inventory
+                    .get_product(transaction.product_id)
+                    .map(|p| p.name.as_str())
+                    .unwrap_or("Deleted product");
 
-                reporte.push_str(&format!(
-                    "\n   {} | {} {} unidades de {}\n",
-                    transaccion.fecha,
-                    transaccion.tipo,
-                    transaccion.cantidad,
-                    producto_nombre
+                report.push_str(&format!(
+                    "\n   {} | {} {} units of {}\n",
+                    transaction.date,
+                    transaction.transaction_type,
+                    transaction.quantity,
+                    product_name
                 ));
 
-                if let Some(nota) = &transaccion.nota {
-                    reporte.push_str(&format!("      📝 {}\n", nota));
+                if let Some(note) = &transaction.note {
+                    report.push_str(&format!("      📝 {}\n", note));
                 }
             }
 
-            if transacciones.len() > 10 {
-                reporte.push_str(&format!(
-                    "\n   ... y {} transacciones más\n",
-                    transacciones.len() - 10
+            if transactions.len() > 10 {
+                report.push_str(&format!(
+                    "\n   ... and {} more transactions\n",
+                    transactions.len() - 10
                 ));
             }
         }
 
-        reporte
+        report
     }
 
-    /// Genera un reporte completo
-    pub fn reporte_completo(&self) -> String {
-        let mut reporte = String::new();
+    /// Generates a full report
+    pub fn full_report(&self) -> String {
+        let mut report = String::new();
 
-        reporte.push_str(&self.reporte_resumen());
-        reporte.push_str(&self.reporte_por_categoria());
-        reporte.push_str(&self.reporte_alertas(10));
-        reporte.push_str(&self.reporte_top_valor(5));
-        reporte.push_str(&self.reporte_transacciones());
+        report.push_str(&self.summary_report());
+        report.push_str(&self.category_report());
+        report.push_str(&self.alerts_report(10));
+        report.push_str(&self.top_value_report(5));
+        report.push_str(&self.transactions_report());
 
-        reporte
+        report
     }
 }
 
@@ -195,41 +195,41 @@ impl<'a> GeneradorReportes<'a> {
 mod tests {
     use super::*;
 
-    fn crear_inventario_prueba() -> Inventario {
-        let mut inv = Inventario::new();
-        inv.agregar_producto("Laptop", "Portátil", 999.99, "Electrónica", 10);
-        inv.agregar_producto("Mouse", "Inalámbrico", 29.99, "Electrónica", 50);
-        inv.agregar_producto("Silla", "Ergonómica", 199.99, "Muebles", 3);
+    fn create_test_inventory() -> Inventory {
+        let mut inv = Inventory::new();
+        inv.add_product("Laptop", "Portable", 999.99, "Electronics", 10);
+        inv.add_product("Mouse", "Wireless", 29.99, "Electronics", 50);
+        inv.add_product("Chair", "Ergonomic", 199.99, "Furniture", 3);
         inv
     }
 
     #[test]
-    fn test_reporte_resumen() {
-        let inv = crear_inventario_prueba();
-        let generador = GeneradorReportes::new(&inv);
-        let reporte = generador.reporte_resumen();
+    fn test_summary_report() {
+        let inv = create_test_inventory();
+        let generator = ReportGenerator::new(&inv);
+        let report = generator.summary_report();
         
-        assert!(reporte.contains("REPORTE DE INVENTARIO"));
-        assert!(reporte.contains("Total productos"));
+        assert!(report.contains("INVENTORY REPORT"));
+        assert!(report.contains("Total products"));
     }
 
     #[test]
-    fn test_reporte_por_categoria() {
-        let inv = crear_inventario_prueba();
-        let generador = GeneradorReportes::new(&inv);
-        let reporte = generador.reporte_por_categoria();
+    fn test_category_report() {
+        let inv = create_test_inventory();
+        let generator = ReportGenerator::new(&inv);
+        let report = generator.category_report();
         
-        assert!(reporte.contains("Electrónica"));
-        assert!(reporte.contains("Muebles"));
+        assert!(report.contains("Electronics"));
+        assert!(report.contains("Furniture"));
     }
 
     #[test]
-    fn test_reporte_alertas() {
-        let inv = crear_inventario_prueba();
-        let generador = GeneradorReportes::new(&inv);
-        let reporte = generador.reporte_alertas(5);
+    fn test_alerts_report() {
+        let inv = create_test_inventory();
+        let generator = ReportGenerator::new(&inv);
+        let report = generator.alerts_report(5);
         
-        assert!(reporte.contains("ALERTAS DE STOCK"));
-        assert!(reporte.contains("Silla")); // Stock = 3 < 5
+        assert!(report.contains("STOCK ALERTS"));
+        assert!(report.contains("Chair")); // Stock = 3 < 5
     }
 }

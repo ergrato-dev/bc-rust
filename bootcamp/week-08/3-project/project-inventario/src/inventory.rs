@@ -1,278 +1,278 @@
-//! Módulo principal de inventario
+//! Main inventory module
 
 use std::collections::HashMap;
-use crate::producto::Producto;
-use crate::transaccion::{Transaccion, TipoTransaccion};
+use crate::product::Product;
+use crate::transaction::{Transaction, TransactionType};
 
-/// Sistema de gestión de inventario
+/// Inventory management system
 #[derive(Debug)]
-pub struct Inventario {
-    productos: HashMap<u32, Producto>,
-    transacciones: Vec<Transaccion>,
-    siguiente_producto_id: u32,
-    siguiente_transaccion_id: u32,
+pub struct Inventory {
+    products: HashMap<u32, Product>,
+    transactions: Vec<Transaction>,
+    next_product_id: u32,
+    next_transaction_id: u32,
 }
 
-impl Inventario {
-    /// Crea un nuevo inventario vacío
+impl Inventory {
+    /// Creates a new empty inventory
     pub fn new() -> Self {
         Self {
-            productos: HashMap::new(),
-            transacciones: Vec::new(),
-            siguiente_producto_id: 1,
-            siguiente_transaccion_id: 1,
+            products: HashMap::new(),
+            transactions: Vec::new(),
+            next_product_id: 1,
+            next_transaction_id: 1,
         }
     }
 
-    // ========== CRUD de Productos ==========
+    // ========== Product CRUD ==========
 
-    /// Agrega un nuevo producto y retorna su ID
-    pub fn agregar_producto(
+    /// Adds a new product and returns its ID
+    pub fn add_product(
         &mut self,
-        nombre: impl Into<String>,
-        descripcion: impl Into<String>,
-        precio: f64,
-        categoria: impl Into<String>,
-        stock_inicial: u32,
+        name: impl Into<String>,
+        description: impl Into<String>,
+        price: f64,
+        category: impl Into<String>,
+        initial_stock: u32,
     ) -> u32 {
-        let id = self.siguiente_producto_id;
-        self.siguiente_producto_id += 1;
+        let id = self.next_product_id;
+        self.next_product_id += 1;
 
-        let producto = Producto::new(id, nombre, descripcion, precio, categoria, stock_inicial);
-        self.productos.insert(id, producto);
+        let product = Product::new(id, name, description, price, category, initial_stock);
+        self.products.insert(id, product);
 
-        // Registrar entrada inicial si hay stock
-        if stock_inicial > 0 {
-            self.registrar_transaccion(id, TipoTransaccion::Entrada, stock_inicial, "Stock inicial");
+        // Register initial entry if there is stock
+        if initial_stock > 0 {
+            self.register_transaction(id, TransactionType::Entry, initial_stock, "Initial stock");
         }
 
         id
     }
 
-    /// Obtiene un producto por ID
-    pub fn obtener_producto(&self, id: u32) -> Option<&Producto> {
-        self.productos.get(&id)
+    /// Gets a product by ID
+    pub fn get_product(&self, id: u32) -> Option<&Product> {
+        self.products.get(&id)
     }
 
-    /// Obtiene un producto mutable por ID
-    pub fn obtener_producto_mut(&mut self, id: u32) -> Option<&mut Producto> {
-        self.productos.get_mut(&id)
+    /// Gets a mutable product by ID
+    pub fn get_product_mut(&mut self, id: u32) -> Option<&mut Product> {
+        self.products.get_mut(&id)
     }
 
-    /// Actualiza el precio de un producto
-    pub fn actualizar_precio(&mut self, id: u32, nuevo_precio: f64) -> bool {
-        if let Some(producto) = self.productos.get_mut(&id) {
-            producto.precio = nuevo_precio;
+    /// Updates the price of a product
+    pub fn update_price(&mut self, id: u32, new_price: f64) -> bool {
+        if let Some(product) = self.products.get_mut(&id) {
+            product.price = new_price;
             true
         } else {
             false
         }
     }
 
-    /// Elimina un producto
-    pub fn eliminar_producto(&mut self, id: u32) -> Option<Producto> {
-        self.productos.remove(&id)
+    /// Deletes a product
+    pub fn delete_product(&mut self, id: u32) -> Option<Product> {
+        self.products.remove(&id)
     }
 
-    /// Retorna todos los productos
-    pub fn listar_productos(&self) -> Vec<&Producto> {
-        self.productos.values().collect()
+    /// Returns all products
+    pub fn list_products(&self) -> Vec<&Product> {
+        self.products.values().collect()
     }
 
-    /// Retorna productos ordenados por nombre
-    pub fn productos_ordenados_por_nombre(&self) -> Vec<&Producto> {
-        let mut productos: Vec<_> = self.productos.values().collect();
-        productos.sort_by(|a, b| a.nombre.to_lowercase().cmp(&b.nombre.to_lowercase()));
-        productos
+    /// Returns products sorted by name
+    pub fn products_sorted_by_name(&self) -> Vec<&Product> {
+        let mut products: Vec<_> = self.products.values().collect();
+        products.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
+        products
     }
 
-    // ========== Búsquedas ==========
+    // ========== Searches ==========
 
-    /// Busca productos por nombre (coincidencia parcial)
-    pub fn buscar_por_nombre(&self, texto: &str) -> Vec<&Producto> {
-        let texto_lower = texto.to_lowercase();
-        self.productos
+    /// Searches products by name (partial match)
+    pub fn search_by_name(&self, text: &str) -> Vec<&Product> {
+        let text_lower = text.to_lowercase();
+        self.products
             .values()
-            .filter(|p| p.nombre.to_lowercase().contains(&texto_lower))
+            .filter(|p| p.name.to_lowercase().contains(&text_lower))
             .collect()
     }
 
-    /// Busca productos por categoría exacta
-    pub fn buscar_por_categoria(&self, categoria: &str) -> Vec<&Producto> {
-        self.productos
+    /// Searches products by exact category
+    pub fn search_by_category(&self, category: &str) -> Vec<&Product> {
+        self.products
             .values()
-            .filter(|p| p.categoria == categoria)
+            .filter(|p| p.category == category)
             .collect()
     }
 
-    /// Busca productos con stock bajo
-    pub fn productos_stock_bajo(&self, umbral: u32) -> Vec<&Producto> {
-        self.productos
+    /// Searches products with low stock
+    pub fn low_stock_products(&self, threshold: u32) -> Vec<&Product> {
+        self.products
             .values()
-            .filter(|p| p.stock_bajo(umbral))
+            .filter(|p| p.low_stock(threshold))
             .collect()
     }
 
-    /// Busca productos sin stock
-    pub fn productos_sin_stock(&self) -> Vec<&Producto> {
-        self.productos
+    /// Searches products without stock
+    pub fn out_of_stock_products(&self) -> Vec<&Product> {
+        self.products
             .values()
             .filter(|p| p.stock == 0)
             .collect()
     }
 
-    // ========== Categorías ==========
+    // ========== Categories ==========
 
-    /// Obtiene todas las categorías únicas
-    pub fn categorias(&self) -> Vec<String> {
-        let mut cats: Vec<String> = self.productos
+    /// Gets all unique categories
+    pub fn categories(&self) -> Vec<String> {
+        let mut cats: Vec<String> = self.products
             .values()
-            .map(|p| p.categoria.clone())
+            .map(|p| p.category.clone())
             .collect();
         cats.sort();
         cats.dedup();
         cats
     }
 
-    /// Cuenta productos por categoría
-    pub fn contar_por_categoria(&self) -> HashMap<String, usize> {
-        let mut conteo: HashMap<String, usize> = HashMap::new();
-        for producto in self.productos.values() {
-            *conteo.entry(producto.categoria.clone()).or_insert(0) += 1;
+    /// Counts products by category
+    pub fn count_by_category(&self) -> HashMap<String, usize> {
+        let mut count: HashMap<String, usize> = HashMap::new();
+        for product in self.products.values() {
+            *count.entry(product.category.clone()).or_insert(0) += 1;
         }
-        conteo
+        count
     }
 
-    // ========== Transacciones de Stock ==========
+    // ========== Stock Transactions ==========
 
-    /// Registra una entrada de stock
-    pub fn entrada_stock(&mut self, producto_id: u32, cantidad: u32, nota: &str) -> bool {
-        if let Some(producto) = self.productos.get_mut(&producto_id) {
-            producto.agregar_stock(cantidad);
-            self.registrar_transaccion(producto_id, TipoTransaccion::Entrada, cantidad, nota);
+    /// Registers a stock entry
+    pub fn stock_entry(&mut self, product_id: u32, quantity: u32, note: &str) -> bool {
+        if let Some(product) = self.products.get_mut(&product_id) {
+            product.add_stock(quantity);
+            self.register_transaction(product_id, TransactionType::Entry, quantity, note);
             true
         } else {
             false
         }
     }
 
-    /// Registra una salida de stock
-    pub fn salida_stock(&mut self, producto_id: u32, cantidad: u32, nota: &str) -> bool {
-        if let Some(producto) = self.productos.get_mut(&producto_id) {
-            if producto.retirar_stock(cantidad) {
-                self.registrar_transaccion(producto_id, TipoTransaccion::Salida, cantidad, nota);
+    /// Registers a stock exit
+    pub fn stock_exit(&mut self, product_id: u32, quantity: u32, note: &str) -> bool {
+        if let Some(product) = self.products.get_mut(&product_id) {
+            if product.remove_stock(quantity) {
+                self.register_transaction(product_id, TransactionType::Exit, quantity, note);
                 true
             } else {
-                false // Stock insuficiente
+                false // Insufficient stock
             }
         } else {
-            false // Producto no encontrado
+            false // Product not found
         }
     }
 
-    /// Registra una transacción interna
-    fn registrar_transaccion(
+    /// Registers an internal transaction
+    fn register_transaction(
         &mut self,
-        producto_id: u32,
-        tipo: TipoTransaccion,
-        cantidad: u32,
-        nota: &str,
+        product_id: u32,
+        transaction_type: TransactionType,
+        quantity: u32,
+        note: &str,
     ) {
-        let id = self.siguiente_transaccion_id;
-        self.siguiente_transaccion_id += 1;
+        let id = self.next_transaction_id;
+        self.next_transaction_id += 1;
 
-        let fecha = obtener_fecha_actual();
-        let mut transaccion = Transaccion::new(id, producto_id, tipo, cantidad, fecha);
-        if !nota.is_empty() {
-            transaccion = transaccion.con_nota(nota);
+        let date = get_current_date();
+        let mut transaction = Transaction::new(id, product_id, transaction_type, quantity, date);
+        if !note.is_empty() {
+            transaction = transaction.with_note(note);
         }
-        self.transacciones.push(transaccion);
+        self.transactions.push(transaction);
     }
 
-    /// Obtiene el historial de transacciones
-    pub fn historial_transacciones(&self) -> &[Transaccion] {
-        &self.transacciones
+    /// Gets the transaction history
+    pub fn transaction_history(&self) -> &[Transaction] {
+        &self.transactions
     }
 
-    /// Obtiene transacciones de un producto específico
-    pub fn transacciones_producto(&self, producto_id: u32) -> Vec<&Transaccion> {
-        self.transacciones
+    /// Gets transactions for a specific product
+    pub fn product_transactions(&self, product_id: u32) -> Vec<&Transaction> {
+        self.transactions
             .iter()
-            .filter(|t| t.producto_id == producto_id)
+            .filter(|t| t.product_id == product_id)
             .collect()
     }
 
-    // ========== Estadísticas ==========
+    // ========== Statistics ==========
 
-    /// Total de productos
-    pub fn total_productos(&self) -> usize {
-        self.productos.len()
+    /// Total number of products
+    pub fn total_products(&self) -> usize {
+        self.products.len()
     }
 
-    /// Total de unidades en stock
-    pub fn total_unidades(&self) -> u32 {
-        self.productos.values().map(|p| p.stock).sum()
+    /// Total units in stock
+    pub fn total_units(&self) -> u32 {
+        self.products.values().map(|p| p.stock).sum()
     }
 
-    /// Valor total del inventario
-    pub fn valor_total(&self) -> f64 {
-        self.productos.values().map(|p| p.valor_inventario()).sum()
+    /// Total inventory value
+    pub fn total_value(&self) -> f64 {
+        self.products.values().map(|p| p.inventory_value()).sum()
     }
 
-    /// Precio promedio de productos
-    pub fn precio_promedio(&self) -> f64 {
-        if self.productos.is_empty() {
+    /// Average product price
+    pub fn average_price(&self) -> f64 {
+        if self.products.is_empty() {
             return 0.0;
         }
-        let total: f64 = self.productos.values().map(|p| p.precio).sum();
-        total / self.productos.len() as f64
+        let total: f64 = self.products.values().map(|p| p.price).sum();
+        total / self.products.len() as f64
     }
 
-    /// Producto más caro
-    pub fn producto_mas_caro(&self) -> Option<&Producto> {
-        self.productos
+    /// Most expensive product
+    pub fn most_expensive_product(&self) -> Option<&Product> {
+        self.products
             .values()
-            .max_by(|a, b| a.precio.partial_cmp(&b.precio).unwrap())
+            .max_by(|a, b| a.price.partial_cmp(&b.price).unwrap())
     }
 
-    /// Producto más barato
-    pub fn producto_mas_barato(&self) -> Option<&Producto> {
-        self.productos
+    /// Cheapest product
+    pub fn cheapest_product(&self) -> Option<&Product> {
+        self.products
             .values()
-            .min_by(|a, b| a.precio.partial_cmp(&b.precio).unwrap())
+            .min_by(|a, b| a.price.partial_cmp(&b.price).unwrap())
     }
 
-    /// Top N productos por valor de inventario
-    pub fn top_productos_por_valor(&self, n: usize) -> Vec<&Producto> {
-        let mut productos: Vec<_> = self.productos.values().collect();
-        productos.sort_by(|a, b| {
-            b.valor_inventario()
-                .partial_cmp(&a.valor_inventario())
+    /// Top N products by inventory value
+    pub fn top_products_by_value(&self, n: usize) -> Vec<&Product> {
+        let mut products: Vec<_> = self.products.values().collect();
+        products.sort_by(|a, b| {
+            b.inventory_value()
+                .partial_cmp(&a.inventory_value())
                 .unwrap()
         });
-        productos.into_iter().take(n).collect()
+        products.into_iter().take(n).collect()
     }
 
-    /// Valor por categoría
-    pub fn valor_por_categoria(&self) -> HashMap<String, f64> {
-        let mut valores: HashMap<String, f64> = HashMap::new();
-        for producto in self.productos.values() {
-            *valores.entry(producto.categoria.clone()).or_insert(0.0) 
-                += producto.valor_inventario();
+    /// Value by category
+    pub fn value_by_category(&self) -> HashMap<String, f64> {
+        let mut values: HashMap<String, f64> = HashMap::new();
+        for product in self.products.values() {
+            *values.entry(product.category.clone()).or_insert(0.0) 
+                += product.inventory_value();
         }
-        valores
+        values
     }
 }
 
-impl Default for Inventario {
+impl Default for Inventory {
     fn default() -> Self {
         Self::new()
     }
 }
 
-/// Obtiene la fecha actual como string (simplificado)
-fn obtener_fecha_actual() -> String {
-    // En un proyecto real usaríamos chrono
+/// Gets the current date as string (simplified)
+fn get_current_date() -> String {
+    // In a real project we would use chrono
     "2025-01-15".to_string()
 }
 
@@ -280,129 +280,129 @@ fn obtener_fecha_actual() -> String {
 mod tests {
     use super::*;
 
-    fn crear_inventario_prueba() -> Inventario {
-        let mut inv = Inventario::new();
-        inv.agregar_producto("Laptop", "Portátil 15\"", 999.99, "Electrónica", 10);
-        inv.agregar_producto("Mouse", "Mouse inalámbrico", 29.99, "Electrónica", 50);
-        inv.agregar_producto("Silla", "Silla ergonómica", 199.99, "Muebles", 5);
+    fn create_test_inventory() -> Inventory {
+        let mut inv = Inventory::new();
+        inv.add_product("Laptop", "15\" Laptop", 999.99, "Electronics", 10);
+        inv.add_product("Mouse", "Wireless mouse", 29.99, "Electronics", 50);
+        inv.add_product("Chair", "Ergonomic chair", 199.99, "Furniture", 5);
         inv
     }
 
     #[test]
-    fn test_agregar_producto() {
-        let mut inv = Inventario::new();
-        let id = inv.agregar_producto("Test", "Desc", 10.0, "Cat", 5);
+    fn test_add_product() {
+        let mut inv = Inventory::new();
+        let id = inv.add_product("Test", "Desc", 10.0, "Cat", 5);
         assert_eq!(id, 1);
-        assert!(inv.obtener_producto(1).is_some());
+        assert!(inv.get_product(1).is_some());
     }
 
     #[test]
-    fn test_eliminar_producto() {
-        let mut inv = crear_inventario_prueba();
-        let eliminado = inv.eliminar_producto(1);
-        assert!(eliminado.is_some());
-        assert!(inv.obtener_producto(1).is_none());
+    fn test_delete_product() {
+        let mut inv = create_test_inventory();
+        let deleted = inv.delete_product(1);
+        assert!(deleted.is_some());
+        assert!(inv.get_product(1).is_none());
     }
 
     #[test]
-    fn test_buscar_por_nombre() {
-        let inv = crear_inventario_prueba();
-        let resultados = inv.buscar_por_nombre("lap");
-        assert_eq!(resultados.len(), 1);
-        assert_eq!(resultados[0].nombre, "Laptop");
+    fn test_search_by_name() {
+        let inv = create_test_inventory();
+        let results = inv.search_by_name("lap");
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0].name, "Laptop");
     }
 
     #[test]
-    fn test_buscar_por_categoria() {
-        let inv = crear_inventario_prueba();
-        let resultados = inv.buscar_por_categoria("Electrónica");
-        assert_eq!(resultados.len(), 2);
+    fn test_search_by_category() {
+        let inv = create_test_inventory();
+        let results = inv.search_by_category("Electronics");
+        assert_eq!(results.len(), 2);
     }
 
     #[test]
-    fn test_categorias() {
-        let inv = crear_inventario_prueba();
-        let cats = inv.categorias();
+    fn test_categories() {
+        let inv = create_test_inventory();
+        let cats = inv.categories();
         assert_eq!(cats.len(), 2);
-        assert!(cats.contains(&"Electrónica".to_string()));
-        assert!(cats.contains(&"Muebles".to_string()));
+        assert!(cats.contains(&"Electronics".to_string()));
+        assert!(cats.contains(&"Furniture".to_string()));
     }
 
     #[test]
-    fn test_entrada_stock() {
-        let mut inv = crear_inventario_prueba();
-        let stock_antes = inv.obtener_producto(1).unwrap().stock;
+    fn test_stock_entry() {
+        let mut inv = create_test_inventory();
+        let stock_before = inv.get_product(1).unwrap().stock;
         
-        assert!(inv.entrada_stock(1, 5, "Reposición"));
+        assert!(inv.stock_entry(1, 5, "Restocking"));
         
-        let stock_despues = inv.obtener_producto(1).unwrap().stock;
-        assert_eq!(stock_despues, stock_antes + 5);
+        let stock_after = inv.get_product(1).unwrap().stock;
+        assert_eq!(stock_after, stock_before + 5);
     }
 
     #[test]
-    fn test_salida_stock_exitosa() {
-        let mut inv = crear_inventario_prueba();
-        let stock_antes = inv.obtener_producto(1).unwrap().stock;
+    fn test_stock_exit_success() {
+        let mut inv = create_test_inventory();
+        let stock_before = inv.get_product(1).unwrap().stock;
         
-        assert!(inv.salida_stock(1, 3, "Venta"));
+        assert!(inv.stock_exit(1, 3, "Sale"));
         
-        let stock_despues = inv.obtener_producto(1).unwrap().stock;
-        assert_eq!(stock_despues, stock_antes - 3);
+        let stock_after = inv.get_product(1).unwrap().stock;
+        assert_eq!(stock_after, stock_before - 3);
     }
 
     #[test]
-    fn test_salida_stock_insuficiente() {
-        let mut inv = crear_inventario_prueba();
-        let stock_antes = inv.obtener_producto(1).unwrap().stock;
+    fn test_stock_exit_insufficient() {
+        let mut inv = create_test_inventory();
+        let stock_before = inv.get_product(1).unwrap().stock;
         
-        assert!(!inv.salida_stock(1, 100, "Venta grande"));
+        assert!(!inv.stock_exit(1, 100, "Large sale"));
         
-        let stock_despues = inv.obtener_producto(1).unwrap().stock;
-        assert_eq!(stock_despues, stock_antes); // No cambió
+        let stock_after = inv.get_product(1).unwrap().stock;
+        assert_eq!(stock_after, stock_before); // No change
     }
 
     #[test]
-    fn test_historial_transacciones() {
-        let mut inv = Inventario::new();
-        inv.agregar_producto("Test", "Desc", 10.0, "Cat", 10);
-        inv.entrada_stock(1, 5, "Entrada");
-        inv.salida_stock(1, 3, "Salida");
+    fn test_transaction_history() {
+        let mut inv = Inventory::new();
+        inv.add_product("Test", "Desc", 10.0, "Cat", 10);
+        inv.stock_entry(1, 5, "Entry");
+        inv.stock_exit(1, 3, "Exit");
         
-        let historial = inv.historial_transacciones();
-        // 1 entrada inicial + 1 entrada + 1 salida = 3
-        assert_eq!(historial.len(), 3);
+        let history = inv.transaction_history();
+        // 1 initial entry + 1 entry + 1 exit = 3
+        assert_eq!(history.len(), 3);
     }
 
     #[test]
-    fn test_valor_total() {
-        let inv = crear_inventario_prueba();
+    fn test_total_value() {
+        let inv = create_test_inventory();
         // Laptop: 999.99 * 10 = 9999.90
         // Mouse: 29.99 * 50 = 1499.50
-        // Silla: 199.99 * 5 = 999.95
+        // Chair: 199.99 * 5 = 999.95
         // Total: 12499.35
-        let valor = inv.valor_total();
-        assert!((valor - 12499.35).abs() < 0.01);
+        let value = inv.total_value();
+        assert!((value - 12499.35).abs() < 0.01);
     }
 
     #[test]
-    fn test_producto_mas_caro() {
-        let inv = crear_inventario_prueba();
-        let mas_caro = inv.producto_mas_caro().unwrap();
-        assert_eq!(mas_caro.nombre, "Laptop");
+    fn test_most_expensive_product() {
+        let inv = create_test_inventory();
+        let most_expensive = inv.most_expensive_product().unwrap();
+        assert_eq!(most_expensive.name, "Laptop");
     }
 
     #[test]
-    fn test_top_productos_por_valor() {
-        let inv = crear_inventario_prueba();
-        let top = inv.top_productos_por_valor(2);
+    fn test_top_products_by_value() {
+        let inv = create_test_inventory();
+        let top = inv.top_products_by_value(2);
         assert_eq!(top.len(), 2);
-        assert_eq!(top[0].nombre, "Laptop"); // Mayor valor: 9999.90
+        assert_eq!(top[0].name, "Laptop"); // Highest value: 9999.90
     }
 
     #[test]
-    fn test_productos_stock_bajo() {
-        let inv = crear_inventario_prueba();
-        let bajo = inv.productos_stock_bajo(10);
-        assert_eq!(bajo.len(), 1); // Solo Silla (5 unidades)
+    fn test_low_stock_products() {
+        let inv = create_test_inventory();
+        let low = inv.low_stock_products(10);
+        assert_eq!(low.len(), 1); // Only Chair (5 units)
     }
 }
