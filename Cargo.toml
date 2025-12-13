@@ -25,6 +25,13 @@ members = [
     "bootcamp/semana-09/2-practica/practica-03-traits-derivables",
     "bootcamp/semana-09/2-practica/practica-04-trait-bounds",
     "bootcamp/semana-09/3-proyecto/proyecto-formas",
+    
+    # Semana 10 - Genéricos
+    "bootcamp/semana-10/2-practica/practica-01-funciones-genericas",
+    "bootcamp/semana-10/2-practica/practica-02-structs-genericos",
+    "bootcamp/semana-10/2-practica/practica-03-trait-bounds",
+    "bootcamp/semana-10/2-practica/practica-04-generics-avanzados",
+    "bootcamp/semana-10/3-proyecto/proyecto-contenedor",
 ]
 
 [workspace.package]
