@@ -1,23 +1,23 @@
-//! # Biblioteca de Geometría
+//! # Geometry Library
 //!
-//! Una biblioteca modular para cálculos geométricos.
+//! A modular library for geometric calculations.
 //!
-//! ## Uso básico
+//! ## Basic Usage
 //!
 //! ```
 //! use proyecto_geometria::*;
 //!
-//! let circulo = Circulo::nuevo(5.0);
-//! let area = calculos::area::area_circulo(&circulo);
-//! println!("Área: {}", area);
+//! let circle = Circle::new(5.0);
+//! let area = calculations::area::circle_area(&circle);
+//! println!("Area: {}", area);
 //! ```
 
-pub mod calculos;
-pub mod formato;
-pub mod formas;
+pub mod calculations;
+pub mod format;
+pub mod shapes;
 
-// Re-exports para API simplificada
-pub use formas::circulo::Circulo;
-pub use formas::rectangulo::Rectangulo;
-pub use formas::triangulo::Triangulo;
-pub use formas::Forma;
+// Re-exports for simplified API
+pub use shapes::circle::Circle;
+pub use shapes::rectangle::Rectangle;
+pub use shapes::triangle::Triangle;
+pub use shapes::Shape;
