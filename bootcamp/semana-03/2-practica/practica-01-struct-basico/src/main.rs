@@ -1,95 +1,95 @@
 // ============================================
-// Práctica 01: Struct Básico
+// Practice 01: Basic Struct
 // ============================================
-// Objetivo: Definir structs y crear instancias
+// Objective: Define structs and create instances
 // ============================================
 
 // -----------------------------------------
-// PARTE 1: Definir Structs
+// PART 1: Define Structs
 // -----------------------------------------
 
-// TODO: Define el struct Libro
-// Campos: titulo (String), autor (String), paginas (u32), disponible (bool)
-struct Libro {
-    titulo: String,
-    autor: String,
-    paginas: u32,
-    disponible: bool,
+// TODO: Define the Book struct
+// Fields: title (String), author (String), pages (u32), available (bool)
+struct Book {
+    title: String,
+    author: String,
+    pages: u32,
+    available: bool,
 }
 
-// TODO: Define el struct Producto
-// Campos: id (u64), nombre (String), precio (f64), stock (i32)
-// struct Producto { ... }
+// TODO: Define the Product struct
+// Fields: id (u64), name (String), price (f64), stock (i32)
+// struct Product { ... }
 
 fn main() {
-    println!("=== Práctica 01: Struct Básico ===\n");
+    println!("=== Practice 01: Basic Struct ===\n");
 
     // -----------------------------------------
-    // PARTE 2: Crear Instancias
+    // PART 2: Create Instances
     // -----------------------------------------
-    println!("--- Instancias de Libro ---");
+    println!("--- Book Instances ---");
     
-    let libro1 = Libro {
-        titulo: String::from("El Quijote"),
-        autor: String::from("Cervantes"),
-        paginas: 1200,
-        disponible: true,
+    let book1 = Book {
+        title: String::from("Don Quixote"),
+        author: String::from("Cervantes"),
+        pages: 1200,
+        available: true,
     };
 
-    // TODO: Crea libro2 con otros datos
-    // let libro2 = Libro { ... };
+    // TODO: Create book2 with different data
+    // let book2 = Book { ... };
 
-    // Acceder a campos
-    println!("Título: {}", libro1.titulo);
-    println!("Autor: {}", libro1.autor);
-    println!("Páginas: {}", libro1.paginas);
-    println!("Disponible: {}", libro1.disponible);
+    // Access fields
+    println!("Title: {}", book1.title);
+    println!("Author: {}", book1.author);
+    println!("Pages: {}", book1.pages);
+    println!("Available: {}", book1.available);
 
-    // TODO: Imprime los datos de libro2
+    // TODO: Print book2 data
     
     // -----------------------------------------
-    // PARTE 3: Instancias Mutables
+    // PART 3: Mutable Instances
     // -----------------------------------------
-    println!("\n--- Modificar Campos ---");
+    println!("\n--- Modify Fields ---");
     
-    let mut libro_mutable = Libro {
-        titulo: String::from("Rust Programming"),
-        autor: String::from("Steve Klabnik"),
-        paginas: 500,
-        disponible: true,
+    let mut mutable_book = Book {
+        title: String::from("Rust Programming"),
+        author: String::from("Steve Klabnik"),
+        pages: 500,
+        available: true,
     };
 
-    println!("Antes: disponible = {}", libro_mutable.disponible);
+    println!("Before: available = {}", mutable_book.available);
     
-    // Modificar campo
-    libro_mutable.disponible = false;
-    libro_mutable.paginas = 552;
+    // Modify field
+    mutable_book.available = false;
+    mutable_book.pages = 552;
     
-    println!("Después: disponible = {}", libro_mutable.disponible);
-    println!("Páginas actualizadas: {}", libro_mutable.paginas);
+    println!("After: available = {}", mutable_book.available);
+    println!("Updated pages: {}", mutable_book.pages);
 
     // -----------------------------------------
-    // PARTE 4: Field Init Shorthand
+    // PART 4: Field Init Shorthand
     // -----------------------------------------
     println!("\n--- Field Init Shorthand ---");
     
-    let titulo = String::from("Clean Code");
-    let autor = String::from("Robert Martin");
-    let paginas = 450;
-    let disponible = true;
+    let title = String::from("Clean Code");
+    let author = String::from("Robert Martin");
+    let pages = 450;
+    let available = true;
 
-    // Forma larga
-    let _libro_largo = Libro {
-        titulo: titulo.clone(),
-        autor: autor.clone(),
-        paginas: paginas,
-        disponible: disponible,
+    // Long form
+    let _long_book = Book {
+        title: title.clone(),
+        author: author.clone(),
+        pages: pages,
+        available: available,
     };
 
-    // TODO: Usa field init shorthand (cuando variable = campo)
-    // let libro_corto = Libro { titulo, autor, paginas, disponible };
+    // TODO: Use field init shorthand (when variable = field)
+    // let short_book = Book { title, author, pages, available };
 
-    println!("✅ Práctica completada");
+    println!("✅ Practice completed");
 }
 
 #[cfg(test)]
@@ -97,42 +97,45 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_crear_libro() {
-        let libro = Libro {
-            titulo: String::from("Test"),
-            autor: String::from("Autor"),
-            paginas: 100,
-            disponible: true,
+    fn test_create_book() {
+        let book = Book {
+            title: String::from("Test"),
+            author: String::from("Author"),
+            pages: 100,
+            available: true,
         };
 
-        assert_eq!(libro.titulo, "Test");
-        assert_eq!(libro.paginas, 100);
-        assert!(libro.disponible);
+        assert_eq!(book.title, "Test");
+        assert_eq!(book.pages, 100);
+        assert!(book.available);
     }
 
     #[test]
-    fn test_modificar_libro() {
-        let mut libro = Libro {
-            titulo: String::from("Test"),
-            autor: String::from("Autor"),
-            paginas: 100,
-            disponible: true,
+    fn test_modify_book() {
+        let mut book = Book {
+            title: String::from("Test"),
+            author: String::from("Author"),
+            pages: 100,
+            available: true,
         };
 
-        libro.disponible = false;
-        assert!(!libro.disponible);
+        book.available = false;
+        book.pages = 150;
+
+        assert!(!book.available);
+        assert_eq!(book.pages, 150);
     }
 
     #[test]
     fn test_field_init_shorthand() {
-        let titulo = String::from("Libro");
-        let autor = String::from("Autor");
-        let paginas = 200;
-        let disponible = false;
+        let title = String::from("Test");
+        let author = String::from("Author");
+        let pages = 100;
+        let available = true;
 
-        let libro = Libro { titulo, autor, paginas, disponible };
-        
-        assert_eq!(libro.titulo, "Libro");
-        assert_eq!(libro.paginas, 200);
+        let book = Book { title, author, pages, available };
+
+        assert_eq!(book.title, "Test");
+        assert_eq!(book.pages, 100);
     }
 }

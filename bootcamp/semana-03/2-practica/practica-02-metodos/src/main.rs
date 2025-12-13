@@ -1,126 +1,126 @@
 // ============================================
-// Práctica 02: Métodos
+// Practice 02: Methods
 // ============================================
-// Objetivo: Implementar métodos con impl
+// Objective: Implement methods with impl
 // ============================================
 
 #[derive(Debug)]
-struct Rectangulo {
-    ancho: u32,
-    alto: u32,
+struct Rectangle {
+    width: u32,
+    height: u32,
 }
 
-impl Rectangulo {
+impl Rectangle {
     // -----------------------------------------
-    // PARTE 1: Métodos de Lectura (&self)
+    // PART 1: Read Methods (&self)
     // -----------------------------------------
     
-    /// Calcula el área del rectángulo
+    /// Calculates the area of the rectangle
     fn area(&self) -> u32 {
-        self.ancho * self.alto
+        self.width * self.height
     }
 
-    /// Calcula el perímetro del rectángulo
-    fn perimetro(&self) -> u32 {
-        2 * (self.ancho + self.alto)
+    /// Calculates the perimeter of the rectangle
+    fn perimeter(&self) -> u32 {
+        2 * (self.width + self.height)
     }
 
-    /// Verifica si es un cuadrado
-    fn es_cuadrado(&self) -> bool {
-        self.ancho == self.alto
+    /// Checks if it's a square
+    fn is_square(&self) -> bool {
+        self.width == self.height
     }
 
-    /// Muestra información del rectángulo
-    fn describir(&self) {
+    /// Shows information about the rectangle
+    fn describe(&self) {
         println!(
-            "Rectángulo {}x{}, área: {}, es cuadrado: {}",
-            self.ancho,
-            self.alto,
+            "Rectangle {}x{}, area: {}, is square: {}",
+            self.width,
+            self.height,
             self.area(),
-            self.es_cuadrado()
+            self.is_square()
         );
     }
 
     // -----------------------------------------
-    // PARTE 2: Métodos de Modificación (&mut self)
+    // PART 2: Mutation Methods (&mut self)
     // -----------------------------------------
     
-    /// Escala el rectángulo por un factor
-    fn escalar(&mut self, factor: u32) {
-        self.ancho *= factor;
-        self.alto *= factor;
+    /// Scales the rectangle by a factor
+    fn scale(&mut self, factor: u32) {
+        self.width *= factor;
+        self.height *= factor;
     }
 
-    // TODO: Implementa rotar() que intercambia ancho y alto
-    // fn rotar(&mut self) { ... }
+    // TODO: Implement rotate() that swaps width and height
+    // fn rotate(&mut self) { ... }
 
-    /// Duplica el tamaño
-    fn duplicar(&mut self) {
-        self.escalar(2);
+    /// Doubles the size
+    fn double(&mut self) {
+        self.scale(2);
     }
 
     // -----------------------------------------
-    // PARTE 3: Métodos con Parámetros
+    // PART 3: Methods with Parameters
     // -----------------------------------------
     
-    /// Verifica si este rectángulo puede contener a otro
-    fn puede_contener(&self, otro: &Rectangulo) -> bool {
-        self.ancho > otro.ancho && self.alto > otro.alto
+    /// Checks if this rectangle can contain another
+    fn can_contain(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
     }
 
-    // TODO: Implementa es_mayor_que() que compara áreas
-    // fn es_mayor_que(&self, otro: &Rectangulo) -> bool { ... }
+    // TODO: Implement is_larger_than() that compares areas
+    // fn is_larger_than(&self, other: &Rectangle) -> bool { ... }
 }
 
 fn main() {
-    println!("=== Práctica 02: Métodos ===\n");
+    println!("=== Practice 02: Methods ===\n");
 
     // -----------------------------------------
-    // Demostración de métodos de lectura
+    // Read methods demonstration
     // -----------------------------------------
-    println!("--- Métodos de Lectura ---");
+    println!("--- Read Methods ---");
     
-    let rect = Rectangulo { ancho: 10, alto: 5 };
+    let rect = Rectangle { width: 10, height: 5 };
     
-    println!("Área: {}", rect.area());
-    println!("Perímetro: {}", rect.perimetro());
-    println!("¿Es cuadrado?: {}", rect.es_cuadrado());
-    rect.describir();
+    println!("Area: {}", rect.area());
+    println!("Perimeter: {}", rect.perimeter());
+    println!("Is square?: {}", rect.is_square());
+    rect.describe();
 
-    let cuadrado = Rectangulo { ancho: 5, alto: 5 };
-    println!("\n¿Es cuadrado?: {}", cuadrado.es_cuadrado());
-
-    // -----------------------------------------
-    // Demostración de métodos de modificación
-    // -----------------------------------------
-    println!("\n--- Métodos de Modificación ---");
-    
-    let mut rect_mut = Rectangulo { ancho: 10, alto: 5 };
-    println!("Antes de escalar: {}x{}", rect_mut.ancho, rect_mut.alto);
-    
-    rect_mut.escalar(2);
-    println!("Después de escalar x2: {}x{}", rect_mut.ancho, rect_mut.alto);
-    
-    rect_mut.duplicar();
-    println!("Después de duplicar: {}x{}", rect_mut.ancho, rect_mut.alto);
+    let square = Rectangle { width: 5, height: 5 };
+    println!("\nIs square?: {}", square.is_square());
 
     // -----------------------------------------
-    // Demostración de métodos con parámetros
+    // Mutation methods demonstration
     // -----------------------------------------
-    println!("\n--- Métodos con Parámetros ---");
+    println!("\n--- Mutation Methods ---");
     
-    let grande = Rectangulo { ancho: 20, alto: 15 };
-    let pequeno = Rectangulo { ancho: 5, alto: 3 };
+    let mut mutable_rect = Rectangle { width: 10, height: 5 };
+    println!("Before scaling: {}x{}", mutable_rect.width, mutable_rect.height);
+    
+    mutable_rect.scale(2);
+    println!("After scaling x2: {}x{}", mutable_rect.width, mutable_rect.height);
+    
+    mutable_rect.double();
+    println!("After doubling: {}x{}", mutable_rect.width, mutable_rect.height);
 
-    if grande.puede_contener(&pequeno) {
-        println!("El grande puede contener al pequeño");
+    // -----------------------------------------
+    // Methods with parameters demonstration
+    // -----------------------------------------
+    println!("\n--- Methods with Parameters ---");
+    
+    let large = Rectangle { width: 20, height: 15 };
+    let small = Rectangle { width: 5, height: 3 };
+
+    if large.can_contain(&small) {
+        println!("The large one can contain the small one");
     }
 
-    if !pequeno.puede_contener(&grande) {
-        println!("El pequeño NO puede contener al grande");
+    if !small.can_contain(&large) {
+        println!("The small one CANNOT contain the large one");
     }
 
-    println!("\n✅ Práctica completada");
+    println!("\n✅ Practice completed");
 }
 
 #[cfg(test)]
@@ -129,49 +129,49 @@ mod tests {
 
     #[test]
     fn test_area() {
-        let rect = Rectangulo { ancho: 10, alto: 5 };
+        let rect = Rectangle { width: 10, height: 5 };
         assert_eq!(rect.area(), 50);
     }
 
     #[test]
-    fn test_perimetro() {
-        let rect = Rectangulo { ancho: 10, alto: 5 };
-        assert_eq!(rect.perimetro(), 30);
+    fn test_perimeter() {
+        let rect = Rectangle { width: 10, height: 5 };
+        assert_eq!(rect.perimeter(), 30);
     }
 
     #[test]
-    fn test_es_cuadrado() {
-        let rect = Rectangulo { ancho: 10, alto: 5 };
-        let cuadrado = Rectangulo { ancho: 5, alto: 5 };
+    fn test_is_square() {
+        let rect = Rectangle { width: 10, height: 5 };
+        let square = Rectangle { width: 5, height: 5 };
         
-        assert!(!rect.es_cuadrado());
-        assert!(cuadrado.es_cuadrado());
+        assert!(!rect.is_square());
+        assert!(square.is_square());
     }
 
     #[test]
-    fn test_escalar() {
-        let mut rect = Rectangulo { ancho: 10, alto: 5 };
-        rect.escalar(3);
+    fn test_scale() {
+        let mut rect = Rectangle { width: 10, height: 5 };
+        rect.scale(2);
         
-        assert_eq!(rect.ancho, 30);
-        assert_eq!(rect.alto, 15);
+        assert_eq!(rect.width, 20);
+        assert_eq!(rect.height, 10);
     }
 
     #[test]
-    fn test_puede_contener() {
-        let grande = Rectangulo { ancho: 20, alto: 15 };
-        let pequeno = Rectangulo { ancho: 5, alto: 3 };
-
-        assert!(grande.puede_contener(&pequeno));
-        assert!(!pequeno.puede_contener(&grande));
-    }
-
-    #[test]
-    fn test_duplicar() {
-        let mut rect = Rectangulo { ancho: 5, alto: 3 };
-        rect.duplicar();
+    fn test_double() {
+        let mut rect = Rectangle { width: 10, height: 5 };
+        rect.double();
         
-        assert_eq!(rect.ancho, 10);
-        assert_eq!(rect.alto, 6);
+        assert_eq!(rect.width, 20);
+        assert_eq!(rect.height, 10);
+    }
+
+    #[test]
+    fn test_can_contain() {
+        let large = Rectangle { width: 20, height: 15 };
+        let small = Rectangle { width: 5, height: 3 };
+        
+        assert!(large.can_contain(&small));
+        assert!(!small.can_contain(&large));
     }
 }
