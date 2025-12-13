@@ -5,93 +5,93 @@
 //! ## Ejemplo
 //!
 //! ```
-//! use proyecto_calculadora_testeada::Calculadora;
+//! use project_tested_calculator::Calculator;
 //!
-//! let mut calc = Calculadora::new();
-//! calc.sumar(10.0);
-//! calc.multiplicar(2.0);
-//! assert_eq!(calc.resultado(), 20.0);
+//! let mut calc = Calculator::new();
+//! calc.add(10.0);
+//! calc.multiply(2.0);
+//! assert_eq!(calc.result(), 20.0);
 //! ```
 
 /// Errores posibles en la calculadora.
 #[derive(Debug, Clone, PartialEq)]
-pub enum CalculadoraError {
+pub enum CalculatorError {
     /// Division por cero
-    DivisionPorCero,
+    DivisionByZero,
     /// Raiz de numero negativo
-    RaizNegativa,
+    NegativeRoot,
     /// Factorial de numero negativo
-    FactorialNegativo,
+    NegativeFactorial,
     /// Overflow en operacion
     Overflow,
 }
 
-impl std::fmt::Display for CalculadoraError {
+impl std::fmt::Display for CalculatorError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::DivisionPorCero => write!(f, "Division por cero"),
-            Self::RaizNegativa => write!(f, "No se puede calcular raiz de numero negativo"),
-            Self::FactorialNegativo => write!(f, "No se puede calcular factorial de numero negativo"),
+            Self::DivisionByZero => write!(f, "Division por cero"),
+            Self::NegativeRoot => write!(f, "No se puede calcular raiz de numero negativo"),
+            Self::NegativeFactorial => write!(f, "No se puede calcular factorial de numero negativo"),
             Self::Overflow => write!(f, "Overflow en operacion"),
         }
     }
 }
 
-impl std::error::Error for CalculadoraError {}
+impl std::error::Error for CalculatorError {}
 
 /// Una calculadora con historial.
 ///
 /// # Example
 ///
 /// ```
-/// use proyecto_calculadora_testeada::Calculadora;
+/// use project_tested_calculator::Calculator;
 ///
-/// let mut calc = Calculadora::new();
-/// calc.sumar(5.0);
-/// calc.restar(2.0);
-/// assert_eq!(calc.resultado(), 3.0);
+/// let mut calc = Calculator::new();
+/// calc.add(5.0);
+/// calc.subtract(2.0);
+/// assert_eq!(calc.result(), 3.0);
 /// ```
 #[derive(Debug)]
-pub struct Calculadora {
-    valor: f64,
-    historial: Vec<String>,
+pub struct Calculator {
+    value: f64,
+    history: Vec<String>,
 }
 
-impl Default for Calculadora {
+impl Default for Calculator {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl Calculadora {
+impl Calculator {
     /// Crea una calculadora con valor 0.
     ///
     /// # Example
     ///
     /// ```
-    /// use proyecto_calculadora_testeada::Calculadora;
+    /// use project_tested_calculator::Calculator;
     ///
-    /// let calc = Calculadora::new();
-    /// assert_eq!(calc.resultado(), 0.0);
+    /// let calc = Calculator::new();
+    /// assert_eq!(calc.result(), 0.0);
     /// ```
     pub fn new() -> Self {
-        Calculadora {
-            valor: 0.0,
-            historial: Vec::new(),
+        Calculator {
+            value: 0.0,
+            history: Vec::new(),
         }
     }
 
     /// Crea una calculadora con un valor inicial.
-    pub fn con_valor(valor: f64) -> Self {
-        Calculadora {
-            valor,
-            historial: vec![format!("Inicio: {}", valor)],
+    pub fn with_value(value: f64) -> Self {
+        Calculator {
+            value,
+            history: vec![format!("Inicio: {}", value)],
         }
     }
 
     /// Retorna el resultado actual.
-    pub fn resultado(&self) -> f64 {
-        self.valor
+    pub fn result(&self) -> f64 {
+        self.value
     }
 
     /// Suma un valor.
@@ -99,57 +99,57 @@ impl Calculadora {
     /// # Example
     ///
     /// ```
-    /// use proyecto_calculadora_testeada::Calculadora;
+    /// use project_tested_calculator::Calculator;
     ///
-    /// let mut calc = Calculadora::con_valor(10.0);
-    /// calc.sumar(5.0);
-    /// assert_eq!(calc.resultado(), 15.0);
+    /// let mut calc = Calculator::with_value(10.0);
+    /// calc.add(5.0);
+    /// assert_eq!(calc.result(), 15.0);
     /// ```
-    pub fn sumar(&mut self, n: f64) {
-        self.valor += n;
-        self.historial.push(format!("+ {}", n));
+    pub fn add(&mut self, n: f64) {
+        self.value += n;
+        self.history.push(format!("+ {}", n));
     }
 
     /// Resta un valor.
-    pub fn restar(&mut self, n: f64) {
-        self.valor -= n;
-        self.historial.push(format!("- {}", n));
+    pub fn subtract(&mut self, n: f64) {
+        self.value -= n;
+        self.history.push(format!("- {}", n));
     }
 
     /// Multiplica por un valor.
-    pub fn multiplicar(&mut self, n: f64) {
-        self.valor *= n;
-        self.historial.push(format!("* {}", n));
+    pub fn multiply(&mut self, n: f64) {
+        self.value *= n;
+        self.history.push(format!("* {}", n));
     }
 
     /// Divide por un valor.
     ///
     /// # Errors
     ///
-    /// Retorna `CalculadoraError::DivisionPorCero` si n es 0.
+    /// Retorna `CalculatorError::DivisionByZero` si n es 0.
     ///
     /// # Example
     ///
     /// ```
-    /// use proyecto_calculadora_testeada::Calculadora;
+    /// use project_tested_calculator::Calculator;
     ///
-    /// let mut calc = Calculadora::con_valor(20.0);
-    /// calc.dividir(4.0).unwrap();
-    /// assert_eq!(calc.resultado(), 5.0);
+    /// let mut calc = Calculator::with_value(20.0);
+    /// calc.divide(4.0).unwrap();
+    /// assert_eq!(calc.result(), 5.0);
     /// ```
-    pub fn dividir(&mut self, n: f64) -> Result<(), CalculadoraError> {
+    pub fn divide(&mut self, n: f64) -> Result<(), CalculatorError> {
         if n == 0.0 {
-            return Err(CalculadoraError::DivisionPorCero);
+            return Err(CalculatorError::DivisionByZero);
         }
-        self.valor /= n;
-        self.historial.push(format!("/ {}", n));
+        self.value /= n;
+        self.history.push(format!("/ {}", n));
         Ok(())
     }
 
     /// Eleva a una potencia.
-    pub fn potencia(&mut self, exp: f64) {
-        self.valor = self.valor.powf(exp);
-        self.historial.push(format!("^ {}", exp));
+    pub fn power(&mut self, exp: f64) {
+        self.value = self.value.powf(exp);
+        self.history.push(format!("^ {}", exp));
     }
 
     /// Calcula la raiz cuadrada.
@@ -157,29 +157,24 @@ impl Calculadora {
     /// # Errors
     ///
     /// Retorna error si el valor es negativo.
-    pub fn raiz(&mut self) -> Result<(), CalculadoraError> {
-        if self.valor < 0.0 {
-            return Err(CalculadoraError::RaizNegativa);
+    pub fn sqrt(&mut self) -> Result<(), CalculatorError> {
+        if self.value < 0.0 {
+            return Err(CalculatorError::NegativeRoot);
         }
-        self.valor = self.valor.sqrt();
-        self.historial.push("sqrt".to_string());
+        self.value = self.value.sqrt();
+        self.history.push("sqrt".to_string());
         Ok(())
     }
 
     /// Reinicia la calculadora.
-    pub fn limpiar(&mut self) {
-        self.valor = 0.0;
-        self.historial.clear();
+    pub fn clear(&mut self) {
+        self.value = 0.0;
+        self.history.clear();
     }
 
     /// Retorna el historial de operaciones.
-    pub fn historial(&self) -> &[String] {
-        &self.historial
-    }
-}
-
-/// Calcula el factorial de un numero.
-///
+    pub fn history(&self) -> &[String] {
+        &self.history
 /// # Arguments
 ///
 /// * `n` - Numero entero no negativo
@@ -216,16 +211,16 @@ pub fn factorial(n: i64) -> Result<u64, CalculadoraError> {
 /// # Example
 ///
 /// ```
-/// use proyecto_calculadora_testeada::mcd;
+/// use project_tested_calculator::gcd;
 ///
-/// assert_eq!(mcd(12, 8), 4);
-/// assert_eq!(mcd(17, 13), 1);
+/// assert_eq!(gcd(12, 8), 4);
+/// assert_eq!(gcd(17, 13), 1);
 /// ```
-pub fn mcd(a: u64, b: u64) -> u64 {
+pub fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 {
         a
     } else {
-        mcd(b, a % b)
+        gcd(b, a % b)
     }
 }
 
@@ -234,15 +229,15 @@ pub fn mcd(a: u64, b: u64) -> u64 {
 /// # Example
 ///
 /// ```
-/// use proyecto_calculadora_testeada::mcm;
+/// use project_tested_calculator::lcm;
 ///
-/// assert_eq!(mcm(4, 6), 12);
+/// assert_eq!(lcm(4, 6), 12);
 /// ```
-pub fn mcm(a: u64, b: u64) -> u64 {
+pub fn lcm(a: u64, b: u64) -> u64 {
     if a == 0 || b == 0 {
         0
     } else {
-        (a * b) / mcd(a, b)
+        (a * b) / gcd(a, b)
     }
 }
 
@@ -254,143 +249,143 @@ pub fn mcm(a: u64, b: u64) -> u64 {
 mod tests {
     use super::*;
 
-    mod calculadora_basica {
+    mod calculator_basic {
         use super::*;
 
         #[test]
-        fn test_nueva() {
-            let calc = Calculadora::new();
-            assert_eq!(calc.resultado(), 0.0);
+        fn test_new() {
+            let calc = Calculator::new();
+            assert_eq!(calc.result(), 0.0);
         }
 
         #[test]
-        fn test_con_valor() {
-            let calc = Calculadora::con_valor(42.0);
-            assert_eq!(calc.resultado(), 42.0);
+        fn test_with_value() {
+            let calc = Calculator::with_value(42.0);
+            assert_eq!(calc.result(), 42.0);
         }
 
         #[test]
-        fn test_sumar() {
-            let mut calc = Calculadora::new();
-            calc.sumar(5.0);
-            assert_eq!(calc.resultado(), 5.0);
+        fn test_add() {
+            let mut calc = Calculator::new();
+            calc.add(5.0);
+            assert_eq!(calc.result(), 5.0);
         }
 
         #[test]
-        fn test_restar() {
-            let mut calc = Calculadora::con_valor(10.0);
-            calc.restar(3.0);
-            assert_eq!(calc.resultado(), 7.0);
+        fn test_subtract() {
+            let mut calc = Calculator::with_value(10.0);
+            calc.subtract(3.0);
+            assert_eq!(calc.result(), 7.0);
         }
 
         #[test]
-        fn test_multiplicar() {
-            let mut calc = Calculadora::con_valor(6.0);
-            calc.multiplicar(7.0);
-            assert_eq!(calc.resultado(), 42.0);
+        fn test_multiply() {
+            let mut calc = Calculator::with_value(6.0);
+            calc.multiply(7.0);
+            assert_eq!(calc.result(), 42.0);
         }
 
         #[test]
-        fn test_dividir() {
-            let mut calc = Calculadora::con_valor(20.0);
-            calc.dividir(4.0).unwrap();
-            assert_eq!(calc.resultado(), 5.0);
+        fn test_divide() {
+            let mut calc = Calculator::with_value(20.0);
+            calc.divide(4.0).unwrap();
+            assert_eq!(calc.result(), 5.0);
         }
 
         #[test]
-        fn test_dividir_por_cero() {
-            let mut calc = Calculadora::con_valor(10.0);
-            let result = calc.dividir(0.0);
-            assert_eq!(result, Err(CalculadoraError::DivisionPorCero));
+        fn test_divide_by_zero() {
+            let mut calc = Calculator::with_value(10.0);
+            let result = calc.divide(0.0);
+            assert_eq!(result, Err(CalculatorError::DivisionByZero));
         }
     }
 
-    mod calculadora_avanzada {
+    mod calculator_advanced {
         use super::*;
 
         #[test]
-        fn test_potencia() {
-            let mut calc = Calculadora::con_valor(2.0);
-            calc.potencia(10.0);
-            assert_eq!(calc.resultado(), 1024.0);
+        fn test_power() {
+            let mut calc = Calculator::with_value(2.0);
+            calc.power(10.0);
+            assert_eq!(calc.result(), 1024.0);
         }
 
         #[test]
-        fn test_raiz() {
-            let mut calc = Calculadora::con_valor(16.0);
-            calc.raiz().unwrap();
-            assert_eq!(calc.resultado(), 4.0);
+        fn test_sqrt() {
+            let mut calc = Calculator::with_value(16.0);
+            calc.sqrt().unwrap();
+            assert_eq!(calc.result(), 4.0);
         }
 
         #[test]
-        fn test_raiz_negativa() {
-            let mut calc = Calculadora::con_valor(-4.0);
-            let result = calc.raiz();
-            assert_eq!(result, Err(CalculadoraError::RaizNegativa));
+        fn test_sqrt_negative() {
+            let mut calc = Calculator::with_value(-4.0);
+            let result = calc.sqrt();
+            assert_eq!(result, Err(CalculatorError::NegativeRoot));
         }
 
         #[test]
-        fn test_limpiar() {
-            let mut calc = Calculadora::con_valor(100.0);
-            calc.sumar(50.0);
-            calc.limpiar();
-            assert_eq!(calc.resultado(), 0.0);
-            assert!(calc.historial().is_empty());
+        fn test_clear() {
+            let mut calc = Calculator::with_value(100.0);
+            calc.add(50.0);
+            calc.clear();
+            assert_eq!(calc.result(), 0.0);
+            assert!(calc.history().is_empty());
         }
     }
 
-    mod historial {
+    mod history_tests {
         use super::*;
 
         #[test]
-        fn test_historial_vacio() {
-            let calc = Calculadora::new();
-            assert!(calc.historial().is_empty());
+        fn test_history_empty() {
+            let calc = Calculator::new();
+            assert!(calc.history().is_empty());
         }
 
         #[test]
-        fn test_historial_operaciones() {
-            let mut calc = Calculadora::new();
-            calc.sumar(5.0);
-            calc.multiplicar(2.0);
-            assert_eq!(calc.historial().len(), 2);
+        fn test_history_operations() {
+            let mut calc = Calculator::new();
+            calc.add(5.0);
+            calc.multiply(2.0);
+            assert_eq!(calc.history().len(), 2);
         }
     }
 
-    mod funciones_matematicas {
+    mod math_functions {
         use super::*;
 
         #[test]
-        fn test_factorial_cero() {
+        fn test_factorial_zero() {
             assert_eq!(factorial(0).unwrap(), 1);
         }
 
         #[test]
-        fn test_factorial_cinco() {
+        fn test_factorial_five() {
             assert_eq!(factorial(5).unwrap(), 120);
         }
 
         #[test]
-        fn test_factorial_negativo() {
-            assert_eq!(factorial(-1), Err(CalculadoraError::FactorialNegativo));
+        fn test_factorial_negative() {
+            assert_eq!(factorial(-1), Err(CalculatorError::NegativeFactorial));
         }
 
         #[test]
         fn test_factorial_overflow() {
-            assert_eq!(factorial(21), Err(CalculadoraError::Overflow));
+            assert_eq!(factorial(21), Err(CalculatorError::Overflow));
         }
 
         #[test]
-        fn test_mcd() {
-            assert_eq!(mcd(12, 8), 4);
-            assert_eq!(mcd(17, 13), 1);
-            assert_eq!(mcd(100, 25), 25);
+        fn test_gcd() {
+            assert_eq!(gcd(12, 8), 4);
+            assert_eq!(gcd(17, 13), 1);
+            assert_eq!(gcd(100, 25), 25);
         }
 
         #[test]
-        fn test_mcm() {
-            assert_eq!(mcm(4, 6), 12);
-            assert_eq!(mcm(3, 5), 15);
+        fn test_lcm() {
+            assert_eq!(lcm(4, 6), 12);
+            assert_eq!(lcm(3, 5), 15);
         }
     }
 }

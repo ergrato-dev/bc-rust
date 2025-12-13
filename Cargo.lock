@@ -1499,10 +1499,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "practica-01-unit-tests"
-version = "0.1.0"
-
-[[package]]
 name = "practica-01-vectores"
 version = "0.1.0"
 
@@ -1517,19 +1513,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "practica-02-integration"
-version = "0.1.0"
-
-[[package]]
 name = "practica-02-strings"
 version = "0.1.0"
 
 [[package]]
 name = "practica-02-structs-genericos"
-version = "0.1.0"
-
-[[package]]
-name = "practica-03-doctests"
 version = "0.1.0"
 
 [[package]]
@@ -1570,10 +1558,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
 ]
-
-[[package]]
-name = "practica-04-tdd"
-version = "0.1.0"
 
 [[package]]
 name = "practica-crates-externos"
@@ -1626,6 +1610,10 @@ name = "practice-01-threads"
 version = "0.1.0"
 
 [[package]]
+name = "practice-01-unit-tests"
+version = "0.1.0"
+
+[[package]]
 name = "practice-02-capture"
 version = "0.1.0"
 
@@ -1635,6 +1623,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practice-02-implementar-traits"
+version = "0.1.0"
+
+[[package]]
+name = "practice-02-integration"
 version = "0.1.0"
 
 [[package]]
@@ -1652,6 +1644,10 @@ dependencies = [
  "tokio",
  "tokio-test",
 ]
+
+[[package]]
+name = "practice-03-doctests"
+version = "0.1.0"
 
 [[package]]
 name = "practice-03-elision"
@@ -1698,6 +1694,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practice-04-patterns"
+version = "0.1.0"
+
+[[package]]
+name = "practice-04-tdd"
 version = "0.1.0"
 
 [[package]]
@@ -1752,6 +1752,10 @@ name = "project-pipeline"
 version = "0.1.0"
 
 [[package]]
+name = "project-tested-calculator"
+version = "0.1.0"
+
+[[package]]
 name = "project-workers"
 version = "0.1.0"
 
@@ -1772,10 +1776,6 @@ dependencies = [
  "utoipa",
  "utoipa-swagger-ui",
 ]
-
-[[package]]
-name = "proyecto-calculadora-testeada"
-version = "0.1.0"
 
 [[package]]
 name = "proyecto-contenedor"

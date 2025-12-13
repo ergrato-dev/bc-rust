@@ -5,21 +5,21 @@
 fn main() {
     println!("=== Practica 04: TDD ===\n");
 
-    let mut pila: Pila<i32> = Pila::new();
-    println!("Pila vacia: {}", pila.is_empty());
+    let mut stack: Stack<i32> = Stack::new();
+    println!("Stack vacia: {}", stack.is_empty());
 
-    pila.push(10);
-    pila.push(20);
-    pila.push(30);
+    stack.push(10);
+    stack.push(20);
+    stack.push(30);
 
     println!("Despues de push 10, 20, 30:");
-    println!("  len: {}", pila.len());
-    println!("  peek: {:?}", pila.peek());
+    println!("  len: {}", stack.len());
+    println!("  peek: {:?}", stack.peek());
 
-    println!("Pop: {:?}", pila.pop());
-    println!("Pop: {:?}", pila.pop());
+    println!("Pop: {:?}", stack.pop());
+    println!("Pop: {:?}", stack.pop());
 
-    println!("len despues de 2 pops: {}", pila.len());
+    println!("len despues de 2 pops: {}", stack.len());
 }
 
 /// Una pila generica (LIFO - Last In First Out).
@@ -27,54 +27,54 @@ fn main() {
 /// # Example
 ///
 /// ```
-/// use practica_04_tdd::Pila;
+/// use practice_04_tdd::Stack;
 ///
-/// let mut pila = Pila::new();
-/// pila.push(1);
-/// pila.push(2);
-/// assert_eq!(pila.pop(), Some(2));
-/// assert_eq!(pila.pop(), Some(1));
+/// let mut stack = Stack::new();
+/// stack.push(1);
+/// stack.push(2);
+/// assert_eq!(stack.pop(), Some(2));
+/// assert_eq!(stack.pop(), Some(1));
 /// ```
 #[derive(Debug)]
-pub struct Pila<T> {
-    elementos: Vec<T>,
+pub struct Stack<T> {
+    elements: Vec<T>,
 }
 
-impl<T> Pila<T> {
+impl<T> Stack<T> {
     /// Crea una pila vacia.
     pub fn new() -> Self {
-        Pila {
-            elementos: Vec::new(),
+        Stack {
+            elements: Vec::new(),
         }
     }
 
     /// Agrega un elemento al tope.
     pub fn push(&mut self, item: T) {
-        self.elementos.push(item);
+        self.elements.push(item);
     }
 
     /// Quita y retorna el elemento del tope.
     pub fn pop(&mut self) -> Option<T> {
-        self.elementos.pop()
+        self.elements.pop()
     }
 
     /// Retorna referencia al tope sin quitarlo.
     pub fn peek(&self) -> Option<&T> {
-        self.elementos.last()
+        self.elements.last()
     }
 
     /// Verifica si la pila esta vacia.
     pub fn is_empty(&self) -> bool {
-        self.elementos.is_empty()
+        self.elements.is_empty()
     }
 
     /// Retorna la cantidad de elementos.
     pub fn len(&self) -> usize {
-        self.elementos.len()
+        self.elements.len()
     }
 }
 
-impl<T> Default for Pila<T> {
+impl<T> Default for Stack<T> {
     fn default() -> Self {
         Self::new()
     }
@@ -88,88 +88,88 @@ impl<T> Default for Pila<T> {
 mod tests {
     use super::*;
 
-    // Test 1: Pila vacia
+    // Test 1: Stack vacia
     #[test]
-    fn test_nueva_pila_esta_vacia() {
-        let pila: Pila<i32> = Pila::new();
-        assert!(pila.is_empty());
-        assert_eq!(pila.len(), 0);
+    fn test_new_stack_is_empty() {
+        let stack: Stack<i32> = Stack::new();
+        assert!(stack.is_empty());
+        assert_eq!(stack.len(), 0);
     }
 
     // Test 2: Push incrementa len
     #[test]
-    fn test_push_incrementa_len() {
-        let mut pila = Pila::new();
-        pila.push(42);
-        assert!(!pila.is_empty());
-        assert_eq!(pila.len(), 1);
+    fn test_push_increments_len() {
+        let mut stack = Stack::new();
+        stack.push(42);
+        assert!(!stack.is_empty());
+        assert_eq!(stack.len(), 1);
     }
 
     // Test 3: Push y Pop
     #[test]
     fn test_push_pop() {
-        let mut pila = Pila::new();
-        pila.push(10);
-        pila.push(20);
+        let mut stack = Stack::new();
+        stack.push(10);
+        stack.push(20);
         
-        assert_eq!(pila.pop(), Some(20));
-        assert_eq!(pila.pop(), Some(10));
-        assert_eq!(pila.pop(), None);
+        assert_eq!(stack.pop(), Some(20));
+        assert_eq!(stack.pop(), Some(10));
+        assert_eq!(stack.pop(), None);
     }
 
-    // Test 4: Pop en pila vacia
+    // Test 4: Pop en stack vacia
     #[test]
-    fn test_pop_pila_vacia() {
-        let mut pila: Pila<i32> = Pila::new();
-        assert_eq!(pila.pop(), None);
+    fn test_pop_empty_stack() {
+        let mut stack: Stack<i32> = Stack::new();
+        assert_eq!(stack.pop(), None);
     }
 
     // Test 5: Peek
     #[test]
     fn test_peek() {
-        let mut pila = Pila::new();
-        pila.push(100);
+        let mut stack = Stack::new();
+        stack.push(100);
         
         // Peek no consume
-        assert_eq!(pila.peek(), Some(&100));
-        assert_eq!(pila.peek(), Some(&100));
-        assert_eq!(pila.len(), 1);
+        assert_eq!(stack.peek(), Some(&100));
+        assert_eq!(stack.peek(), Some(&100));
+        assert_eq!(stack.len(), 1);
     }
 
-    // Test 6: Peek pila vacia
+    // Test 6: Peek stack vacia
     #[test]
-    fn test_peek_pila_vacia() {
-        let pila: Pila<String> = Pila::new();
-        assert_eq!(pila.peek(), None);
+    fn test_peek_empty_stack() {
+        let stack: Stack<String> = Stack::new();
+        assert_eq!(stack.peek(), None);
     }
 
     // Test 7: Orden LIFO
     #[test]
-    fn test_orden_lifo() {
-        let mut pila = Pila::new();
-        pila.push('a');
-        pila.push('b');
-        pila.push('c');
+    fn test_lifo_order() {
+        let mut stack = Stack::new();
+        stack.push('a');
+        stack.push('b');
+        stack.push('c');
         
-        assert_eq!(pila.pop(), Some('c'));
-        assert_eq!(pila.pop(), Some('b'));
-        assert_eq!(pila.pop(), Some('a'));
+        assert_eq!(stack.pop(), Some('c'));
+        assert_eq!(stack.pop(), Some('b'));
+        assert_eq!(stack.pop(), Some('a'));
     }
 
     // Test 8: Multiples tipos
     #[test]
-    fn test_pila_strings() {
-        let mut pila = Pila::new();
-        pila.push(String::from("uno"));
-        pila.push(String::from("dos"));
+    fn test_stack_strings() {
+        let mut stack = Stack::new();
+        stack.push(String::from("uno"));
+        stack.push(String::from("dos"));
         
-        assert_eq!(pila.pop(), Some(String::from("dos")));
+        assert_eq!(stack.pop(), Some(String::from("dos")));
     }
 
     // Test 9: Default
     #[test]
     fn test_default() {
-        let pila: Pila<i32> = Pila::default();
-        assert!(pila.is_empty());
+        let stack: Stack<i32> = Stack::default();
+        assert!(stack.is_empty());
     }
 }

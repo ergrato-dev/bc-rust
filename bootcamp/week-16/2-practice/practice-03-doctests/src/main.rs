@@ -6,10 +6,10 @@
 //! ## Ejemplo
 //!
 //! ```
-//! use practica_03_doctests::{suma, factorial};
+//! use practice_03_doctests::{add, factorial};
 //!
-//! let resultado = suma(2, 3);
-//! assert_eq!(resultado, 5);
+//! let result = add(2, 3);
+//! assert_eq!(result, 5);
 //! ```
 
 /// Suma dos numeros enteros.
@@ -26,12 +26,12 @@
 /// # Example
 ///
 /// ```
-/// use practica_03_doctests::suma;
+/// use practice_03_doctests::add;
 ///
-/// assert_eq!(suma(2, 3), 5);
-/// assert_eq!(suma(-1, 1), 0);
+/// assert_eq!(add(2, 3), 5);
+/// assert_eq!(add(-1, 1), 0);
 /// ```
-pub fn suma(a: i32, b: i32) -> i32 {
+pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
@@ -52,14 +52,14 @@ pub fn suma(a: i32, b: i32) -> i32 {
 /// # Example
 ///
 /// ```
-/// use practica_03_doctests::factorial;
+/// use practice_03_doctests::factorial;
 ///
 /// assert_eq!(factorial(0), 1);
 /// assert_eq!(factorial(5), 120);
 /// ```
 ///
 /// ```should_panic
-/// use practica_03_doctests::factorial;
+/// use practice_03_doctests::factorial;
 ///
 /// factorial(21); // overflow!
 /// ```
@@ -78,12 +78,12 @@ pub fn factorial(n: u64) -> u64 {
 ///
 /// # Arguments
 ///
-/// * `dividendo` - El numero a dividir
+/// * `dividend` - El numero a dividir
 /// * `divisor` - El numero por el cual dividir
 ///
 /// # Returns
 ///
-/// `Ok(cociente)` si la division es valida.
+/// `Ok(quotient)` si la division es valida.
 ///
 /// # Errors
 ///
@@ -92,19 +92,19 @@ pub fn factorial(n: u64) -> u64 {
 /// # Example
 ///
 /// ```
-/// use practica_03_doctests::dividir;
+/// use practice_03_doctests::divide;
 ///
-/// let resultado = dividir(10, 2);
-/// assert_eq!(resultado, Ok(5));
+/// let result = divide(10, 2);
+/// assert_eq!(result, Ok(5));
 ///
-/// let error = dividir(10, 0);
+/// let error = divide(10, 0);
 /// assert!(error.is_err());
 /// ```
-pub fn dividir(dividendo: i32, divisor: i32) -> Result<i32, &'static str> {
+pub fn divide(dividend: i32, divisor: i32) -> Result<i32, &'static str> {
     if divisor == 0 {
         Err("Division por cero")
     } else {
-        Ok(dividendo / divisor)
+        Ok(dividend / divisor)
     }
 }
 
@@ -121,14 +121,14 @@ pub fn dividir(dividendo: i32, divisor: i32) -> Result<i32, &'static str> {
 /// # Example
 ///
 /// ```
-/// use practica_03_doctests::es_primo;
+/// use practice_03_doctests::is_prime;
 ///
-/// assert!(es_primo(2));
-/// assert!(es_primo(17));
-/// assert!(!es_primo(4));
-/// assert!(!es_primo(1));
+/// assert!(is_prime(2));
+/// assert!(is_prime(17));
+/// assert!(!is_prime(4));
+/// assert!(!is_prime(1));
 /// ```
-pub fn es_primo(n: u64) -> bool {
+pub fn is_prime(n: u64) -> bool {
     if n < 2 {
         return false;
     }
@@ -138,8 +138,8 @@ pub fn es_primo(n: u64) -> bool {
     if n % 2 == 0 {
         return false;
     }
-    let limite = (n as f64).sqrt() as u64;
-    for i in (3..=limite).step_by(2) {
+    let limit = (n as f64).sqrt() as u64;
+    for i in (3..=limit).step_by(2) {
         if n % i == 0 {
             return false;
         }
@@ -152,32 +152,32 @@ pub fn es_primo(n: u64) -> bool {
 /// # Example
 ///
 /// ```
-/// use practica_03_doctests::Punto;
+/// use practice_03_doctests::Point;
 ///
-/// let p = Punto::new(3.0, 4.0);
-/// assert_eq!(p.distancia_origen(), 5.0);
+/// let p = Point::new(3.0, 4.0);
+/// assert_eq!(p.distance_to_origin(), 5.0);
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq)]
-pub struct Punto {
+pub struct Point {
     /// Coordenada X
     pub x: f64,
     /// Coordenada Y
     pub y: f64,
 }
 
-impl Punto {
+impl Point {
     /// Crea un nuevo punto.
     ///
     /// # Example
     ///
     /// ```
-    /// use practica_03_doctests::Punto;
+    /// use practice_03_doctests::Point;
     ///
-    /// let origen = Punto::new(0.0, 0.0);
-    /// assert_eq!(origen.x, 0.0);
+    /// let origin = Point::new(0.0, 0.0);
+    /// assert_eq!(origin.x, 0.0);
     /// ```
     pub fn new(x: f64, y: f64) -> Self {
-        Punto { x, y }
+        Point { x, y }
     }
 
     /// Calcula la distancia al origen.
@@ -185,12 +185,12 @@ impl Punto {
     /// # Example
     ///
     /// ```
-    /// use practica_03_doctests::Punto;
+    /// use practice_03_doctests::Point;
     ///
-    /// let p = Punto::new(3.0, 4.0);
-    /// assert_eq!(p.distancia_origen(), 5.0);
+    /// let p = Point::new(3.0, 4.0);
+    /// assert_eq!(p.distance_to_origin(), 5.0);
     /// ```
-    pub fn distancia_origen(&self) -> f64 {
+    pub fn distance_to_origin(&self) -> f64 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
 
@@ -199,15 +199,15 @@ impl Punto {
     /// # Example
     ///
     /// ```
-    /// use practica_03_doctests::Punto;
+    /// use practice_03_doctests::Point;
     ///
-    /// let p1 = Punto::new(0.0, 0.0);
-    /// let p2 = Punto::new(3.0, 4.0);
-    /// assert_eq!(p1.distancia_a(&p2), 5.0);
+    /// let p1 = Point::new(0.0, 0.0);
+    /// let p2 = Point::new(3.0, 4.0);
+    /// assert_eq!(p1.distance_to(&p2), 5.0);
     /// ```
-    pub fn distancia_a(&self, otro: &Punto) -> f64 {
-        let dx = self.x - otro.x;
-        let dy = self.y - otro.y;
+    pub fn distance_to(&self, other: &Point) -> f64 {
+        let dx = self.x - other.x;
+        let dy = self.y - other.y;
         (dx.powi(2) + dy.powi(2)).sqrt()
     }
 }
