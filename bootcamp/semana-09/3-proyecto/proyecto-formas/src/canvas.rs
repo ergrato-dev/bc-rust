@@ -2,7 +2,7 @@
 //!
 //! Proporciona un canvas simple para visualizar formas.
 
-use crate::traits::{Forma, Dibujable};
+use crate::traits::{Forma, Dibujable, FormaComparable};
 
 /// Canvas para organizar y mostrar formas
 #[derive(Debug, Clone)]
@@ -67,7 +67,11 @@ impl Canvas {
     }
     
     /// Compara dos formas
-    pub fn comparar<F1: Forma, F2: Forma>(forma1: &F1, forma2: &F2) {
+    pub fn comparar<F1, F2>(forma1: &F1, forma2: &F2) 
+    where
+        F1: FormaComparable,
+        F2: FormaComparable,
+    {
         println!("\n📊 Comparación de Formas:");
         println!("─────────────────────────────────────");
         println!("{:<15} │ {:<15} │ {:<15}", "", forma1.nombre(), forma2.nombre());
