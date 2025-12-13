@@ -1,165 +1,165 @@
-// Práctica 02: Pattern Matching
-// Semana 05 - Enums y Pattern Matching
+// Practice 02: Pattern Matching
+// Week 05 - Enums and Pattern Matching
 
 use std::f64::consts::PI;
 
 // ============================================
-// Ejercicio 1: Match Básico con Monedas
+// Exercise 1: Basic Match with Currencies
 // ============================================
 
 #[derive(Debug, Clone, Copy)]
-enum Moneda {
+enum Currency {
     Peso,
-    Dolar,
+    Dollar,
     Euro,
-    Libra,
+    Pound,
 }
 
-// TODO: Implementa la conversión a pesos
-// Tasas: Peso = 1, Dolar = 850, Euro = 920, Libra = 1080
-fn a_pesos(moneda: Moneda, cantidad: f64) -> f64 {
-    todo!("Implementar con match")
+// TODO: Implement conversion to pesos
+// Rates: Peso = 1, Dollar = 850, Euro = 920, Pound = 1080
+fn to_pesos(currency: Currency, amount: f64) -> f64 {
+    todo!("Implement with match")
 }
 
 // ============================================
-// Ejercicio 2: Enums con Datos - Figuras
+// Exercise 2: Enums with Data - Shapes
 // ============================================
 
 #[derive(Debug)]
-enum Figura {
-    Circulo(f64),                        // radio
-    Rectangulo { ancho: f64, alto: f64 },
-    Triangulo(f64, f64),                 // base, altura
+enum Shape {
+    Circle(f64),                          // radius
+    Rectangle { width: f64, height: f64 },
+    Triangle(f64, f64),                   // base, height
 }
 
-// TODO: Calcula el área de cualquier figura
-fn calcular_area(figura: &Figura) -> f64 {
-    todo!("Implementar extrayendo datos con match")
+// TODO: Calculate area of any shape
+fn calculate_area(shape: &Shape) -> f64 {
+    todo!("Implement by extracting data with match")
 }
 
-// TODO: Retorna el nombre de la figura
-fn nombre_figura(figura: &Figura) -> &str {
-    todo!("Implementar con match")
-}
-
-// ============================================
-// Ejercicio 3: Patrones Avanzados
-// ============================================
-
-// TODO: Usa guards y rangos para clasificar
-fn clasificar_numero(n: i32) -> &'static str {
-    todo!("Implementar con match, guards y rangos")
+// TODO: Returns the shape name
+fn shape_name(shape: &Shape) -> &str {
+    todo!("Implement with match")
 }
 
 // ============================================
-// Ejercicio 4: Destructuring de Tuplas
+// Exercise 3: Advanced Patterns
 // ============================================
 
-// TODO: Clasifica un punto (x, y)
-fn clasificar_punto(punto: (i32, i32)) -> &'static str {
-    // Retorna:
-    // - "origen" si (0, 0)
-    // - "eje x" si y == 0
-    // - "eje y" si x == 0
-    // - "cuadrante I" si x > 0 && y > 0
-    // - "cuadrante II" si x < 0 && y > 0
-    // - "cuadrante III" si x < 0 && y < 0
-    // - "cuadrante IV" si x > 0 && y < 0
-    todo!("Implementar con match y destructuring")
+// TODO: Use guards and ranges to classify
+fn classify_number(n: i32) -> &'static str {
+    todo!("Implement with match, guards, and ranges")
+}
+
+// ============================================
+// Exercise 4: Tuple Destructuring
+// ============================================
+
+// TODO: Classify a point (x, y)
+fn classify_point(point: (i32, i32)) -> &'static str {
+    // Returns:
+    // - "origin" if (0, 0)
+    // - "x axis" if y == 0
+    // - "y axis" if x == 0
+    // - "quadrant I" if x > 0 && y > 0
+    // - "quadrant II" if x < 0 && y > 0
+    // - "quadrant III" if x < 0 && y < 0
+    // - "quadrant IV" if x > 0 && y < 0
+    todo!("Implement with match and destructuring")
 }
 
 fn main() {
-    // Prueba monedas
-    println!("100 dólares = {} pesos", a_pesos(Moneda::Dolar, 100.0));
+    // Test currencies
+    println!("100 dollars = {} pesos", to_pesos(Currency::Dollar, 100.0));
     
-    // Prueba figuras
-    let circulo = Figura::Circulo(5.0);
-    let rectangulo = Figura::Rectangulo { ancho: 10.0, alto: 5.0 };
+    // Test shapes
+    let circle = Shape::Circle(5.0);
+    let rectangle = Shape::Rectangle { width: 10.0, height: 5.0 };
     
-    println!("{}: área = {:.2}", nombre_figura(&circulo), calcular_area(&circulo));
-    println!("{}: área = {:.2}", nombre_figura(&rectangulo), calcular_area(&rectangulo));
+    println!("{}: area = {:.2}", shape_name(&circle), calculate_area(&circle));
+    println!("{}: area = {:.2}", shape_name(&rectangle), calculate_area(&rectangle));
     
-    // Prueba clasificación
-    println!("50 es: {}", clasificar_numero(50));
-    println!("-5 es: {}", clasificar_numero(-5));
+    // Test classification
+    println!("50 is: {}", classify_number(50));
+    println!("-5 is: {}", classify_number(-5));
     
-    // Prueba puntos
-    println!("(3, 4) está en: {}", clasificar_punto((3, 4)));
+    // Test points
+    println!("(3, 4) is in: {}", classify_point((3, 4)));
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    // Tests Monedas
+    // Currency Tests
     #[test]
-    fn test_peso_a_pesos() {
-        assert_eq!(a_pesos(Moneda::Peso, 100.0), 100.0);
+    fn test_peso_to_pesos() {
+        assert_eq!(to_pesos(Currency::Peso, 100.0), 100.0);
     }
 
     #[test]
-    fn test_dolar_a_pesos() {
-        assert_eq!(a_pesos(Moneda::Dolar, 1.0), 850.0);
+    fn test_dollar_to_pesos() {
+        assert_eq!(to_pesos(Currency::Dollar, 1.0), 850.0);
     }
 
-    // Tests Figuras
+    // Shape Tests
     #[test]
-    fn test_area_circulo() {
-        let c = Figura::Circulo(1.0);
-        assert!((calcular_area(&c) - PI).abs() < 0.001);
-    }
-
-    #[test]
-    fn test_area_rectangulo() {
-        let r = Figura::Rectangulo { ancho: 4.0, alto: 5.0 };
-        assert_eq!(calcular_area(&r), 20.0);
+    fn test_circle_area() {
+        let c = Shape::Circle(1.0);
+        assert!((calculate_area(&c) - PI).abs() < 0.001);
     }
 
     #[test]
-    fn test_area_triangulo() {
-        let t = Figura::Triangulo(6.0, 4.0);
-        assert_eq!(calcular_area(&t), 12.0);
-    }
-
-    // Tests Clasificación
-    #[test]
-    fn test_clasificar_cero() {
-        assert_eq!(clasificar_numero(0), "cero");
+    fn test_rectangle_area() {
+        let r = Shape::Rectangle { width: 4.0, height: 5.0 };
+        assert_eq!(calculate_area(&r), 20.0);
     }
 
     #[test]
-    fn test_clasificar_pequeno() {
-        assert_eq!(clasificar_numero(5), "pequeño");
+    fn test_triangle_area() {
+        let t = Shape::Triangle(6.0, 4.0);
+        assert_eq!(calculate_area(&t), 12.0);
+    }
+
+    // Classification Tests
+    #[test]
+    fn test_classify_zero() {
+        assert_eq!(classify_number(0), "zero");
     }
 
     #[test]
-    fn test_clasificar_mediano() {
-        assert_eq!(clasificar_numero(50), "mediano");
+    fn test_classify_small() {
+        assert_eq!(classify_number(5), "small");
     }
 
     #[test]
-    fn test_clasificar_grande() {
-        assert_eq!(clasificar_numero(200), "grande");
+    fn test_classify_medium() {
+        assert_eq!(classify_number(50), "medium");
     }
 
     #[test]
-    fn test_clasificar_negativo() {
-        assert_eq!(clasificar_numero(-10), "negativo");
-    }
-
-    // Tests Puntos
-    #[test]
-    fn test_punto_origen() {
-        assert_eq!(clasificar_punto((0, 0)), "origen");
+    fn test_classify_large() {
+        assert_eq!(classify_number(200), "large");
     }
 
     #[test]
-    fn test_punto_cuadrante_i() {
-        assert_eq!(clasificar_punto((3, 4)), "cuadrante I");
+    fn test_classify_negative() {
+        assert_eq!(classify_number(-10), "negative");
+    }
+
+    // Point Tests
+    #[test]
+    fn test_point_origin() {
+        assert_eq!(classify_point((0, 0)), "origin");
     }
 
     #[test]
-    fn test_punto_eje_x() {
-        assert_eq!(clasificar_punto((5, 0)), "eje x");
+    fn test_point_quadrant_i() {
+        assert_eq!(classify_point((3, 4)), "quadrant I");
+    }
+
+    #[test]
+    fn test_point_x_axis() {
+        assert_eq!(classify_point((5, 0)), "x axis");
     }
 }

@@ -1,38 +1,38 @@
-// Práctica 01: Enums Básicos
-// Semana 05 - Enums y Pattern Matching
+// Practice 01: Basic Enums
+// Week 05 - Enums and Pattern Matching
 
-// TODO: Define el enum DiaSemana con los 7 días
-// Deriva: Debug, Clone, Copy, PartialEq
+// TODO: Define the Weekday enum with all 7 days
+// Derive: Debug, Clone, Copy, PartialEq
 #[derive(Debug, Clone, Copy, PartialEq)]
-enum DiaSemana {
-    // Completa las variantes
+enum Weekday {
+    // Complete the variants
 }
 
-// TODO: Implementa esta función
-// Retorna true si es día laboral (lunes a viernes)
-fn es_laboral(dia: DiaSemana) -> bool {
-    todo!("Implementar usando match")
+// TODO: Implement this function
+// Returns true if it's a business day (Monday to Friday)
+fn is_business_day(day: Weekday) -> bool {
+    todo!("Implement using match")
 }
 
-// TODO: Implementa métodos para DiaSemana
-impl DiaSemana {
-    // Retorna el siguiente día (Domingo -> Lunes)
-    fn siguiente(&self) -> DiaSemana {
-        todo!("Implementar ciclo de días")
+// TODO: Implement methods for Weekday
+impl Weekday {
+    // Returns the next day (Sunday -> Monday)
+    fn next(&self) -> Weekday {
+        todo!("Implement day cycle")
     }
     
-    // Retorna el nombre del día como &str
-    fn nombre(&self) -> &str {
-        todo!("Implementar con match")
+    // Returns the day name as &str
+    fn name(&self) -> &str {
+        todo!("Implement with match")
     }
 }
 
 fn main() {
-    let hoy = DiaSemana::Miercoles;
+    let today = Weekday::Wednesday;
     
-    println!("Hoy es: {:?}", hoy);
-    println!("¿Es laboral?: {}", es_laboral(hoy));
-    println!("Mañana es: {:?}", hoy.siguiente());
+    println!("Today is: {:?}", today);
+    println!("Is business day?: {}", is_business_day(today));
+    println!("Tomorrow is: {:?}", today.next());
 }
 
 #[cfg(test)]
@@ -40,37 +40,37 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_es_laboral_lunes() {
-        assert!(es_laboral(DiaSemana::Lunes));
+    fn test_is_business_day_monday() {
+        assert!(is_business_day(Weekday::Monday));
     }
 
     #[test]
-    fn test_es_laboral_viernes() {
-        assert!(es_laboral(DiaSemana::Viernes));
+    fn test_is_business_day_friday() {
+        assert!(is_business_day(Weekday::Friday));
     }
 
     #[test]
-    fn test_no_es_laboral_sabado() {
-        assert!(!es_laboral(DiaSemana::Sabado));
+    fn test_not_business_day_saturday() {
+        assert!(!is_business_day(Weekday::Saturday));
     }
 
     #[test]
-    fn test_no_es_laboral_domingo() {
-        assert!(!es_laboral(DiaSemana::Domingo));
+    fn test_not_business_day_sunday() {
+        assert!(!is_business_day(Weekday::Sunday));
     }
 
     #[test]
-    fn test_siguiente_lunes() {
-        assert_eq!(DiaSemana::Lunes.siguiente(), DiaSemana::Martes);
+    fn test_next_monday() {
+        assert_eq!(Weekday::Monday.next(), Weekday::Tuesday);
     }
 
     #[test]
-    fn test_siguiente_domingo() {
-        assert_eq!(DiaSemana::Domingo.siguiente(), DiaSemana::Lunes);
+    fn test_next_sunday() {
+        assert_eq!(Weekday::Sunday.next(), Weekday::Monday);
     }
 
     #[test]
-    fn test_nombre_miercoles() {
-        assert_eq!(DiaSemana::Miercoles.nombre(), "Miércoles");
+    fn test_name_wednesday() {
+        assert_eq!(Weekday::Wednesday.name(), "Wednesday");
     }
 }
