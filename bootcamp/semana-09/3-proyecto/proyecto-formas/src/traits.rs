@@ -17,9 +17,12 @@ pub trait Forma {
     fn area_mayor_que(&self, valor: f64) -> bool {
         self.area() > valor
     }
-    
+}
+
+/// Trait para comparar formas (separado para mantener Forma dyn-compatible)
+pub trait FormaComparable: Forma {
     /// Compara áreas con otra forma
-    fn es_mas_grande_que(&self, otra: &impl Forma) -> bool {
+    fn es_mas_grande_que<F: Forma>(&self, otra: &F) -> bool {
         self.area() > otra.area()
     }
 }

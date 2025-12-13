@@ -159,7 +159,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "practica-01-definir-traits"
+version = "0.1.0"
+
+[[package]]
 name = "practica-01-vectores"
+version = "0.1.0"
+
+[[package]]
+name = "practica-02-implementar-traits"
 version = "0.1.0"
 
 [[package]]
@@ -171,7 +179,15 @@ name = "practica-03-hashmaps"
 version = "0.1.0"
 
 [[package]]
+name = "practica-03-traits-derivables"
+version = "0.1.0"
+
+[[package]]
 name = "practica-04-iteradores"
+version = "0.1.0"
+
+[[package]]
+name = "practica-04-trait-bounds"
 version = "0.1.0"
 
 [[package]]
@@ -204,6 +220,10 @@ checksum = "5ee95bc4ef87b8d5ba32e8b7714ccc834865276eab0aed5c9958d00ec45f49e8"
 dependencies = [
  "unicode-ident",
 ]
+
+[[package]]
+name = "proyecto-formas"
+version = "0.1.0"
 
 [[package]]
 name = "proyecto-geometria"

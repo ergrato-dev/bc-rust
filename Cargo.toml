@@ -18,6 +18,13 @@ members = [
     "bootcamp/semana-08/2-practica/practica-03-hashmaps",
     "bootcamp/semana-08/2-practica/practica-04-iteradores",
     "bootcamp/semana-08/3-proyecto/proyecto-inventario",
+    
+    # Semana 09 - Traits Básicos
+    "bootcamp/semana-09/2-practica/practica-01-definir-traits",
+    "bootcamp/semana-09/2-practica/practica-02-implementar-traits",
+    "bootcamp/semana-09/2-practica/practica-03-traits-derivables",
+    "bootcamp/semana-09/2-practica/practica-04-trait-bounds",
+    "bootcamp/semana-09/3-proyecto/proyecto-formas",
 ]
 
 [workspace.package]

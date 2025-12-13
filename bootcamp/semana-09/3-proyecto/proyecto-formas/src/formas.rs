@@ -4,7 +4,7 @@
 
 use std::f64::consts::PI;
 use std::fmt;
-use crate::traits::{Forma, Dibujable, Transformable, Posicionable};
+use crate::traits::{Forma, Dibujable, Transformable, Posicionable, FormaComparable};
 
 // ============================================================================
 // CÍRCULO
@@ -101,6 +101,8 @@ impl Posicionable for Circulo {
         self.y += dy;
     }
 }
+
+impl FormaComparable for Circulo {}
 
 // ============================================================================
 // RECTÁNGULO
@@ -207,6 +209,8 @@ impl Posicionable for Rectangulo {
     }
 }
 
+impl FormaComparable for Rectangulo {}
+
 // ============================================================================
 // CUADRADO
 // ============================================================================
@@ -297,6 +301,8 @@ impl Posicionable for Cuadrado {
         self.y += dy;
     }
 }
+
+impl FormaComparable for Cuadrado {}
 
 // ============================================================================
 // TRIÁNGULO
@@ -454,6 +460,8 @@ impl Posicionable for Triangulo {
         self.y += dy;
     }
 }
+
+impl FormaComparable for Triangulo {}
 
 // ============================================================================
 // CONVERSIONES: From/Into
