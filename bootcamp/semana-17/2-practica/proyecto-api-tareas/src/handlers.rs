@@ -10,7 +10,23 @@ use sqlx::SqlitePool;
 use crate::error::{ApiError, Result};
 use crate::models::{ActualizarTarea, CrearTarea, EstadisticasTareas, FiltroTareas, Tarea};
 
-/// GET /tareas - Listar todas las tareas
+/// Listar todas las tareas
+///
+/// Obtiene una lista de tareas con soporte para filtros y paginación.
+#[utoipa::path(
+    get,
+    path = "/tareas",
+    params(
+        ("completada" = Option<bool>, Query, description = "Filtrar por estado de completitud"),
+        ("limite" = Option<i64>, Query, description = "Límite de resultados (default: 100)"),
+        ("offset" = Option<i64>, Query, description = "Offset para paginación (default: 0)")
+    ),
+    responses(
+        (status = 200, description = "Lista de tareas", body = Vec<Tarea>),
+        (status = 500, description = "Error interno", body = crate::models::ErrorResponse)
+    ),
+    tag = "Tareas"
+)]
 pub async fn listar(
     State(pool): State<SqlitePool>,
     Query(filtro): Query<FiltroTareas>,
@@ -43,7 +59,21 @@ pub async fn listar(
     Ok(Json(tareas))
 }
 
-/// GET /tareas/:id - Obtener una tarea
+/// Obtener una tarea por ID
+///
+/// Retorna los detalles de una tarea específica.
+#[utoipa::path(
+    get,
+    path = "/tareas/{id}",
+    params(
+        ("id" = i64, Path, description = "ID de la tarea")
+    ),
+    responses(
+        (status = 200, description = "Tarea encontrada", body = Tarea),
+        (status = 404, description = "Tarea no encontrada", body = crate::models::ErrorResponse)
+    ),
+    tag = "Tareas"
+)]
 pub async fn obtener(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
@@ -57,7 +87,19 @@ pub async fn obtener(
     Ok(Json(tarea))
 }
 
-/// POST /tareas - Crear nueva tarea
+/// Crear una nueva tarea
+///
+/// Crea una tarea con el título proporcionado.
+#[utoipa::path(
+    post,
+    path = "/tareas",
+    request_body = CrearTarea,
+    responses(
+        (status = 201, description = "Tarea creada exitosamente", body = Tarea),
+        (status = 400, description = "Error de validación", body = crate::models::ErrorResponse)
+    ),
+    tag = "Tareas"
+)]
 pub async fn crear(
     State(pool): State<SqlitePool>,
     Json(datos): Json<CrearTarea>,
@@ -89,7 +131,23 @@ pub async fn crear(
     Ok((StatusCode::CREATED, Json(tarea)))
 }
 
-/// PUT /tareas/:id - Actualizar tarea
+/// Actualizar una tarea existente
+///
+/// Actualiza uno o más campos de una tarea.
+#[utoipa::path(
+    put,
+    path = "/tareas/{id}",
+    params(
+        ("id" = i64, Path, description = "ID de la tarea a actualizar")
+    ),
+    request_body = ActualizarTarea,
+    responses(
+        (status = 200, description = "Tarea actualizada", body = Tarea),
+        (status = 400, description = "Error de validación", body = crate::models::ErrorResponse),
+        (status = 404, description = "Tarea no encontrada", body = crate::models::ErrorResponse)
+    ),
+    tag = "Tareas"
+)]
 pub async fn actualizar(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
@@ -148,7 +206,21 @@ pub async fn actualizar(
     Ok(Json(tarea))
 }
 
-/// DELETE /tareas/:id - Eliminar tarea
+/// Eliminar una tarea
+///
+/// Elimina permanentemente una tarea de la base de datos.
+#[utoipa::path(
+    delete,
+    path = "/tareas/{id}",
+    params(
+        ("id" = i64, Path, description = "ID de la tarea a eliminar")
+    ),
+    responses(
+        (status = 204, description = "Tarea eliminada exitosamente"),
+        (status = 404, description = "Tarea no encontrada", body = crate::models::ErrorResponse)
+    ),
+    tag = "Tareas"
+)]
 pub async fn eliminar(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
@@ -165,7 +237,17 @@ pub async fn eliminar(
     Ok(StatusCode::NO_CONTENT)
 }
 
-/// GET /tareas/estadisticas - Obtener estadísticas
+/// Obtener estadísticas de tareas
+///
+/// Retorna el conteo total, completadas y pendientes.
+#[utoipa::path(
+    get,
+    path = "/tareas/estadisticas",
+    responses(
+        (status = 200, description = "Estadísticas de tareas", body = EstadisticasTareas)
+    ),
+    tag = "Estadísticas"
+)]
 pub async fn estadisticas(State(pool): State<SqlitePool>) -> Result<Json<EstadisticasTareas>> {
     let total: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM tareas")
         .fetch_one(&pool)

@@ -23,5 +23,9 @@ tracing-subscriber = "0.3"
 # Manejo de errores
 thiserror = "2"
 
+# Documentación OpenAPI
+utoipa = { version = "5", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "9", features = ["axum"] }
+
 [dev-dependencies]
 tower = { version = "0.5", features = ["util"] }
