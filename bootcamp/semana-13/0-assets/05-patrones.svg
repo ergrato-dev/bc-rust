@@ -78,37 +78,37 @@
   <text x="600" y="260" text-anchor="middle" class="type" style="font-weight:bold;">✓ Sin memory leak</text>
   
   <!-- Árbol con padre Weak -->
-  <text x="400" y="310" text-anchor="middle" class="label" style="font-weight:bold;">PATRÓN: ÁRBOL CON REFERENCIA AL PADRE</text>
+  <text x="400" y="305" text-anchor="middle" class="label" style="font-weight:bold;">PATRÓN: ÁRBOL CON REFERENCIA AL PADRE</text>
   
-  <rect x="100" y="330" width="600" height="170" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <rect x="40" y="320" width="720" height="185" rx="8" fill="#252526" stroke="#3c3c3c"/>
   
   <!-- Root -->
-  <rect x="340" y="350" width="120" height="50" rx="6" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
-  <text x="400" y="375" text-anchor="middle" class="label">Root</text>
-  <text x="400" y="392" text-anchor="middle" class="code" style="font-size:10px;">parent: <tspan style="fill:#808080;">Weak::new()</tspan></text>
+  <rect x="330" y="340" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="400" y="365" text-anchor="middle" class="label">Root</text>
+  <text x="400" y="382" text-anchor="middle" class="code" style="font-size:10px;">parent: <tspan style="fill:#808080;">Weak::new()</tspan></text>
   
   <!-- Child 1 -->
-  <rect x="180" y="430" width="140" height="55" rx="6" fill="#2d2d2d" stroke="#569cd6"/>
-  <text x="250" y="455" text-anchor="middle" class="label">Child 1</text>
-  <text x="250" y="475" text-anchor="middle" class="code" style="font-size:10px;">parent: <tspan style="fill:#808080;">Weak&lt;Root&gt;</tspan></text>
+  <rect x="120" y="420" width="160" height="55" rx="6" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="200" y="445" text-anchor="middle" class="label">Child 1</text>
+  <text x="200" y="465" text-anchor="middle" class="code" style="font-size:10px;">parent: <tspan style="fill:#808080;">Weak&lt;Root&gt;</tspan></text>
   
   <!-- Child 2 -->
-  <rect x="480" y="430" width="140" height="55" rx="6" fill="#2d2d2d" stroke="#569cd6"/>
-  <text x="550" y="455" text-anchor="middle" class="label">Child 2</text>
-  <text x="550" y="475" text-anchor="middle" class="code" style="font-size:10px;">parent: <tspan style="fill:#808080;">Weak&lt;Root&gt;</tspan></text>
+  <rect x="520" y="420" width="160" height="55" rx="6" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="600" y="445" text-anchor="middle" class="label">Child 2</text>
+  <text x="600" y="465" text-anchor="middle" class="code" style="font-size:10px;">parent: <tspan style="fill:#808080;">Weak&lt;Root&gt;</tspan></text>
   
   <!-- Flechas padre->hijos (strong) -->
-  <path d="M360 400 L270 425" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowGreen)"/>
-  <path d="M440 400 L530 425" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowGreen)"/>
+  <path d="M350 390 L230 415" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowGreen)"/>
+  <path d="M450 390 L570 415" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowGreen)"/>
   
   <!-- Flechas hijos->padre (weak) -->
-  <path d="M290 430 L380 405" stroke="#808080" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDashed)"/>
-  <path d="M510 430 L420 405" stroke="#808080" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDashed)"/>
+  <path d="M240 420 L370 395" stroke="#808080" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDashed)"/>
+  <path d="M560 420 L430 395" stroke="#808080" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDashed)"/>
   
   <!-- Leyenda -->
-  <line x1="640" y1="365" x2="680" y2="365" stroke="#4ec9b0" stroke-width="2"/>
-  <text x="695" y="369" class="label" style="font-size:10px;">Rc (strong)</text>
+  <line x1="60" y1="490" x2="100" y2="490" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="110" y="494" class="label" style="font-size:10px;">Rc (strong)</text>
   
-  <line x1="640" y1="385" x2="680" y2="385" stroke="#808080" stroke-width="2" stroke-dasharray="5,3"/>
-  <text x="695" y="389" class="label" style="font-size:10px;fill:#808080;">Weak</text>
+  <line x1="200" y1="490" x2="240" y2="490" stroke="#808080" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="250" y="494" class="label" style="font-size:10px;fill:#808080;">Weak</text>
 </svg>
