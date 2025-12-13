@@ -1,69 +1,69 @@
-// Práctica 03: Estructura de Archivos
-// Semana 07 - Módulos y Crates
+// Practice 03: File Structure
+// Week 07 - Modules and Crates
 //
-// Este archivo es el punto de entrada (crate root)
-// Declara los módulos externos
+// This file is the entry point (crate root)
+// Declares external modules
 
-mod productos;
-mod ventas;
+mod products;
+mod sales;
 
-// Re-importamos para uso más cómodo
-use productos::Producto;
-use ventas::carrito::Carrito;
-use ventas::factura::Factura;
+// Re-import for easier use
+use products::Product;
+use sales::cart::Cart;
+use sales::invoice::Invoice;
 
 fn main() {
-    println!("=== Práctica 03: Estructura de Archivos ===\n");
+    println!("=== Practice 03: File Structure ===\n");
 
-    // Crear productos
-    let mut laptop = Producto::nuevo(1, "Laptop Gaming", 999.99);
-    let mut mouse = Producto::nuevo(2, "Mouse Inalámbrico", 29.99);
-    let mut teclado = Producto::nuevo(3, "Teclado Mecánico", 79.99);
+    // Create products
+    let mut laptop = Product::new(1, "Gaming Laptop", 999.99);
+    let mut mouse = Product::new(2, "Wireless Mouse", 29.99);
+    let mut keyboard = Product::new(3, "Mechanical Keyboard", 79.99);
 
-    // Agregar stock
-    laptop.agregar_stock(10);
-    mouse.agregar_stock(50);
-    teclado.agregar_stock(25);
+    // Add stock
+    laptop.add_stock(10);
+    mouse.add_stock(50);
+    keyboard.add_stock(25);
 
-    println!("--- Catálogo de Productos ---");
+    println!("--- Product Catalog ---");
     println!("{:?}", laptop);
     println!("{:?}", mouse);
-    println!("{:?}", teclado);
+    println!("{:?}", keyboard);
 
-    // Crear carrito y agregar productos
-    println!("\n--- Carrito de Compras ---");
-    let mut carrito = Carrito::nuevo();
+    // Create cart and add products
+    println!("\n--- Shopping Cart ---");
+    let mut cart = Cart::new();
 
-    carrito.agregar(laptop.clone(), 1);
-    carrito.agregar(mouse.clone(), 2);
-    carrito.agregar(teclado.clone(), 1);
+    cart.add(laptop.clone(), 1);
+    cart.add(mouse.clone(), 2);
+    cart.add(keyboard.clone(), 1);
 
-    println!("{}", carrito.resumen());
+    println!("{}", cart.summary());
 
-    // Calcular precio con módulo de precios
-    println!("\n--- Cálculo de Precios ---");
-    let precio_laptop = productos::calcular_precio_final(&laptop, 1);
+    // Calculate price with pricing module
+    println!("\n--- Price Calculation ---");
+    let laptop_price = products::calculate_final_price(&laptop, 1);
     println!(
-        "Laptop (con {}% IVA): {:.2}€",
-        productos::precio::IVA * 100.0,
-        precio_laptop
+        "Laptop (with {}% TAX): {:.2}€",
+        products::pricing::TAX * 100.0,
+        laptop_price
     );
 
-    let precio_con_descuento = productos::precio::aplicar_descuento(precio_laptop, 10.0);
-    println!("Laptop (con 10% descuento): {:.2}€", precio_con_descuento);
+    let discounted_price = products::pricing::apply_discount(laptop_price, 10.0);
+    println!("Laptop (with 10% discount): {:.2}€", discounted_price);
 
-    // Generar factura
-    println!("\n--- Factura ---");
-    let factura = Factura::desde_carrito(&carrito, "Cliente Ejemplo");
-    println!("{}", factura.generar());
+    // Generate invoice
+    println!("\n--- Invoice ---");
+    let invoice = Invoice::from_cart(&cart, "Example Customer");
+    println!("{}", invoice.generate());
 
-    // Reducir stock después de la venta
-    println!("\n--- Actualizando Stock ---");
-    laptop.reducir_stock(1).unwrap();
-    mouse.reducir_stock(2).unwrap();
-    teclado.reducir_stock(1).unwrap();
+    // Reduce stock after sale
+    println!("\n--- Updating Stock ---");
+    laptop.reduce_stock(1).unwrap();
+    mouse.reduce_stock(2).unwrap();
+    keyboard.reduce_stock(1).unwrap();
 
-    println!("Stock laptop: {}", laptop.cantidad);
-    println!("Stock mouse: {}", mouse.cantidad);
-    println!("Stock teclado: {}", teclado.cantidad);
+    println!("Laptop stock: {}", laptop.quantity);
+    println!("Mouse stock: {}", mouse.quantity);
+    println!("Keyboard stock: {}", keyboard.quantity);
 }
