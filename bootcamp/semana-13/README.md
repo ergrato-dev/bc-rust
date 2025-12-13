@@ -1,76 +1,63 @@
-# 📦 Semana 13: Smart Pointers
+# Semana 13: Smart Pointers
 
-## 🎯 Objetivos de la Semana
+## 🎯 Objetivos de Aprendizaje
 
 Al finalizar esta semana, serás capaz de:
 
-- Comprender qué son los smart pointers y por qué existen
-- Usar `Box<T>` para datos en el heap
+- Comprender qué son los smart pointers y cuándo usarlos
+- Usar `Box<T>` para datos en el heap y tipos recursivos
 - Implementar conteo de referencias con `Rc<T>` y `Arc<T>`
-- Aplicar mutabilidad interior con `RefCell<T>`
-- Combinar smart pointers para estructuras complejas
-
----
+- Aplicar mutabilidad interior con `RefCell<T>` y `Mutex<T>`
+- Evitar ciclos de referencia con `Weak<T>`
+- Combinar smart pointers para patrones avanzados
 
 ## 📚 Contenido
 
-### 1. Teoría
+### Teoría
 
 | Archivo | Tema | Duración |
 |---------|------|----------|
-| [01-introduccion-smart-pointers.md](1-teoria/01-introduccion-smart-pointers.md) | ¿Qué son los Smart Pointers? | 20 min |
-| [02-box.md](1-teoria/02-box.md) | Box<T> - Datos en el Heap | 25 min |
-| [03-rc-arc.md](1-teoria/03-rc-arc.md) | Rc<T> y Arc<T> - Conteo de Referencias | 30 min |
-| [04-refcell.md](1-teoria/04-refcell.md) | RefCell<T> - Mutabilidad Interior | 25 min |
-| [05-patrones-avanzados.md](1-teoria/05-patrones-avanzados.md) | Patrones y Combinaciones | 20 min |
+| [01-box.md](1-teoria/01-box.md) | Box y Heap Allocation | 30 min |
+| [02-rc-arc.md](1-teoria/02-rc-arc.md) | Reference Counting | 35 min |
+| [03-refcell.md](1-teoria/03-refcell.md) | RefCell y Borrowing Runtime | 30 min |
+| [04-interior-mutability.md](1-teoria/04-interior-mutability.md) | Interior Mutability | 25 min |
+| [05-patrones.md](1-teoria/05-patrones.md) | Patrones con Smart Pointers | 30 min |
 
-### 2. Práctica
+### Práctica
 
-| Ejercicio | Descripción | Dificultad |
-|-----------|-------------|------------|
-| [practica-01-box](2-practica/practica-01-box/) | Estructuras recursivas con Box | ⭐⭐ |
-| [practica-02-rc-arc](2-practica/practica-02-rc-arc/) | Referencias compartidas | ⭐⭐⭐ |
-| [practica-03-refcell](2-practica/practica-03-refcell/) | Mutabilidad interior | ⭐⭐⭐ |
-| [practica-04-combinaciones](2-practica/practica-04-combinaciones/) | Rc<RefCell<T>> y otros patrones | ⭐⭐⭐⭐ |
+| Ejercicio | Tema | Dificultad |
+|-----------|------|------------|
+| [practica-01-box](2-practica/practica-01-box/) | Box y tipos recursivos | ⭐⭐ |
+| [practica-02-rc-arc](2-practica/practica-02-rc-arc/) | Rc y Arc | ⭐⭐⭐ |
+| [practica-03-refcell](2-practica/practica-03-refcell/) | RefCell | ⭐⭐⭐ |
+| [practica-04-weak](2-practica/practica-04-weak/) | Weak y ciclos | ⭐⭐⭐⭐ |
 
-### 3. Proyecto Semanal
+### Proyecto
 
 | Proyecto | Descripción |
 |----------|-------------|
-| [proyecto-arbol](3-proyecto/proyecto-arbol/) | Árbol con nodos compartidos y mutables |
-
----
-
-## 🗓️ Distribución del Tiempo (4 horas)
-
-| Bloque | Actividad | Tiempo |
-|--------|-----------|--------|
-| 1 | Teoría: Smart Pointers y Box | 45 min |
-| 2 | Práctica 01: Box | 30 min |
-| 3 | Teoría: Rc/Arc y RefCell | 55 min |
-| 4 | Práctica 02-03: Rc y RefCell | 50 min |
-| 5 | Teoría: Patrones combinados | 20 min |
-| 6 | Práctica 04: Combinaciones | 30 min |
-| 7 | Proyecto: Árbol | 30 min |
-
----
+| [proyecto-cache](3-proyecto/proyecto-cache/) | Sistema de caché con smart pointers |
 
 ## 🧠 Conceptos Clave
 
-### Smart Pointers en Rust
+### ¿Qué es un Smart Pointer?
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     SMART POINTERS                          │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Box<T>         → Heap allocation, único dueño              │
-│  Rc<T>          → Reference counting, single-thread         │
-│  Arc<T>         → Atomic reference counting, multi-thread   │
-│  RefCell<T>     → Interior mutability, runtime checks       │
-│  Mutex<T>       → Interior mutability + thread safety       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+Un **smart pointer** es un tipo que actúa como un puntero pero tiene metadatos y capacidades adicionales:
+
+```rust
+// Box<T> - Datos en el heap
+let b = Box::new(5);
+
+// Rc<T> - Reference Counting (single-threaded)
+let rc = Rc::new(String::from("compartido"));
+let rc2 = Rc::clone(&rc);
+
+// Arc<T> - Atomic Reference Counting (multi-threaded)
+let arc = Arc::new(vec![1, 2, 3]);
+
+// RefCell<T> - Interior mutability
+let cell = RefCell::new(42);
+*cell.borrow_mut() += 1;
 ```
 
 ### Cuándo Usar Cada Uno
@@ -78,86 +65,132 @@ Al finalizar esta semana, serás capaz de:
 | Smart Pointer | Caso de Uso |
 |---------------|-------------|
 | `Box<T>` | Tipos recursivos, datos grandes en heap |
-| `Rc<T>` | Múltiples dueños en un solo thread |
-| `Arc<T>` | Múltiples dueños entre threads |
-| `RefCell<T>` | Mutar datos con referencia inmutable |
-| `Rc<RefCell<T>>` | Múltiples dueños + mutabilidad |
+| `Rc<T>` | Múltiples propietarios (single-thread) |
+| `Arc<T>` | Múltiples propietarios (multi-thread) |
+| `RefCell<T>` | Mutabilidad interior (single-thread) |
+| `Mutex<T>` | Mutabilidad interior (multi-thread) |
+| `Weak<T>` | Referencias no-propietarias, romper ciclos |
 
----
+### Los Traits Deref y Drop
+
+```rust
+use std::ops::Deref;
+
+// Deref permite usar * y auto-dereferencing
+impl<T> Deref for Box<T> {
+    type Target = T;
+    fn deref(&self) -> &T { ... }
+}
+
+// Drop se ejecuta cuando el valor sale de scope
+impl<T> Drop for Box<T> {
+    fn drop(&mut self) {
+        // Libera memoria del heap
+    }
+}
+```
+
+## 📊 Diagrama de Smart Pointers
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     SMART POINTERS EN RUST                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐      │
+│  │  Box<T> │    │  Rc<T>  │    │ Arc<T>  │    │RefCell<T│      │
+│  └────┬────┘    └────┬────┘    └────┬────┘    └────┬────┘      │
+│       │              │              │              │            │
+│       ▼              ▼              ▼              ▼            │
+│  ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐      │
+│  │  Heap   │    │ Shared  │    │ Thread  │    │ Runtime │      │
+│  │  Data   │    │  Refs   │    │  Safe   │    │ Borrow  │      │
+│  └─────────┘    └─────────┘    └─────────┘    └─────────┘      │
+│                                                                  │
+│  Ownership:    Ownership:     Ownership:     Mutability:        │
+│  Único         Compartido     Compartido     Interior           │
+│  (1 owner)     (N owners)     (N owners)     (runtime check)    │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ## ⚠️ Errores Comunes
 
-### 1. Ciclos de Referencias con Rc
+### 1. Ciclos de Referencia con Rc
 
 ```rust
-// ❌ PROBLEMA: Ciclo que nunca se libera
+// ❌ CICLO: memoria nunca se libera
+use std::rc::Rc;
+use std::cell::RefCell;
+
 struct Node {
-    next: Option<Rc<Node>>,
+    next: Option<Rc<RefCell<Node>>>,
 }
 
-// ✅ SOLUCIÓN: Usar Weak para romper ciclos
-struct Node {
-    next: Option<Rc<Node>>,
-    parent: Option<Weak<Node>>,  // Weak no aumenta el conteo
+let a = Rc::new(RefCell::new(Node { next: None }));
+let b = Rc::new(RefCell::new(Node { next: Some(Rc::clone(&a)) }));
+a.borrow_mut().next = Some(Rc::clone(&b)); // ¡Ciclo!
+
+// ✅ Usar Weak para romper el ciclo
+use std::rc::Weak;
+
+struct SafeNode {
+    next: Option<Rc<RefCell<SafeNode>>>,
+    prev: Option<Weak<RefCell<SafeNode>>>, // Weak no cuenta como owner
 }
 ```
 
-### 2. Panic con RefCell
+### 2. Panic en RefCell
 
 ```rust
-// ❌ PROBLEMA: Dos borrows mutables
+// ❌ Dos borrows mutables = panic en runtime
 let cell = RefCell::new(5);
-let a = cell.borrow_mut();
-let b = cell.borrow_mut();  // PANIC en runtime!
+let borrow1 = cell.borrow_mut();
+let borrow2 = cell.borrow_mut(); // PANIC!
 
-// ✅ SOLUCIÓN: Limitar scope de borrows
+// ✅ Liberar el borrow antes
 let cell = RefCell::new(5);
 {
-    let mut a = cell.borrow_mut();
-    *a += 1;
-}  // a se libera aquí
-let b = cell.borrow();  // OK ahora
+    let mut borrow = cell.borrow_mut();
+    *borrow += 1;
+} // borrow se libera aquí
+let value = cell.borrow(); // OK
 ```
 
-### 3. Rc vs Arc
+### 3. Arc sin Mutex
 
 ```rust
-// ❌ PROBLEMA: Rc no es Send
-let rc = Rc::new(5);
-std::thread::spawn(move || {
-    println!("{}", rc);  // ERROR: Rc no es thread-safe
-});
+// ❌ Arc solo no permite mutación
+let data = Arc::new(vec![1, 2, 3]);
+// data.push(4); // Error: cannot borrow as mutable
 
-// ✅ SOLUCIÓN: Usar Arc para threads
-let arc = Arc::new(5);
-std::thread::spawn(move || {
-    println!("{}", arc);  // OK
-});
+// ✅ Combinar Arc con Mutex
+let data = Arc::new(Mutex::new(vec![1, 2, 3]));
+data.lock().unwrap().push(4); // OK
 ```
 
+## 🔗 Recursos
+
+- [Teoría completa](1-teoria/)
+- [Ejercicios prácticos](2-practica/)
+- [Proyecto de la semana](3-proyecto/)
+- [Recursos adicionales](4-recursos/RECURSOS.md)
+- [Glosario](5-glosario/GLOSARIO.md)
+
+## 📋 Evaluación
+
+Ver [RUBRICA_EVALUACION.md](RUBRICA_EVALUACION.md) para los criterios de evaluación.
+
+## ⏱️ Tiempo Estimado
+
+| Actividad | Tiempo |
+|-----------|--------|
+| Teoría | 2.5 horas |
+| Práctica | 1 hora |
+| Proyecto | 30 min |
+| **Total** | **4 horas** |
+
 ---
 
-## 📖 Recursos
-
-- [4-recursos/RECURSOS.md](4-recursos/RECURSOS.md) - Enlaces y material adicional
-- [5-glosario/GLOSARIO.md](5-glosario/GLOSARIO.md) - Términos clave
-
----
-
-## ✅ Criterios de Evaluación
-
-Ver [RUBRICA_EVALUACION.md](RUBRICA_EVALUACION.md) para los criterios detallados.
-
-| Criterio | Peso |
-|----------|------|
-| Conocimiento teórico | 30% |
-| Ejercicios prácticos | 40% |
-| Proyecto semanal | 30% |
-
----
-
-## 🔗 Navegación
-
-| ← Anterior | Actual | Siguiente → |
-|------------|--------|-------------|
-| [Semana 12: Closures e Iteradores](../semana-12/) | **Semana 13** | [Semana 14: Concurrencia](../semana-14/) |
+**Semana anterior:** [Semana 12 - Closures e Iteradores](../semana-12/)  
+**Siguiente semana:** [Semana 14 - Concurrencia](../semana-14/)

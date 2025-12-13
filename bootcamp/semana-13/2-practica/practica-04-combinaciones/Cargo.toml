@@ -1,6 +1,0 @@
-[package]
-name = "practica-04-combinaciones"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
