@@ -2,5 +2,8 @@
 name = "practica-03-errores-custom"
 version = "0.1.0"
 edition = "2024"
+description = "Practice 03: Custom Errors - Define error enums with Display and Error traits"
+
+[workspace]
 
 [dependencies]

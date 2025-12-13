@@ -2,5 +2,8 @@
 name = "practica-02-propagacion"
 version = "0.1.0"
 edition = "2024"
+description = "Practice 02: Error Propagation - Using ? operator and chained validation"
+
+[workspace]
 
 [dependencies]

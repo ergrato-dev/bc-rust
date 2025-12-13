@@ -2,5 +2,8 @@
 name = "practica-01-result-basico"
 version = "0.1.0"
 edition = "2024"
+description = "Practice 01: Basic Result - Safe division, parse validation, and error handling"
+
+[workspace]
 
 [dependencies]
