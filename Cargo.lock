@@ -163,6 +163,10 @@ name = "practica-01-definir-traits"
 version = "0.1.0"
 
 [[package]]
+name = "practica-01-funciones-genericas"
+version = "0.1.0"
+
+[[package]]
 name = "practica-01-vectores"
 version = "0.1.0"
 
@@ -175,11 +179,23 @@ name = "practica-02-strings"
 version = "0.1.0"
 
 [[package]]
+name = "practica-02-structs-genericos"
+version = "0.1.0"
+
+[[package]]
 name = "practica-03-hashmaps"
 version = "0.1.0"
 
 [[package]]
+name = "practica-03-trait-bounds"
+version = "0.1.0"
+
+[[package]]
 name = "practica-03-traits-derivables"
+version = "0.1.0"
+
+[[package]]
+name = "practica-04-generics-avanzados"
 version = "0.1.0"
 
 [[package]]
@@ -220,6 +236,10 @@ checksum = "5ee95bc4ef87b8d5ba32e8b7714ccc834865276eab0aed5c9958d00ec45f49e8"
 dependencies = [
  "unicode-ident",
 ]
+
+[[package]]
+name = "proyecto-contenedor"
+version = "0.1.0"
 
 [[package]]
 name = "proyecto-formas"
