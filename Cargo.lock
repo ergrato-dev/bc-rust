@@ -159,6 +159,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "practica-01-vectores"
+version = "0.1.0"
+
+[[package]]
+name = "practica-02-strings"
+version = "0.1.0"
+
+[[package]]
+name = "practica-03-hashmaps"
+version = "0.1.0"
+
+[[package]]
+name = "practica-04-iteradores"
+version = "0.1.0"
+
+[[package]]
 name = "practica-crates-externos"
 version = "0.1.0"
 dependencies = [
@@ -191,6 +207,10 @@ dependencies = [
 
 [[package]]
 name = "proyecto-geometria"
+version = "0.1.0"
+
+[[package]]
+name = "proyecto-inventario"
 version = "0.1.0"
 
 [[package]]

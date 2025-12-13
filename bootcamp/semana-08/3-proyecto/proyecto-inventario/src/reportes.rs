@@ -82,7 +82,7 @@ impl<'a> GeneradorReportes<'a> {
         let sin_stock = self.inventario.productos_sin_stock();
         if !sin_stock.is_empty() {
             reporte.push_str("\n🔴 SIN STOCK:\n");
-            for producto in sin_stock {
+            for producto in &sin_stock {
                 reporte.push_str(&format!("   • {} [{}]\n", producto.nombre, producto.categoria));
             }
         }
@@ -206,8 +206,8 @@ mod tests {
     #[test]
     fn test_reporte_resumen() {
         let inv = crear_inventario_prueba();
-        let gen = GeneradorReportes::new(&inv);
-        let reporte = gen.reporte_resumen();
+        let generador = GeneradorReportes::new(&inv);
+        let reporte = generador.reporte_resumen();
         
         assert!(reporte.contains("REPORTE DE INVENTARIO"));
         assert!(reporte.contains("Total productos"));
@@ -216,8 +216,8 @@ mod tests {
     #[test]
     fn test_reporte_por_categoria() {
         let inv = crear_inventario_prueba();
-        let gen = GeneradorReportes::new(&inv);
-        let reporte = gen.reporte_por_categoria();
+        let generador = GeneradorReportes::new(&inv);
+        let reporte = generador.reporte_por_categoria();
         
         assert!(reporte.contains("Electrónica"));
         assert!(reporte.contains("Muebles"));
@@ -226,8 +226,8 @@ mod tests {
     #[test]
     fn test_reporte_alertas() {
         let inv = crear_inventario_prueba();
-        let gen = GeneradorReportes::new(&inv);
-        let reporte = gen.reporte_alertas(5);
+        let generador = GeneradorReportes::new(&inv);
+        let reporte = generador.reporte_alertas(5);
         
         assert!(reporte.contains("ALERTAS DE STOCK"));
         assert!(reporte.contains("Silla")); // Stock = 3 < 5

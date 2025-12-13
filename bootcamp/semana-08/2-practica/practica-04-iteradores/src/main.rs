@@ -748,7 +748,7 @@ mod tests {
     fn test_inventario_buscar() {
         let inv = Inventario::new(vec![
             Producto::new(1, "Laptop", 10.0, "X", 1),
-            Producto::new(2, "Lámpara", 20.0, "X", 1),
+            Producto::new(2, "Lampara", 20.0, "X", 1),
         ]);
         assert_eq!(inv.buscar("la").len(), 2);
     }

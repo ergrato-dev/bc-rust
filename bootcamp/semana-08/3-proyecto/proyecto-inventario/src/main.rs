@@ -6,7 +6,7 @@ use proyecto_inventario::{Inventario, GeneradorReportes};
 
 fn main() {
     println!("🦀 Sistema de Gestión de Inventario\n");
-    println!("═".repeat(50));
+    println!("{}", "═".repeat(50));
 
     // Crear inventario
     let mut inventario = crear_inventario_demo();
@@ -17,7 +17,7 @@ fn main() {
 
     // Realizar algunas operaciones
     println!("\n📦 OPERACIONES DE INVENTARIO");
-    println!("─".repeat(50));
+    println!("{}", "─".repeat(50));
 
     // Entrada de stock
     println!("\n➕ Entrada de stock: 20 laptops");
@@ -32,7 +32,7 @@ fn main() {
 
     // Búsquedas
     println!("\n🔍 BÚSQUEDAS");
-    println!("─".repeat(50));
+    println!("{}", "─".repeat(50));
 
     println!("\nBuscar 'lap':");
     for p in inventario.buscar_por_nombre("lap") {
