@@ -165,9 +165,9 @@ week-XX/
 </tr>
 <tr>
 <td align="center"><code>cargo check</code><br/>✔️ Passes</td>
-<td align="center"><b>812+</b><br/>unit tests</td>
-<td align="center"><b>65</b><br/>practices</td>
-<td align="center"><b>14</b><br/>weekly projects</td>
+<td align="center"><b>866+</b><br/>unit tests</td>
+<td align="center"><b>68</b><br/>practices</td>
+<td align="center"><b>17</b><br/>weekly projects</td>
 </tr>
 </table>
 

@@ -165,9 +165,9 @@ week-XX/
 </tr>
 <tr>
 <td align="center"><code>cargo check</code><br/>✔️ Pasa</td>
-<td align="center"><b>812+</b><br/>tests unitarios</td>
-<td align="center"><b>65</b><br/>prácticas</td>
-<td align="center"><b>14</b><br/>proyectos semanales</td>
+<td align="center"><b>866+</b><br/>tests unitarios</td>
+<td align="center"><b>68</b><br/>prácticas</td>
+<td align="center"><b>17</b><br/>proyectos semanales</td>
 </tr>
 </table>
 

@@ -175,6 +175,11 @@ impl Calculator {
     /// Retorna el historial de operaciones.
     pub fn history(&self) -> &[String] {
         &self.history
+    }
+}
+
+/// Calcula el factorial de un numero.
+///
 /// # Arguments
 ///
 /// * `n` - Numero entero no negativo
@@ -186,17 +191,17 @@ impl Calculator {
 /// # Example
 ///
 /// ```
-/// use proyecto_calculadora_testeada::factorial;
+/// use project_tested_calculator::factorial;
 ///
 /// assert_eq!(factorial(5).unwrap(), 120);
 /// assert_eq!(factorial(0).unwrap(), 1);
 /// ```
-pub fn factorial(n: i64) -> Result<u64, CalculadoraError> {
+pub fn factorial(n: i64) -> Result<u64, CalculatorError> {
     if n < 0 {
-        return Err(CalculadoraError::FactorialNegativo);
+        return Err(CalculatorError::NegativeFactorial);
     }
     if n > 20 {
-        return Err(CalculadoraError::Overflow);
+        return Err(CalculatorError::Overflow);
     }
 
     let mut resultado: u64 = 1;
