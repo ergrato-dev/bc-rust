@@ -56,53 +56,47 @@ El proyecto incluye configuración para VS Code Dev Containers en `.devcontainer
 
 ## 📚 Estructura del Bootcamp (17 Semanas)
 
-### Fase 1: Fundamentos (Semanas 0-3)
+### Fase 1: Fundamentos (Semanas 1-4)
 
 | Semana | Tema                  | Descripción                                  |
 | ------ | --------------------- | -------------------------------------------- |
-| **0**  | Setup y Hello World   | Instalación Docker, Cargo, primer programa   |
-| **1**  | Variables y Tipos     | Tipos primitivos, mutabilidad, shadowing     |
-| **2**  | Ownership y Borrowing | Sistema de propiedad, referencias, préstamos |
-| **3**  | Structs y Métodos     | Estructuras, impl blocks, métodos asociados  |
+| **1**  | Setup y Hello World   | Instalación Docker, Cargo, primer programa   |
+| **2**  | Variables y Tipos     | Tipos primitivos, mutabilidad, shadowing     |
+| **3**  | Ownership y Borrowing | Sistema de propiedad, referencias, préstamos |
+| **4**  | Structs y Métodos     | Estructuras, impl blocks, métodos asociados  |
 
-### Fase 2: Control de Flujo y Datos (Semanas 4-7)
+### Fase 2: Control de Flujo y Datos (Semanas 5-8)
 
 | Semana | Tema                     | Descripción                              |
 | ------ | ------------------------ | ---------------------------------------- |
-| **4**  | Enums y Pattern Matching | Enums, match, if let, while let          |
-| **5**  | Error Handling           | Result, Option, operador ?, propagación  |
-| **6**  | Módulos y Crates         | Organización de código, visibilidad, pub |
-| **7**  | Colecciones              | Vec, String, HashMap, iteradores básicos |
+| **5**  | Enums y Pattern Matching | Enums, match, if let, while let          |
+| **6**  | Error Handling           | Result, Option, operador ?, propagación  |
+| **7**  | Módulos y Crates         | Organización de código, visibilidad, pub |
+| **8**  | Colecciones              | Vec, String, HashMap, iteradores básicos |
 
-### Fase 3: Abstracción (Semanas 8-10)
+### Fase 3: Abstracción (Semanas 9-11)
 
 | Semana | Tema           | Descripción                                    |
 | ------ | -------------- | ---------------------------------------------- |
-| **8**  | Traits Básicos | Definición, implementación, traits derivables  |
-| **9**  | Generics       | Funciones genéricas, structs genéricos, bounds |
-| **10** | Lifetimes      | Anotaciones de lifetime, elision rules         |
+| **9**  | Traits Básicos | Definición, implementación, traits derivables  |
+| **10** | Generics       | Funciones genéricas, structs genéricos, bounds |
+| **11** | Lifetimes      | Anotaciones de lifetime, elision rules         |
 
-### Fase 4: Avanzado (Semanas 11-13)
+### Fase 4: Avanzado (Semanas 12-14)
 
 | Semana | Tema                  | Descripción                                |
 | ------ | --------------------- | ------------------------------------------ |
-| **11** | Closures e Iteradores | Fn, FnMut, FnOnce, iteradores avanzados    |
-| **12** | Smart Pointers        | Box, Rc, Arc, RefCell, interior mutability |
-| **13** | Concurrencia          | Threads, channels, Mutex, Send/Sync        |
+| **12** | Closures e Iteradores | Fn, FnMut, FnOnce, iteradores avanzados    |
+| **13** | Smart Pointers        | Box, Rc, Arc, RefCell, interior mutability |
+| **14** | Concurrencia          | Threads, channels, Mutex, Send/Sync        |
 
-### Fase 5: Integración (Semanas 14-16)
+### Fase 5: Integración (Semanas 15-17)
 
 | Semana | Tema            | Descripción                            |
 | ------ | --------------- | -------------------------------------- |
-| **14** | Async/Await     | Futures, tokio básico, async runtime   |
-| **15** | Testing y Docs  | Unit tests, integration tests, rustdoc |
-| **16** | API REST        | Axum, endpoints, SQLite, middleware    |
-
-### Fase 6: Proyecto Final (Semana 17)
-
-| Semana | Tema           | Descripción                        |
-| ------ | -------------- | ---------------------------------- |
-| **17** | Proyecto Final | Aplicación CLI o API REST completa |
+| **15** | Async/Await     | Futures, tokio básico, async runtime   |
+| **16** | Testing y Docs  | Unit tests, integration tests, rustdoc |
+| **17** | API REST        | Axum, endpoints, SQLite, middleware    |
 
 ---
 
@@ -124,22 +118,21 @@ bc-rust/
 ├── _scripts/
 │   └── setup.sh                   # Script de configuración
 ├── bootcamp/
-│   ├── BOOTCAMP-COMPLETO.md       # Resumen del bootcamp
-│   ├── semana-00/
+│   ├── semana-01/
 │   │   ├── README.md
 │   │   ├── RUBRICA_EVALUACION.md
 │   │   ├── 0-assets/              # SVGs y recursos visuales
 │   │   ├── 1-teoria/              # Material teórico
 │   │   ├── 2-practica/            # Ejercicios prácticos
-│   │   │   └── ejercicio-01-hello-world/
+│   │   │   └── practica-01-xxx/
 │   │   │       ├── Cargo.toml
 │   │   │       ├── src/
 │   │   │       │   └── main.rs
 │   │   │       └── README.md
 │   │   └── 3-recursos/            # Glosario, referencias
-│   ├── semana-01/
+│   ├── semana-02/
 │   │   └── ...
-│   └── semana-15/
+│   └── semana-17/
 │       └── ...
 ├── Cargo.toml                     # Workspace Cargo
 ├── Dockerfile                     # Imagen principal

@@ -29,21 +29,20 @@ Este bootcamp está diseñado para llevar a los estudiantes desde los fundamento
 
 | Semana | Tema Principal                                 | Nivel | Duración |
 | ------ | ---------------------------------------------- | ----- | -------- |
-| **0**  | [Setup y Hello World](bootcamp/semana-00)      | 🟢    | 4 horas  |
-| **1**  | [Variables y Tipos](bootcamp/semana-01)        | 🟢    | 4 horas  |
-| **2**  | [Ownership y Borrowing](bootcamp/semana-02)    | 🟡    | 4 horas  |
-| **3**  | [Structs y Métodos](bootcamp/semana-03)        | 🟢    | 4 horas  |
-| **4**  | [Enums y Pattern Matching](bootcamp/semana-04) | 🟡    | 4 horas  |
-| **5**  | [Error Handling](bootcamp/semana-05)           | 🟡    | 4 horas  |
-| **6**  | [Módulos y Crates](bootcamp/semana-06)         | 🟢    | 4 horas  |
-| **7**  | [Colecciones](bootcamp/semana-07)              | 🟡    | 4 horas  |
-| **8**  | [Traits Básicos](bootcamp/semana-08)           | 🟡    | 4 horas  |
-| **9**  | [Generics](bootcamp/semana-09)                 | 🟡    | 4 horas  |
-| **10** | [Lifetimes](bootcamp/semana-10)                | 🔴    | 4 horas  |
-| **11** | [Closures e Iteradores](bootcamp/semana-11)    | 🟡    | 4 horas  |
-| **12** | [Smart Pointers](bootcamp/semana-12)           | 🔴    | 4 horas  |
-| **13** | [Concurrencia](bootcamp/semana-13)             | 🔴    | 4 horas  |
-| **14** | [Concurrencia Avanzada](bootcamp/semana-14)    | 🔴    | 4 horas  |
+| **1**  | [Setup y Hello World](bootcamp/semana-01)      | 🟢    | 4 horas  |
+| **2**  | [Variables y Tipos](bootcamp/semana-02)        | 🟢    | 4 horas  |
+| **3**  | [Ownership y Borrowing](bootcamp/semana-03)    | 🟡    | 4 horas  |
+| **4**  | [Structs y Métodos](bootcamp/semana-04)        | 🟢    | 4 horas  |
+| **5**  | [Enums y Pattern Matching](bootcamp/semana-05) | 🟡    | 4 horas  |
+| **6**  | [Error Handling](bootcamp/semana-06)           | 🟡    | 4 horas  |
+| **7**  | [Módulos y Crates](bootcamp/semana-07)         | 🟢    | 4 horas  |
+| **8**  | [Colecciones](bootcamp/semana-08)              | 🟡    | 4 horas  |
+| **9**  | [Traits Básicos](bootcamp/semana-09)           | 🟡    | 4 horas  |
+| **10** | [Generics](bootcamp/semana-10)                 | 🟡    | 4 horas  |
+| **11** | [Lifetimes](bootcamp/semana-11)                | 🔴    | 4 horas  |
+| **12** | [Closures e Iteradores](bootcamp/semana-12)    | 🟡    | 4 horas  |
+| **13** | [Smart Pointers](bootcamp/semana-13)           | 🔴    | 4 horas  |
+| **14** | [Concurrencia](bootcamp/semana-14)             | 🔴    | 4 horas  |
 | **15** | [Async/Await](bootcamp/semana-15)              | 🔴    | 4 horas  |
 | **16** | [Testing y Documentación](bootcamp/semana-16)  | 🟡    | 4 horas  |
 | **17** | [API REST con Axum](bootcamp/semana-17)        | 🔴    | 4 horas  |
