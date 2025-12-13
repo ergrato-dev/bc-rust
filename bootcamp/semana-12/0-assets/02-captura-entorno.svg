@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
   <defs>
     <style>
       .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; font-weight: bold; fill: #d4d4d4; }
       .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
       .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
       .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
-      .code { font-family: 'Fira Code', 'Consolas', monospace; font-size: 12px; fill: #d4d4d4; }
+      .code { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
       .keyword { fill: #569cd6; }
       .function { fill: #dcdcaa; }
       .string { fill: #ce9178; }
@@ -14,6 +14,15 @@
       .type { fill: #4ec9b0; }
       .operator { fill: #d4d4d4; }
     </style>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4ec9b0"/>
+    </marker>
+    <marker id="arrow-yellow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#dcdcaa"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#CE422B"/>
+    </marker>
   </defs>
   
   <!-- Background -->
@@ -21,165 +30,117 @@
   
   <!-- Title -->
   <text x="400" y="35" text-anchor="middle" class="title">📦 Modos de Captura del Entorno</text>
-  <text x="400" y="58" text-anchor="middle" class="subtitle">Cómo los closures capturan variables</text>
+  <text x="400" y="55" text-anchor="middle" class="subtitle">Cómo los closures capturan variables</text>
   
   <!-- Mode 1: By Reference -->
-  <rect x="30" y="80" width="240" height="200" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2"/>
-  <text x="150" y="105" text-anchor="middle" class="label" style="fill:#4ec9b0;">1. Por Referencia &amp;T</text>
-  <text x="150" y="125" text-anchor="middle" class="small">Solo lectura • Trait Fn</text>
+  <rect x="20" y="75" width="250" height="175" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="145" y="98" text-anchor="middle" class="label" style="fill:#4ec9b0;">1. Por Referencia &amp;T</text>
+  <text x="145" y="115" text-anchor="middle" class="small">Solo lectura • Trait Fn</text>
   
-  <text x="45" y="155" class="code">
-    <tspan class="keyword">let</tspan>
-    <tspan> x = </tspan>
-    <tspan class="number">10</tspan>
-    <tspan>;</tspan>
+  <text x="35" y="140" class="code">
+    <tspan class="keyword">let</tspan><tspan> x = </tspan><tspan class="number">10</tspan><tspan>;</tspan>
   </text>
-  <text x="45" y="175" class="code">
-    <tspan class="keyword">let</tspan>
-    <tspan> leer = </tspan>
-    <tspan class="operator">||</tspan>
-    <tspan> x + </tspan>
-    <tspan class="number">1</tspan>
-    <tspan>;</tspan>
+  <text x="35" y="158" class="code">
+    <tspan class="keyword">let</tspan><tspan> leer = </tspan><tspan class="operator">||</tspan><tspan> x + </tspan><tspan class="number">1</tspan><tspan>;</tspan>
   </text>
-  <text x="45" y="205" class="code">
-    <tspan class="function">leer</tspan>
-    <tspan>();</tspan>
-    <tspan class="comment"> // OK</tspan>
+  <text x="35" y="180" class="code">
+    <tspan class="function">leer</tspan><tspan>();</tspan><tspan class="comment"> // OK</tspan>
   </text>
-  <text x="45" y="225" class="code">
-    <tspan class="function">leer</tspan>
-    <tspan>();</tspan>
-    <tspan class="comment"> // OK</tspan>
+  <text x="35" y="198" class="code">
+    <tspan class="function">leer</tspan><tspan>();</tspan><tspan class="comment"> // OK múltiples veces</tspan>
   </text>
-  <text x="45" y="255" class="code">
-    <tspan class="function">println!</tspan>
-    <tspan>(</tspan>
-    <tspan class="string">"{}"</tspan>
-    <tspan>, x);</tspan>
-    <tspan class="comment"> // OK</tspan>
+  <text x="35" y="220" class="code">
+    <tspan class="function">println!</tspan><tspan>(</tspan><tspan class="string">"{}"</tspan><tspan>, x);</tspan><tspan class="comment"> // x disponible</tspan>
   </text>
-  
-  <!-- Diagram for mode 1 -->
-  <rect x="180" y="150" width="70" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
-  <text x="215" y="170" text-anchor="middle" class="small" style="fill:#4ec9b0;">x = 10</text>
-  <path d="M 140 170 L 175 170" stroke="#4ec9b0" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="35" y="242" class="small" style="fill:#4ec9b0;">✓ Variable sigue accesible</text>
   
   <!-- Mode 2: By Mutable Reference -->
-  <rect x="280" y="80" width="240" height="200" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2"/>
-  <text x="400" y="105" text-anchor="middle" class="label" style="fill:#dcdcaa;">2. Por Ref Mutable &amp;mut T</text>
-  <text x="400" y="125" text-anchor="middle" class="small">Modificar • Trait FnMut</text>
+  <rect x="275" y="75" width="250" height="175" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="2"/>
+  <text x="400" y="98" text-anchor="middle" class="label" style="fill:#dcdcaa;">2. Ref Mutable &amp;mut T</text>
+  <text x="400" y="115" text-anchor="middle" class="small">Modificar • Trait FnMut</text>
   
-  <text x="295" y="155" class="code">
-    <tspan class="keyword">let mut</tspan>
-    <tspan> count = </tspan>
-    <tspan class="number">0</tspan>
-    <tspan>;</tspan>
+  <text x="290" y="140" class="code">
+    <tspan class="keyword">let mut</tspan><tspan> count = </tspan><tspan class="number">0</tspan><tspan>;</tspan>
   </text>
-  <text x="295" y="175" class="code">
-    <tspan class="keyword">let mut</tspan>
-    <tspan> inc = </tspan>
-    <tspan class="operator">||</tspan>
-    <tspan> {</tspan>
+  <text x="290" y="158" class="code">
+    <tspan class="keyword">let mut</tspan><tspan> inc = </tspan><tspan class="operator">||</tspan><tspan> {</tspan>
   </text>
-  <text x="310" y="195" class="code">count += <tspan class="number">1</tspan>;</text>
-  <text x="295" y="215" class="code">};</text>
-  <text x="295" y="245" class="code">
-    <tspan class="function">inc</tspan>
-    <tspan>();</tspan>
-    <tspan class="comment"> // count = 1</tspan>
+  <text x="305" y="176" class="code">count += <tspan class="number">1</tspan>;</text>
+  <text x="290" y="194" class="code">};</text>
+  <text x="290" y="216" class="code">
+    <tspan class="function">inc</tspan><tspan>();</tspan><tspan class="comment"> // count = 1</tspan>
   </text>
-  <text x="295" y="265" class="code">
-    <tspan class="function">inc</tspan>
-    <tspan>();</tspan>
-    <tspan class="comment"> // count = 2</tspan>
+  <text x="290" y="234" class="code">
+    <tspan class="function">inc</tspan><tspan>();</tspan><tspan class="comment"> // count = 2</tspan>
   </text>
-  
-  <!-- Diagram for mode 2 -->
-  <rect x="430" y="150" width="70" height="30" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
-  <text x="465" y="170" text-anchor="middle" class="small" style="fill:#dcdcaa;">count</text>
-  <path d="M 390 170 L 425 170" stroke="#dcdcaa" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-yellow)"/>
   
   <!-- Mode 3: By Value (move) -->
-  <rect x="530" y="80" width="240" height="200" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
-  <text x="650" y="105" text-anchor="middle" class="label" style="fill:#CE422B;">3. Por Valor (move)</text>
-  <text x="650" y="125" text-anchor="middle" class="small">Ownership • Trait FnOnce</text>
+  <rect x="530" y="75" width="250" height="175" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="655" y="98" text-anchor="middle" class="label" style="fill:#CE422B;">3. Por Valor (move)</text>
+  <text x="655" y="115" text-anchor="middle" class="small">Ownership • Trait FnOnce</text>
   
-  <text x="545" y="155" class="code">
-    <tspan class="keyword">let</tspan>
-    <tspan> s = </tspan>
-    <tspan class="type">String</tspan>
-    <tspan>::from(</tspan>
-    <tspan class="string">"hi"</tspan>
-    <tspan>);</tspan>
+  <text x="545" y="140" class="code">
+    <tspan class="keyword">let</tspan><tspan> s = </tspan><tspan class="type">String</tspan><tspan>::from(</tspan><tspan class="string">"hi"</tspan><tspan>);</tspan>
   </text>
-  <text x="545" y="175" class="code">
-    <tspan class="keyword">let</tspan>
-    <tspan> consume = </tspan>
-    <tspan class="keyword">move</tspan>
-    <tspan> </tspan>
-    <tspan class="operator">||</tspan>
-    <tspan> {</tspan>
+  <text x="545" y="158" class="code">
+    <tspan class="keyword">let</tspan><tspan> consume = </tspan><tspan class="keyword">move</tspan><tspan> </tspan><tspan class="operator">||</tspan><tspan> {</tspan>
   </text>
-  <text x="560" y="195" class="code">
-    <tspan class="function">drop</tspan>
-    <tspan>(s);</tspan>
+  <text x="560" y="176" class="code">
+    <tspan class="function">drop</tspan><tspan>(s);</tspan>
   </text>
-  <text x="545" y="215" class="code">};</text>
-  <text x="545" y="245" class="code">
-    <tspan class="function">consume</tspan>
-    <tspan>();</tspan>
-    <tspan class="comment"> // OK</tspan>
+  <text x="545" y="194" class="code">};</text>
+  <text x="545" y="216" class="code">
+    <tspan class="function">consume</tspan><tspan>();</tspan><tspan class="comment"> // OK</tspan>
   </text>
-  <text x="545" y="265" class="code">
-    <tspan class="comment">// s ya no existe</tspan>
+  <text x="545" y="234" class="code">
+    <tspan class="comment">// consume(); ← ERROR: ya consumido</tspan>
   </text>
   
-  <!-- Diagram for mode 3 -->
-  <rect x="680" y="150" width="70" height="30" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
-  <text x="715" y="170" text-anchor="middle" class="small" style="fill:#CE422B;">s</text>
-  <path d="M 640 170 L 675 170" stroke="#CE422B" stroke-width="2" marker-end="url(#arrow-red)"/>
-  <text x="715" y="200" text-anchor="middle" class="small" style="fill:#CE422B;">→ moved</text>
+  <!-- Visual indicators row -->
+  <text x="145" y="270" text-anchor="middle" class="small" style="fill:#4ec9b0;">closure → &amp;x</text>
+  <text x="400" y="270" text-anchor="middle" class="small" style="fill:#dcdcaa;">closure → &amp;mut count</text>
+  <text x="655" y="270" text-anchor="middle" class="small" style="fill:#CE422B;">closure owns s</text>
   
-  <!-- Decision Flow -->
-  <text x="400" y="310" text-anchor="middle" class="label" style="fill:#808080;">Rust elige automáticamente el modo menos restrictivo</text>
+  <!-- Decision Flow Title -->
+  <text x="400" y="310" text-anchor="middle" class="label" style="fill:#d4d4d4;">¿Cómo elige Rust el modo de captura?</text>
+  <text x="400" y="328" text-anchor="middle" class="small">Automáticamente usa el menos restrictivo</text>
   
   <!-- Flow diagram -->
-  <rect x="250" y="330" width="300" height="190" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <rect x="100" y="345" width="600" height="240" rx="8" fill="#252526" stroke="#3c3c3c"/>
   
-  <!-- Decision nodes -->
-  <ellipse cx="400" cy="360" rx="80" ry="20" fill="#2d2d2d" stroke="#d4d4d4"/>
-  <text x="400" y="365" text-anchor="middle" class="small">¿El closure...?</text>
+  <!-- Question node -->
+  <ellipse cx="400" cy="380" rx="100" ry="22" fill="#2d2d2d" stroke="#d4d4d4"/>
+  <text x="400" y="385" text-anchor="middle" class="small">¿Qué hace el closure con la variable?</text>
   
-  <rect x="280" y="400" width="100" height="35" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
-  <text x="330" y="422" text-anchor="middle" class="small" style="fill:#4ec9b0;">Solo lee</text>
+  <!-- Three branches -->
+  <!-- Branch 1: Solo lee -->
+  <rect x="130" y="430" width="140" height="40" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="200" y="455" text-anchor="middle" class="small" style="fill:#4ec9b0;">Solo lee el valor</text>
+  <path d="M 320 400 L 200 425" stroke="#4ec9b0" stroke-width="1.5" fill="none"/>
   
-  <rect x="400" y="400" width="100" height="35" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
-  <text x="450" y="422" text-anchor="middle" class="small" style="fill:#dcdcaa;">Modifica</text>
+  <!-- Branch 2: Modifica -->
+  <rect x="330" y="430" width="140" height="40" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
+  <text x="400" y="455" text-anchor="middle" class="small" style="fill:#dcdcaa;">Modifica el valor</text>
+  <path d="M 400 402 L 400 425" stroke="#dcdcaa" stroke-width="1.5" fill="none"/>
   
-  <rect x="340" y="460" width="120" height="35" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
-  <text x="400" y="482" text-anchor="middle" class="small" style="fill:#CE422B;">Consume/mueve</text>
-  
-  <!-- Arrows -->
-  <path d="M 360 380 L 330 395" stroke="#4ec9b0" stroke-width="1.5" fill="none"/>
-  <path d="M 440 380 L 450 395" stroke="#dcdcaa" stroke-width="1.5" fill="none"/>
-  <path d="M 400 380 L 400 455" stroke="#CE422B" stroke-width="1.5" fill="none"/>
+  <!-- Branch 3: Consume -->
+  <rect x="530" y="430" width="140" height="40" rx="4" fill="#2d2d2d" stroke="#CE422B"/>
+  <text x="600" y="455" text-anchor="middle" class="small" style="fill:#CE422B;">Consume/mueve</text>
+  <path d="M 480 400 L 600 425" stroke="#CE422B" stroke-width="1.5" fill="none"/>
   
   <!-- Results -->
-  <text x="330" y="500" text-anchor="middle" class="small" style="fill:#4ec9b0;">&amp;T → Fn</text>
-  <text x="450" y="450" text-anchor="middle" class="small" style="fill:#dcdcaa;">&amp;mut T → FnMut</text>
-  <text x="400" y="510" text-anchor="middle" class="small" style="fill:#CE422B;">T → FnOnce</text>
+  <rect x="130" y="500" width="140" height="35" rx="4" fill="#1e3d32" stroke="#4ec9b0"/>
+  <text x="200" y="522" text-anchor="middle" class="small" style="fill:#4ec9b0;">&amp;T → impl Fn</text>
+  <path d="M 200 470 L 200 495" stroke="#4ec9b0" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
   
-  <!-- Arrow markers -->
-  <defs>
-    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#4ec9b0"/>
-    </marker>
-    <marker id="arrow-yellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#dcdcaa"/>
-    </marker>
-    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L9,3 z" fill="#CE422B"/>
-    </marker>
-  </defs>
+  <rect x="330" y="500" width="140" height="35" rx="4" fill="#3d3520" stroke="#dcdcaa"/>
+  <text x="400" y="522" text-anchor="middle" class="small" style="fill:#dcdcaa;">&amp;mut T → impl FnMut</text>
+  <path d="M 400 470 L 400 495" stroke="#dcdcaa" stroke-width="1.5" fill="none" marker-end="url(#arrow-yellow)"/>
+  
+  <rect x="530" y="500" width="140" height="35" rx="4" fill="#3d2020" stroke="#CE422B"/>
+  <text x="600" y="522" text-anchor="middle" class="small" style="fill:#CE422B;">T → impl FnOnce</text>
+  <path d="M 600 470 L 600 495" stroke="#CE422B" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)"/>
+  
+  <!-- Footer note -->
+  <text x="400" y="570" text-anchor="middle" class="small">💡 Usa <tspan style="fill:#569cd6;">move</tspan> para forzar captura por valor</text>
 </svg>

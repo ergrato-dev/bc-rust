@@ -23,15 +23,15 @@
   <text x="400" y="58" text-anchor="middle" class="subtitle">Secuencias perezosas de valores</text>
   
   <!-- Iterator Trait Definition -->
-  <rect x="250" y="75" width="300" height="80" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="250" y="75" width="300" height="95" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
   <text x="400" y="97" text-anchor="middle" class="label" style="fill:#CE422B;">Trait Iterator</text>
   
-  <text x="270" y="120" class="code">
+  <text x="270" y="118" class="code">
     <tspan class="keyword">trait</tspan>
     <tspan class="type"> Iterator</tspan>
     <tspan> {</tspan>
   </text>
-  <text x="290" y="137" class="code">
+  <text x="290" y="136" class="code">
     <tspan class="keyword">type</tspan>
     <tspan class="type"> Item</tspan>
     <tspan>;</tspan>
@@ -41,7 +41,9 @@
     <tspan class="function"> next</tspan>
     <tspan>(&amp;</tspan>
     <tspan class="keyword">mut self</tspan>
-    <tspan>) -> </tspan>
+    <tspan>) -></tspan>
+  </text>
+  <text x="310" y="167" class="code">
     <tspan class="type">Option</tspan>
     <tspan>&lt;</tspan>
     <tspan class="type">Self::Item</tspan>

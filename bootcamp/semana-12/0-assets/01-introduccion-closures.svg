@@ -160,11 +160,12 @@
     <tspan class="comment">  // = 15</tspan>
   </text>
   
-  <!-- Arrow showing capture -->
-  <path d="M 372 455 L 330 430" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- Arrow showing capture: from 'factor' in closure to variable declaration -->
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
       <path d="M0,0 L0,6 L9,3 z" fill="#4ec9b0"/>
     </marker>
   </defs>
+  <path d="M 445 455 C 500 455 500 430 445 430" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="515" y="445" class="small" style="fill:#4ec9b0;">captura</text>
 </svg>
