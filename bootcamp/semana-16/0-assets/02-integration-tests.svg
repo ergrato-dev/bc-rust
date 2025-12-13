@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .folder { fill: #dcb67a; }
+    .file { fill: #519aba; }
+    .rust { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <text x="400" y="40" text-anchor="middle" class="title">Tests de Integracion</text>
+  <text x="400" y="65" text-anchor="middle" class="subtitle">Directorio tests/ - Testear API publica</text>
+  
+  <!-- Estructura de carpetas -->
+  <rect x="30" y="90" width="280" height="250" rx="8" class="box"/>
+  <text x="170" y="115" text-anchor="middle" class="label" style="fill: #CE422B;">Estructura del Proyecto</text>
+  
+  <text x="50" y="145" class="code"><tspan class="folder">mi_proyecto/</tspan></text>
+  <text x="50" y="165" class="code">  +-- <tspan class="file">Cargo.toml</tspan></text>
+  <text x="50" y="185" class="code">  +-- <tspan class="folder">src/</tspan></text>
+  <text x="50" y="205" class="code">  |   +-- <tspan class="rust">lib.rs</tspan></text>
+  <text x="50" y="225" class="code">  +-- <tspan class="folder">tests/</tspan>          <tspan class="small"># Integracion</tspan></text>
+  <text x="50" y="245" class="code">  |   +-- <tspan class="folder">common/</tspan></text>
+  <text x="50" y="265" class="code">  |   |   +-- <tspan class="rust">mod.rs</tspan></text>
+  <text x="50" y="285" class="code">  |   +-- <tspan class="rust">test_api.rs</tspan></text>
+  <text x="50" y="305" class="code">  |   +-- <tspan class="rust">test_db.rs</tspan></text>
+  <text x="50" y="325" class="code">  +-- <tspan class="folder">examples/</tspan></text>
+  
+  <!-- Diferencias -->
+  <rect x="340" y="90" width="200" height="120" rx="8" class="box"/>
+  <text x="440" y="115" text-anchor="middle" class="label" style="fill: #4ec9b0;">Unit Tests</text>
+  <text x="360" y="140" class="code">- En src/</text>
+  <text x="360" y="160" class="code">- Acceso privado</text>
+  <text x="360" y="180" class="code">- Rapidos</text>
+  <text x="360" y="200" class="code">- Una funcion</text>
+  
+  <rect x="560" y="90" width="210" height="120" rx="8" class="box"/>
+  <text x="665" y="115" text-anchor="middle" class="label" style="fill: #CE422B;">Integration Tests</text>
+  <text x="580" y="140" class="code">- En tests/</text>
+  <text x="580" y="160" class="code">- Solo API publica</text>
+  <text x="580" y="180" class="code">- Mas lentos</text>
+  <text x="580" y="200" class="code">- Flujos completos</text>
+  
+  <!-- Ejemplo de codigo -->
+  <rect x="340" y="230" width="430" height="110" rx="8" class="box"/>
+  <text x="555" y="255" text-anchor="middle" class="label">tests/integration_test.rs</text>
+  <text x="360" y="280" class="code" style="fill: #569cd6;">use</text>
+  <text x="385" y="280" class="code"> mi_proyecto;</text>
+  <text x="360" y="300" class="code" style="fill: #569cd6;">#[test]</text>
+  <text x="360" y="320" class="code" style="fill: #569cd6;">fn</text>
+  <text x="380" y="320" class="code" style="fill: #dcdcaa;"> test_flujo</text>
+  <text x="465" y="320" class="code">() { mi_proyecto::api(); }</text>
+  
+  <!-- Comandos -->
+  <rect x="30" y="360" width="740" height="120" rx="8" class="box"/>
+  <text x="400" y="385" text-anchor="middle" class="label">Comandos</text>
+  <text x="50" y="410" class="code">$ cargo test                          <tspan class="small"># Unit + Integration</tspan></text>
+  <text x="50" y="430" class="code">$ cargo test --test integration_test  <tspan class="small"># Solo un archivo</tspan></text>
+  <text x="50" y="450" class="code">$ cargo test --test '*'               <tspan class="small"># Solo integration</tspan></text>
+  <text x="50" y="470" class="code">$ cargo test --lib                    <tspan class="small"># Solo unit tests</tspan></text>
+</svg>

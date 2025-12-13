@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .red { fill: #5a2d2d; stroke: #f14c4c; stroke-width: 2; }
+    .green { fill: #2d5a3d; stroke: #4ec9b0; stroke-width: 2; }
+    .blue { fill: #2d4a5a; stroke: #569cd6; stroke-width: 2; }
+    .arrow { stroke: #808080; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    .cycle { stroke: #CE422B; stroke-width: 3; fill: none; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <text x="400" y="40" text-anchor="middle" class="title">Test-Driven Development</text>
+  <text x="400" y="65" text-anchor="middle" class="subtitle">Red - Green - Refactor</text>
+  
+  <!-- Ciclo TDD -->
+  <rect x="200" y="100" width="140" height="60" rx="8" class="red"/>
+  <text x="270" y="125" text-anchor="middle" class="label" style="fill: #f14c4c; font-weight: bold;">RED</text>
+  <text x="270" y="145" text-anchor="middle" class="small" style="fill: #d4d4d4;">Test que falla</text>
+  
+  <rect x="430" y="100" width="140" height="60" rx="8" class="green"/>
+  <text x="500" y="125" text-anchor="middle" class="label" style="fill: #4ec9b0; font-weight: bold;">GREEN</text>
+  <text x="500" y="145" text-anchor="middle" class="small" style="fill: #d4d4d4;">Codigo minimo</text>
+  
+  <rect x="315" y="210" width="140" height="60" rx="8" class="blue"/>
+  <text x="385" y="235" text-anchor="middle" class="label" style="fill: #569cd6; font-weight: bold;">REFACTOR</text>
+  <text x="385" y="255" text-anchor="middle" class="small" style="fill: #d4d4d4;">Mejorar codigo</text>
+  
+  <!-- Flechas del ciclo -->
+  <path d="M340 130 L430 130" class="arrow"/>
+  <path d="M500 160 L450 210" class="arrow"/>
+  <path d="M320 210 L270 160" class="arrow"/>
+  
+  <!-- Pasos detallados -->
+  <rect x="30" y="300" width="230" height="90" rx="8" class="box"/>
+  <text x="145" y="325" text-anchor="middle" class="label" style="fill: #f14c4c;">1. Escribe el test</text>
+  <text x="50" y="350" class="small" style="fill: #d4d4d4;">- Test para nueva funcionalidad</text>
+  <text x="50" y="370" class="small" style="fill: #d4d4d4;">- Debe FALLAR inicialmente</text>
+  
+  <rect x="285" y="300" width="230" height="90" rx="8" class="box"/>
+  <text x="400" y="325" text-anchor="middle" class="label" style="fill: #4ec9b0;">2. Haz que pase</text>
+  <text x="305" y="350" class="small" style="fill: #d4d4d4;">- Codigo minimo necesario</text>
+  <text x="305" y="370" class="small" style="fill: #d4d4d4;">- No optimizar todavia</text>
+  
+  <rect x="540" y="300" width="230" height="90" rx="8" class="box"/>
+  <text x="655" y="325" text-anchor="middle" class="label" style="fill: #569cd6;">3. Refactoriza</text>
+  <text x="560" y="350" class="small" style="fill: #d4d4d4;">- Mejora sin romper tests</text>
+  <text x="560" y="370" class="small" style="fill: #d4d4d4;">- Elimina duplicacion</text>
+  
+  <!-- Beneficios -->
+  <rect x="30" y="410" width="740" height="75" rx="8" class="box"/>
+  <text x="400" y="435" text-anchor="middle" class="label" style="fill: #CE422B;">Beneficios de TDD</text>
+  
+  <text x="80" y="465" text-anchor="middle" class="small" style="fill: #d4d4d4;">Diseno</text>
+  <text x="80" y="480" text-anchor="middle" class="small" style="fill: #d4d4d4;">guiado</text>
+  
+  <text x="220" y="465" text-anchor="middle" class="small" style="fill: #d4d4d4;">100%</text>
+  <text x="220" y="480" text-anchor="middle" class="small" style="fill: #d4d4d4;">cobertura</text>
+  
+  <text x="360" y="465" text-anchor="middle" class="small" style="fill: #d4d4d4;">Documentacion</text>
+  <text x="360" y="480" text-anchor="middle" class="small" style="fill: #d4d4d4;">viva</text>
+  
+  <text x="500" y="465" text-anchor="middle" class="small" style="fill: #d4d4d4;">Refactor</text>
+  <text x="500" y="480" text-anchor="middle" class="small" style="fill: #d4d4d4;">sin miedo</text>
+  
+  <text x="640" y="465" text-anchor="middle" class="small" style="fill: #d4d4d4;">Codigo</text>
+  <text x="640" y="480" text-anchor="middle" class="small" style="fill: #d4d4d4;">minimo</text>
+</svg>
