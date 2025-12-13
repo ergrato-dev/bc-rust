@@ -23,23 +23,23 @@ fn main() {
 // ============================================================================
 
 /// Crea un vector con los números del 1 al n
-fn crear_rango(n: i32) -> Vec<i32> {
+fn create_range(n: i32) -> Vec<i32> {
     (1..=n).collect()
 }
 
 /// Agrega un elemento al final si no existe
-fn agregar_si_no_existe(vec: &mut Vec<i32>, valor: i32) -> bool {
-    if vec.contains(&valor) {
+fn add_if_not_exists(vec: &mut Vec<i32>, value: i32) -> bool {
+    if vec.contains(&value) {
         false
     } else {
-        vec.push(valor);
+        vec.push(value);
         true
     }
 }
 
 /// Elimina la primera ocurrencia de un valor
-fn eliminar_primera_ocurrencia(vec: &mut Vec<i32>, valor: i32) -> Option<i32> {
-    if let Some(pos) = vec.iter().position(|&x| x == valor) {
+fn remove_first_occurrence(vec: &mut Vec<i32>, value: i32) -> Option<i32> {
+    if let Some(pos) = vec.iter().position(|&x| x == value) {
         Some(vec.remove(pos))
     } else {
         None
@@ -47,14 +47,14 @@ fn eliminar_primera_ocurrencia(vec: &mut Vec<i32>, valor: i32) -> Option<i32> {
 }
 
 /// Obtiene el elemento en la posición de forma segura
-fn obtener_seguro(vec: &[i32], indice: usize) -> Option<i32> {
-    vec.get(indice).copied()
+fn get_safe(vec: &[i32], index: usize) -> Option<i32> {
+    vec.get(index).copied()
 }
 
 /// Actualiza el elemento en la posición si existe
-fn actualizar_en_posicion(vec: &mut [i32], indice: usize, nuevo_valor: i32) -> bool {
-    if let Some(elemento) = vec.get_mut(indice) {
-        *elemento = nuevo_valor;
+fn update_at_position(vec: &mut [i32], index: usize, new_value: i32) -> bool {
+    if let Some(element) = vec.get_mut(index) {
+        *element = new_value;
         true
     } else {
         false
@@ -64,22 +64,22 @@ fn actualizar_en_posicion(vec: &mut [i32], indice: usize, nuevo_valor: i32) -> b
 fn demo_operaciones_basicas() {
     println!("--- Ejercicio 1: Operaciones Básicas ---");
 
-    let mut v = crear_rango(5);
+    let mut v = create_range(5);
     println!("Rango 1-5: {:?}", v);
 
-    let agregado = agregar_si_no_existe(&mut v, 6);
-    println!("Agregar 6: {} -> {:?}", agregado, v);
+    let added = add_if_not_exists(&mut v, 6);
+    println!("Agregar 6: {} -> {:?}", added, v);
 
-    let no_agregado = agregar_si_no_existe(&mut v, 3);
-    println!("Agregar 3 (existe): {} -> {:?}", no_agregado, v);
+    let not_added = add_if_not_exists(&mut v, 3);
+    println!("Agregar 3 (existe): {} -> {:?}", not_added, v);
 
-    let eliminado = eliminar_primera_ocurrencia(&mut v, 3);
-    println!("Eliminar 3: {:?} -> {:?}", eliminado, v);
+    let removed = remove_first_occurrence(&mut v, 3);
+    println!("Eliminar 3: {:?} -> {:?}", removed, v);
 
-    let valor = obtener_seguro(&v, 2);
-    println!("Obtener índice 2: {:?}", valor);
+    let value = get_safe(&v, 2);
+    println!("Obtener índice 2: {:?}", value);
 
-    actualizar_en_posicion(&mut v, 0, 100);
+    update_at_position(&mut v, 0, 100);
     println!("Actualizar índice 0 a 100: {:?}", v);
 
     println!();
@@ -90,76 +90,76 @@ fn demo_operaciones_basicas() {
 // ============================================================================
 
 /// Calcula la suma de todos los elementos
-fn suma(vec: &[i32]) -> i32 {
+fn sum(vec: &[i32]) -> i32 {
     vec.iter().sum()
 }
 
 /// Calcula el promedio (devuelve None si está vacío)
-fn promedio(vec: &[i32]) -> Option<f64> {
+fn average(vec: &[i32]) -> Option<f64> {
     if vec.is_empty() {
         None
     } else {
-        Some(suma(vec) as f64 / vec.len() as f64)
+        Some(sum(vec) as f64 / vec.len() as f64)
     }
 }
 
 /// Encuentra el valor mínimo
-fn minimo(vec: &[i32]) -> Option<i32> {
+fn minimum(vec: &[i32]) -> Option<i32> {
     vec.iter().min().copied()
 }
 
 /// Encuentra el valor máximo
-fn maximo(vec: &[i32]) -> Option<i32> {
+fn maximum(vec: &[i32]) -> Option<i32> {
     vec.iter().max().copied()
 }
 
 /// Cuenta cuántos elementos cumplen una condición
-fn contar_si<F>(vec: &[i32], predicado: F) -> usize
+fn count_if<F>(vec: &[i32], predicate: F) -> usize
 where
     F: Fn(&i32) -> bool,
 {
-    vec.iter().filter(|x| predicado(x)).count()
+    vec.iter().filter(|x| predicate(x)).count()
 }
 
 /// Estructura para almacenar estadísticas
 #[derive(Debug)]
-struct Estadisticas {
-    suma: i32,
-    promedio: f64,
-    minimo: i32,
-    maximo: i32,
-    cantidad: usize,
+struct Statistics {
+    sum: i32,
+    average: f64,
+    minimum: i32,
+    maximum: i32,
+    count: usize,
 }
 
 /// Calcula todas las estadísticas de un vector
-fn calcular_estadisticas(vec: &[i32]) -> Option<Estadisticas> {
+fn calculate_statistics(vec: &[i32]) -> Option<Statistics> {
     if vec.is_empty() {
         return None;
     }
 
-    Some(Estadisticas {
-        suma: suma(vec),
-        promedio: promedio(vec).unwrap(),
-        minimo: minimo(vec).unwrap(),
-        maximo: maximo(vec).unwrap(),
-        cantidad: vec.len(),
+    Some(Statistics {
+        sum: sum(vec),
+        average: average(vec).unwrap(),
+        minimum: minimum(vec).unwrap(),
+        maximum: maximum(vec).unwrap(),
+        count: vec.len(),
     })
 }
 
 fn demo_estadisticas() {
     println!("--- Ejercicio 2: Estadísticas ---");
 
-    let numeros = vec![10, 25, 3, 47, 8, 32, 15];
-    println!("Números: {:?}", numeros);
+    let numbers = vec![10, 25, 3, 47, 8, 32, 15];
+    println!("Números: {:?}", numbers);
 
-    if let Some(stats) = calcular_estadisticas(&numeros) {
+    if let Some(stats) = calculate_statistics(&numbers) {
         println!("Estadísticas: {:?}", stats);
     }
 
-    let pares = contar_si(&numeros, |x| x % 2 == 0);
-    let mayores_20 = contar_si(&numeros, |x| *x > 20);
-    println!("Números pares: {}", pares);
-    println!("Mayores a 20: {}", mayores_20);
+    let evens = count_if(&numbers, |x| x % 2 == 0);
+    let greater_20 = count_if(&numbers, |x| *x > 20);
+    println!("Números pares: {}", evens);
+    println!("Mayores a 20: {}", greater_20);
 
     println!();
 }
@@ -169,70 +169,70 @@ fn demo_estadisticas() {
 // ============================================================================
 
 /// Filtra elementos que cumplen una condición
-fn filtrar<F>(vec: &[i32], predicado: F) -> Vec<i32>
+fn filter<F>(vec: &[i32], predicate: F) -> Vec<i32>
 where
     F: Fn(&i32) -> bool,
 {
-    vec.iter().filter(|x| predicado(x)).copied().collect()
+    vec.iter().filter(|x| predicate(x)).copied().collect()
 }
 
 /// Transforma cada elemento aplicando una función
-fn transformar<F>(vec: &[i32], transformacion: F) -> Vec<i32>
+fn transform<F>(vec: &[i32], transformation: F) -> Vec<i32>
 where
     F: Fn(i32) -> i32,
 {
-    vec.iter().map(|&x| transformacion(x)).collect()
+    vec.iter().map(|&x| transformation(x)).collect()
 }
 
 /// Filtra y transforma en una sola operación
-fn filtrar_y_transformar<P, T>(vec: &[i32], predicado: P, transformacion: T) -> Vec<i32>
+fn filter_and_transform<P, T>(vec: &[i32], predicate: P, transformation: T) -> Vec<i32>
 where
     P: Fn(&i32) -> bool,
     T: Fn(i32) -> i32,
 {
     vec.iter()
-        .filter(|x| predicado(x))
-        .map(|&x| transformacion(x))
+        .filter(|x| predicate(x))
+        .map(|&x| transformation(x))
         .collect()
 }
 
 /// Agrupa números en pares e impares
-fn agrupar_par_impar(vec: &[i32]) -> (Vec<i32>, Vec<i32>) {
+fn group_even_odd(vec: &[i32]) -> (Vec<i32>, Vec<i32>) {
     vec.iter().partition(|x| *x % 2 == 0)
 }
 
 /// Elimina duplicados manteniendo el orden
-fn eliminar_duplicados(vec: &[i32]) -> Vec<i32> {
-    let mut vistos = Vec::new();
+fn remove_duplicates(vec: &[i32]) -> Vec<i32> {
+    let mut seen = Vec::new();
     for &n in vec {
-        if !vistos.contains(&n) {
-            vistos.push(n);
+        if !seen.contains(&n) {
+            seen.push(n);
         }
     }
-    vistos
+    seen
 }
 
 fn demo_filtrado() {
     println!("--- Ejercicio 3: Filtrado y Transformación ---");
 
-    let numeros = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    println!("Original: {:?}", numeros);
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    println!("Original: {:?}", numbers);
 
-    let pares = filtrar(&numeros, |x| x % 2 == 0);
-    println!("Solo pares: {:?}", pares);
+    let evens = filter(&numbers, |x| x % 2 == 0);
+    println!("Solo pares: {:?}", evens);
 
-    let duplicados = transformar(&numeros, |x| x * 2);
-    println!("Duplicados: {:?}", duplicados);
+    let doubled = transform(&numbers, |x| x * 2);
+    println!("Duplicados: {:?}", doubled);
 
-    let pares_al_cuadrado = filtrar_y_transformar(&numeros, |x| x % 2 == 0, |x| x * x);
-    println!("Pares al cuadrado: {:?}", pares_al_cuadrado);
+    let evens_squared = filter_and_transform(&numbers, |x| x % 2 == 0, |x| x * x);
+    println!("Pares al cuadrado: {:?}", evens_squared);
 
-    let (pares_grupo, impares_grupo) = agrupar_par_impar(&numeros);
-    println!("Pares: {:?}, Impares: {:?}", pares_grupo, impares_grupo);
+    let (evens_group, odds_group) = group_even_odd(&numbers);
+    println!("Pares: {:?}, Impares: {:?}", evens_group, odds_group);
 
-    let con_duplicados = vec![1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
-    let sin_duplicados = eliminar_duplicados(&con_duplicados);
-    println!("Sin duplicados: {:?}", sin_duplicados);
+    let with_duplicates = vec![1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
+    let without_duplicates = remove_duplicates(&with_duplicates);
+    println!("Sin duplicados: {:?}", without_duplicates);
 
     println!();
 }
@@ -242,68 +242,68 @@ fn demo_filtrado() {
 // ============================================================================
 
 #[derive(Debug, Clone)]
-struct Producto {
+struct Product {
     id: u32,
-    nombre: String,
-    precio: f64,
-    cantidad: u32,
+    name: String,
+    price: f64,
+    quantity: u32,
 }
 
-impl Producto {
-    fn new(id: u32, nombre: &str, precio: f64, cantidad: u32) -> Self {
+impl Product {
+    fn new(id: u32, name: &str, price: f64, quantity: u32) -> Self {
         Self {
             id,
-            nombre: nombre.to_string(),
-            precio,
-            cantidad,
+            name: name.to_string(),
+            price,
+            quantity,
         }
     }
 
-    fn valor_total(&self) -> f64 {
-        self.precio * self.cantidad as f64
+    fn total_value(&self) -> f64 {
+        self.price * self.quantity as f64
     }
 }
 
-struct Inventario {
-    productos: Vec<Producto>,
-    siguiente_id: u32,
+struct Inventory {
+    products: Vec<Product>,
+    next_id: u32,
 }
 
-impl Inventario {
+impl Inventory {
     fn new() -> Self {
         Self {
-            productos: Vec::new(),
-            siguiente_id: 1,
+            products: Vec::new(),
+            next_id: 1,
         }
     }
 
     /// Agrega un nuevo producto
-    fn agregar(&mut self, nombre: &str, precio: f64, cantidad: u32) -> u32 {
-        let id = self.siguiente_id;
-        self.productos
-            .push(Producto::new(id, nombre, precio, cantidad));
-        self.siguiente_id += 1;
+    fn add(&mut self, name: &str, price: f64, quantity: u32) -> u32 {
+        let id = self.next_id;
+        self.products
+            .push(Product::new(id, name, price, quantity));
+        self.next_id += 1;
         id
     }
 
     /// Busca un producto por ID
-    fn buscar(&self, id: u32) -> Option<&Producto> {
-        self.productos.iter().find(|p| p.id == id)
+    fn find(&self, id: u32) -> Option<&Product> {
+        self.products.iter().find(|p| p.id == id)
     }
 
     /// Busca un producto por nombre (parcial, case-insensitive)
-    fn buscar_por_nombre(&self, nombre: &str) -> Vec<&Producto> {
-        let nombre_lower = nombre.to_lowercase();
-        self.productos
+    fn find_by_name(&self, name: &str) -> Vec<&Product> {
+        let name_lower = name.to_lowercase();
+        self.products
             .iter()
-            .filter(|p| p.nombre.to_lowercase().contains(&nombre_lower))
+            .filter(|p| p.name.to_lowercase().contains(&name_lower))
             .collect()
     }
 
     /// Actualiza la cantidad de un producto
-    fn actualizar_cantidad(&mut self, id: u32, cantidad: u32) -> bool {
-        if let Some(producto) = self.productos.iter_mut().find(|p| p.id == id) {
-            producto.cantidad = cantidad;
+    fn update_quantity(&mut self, id: u32, quantity: u32) -> bool {
+        if let Some(product) = self.products.iter_mut().find(|p| p.id == id) {
+            product.quantity = quantity;
             true
         } else {
             false
@@ -311,82 +311,82 @@ impl Inventario {
     }
 
     /// Elimina un producto por ID
-    fn eliminar(&mut self, id: u32) -> Option<Producto> {
-        if let Some(pos) = self.productos.iter().position(|p| p.id == id) {
-            Some(self.productos.remove(pos))
+    fn delete(&mut self, id: u32) -> Option<Product> {
+        if let Some(pos) = self.products.iter().position(|p| p.id == id) {
+            Some(self.products.remove(pos))
         } else {
             None
         }
     }
 
     /// Productos con stock bajo (< umbral)
-    fn stock_bajo(&self, umbral: u32) -> Vec<&Producto> {
-        self.productos
+    fn low_stock(&self, threshold: u32) -> Vec<&Product> {
+        self.products
             .iter()
-            .filter(|p| p.cantidad < umbral)
+            .filter(|p| p.quantity < threshold)
             .collect()
     }
 
     /// Valor total del inventario
-    fn valor_total(&self) -> f64 {
-        self.productos.iter().map(|p| p.valor_total()).sum()
+    fn total_value(&self) -> f64 {
+        self.products.iter().map(|p| p.total_value()).sum()
     }
 
     /// Productos ordenados por precio
-    fn ordenados_por_precio(&self) -> Vec<&Producto> {
-        let mut productos: Vec<_> = self.productos.iter().collect();
-        productos.sort_by(|a, b| a.precio.partial_cmp(&b.precio).unwrap());
-        productos
+    fn sorted_by_price(&self) -> Vec<&Product> {
+        let mut products: Vec<_> = self.products.iter().collect();
+        products.sort_by(|a, b| a.price.partial_cmp(&b.price).unwrap());
+        products
     }
 
     /// Cantidad total de productos
-    fn cantidad_total(&self) -> u32 {
-        self.productos.iter().map(|p| p.cantidad).sum()
+    fn total_quantity(&self) -> u32 {
+        self.products.iter().map(|p| p.quantity).sum()
     }
 }
 
 fn demo_inventario() {
     println!("--- Ejercicio 4: Gestión de Inventario ---");
 
-    let mut inv = Inventario::new();
+    let mut inv = Inventory::new();
 
     // Agregar productos
-    inv.agregar("Laptop HP", 899.99, 5);
-    inv.agregar("Mouse Logitech", 29.99, 50);
-    inv.agregar("Teclado Mecánico", 79.99, 25);
-    inv.agregar("Monitor 27\"", 299.99, 3);
-    inv.agregar("Laptop Dell", 999.99, 2);
+    inv.add("Laptop HP", 899.99, 5);
+    inv.add("Mouse Logitech", 29.99, 50);
+    inv.add("Teclado Mecánico", 79.99, 25);
+    inv.add("Monitor 27\"", 299.99, 3);
+    inv.add("Laptop Dell", 999.99, 2);
 
     println!("Inventario inicial:");
-    for p in &inv.productos {
+    for p in &inv.products {
         println!(
             "  #{} - {} (${:.2} x {} = ${:.2})",
             p.id,
-            p.nombre,
-            p.precio,
-            p.cantidad,
-            p.valor_total()
+            p.name,
+            p.price,
+            p.quantity,
+            p.total_value()
         );
     }
 
-    println!("\nBúsqueda por ID 3: {:?}", inv.buscar(3).map(|p| &p.nombre));
+    println!("\nBúsqueda por ID 3: {:?}", inv.find(3).map(|p| &p.name));
 
     println!("\nBúsqueda 'laptop':");
-    for p in inv.buscar_por_nombre("laptop") {
-        println!("  - {}", p.nombre);
+    for p in inv.find_by_name("laptop") {
+        println!("  - {}", p.name);
     }
 
     println!("\nStock bajo (< 5 unidades):");
-    for p in inv.stock_bajo(5) {
-        println!("  ⚠️  {} ({} unidades)", p.nombre, p.cantidad);
+    for p in inv.low_stock(5) {
+        println!("  ⚠️  {} ({} unidades)", p.name, p.quantity);
     }
 
-    println!("\nValor total del inventario: ${:.2}", inv.valor_total());
-    println!("Cantidad total de unidades: {}", inv.cantidad_total());
+    println!("\nValor total del inventario: ${:.2}", inv.total_value());
+    println!("Cantidad total de unidades: {}", inv.total_quantity());
 
     println!("\nProductos ordenados por precio:");
-    for p in inv.ordenados_por_precio() {
-        println!("  ${:.2} - {}", p.precio, p.nombre);
+    for p in inv.sorted_by_price() {
+        println!("  ${:.2} - {}", p.price, p.name);
     }
 }
 
@@ -400,160 +400,160 @@ mod tests {
 
     // Tests Ejercicio 1
     #[test]
-    fn test_crear_rango() {
-        assert_eq!(crear_rango(5), vec![1, 2, 3, 4, 5]);
-        assert_eq!(crear_rango(0), vec![]);
-        assert_eq!(crear_rango(1), vec![1]);
+    fn test_create_range() {
+        assert_eq!(create_range(5), vec![1, 2, 3, 4, 5]);
+        assert_eq!(create_range(0), vec![]);
+        assert_eq!(create_range(1), vec![1]);
     }
 
     #[test]
-    fn test_agregar_si_no_existe() {
+    fn test_add_if_not_exists() {
         let mut v = vec![1, 2, 3];
-        assert!(agregar_si_no_existe(&mut v, 4));
-        assert!(!agregar_si_no_existe(&mut v, 2));
+        assert!(add_if_not_exists(&mut v, 4));
+        assert!(!add_if_not_exists(&mut v, 2));
         assert_eq!(v, vec![1, 2, 3, 4]);
     }
 
     #[test]
-    fn test_eliminar_primera_ocurrencia() {
+    fn test_remove_first_occurrence() {
         let mut v = vec![1, 2, 3, 2, 4];
-        assert_eq!(eliminar_primera_ocurrencia(&mut v, 2), Some(2));
+        assert_eq!(remove_first_occurrence(&mut v, 2), Some(2));
         assert_eq!(v, vec![1, 3, 2, 4]);
-        assert_eq!(eliminar_primera_ocurrencia(&mut v, 5), None);
+        assert_eq!(remove_first_occurrence(&mut v, 5), None);
     }
 
     #[test]
-    fn test_obtener_seguro() {
+    fn test_get_safe() {
         let v = vec![10, 20, 30];
-        assert_eq!(obtener_seguro(&v, 1), Some(20));
-        assert_eq!(obtener_seguro(&v, 10), None);
+        assert_eq!(get_safe(&v, 1), Some(20));
+        assert_eq!(get_safe(&v, 10), None);
     }
 
     #[test]
-    fn test_actualizar_en_posicion() {
+    fn test_update_at_position() {
         let mut v = vec![1, 2, 3];
-        assert!(actualizar_en_posicion(&mut v, 1, 100));
+        assert!(update_at_position(&mut v, 1, 100));
         assert_eq!(v[1], 100);
-        assert!(!actualizar_en_posicion(&mut v, 10, 999));
+        assert!(!update_at_position(&mut v, 10, 999));
     }
 
     // Tests Ejercicio 2
     #[test]
-    fn test_suma() {
-        assert_eq!(suma(&[1, 2, 3, 4, 5]), 15);
-        assert_eq!(suma(&[]), 0);
+    fn test_sum() {
+        assert_eq!(sum(&[1, 2, 3, 4, 5]), 15);
+        assert_eq!(sum(&[]), 0);
     }
 
     #[test]
-    fn test_promedio() {
-        assert_eq!(promedio(&[2, 4, 6]), Some(4.0));
-        assert_eq!(promedio(&[]), None);
+    fn test_average() {
+        assert_eq!(average(&[2, 4, 6]), Some(4.0));
+        assert_eq!(average(&[]), None);
     }
 
     #[test]
-    fn test_minimo_maximo() {
+    fn test_minimum_maximum() {
         let v = vec![3, 1, 4, 1, 5];
-        assert_eq!(minimo(&v), Some(1));
-        assert_eq!(maximo(&v), Some(5));
-        assert_eq!(minimo(&[]), None);
+        assert_eq!(minimum(&v), Some(1));
+        assert_eq!(maximum(&v), Some(5));
+        assert_eq!(minimum(&[]), None);
     }
 
     #[test]
-    fn test_contar_si() {
+    fn test_count_if() {
         let v = vec![1, 2, 3, 4, 5, 6];
-        assert_eq!(contar_si(&v, |x| x % 2 == 0), 3);
-        assert_eq!(contar_si(&v, |x| *x > 10), 0);
+        assert_eq!(count_if(&v, |x| x % 2 == 0), 3);
+        assert_eq!(count_if(&v, |x| *x > 10), 0);
     }
 
     // Tests Ejercicio 3
     #[test]
-    fn test_filtrar() {
+    fn test_filter() {
         let v = vec![1, 2, 3, 4, 5];
-        assert_eq!(filtrar(&v, |x| x % 2 == 0), vec![2, 4]);
+        assert_eq!(filter(&v, |x| x % 2 == 0), vec![2, 4]);
     }
 
     #[test]
-    fn test_transformar() {
+    fn test_transform() {
         let v = vec![1, 2, 3];
-        assert_eq!(transformar(&v, |x| x * 2), vec![2, 4, 6]);
+        assert_eq!(transform(&v, |x| x * 2), vec![2, 4, 6]);
     }
 
     #[test]
-    fn test_filtrar_y_transformar() {
+    fn test_filter_and_transform() {
         let v = vec![1, 2, 3, 4, 5];
-        assert_eq!(filtrar_y_transformar(&v, |x| x % 2 == 0, |x| x * 10), vec![20, 40]);
+        assert_eq!(filter_and_transform(&v, |x| x % 2 == 0, |x| x * 10), vec![20, 40]);
     }
 
     #[test]
-    fn test_agrupar_par_impar() {
+    fn test_group_even_odd() {
         let v = vec![1, 2, 3, 4, 5];
-        let (pares, impares) = agrupar_par_impar(&v);
-        assert_eq!(pares, vec![2, 4]);
-        assert_eq!(impares, vec![1, 3, 5]);
+        let (evens, odds) = group_even_odd(&v);
+        assert_eq!(evens, vec![2, 4]);
+        assert_eq!(odds, vec![1, 3, 5]);
     }
 
     #[test]
-    fn test_eliminar_duplicados() {
-        assert_eq!(eliminar_duplicados(&[1, 2, 2, 3, 1]), vec![1, 2, 3]);
+    fn test_remove_duplicates() {
+        assert_eq!(remove_duplicates(&[1, 2, 2, 3, 1]), vec![1, 2, 3]);
     }
 
     // Tests Ejercicio 4
     #[test]
-    fn test_inventario_agregar() {
-        let mut inv = Inventario::new();
-        let id1 = inv.agregar("Producto A", 10.0, 5);
-        let id2 = inv.agregar("Producto B", 20.0, 3);
+    fn test_inventory_add() {
+        let mut inv = Inventory::new();
+        let id1 = inv.add("Producto A", 10.0, 5);
+        let id2 = inv.add("Producto B", 20.0, 3);
         assert_eq!(id1, 1);
         assert_eq!(id2, 2);
-        assert_eq!(inv.productos.len(), 2);
+        assert_eq!(inv.products.len(), 2);
     }
 
     #[test]
-    fn test_inventario_buscar() {
-        let mut inv = Inventario::new();
-        inv.agregar("Test", 10.0, 5);
-        assert!(inv.buscar(1).is_some());
-        assert!(inv.buscar(999).is_none());
+    fn test_inventory_find() {
+        let mut inv = Inventory::new();
+        inv.add("Test", 10.0, 5);
+        assert!(inv.find(1).is_some());
+        assert!(inv.find(999).is_none());
     }
 
     #[test]
-    fn test_inventario_buscar_por_nombre() {
-        let mut inv = Inventario::new();
-        inv.agregar("Laptop HP", 899.99, 5);
-        inv.agregar("Laptop Dell", 999.99, 3);
-        inv.agregar("Mouse", 29.99, 10);
+    fn test_inventory_find_by_name() {
+        let mut inv = Inventory::new();
+        inv.add("Laptop HP", 899.99, 5);
+        inv.add("Laptop Dell", 999.99, 3);
+        inv.add("Mouse", 29.99, 10);
 
-        let laptops = inv.buscar_por_nombre("laptop");
+        let laptops = inv.find_by_name("laptop");
         assert_eq!(laptops.len(), 2);
     }
 
     #[test]
-    fn test_inventario_valor_total() {
-        let mut inv = Inventario::new();
-        inv.agregar("A", 10.0, 5);  // 50
-        inv.agregar("B", 20.0, 2);  // 40
-        assert!((inv.valor_total() - 90.0).abs() < 0.01);
+    fn test_inventory_total_value() {
+        let mut inv = Inventory::new();
+        inv.add("A", 10.0, 5);  // 50
+        inv.add("B", 20.0, 2);  // 40
+        assert!((inv.total_value() - 90.0).abs() < 0.01);
     }
 
     #[test]
-    fn test_inventario_stock_bajo() {
-        let mut inv = Inventario::new();
-        inv.agregar("A", 10.0, 2);
-        inv.agregar("B", 20.0, 10);
-        inv.agregar("C", 30.0, 1);
+    fn test_inventory_low_stock() {
+        let mut inv = Inventory::new();
+        inv.add("A", 10.0, 2);
+        inv.add("B", 20.0, 10);
+        inv.add("C", 30.0, 1);
 
-        let bajo = inv.stock_bajo(5);
-        assert_eq!(bajo.len(), 2);
+        let low = inv.low_stock(5);
+        assert_eq!(low.len(), 2);
     }
 
     #[test]
-    fn test_inventario_eliminar() {
-        let mut inv = Inventario::new();
-        inv.agregar("Test", 10.0, 5);
+    fn test_inventory_delete() {
+        let mut inv = Inventory::new();
+        inv.add("Test", 10.0, 5);
         
-        let eliminado = inv.eliminar(1);
-        assert!(eliminado.is_some());
-        assert_eq!(eliminado.unwrap().nombre, "Test");
-        assert!(inv.productos.is_empty());
+        let deleted = inv.delete(1);
+        assert!(deleted.is_some());
+        assert_eq!(deleted.unwrap().name, "Test");
+        assert!(inv.products.is_empty());
     }
 }
