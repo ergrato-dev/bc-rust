@@ -26,26 +26,26 @@ fn main() {
 // ============================================================
 
 /// Nodo de la lista doblemente enlazada
-struct Nodo<K, V> {
+struct Node<K, V> {
     key: K,
     value: V,
-    prev: RefCell<Weak<Nodo<K, V>>>,
-    next: RefCell<Option<Rc<Nodo<K, V>>>>,
+    prev: RefCell<Weak<Node<K, V>>>,
+    next: RefCell<Option<Rc<Node<K, V>>>>,
 }
 
 /// Cache LRU con capacidad limitada
 struct LruCache<K, V> {
-    capacidad: usize,
-    mapa: RefCell<HashMap<K, Rc<Nodo<K, V>>>>,
-    head: RefCell<Option<Rc<Nodo<K, V>>>>,  // Más reciente
-    tail: RefCell<Weak<Nodo<K, V>>>,        // Menos reciente
+    capacity: usize,
+    map: RefCell<HashMap<K, Rc<Node<K, V>>>>,
+    head: RefCell<Option<Rc<Node<K, V>>>>,  // Más reciente
+    tail: RefCell<Weak<Node<K, V>>>,        // Menos reciente
     hits: RefCell<usize>,
     misses: RefCell<usize>,
 }
 
-impl<K, V> Nodo<K, V> {
+impl<K, V> Node<K, V> {
     fn new(key: K, value: V) -> Rc<Self> {
-        Rc::new(Nodo {
+        Rc::new(Node {
             key,
             value,
             prev: RefCell::new(Weak::new()),
@@ -60,10 +60,10 @@ where
     V: Clone + Debug,
 {
     /// Crea un nuevo cache con capacidad especificada
-    fn new(capacidad: usize) -> Self {
+    fn new(capacity: usize) -> Self {
         LruCache {
-            capacidad,
-            mapa: RefCell::new(HashMap::new()),
+            capacity,
+            map: RefCell::new(HashMap::new()),
             head: RefCell::new(None),
             tail: RefCell::new(Weak::new()),
             hits: RefCell::new(0),
@@ -73,17 +73,17 @@ where
 
     /// Obtiene un valor del cache
     fn get(&self, key: &K) -> Option<V> {
-        let mapa = self.mapa.borrow();
+        let map = self.map.borrow();
         
-        if let Some(nodo) = mapa.get(key) {
+        if let Some(node) = map.get(key) {
             *self.hits.borrow_mut() += 1;
             
             // Mover al frente (más reciente)
-            let nodo_clone = Rc::clone(nodo);
-            drop(mapa); // Liberar borrow antes de modificar
-            self.mover_al_frente(&nodo_clone);
+            let node_clone = Rc::clone(node);
+            drop(map); // Liberar borrow antes de modificar
+            self.move_to_front(&node_clone);
             
-            Some(nodo_clone.value.clone())
+            Some(node_clone.value.clone())
         } else {
             *self.misses.borrow_mut() += 1;
             None
@@ -93,81 +93,81 @@ where
     /// Inserta o actualiza un valor en el cache
     fn put(&self, key: K, value: V) {
         // Si ya existe, remover el nodo viejo
-        let existia = {
-            let mapa = self.mapa.borrow();
-            mapa.contains_key(&key)
+        let existed = {
+            let map = self.map.borrow();
+            map.contains_key(&key)
         };
         
-        if existia {
-            if let Some(nodo_viejo) = self.mapa.borrow_mut().remove(&key) {
-                self.remover_nodo(&nodo_viejo);
+        if existed {
+            if let Some(old_node) = self.map.borrow_mut().remove(&key) {
+                self.remove_node(&old_node);
             }
         }
         
         // Verificar capacidad y remover LRU si es necesario
-        let necesita_evict = {
-            self.mapa.borrow().len() >= self.capacidad
+        let needs_evict = {
+            self.map.borrow().len() >= self.capacity
         };
         
-        if necesita_evict {
+        if needs_evict {
             // Obtener la key del tail para remover
             let tail_key = {
                 self.tail.borrow().upgrade().map(|t| t.key.clone())
             };
             
             if let Some(k) = tail_key {
-                if let Some(tail) = self.mapa.borrow_mut().remove(&k) {
-                    self.remover_nodo(&tail);
+                if let Some(tail) = self.map.borrow_mut().remove(&k) {
+                    self.remove_node(&tail);
                 }
             }
         }
         
         // Crear nuevo nodo
-        let nodo = Nodo::new(key.clone(), value);
+        let node = Node::new(key.clone(), value);
         
         // Agregar al frente
-        self.agregar_al_frente(&nodo);
+        self.add_to_front(&node);
         
         // Agregar al mapa
-        self.mapa.borrow_mut().insert(key, nodo);
+        self.map.borrow_mut().insert(key, node);
     }
 
     /// Agrega un nodo al frente (más reciente)
-    fn agregar_al_frente(&self, nodo: &Rc<Nodo<K, V>>) {
-        let head_actual = self.head.borrow().clone();
+    fn add_to_front(&self, node: &Rc<Node<K, V>>) {
+        let current_head = self.head.borrow().clone();
         
         // Nuevo nodo apunta al head actual
-        *nodo.next.borrow_mut() = head_actual.clone();
-        *nodo.prev.borrow_mut() = Weak::new();
+        *node.next.borrow_mut() = current_head.clone();
+        *node.prev.borrow_mut() = Weak::new();
         
         // Si había un head, su prev apunta al nuevo nodo
-        if let Some(ref head) = head_actual {
-            *head.prev.borrow_mut() = Rc::downgrade(nodo);
+        if let Some(ref head) = current_head {
+            *head.prev.borrow_mut() = Rc::downgrade(node);
         } else {
             // Lista vacía, tail también apunta al nuevo nodo
-            *self.tail.borrow_mut() = Rc::downgrade(nodo);
+            *self.tail.borrow_mut() = Rc::downgrade(node);
         }
         
         // Actualizar head
-        *self.head.borrow_mut() = Some(Rc::clone(nodo));
+        *self.head.borrow_mut() = Some(Rc::clone(node));
     }
 
     /// Remueve un nodo de la lista
-    fn remover_nodo(&self, nodo: &Rc<Nodo<K, V>>) {
-        let prev = nodo.prev.borrow().upgrade();
-        let next = nodo.next.borrow().clone();
+    fn remove_node(&self, node: &Rc<Node<K, V>>) {
+        let prev = node.prev.borrow().upgrade();
+        let next = node.next.borrow().clone();
         
         // Actualizar prev.next
-        if let Some(ref prev_nodo) = prev {
-            *prev_nodo.next.borrow_mut() = next.clone();
+        if let Some(ref prev_node) = prev {
+            *prev_node.next.borrow_mut() = next.clone();
         } else {
             // Era el head
             *self.head.borrow_mut() = next.clone();
         }
         
         // Actualizar next.prev
-        if let Some(ref next_nodo) = next {
-            *next_nodo.prev.borrow_mut() = match prev {
+        if let Some(ref next_node) = next {
+            *next_node.prev.borrow_mut() = match prev {
                 Some(ref p) => Rc::downgrade(p),
                 None => Weak::new(),
             };
@@ -181,32 +181,33 @@ where
     }
 
     /// Mueve un nodo al frente
-    fn mover_al_frente(&self, nodo: &Rc<Nodo<K, V>>) {
+    fn move_to_front(&self, node: &Rc<Node<K, V>>) {
         // Si ya es el head, no hacer nada
-        if self.head.borrow().as_ref().map(|h| Rc::ptr_eq(h, nodo)).unwrap_or(false) {
+        if self.head.borrow().as_ref().map(|h| Rc::ptr_eq(h, node)).unwrap_or(false) {
             return;
         }
         
-        self.remover_nodo(nodo);
-        self.agregar_al_frente(nodo);
+        self.remove_node(node);
+        self.add_to_front(node);
     }
 
     /// Remueve el elemento menos recientemente usado
-    fn remover_lru(&self) {
+    /// Remueve el elemento menos recientemente usado
+    fn remove_lru(&self) {
         if let Some(tail) = self.tail.borrow().upgrade() {
             let key = tail.key.clone();
-            self.remover_nodo(&tail);
-            self.mapa.borrow_mut().remove(&key);
+            self.remove_node(&tail);
+            self.map.borrow_mut().remove(&key);
         }
     }
 
     /// Retorna el número de elementos en el cache
     fn len(&self) -> usize {
-        self.mapa.borrow().len()
+        self.map.borrow().len()
     }
 
     /// Retorna estadísticas del cache
-    fn estadisticas(&self) -> (usize, usize, f64) {
+    fn stats(&self) -> (usize, usize, f64) {
         let hits = *self.hits.borrow();
         let misses = *self.misses.borrow();
         let total = hits + misses;
@@ -219,17 +220,17 @@ where
     }
 
     /// Imprime el contenido del cache (del más al menos reciente)
-    fn imprimir(&self) {
+    fn print_cache(&self) {
         print!("Cache [");
         let mut current = self.head.borrow().clone();
         let mut first = true;
-        while let Some(nodo) = current {
+        while let Some(node) = current {
             if !first {
                 print!(", ");
             }
-            print!("{:?}:{:?}", nodo.key, nodo.value);
+            print!("{:?}:{:?}", node.key, node.value);
             first = false;
-            current = nodo.next.borrow().clone();
+            current = node.next.borrow().clone();
         }
         println!("]");
     }
@@ -249,17 +250,17 @@ fn demo_cache_basico() {
     cache.put("c", 3);
     
     print!("Después de insertar a, b, c: ");
-    cache.imprimir();
+    cache.print_cache();
     
     // Acceder a 'a' lo mueve al frente
     let _ = cache.get(&"a");
     print!("Después de acceder 'a': ");
-    cache.imprimir();
+    cache.print_cache();
     
     // Insertar 'd' elimina 'b' (LRU)
     cache.put("d", 4);
     print!("Después de insertar 'd': ");
-    cache.imprimir();
+    cache.print_cache();
 }
 
 fn demo_cache_con_capacidad() {
@@ -270,11 +271,11 @@ fn demo_cache_con_capacidad() {
     cache.put(1, "uno".to_string());
     cache.put(2, "dos".to_string());
     println!("Capacidad: 2, elementos: {}", cache.len());
-    cache.imprimir();
+    cache.print_cache();
     
     cache.put(3, "tres".to_string());
     println!("Después de insertar 3 (elimina 1):");
-    cache.imprimir();
+    cache.print_cache();
     
     // Verificar que 1 fue eliminado
     match cache.get(&1) {
@@ -299,7 +300,7 @@ fn demo_cache_estadisticas() {
     let _ = cache.get(&"user:2"); // hit
     let _ = cache.get(&"user:5"); // miss
     
-    let (hits, misses, hit_rate) = cache.estadisticas();
+    let (hits, misses, hit_rate) = cache.stats();
     println!("Hits: {}, Misses: {}, Hit Rate: {:.1}%", hits, misses, hit_rate);
 }
 
@@ -323,7 +324,7 @@ mod tests {
     }
 
     #[test]
-    fn test_cache_capacidad() {
+    fn test_cache_capacity() {
         let cache = LruCache::new(2);
         cache.put(1, "a");
         cache.put(2, "b");
@@ -362,7 +363,7 @@ mod tests {
     }
 
     #[test]
-    fn test_cache_estadisticas() {
+    fn test_cache_stats() {
         let cache = LruCache::new(2);
         cache.put("a", 1);
         
@@ -370,7 +371,7 @@ mod tests {
         let _ = cache.get(&"b"); // miss
         let _ = cache.get(&"a"); // hit
         
-        let (hits, misses, _) = cache.estadisticas();
+        let (hits, misses, _) = cache.stats();
         assert_eq!(hits, 2);
         assert_eq!(misses, 1);
     }
