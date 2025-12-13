@@ -1,95 +1,95 @@
 // ============================================
 // 🦀 Bootcamp Rust: Zero to Hero
-// Semana 01 - Proyecto: Sistema de Información
+// Week 01 - Project: Information System
 // ============================================
 //
-// OBJETIVO:
-// Crear un programa que muestre información
-// personal y del bootcamp de forma organizada.
+// OBJECTIVE:
+// Create a program that displays personal
+// and bootcamp information in an organized way.
 //
-// EJECUTAR:
+// RUN:
 // $ cargo run
 //
 // ============================================
 
 fn main() {
-    mostrar_banner();
-    mostrar_info_personal();
-    mostrar_info_bootcamp();
-    mostrar_estadisticas();
-    mostrar_footer();
+    show_banner();
+    show_personal_info();
+    show_bootcamp_info();
+    show_statistics();
+    show_footer();
 }
 
-/// Muestra el banner de bienvenida
-fn mostrar_banner() {
+/// Shows the welcome banner
+fn show_banner() {
     println!("╔══════════════════════════════════════════╗");
     println!("║    🦀 BOOTCAMP RUST: ZERO TO HERO 🦀    ║");
     println!("╠══════════════════════════════════════════╣");
 }
 
-/// Muestra la información personal del estudiante
-fn mostrar_info_personal() {
-    // TODO: Personaliza con tu información
-    let nombre = "Tu Nombre";
-    let rol = "Desarrollador";
-    let ubicacion = "Tu Ciudad";
+/// Shows student's personal information
+fn show_personal_info() {
+    // TODO: Customize with your information
+    let name = "Your Name";
+    let role = "Developer";
+    let location = "Your City";
 
-    println!("║  Estudiante: {:<27}║", nombre);
-    println!("║  Rol: {:<34}║", rol);
-    println!("║  Ubicación: {:<28}║", ubicacion);
+    println!("║  Student: {:<30}║", name);
+    println!("║  Role: {:<33}║", role);
+    println!("║  Location: {:<29}║", location);
     println!("╠══════════════════════════════════════════╣");
 }
 
-/// Muestra el progreso del bootcamp
-fn mostrar_info_bootcamp() {
-    let semana_actual = 1;
-    let total_semanas = 16;
-    let tema = "Introducción a Rust";
+/// Shows bootcamp progress
+fn show_bootcamp_info() {
+    let current_week = 1;
+    let total_weeks = 17;
+    let topic = "Introduction to Rust";
 
-    // Calcular progreso
-    let progreso = (semana_actual * 100) / total_semanas;
+    // Calculate progress
+    let progress = (current_week * 100) / total_weeks;
 
-    // Crear barra de progreso
-    let barra = crear_barra_progreso(progreso, 16);
+    // Create progress bar
+    let bar = create_progress_bar(progress, 16);
 
-    println!("║  📅 Semana: {:02}/{}                        ║", semana_actual, total_semanas);
-    println!("║  📚 Tema: {:<30}║", tema);
-    println!("║  📊 Progreso: {} {:>3}%       ║", barra, progreso);
+    println!("║  📅 Week: {:02}/{}                         ║", current_week, total_weeks);
+    println!("║  📚 Topic: {:<29}║", topic);
+    println!("║  📊 Progress: {} {:>3}%       ║", bar, progress);
     println!("╠══════════════════════════════════════════╣");
 }
 
-/// Muestra estadísticas del día
-fn mostrar_estadisticas() {
-    let energia = 80;
-    let horas_planeadas = 4;
+/// Shows daily statistics
+fn show_statistics() {
+    let energy = 80;
+    let planned_hours = 4;
 
-    let barra_energia = crear_barra_progreso(energia, 10);
+    let energy_bar = create_progress_bar(energy, 10);
 
-    println!("║  ⚡ Energía hoy: {} {:>3}%          ║", barra_energia, energia);
-    println!("║  ⏰ Horas planeadas: {}                    ║", horas_planeadas);
+    println!("║  ⚡ Energy today: {} {:>3}%         ║", energy_bar, energy);
+    println!("║  ⏰ Planned hours: {}                     ║", planned_hours);
 }
 
-/// Muestra el footer
-fn mostrar_footer() {
+/// Shows the footer
+fn show_footer() {
     println!("╚══════════════════════════════════════════╝");
     println!();
-    println!("  ¡A programar! 🚀");
+    println!("  Let's code! 🚀");
 }
 
-/// Crea una barra de progreso visual
-fn crear_barra_progreso(porcentaje: i32, longitud: i32) -> String {
-    let llenos = (porcentaje * longitud) / 100;
-    let vacios = longitud - llenos;
+/// Creates a visual progress bar
+fn create_progress_bar(percentage: i32, length: i32) -> String {
+    let filled = (percentage * length) / 100;
+    let empty = length - filled;
 
-    let mut barra = String::new();
+    let mut bar = String::new();
 
-    for _ in 0..llenos {
-        barra.push('▓');
+    for _ in 0..filled {
+        bar.push('▓');
     }
 
-    for _ in 0..vacios {
-        barra.push('░');
+    for _ in 0..empty {
+        bar.push('░');
     }
 
-    barra
+    bar
 }
