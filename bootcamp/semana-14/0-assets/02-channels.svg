@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 12px; fill: #569cd6; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .producer { fill: #264f78; stroke: #569cd6; stroke-width: 2; }
+    .consumer { fill: #2d4a2d; stroke: #6a9955; stroke-width: 2; }
+    .queue { fill: #3d3d3d; stroke: #CE422B; stroke-width: 2; }
+    .message { fill: #4d3319; stroke: #CE422B; stroke-width: 1; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <text x="400" y="35" text-anchor="middle" class="title">Channels (MPSC)</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">Multiple Producer, Single Consumer</text>
+  
+  <!-- Producers -->
+  <rect x="50" y="100" width="120" height="60" class="producer" rx="8"/>
+  <text x="110" y="125" text-anchor="middle" class="label">Producer 1</text>
+  <text x="110" y="145" text-anchor="middle" class="code">tx.send()</text>
+  
+  <rect x="50" y="180" width="120" height="60" class="producer" rx="8"/>
+  <text x="110" y="205" text-anchor="middle" class="label">Producer 2</text>
+  <text x="110" y="225" text-anchor="middle" class="code">tx.send()</text>
+  
+  <rect x="50" y="260" width="120" height="60" class="producer" rx="8"/>
+  <text x="110" y="285" text-anchor="middle" class="label">Producer 3</text>
+  <text x="110" y="305" text-anchor="middle" class="code">tx.send()</text>
+  
+  <!-- Arrows to queue -->
+  <path d="M 170 130 L 280 180" class="arrow"/>
+  <path d="M 170 210 L 280 210" class="arrow"/>
+  <path d="M 170 290 L 280 240" class="arrow"/>
+  
+  <!-- Queue -->
+  <rect x="290" y="150" width="200" height="120" class="queue" rx="8"/>
+  <text x="390" y="175" text-anchor="middle" class="label">Channel Queue</text>
+  
+  <!-- Messages in queue -->
+  <rect x="310" y="190" width="50" height="30" class="message" rx="4"/>
+  <text x="335" y="210" text-anchor="middle" class="code">msg</text>
+  
+  <rect x="370" y="190" width="50" height="30" class="message" rx="4"/>
+  <text x="395" y="210" text-anchor="middle" class="code">msg</text>
+  
+  <rect x="430" y="190" width="50" height="30" class="message" rx="4"/>
+  <text x="455" y="210" text-anchor="middle" class="code">msg</text>
+  
+  <text x="390" y="255" text-anchor="middle" class="small">FIFO (First In, First Out)</text>
+  
+  <!-- Arrow to consumer -->
+  <path d="M 490 210 L 580 210" class="arrow"/>
+  
+  <!-- Consumer -->
+  <rect x="590" y="150" width="150" height="120" class="consumer" rx="8"/>
+  <text x="665" y="185" text-anchor="middle" class="label">Consumer</text>
+  <text x="665" y="210" text-anchor="middle" class="code">rx.recv()</text>
+  <text x="665" y="235" text-anchor="middle" class="small">o</text>
+  <text x="665" y="255" text-anchor="middle" class="code">for msg in rx</text>
+  
+  <!-- Code example -->
+  <rect x="50" y="340" width="320" height="90" class="box" rx="4"/>
+  <text x="65" y="365" class="keyword">let</text>
+  <text x="90" y="365" class="code">(tx, rx) = mpsc::</text>
+  <text x="230" y="365" class="type">channel</text>
+  <text x="285" y="365" class="code">();</text>
+  
+  <text x="65" y="390" class="keyword">let</text>
+  <text x="90" y="390" class="code">tx2 = tx.</text>
+  <text x="155" y="390" class="type">clone</text>
+  <text x="195" y="390" class="code">();</text>
+  <text x="220" y="390" class="small">// Para otro producer</text>
+  
+  <text x="65" y="415" class="code">tx.</text>
+  <text x="85" y="415" class="type">send</text>
+  <text x="120" y="415" class="code">(valor).</text>
+  <text x="175" y="415" class="type">unwrap</text>
+  <text x="225" y="415" class="code">();</text>
+  
+  <!-- Types box -->
+  <rect x="400" y="340" width="350" height="90" class="box" rx="4"/>
+  <text x="575" y="365" text-anchor="middle" class="label">Tipos de Channel</text>
+  
+  <text x="420" y="390" class="type">channel()</text>
+  <text x="510" y="390" class="small">Buffer ilimitado</text>
+  
+  <text x="420" y="415" class="type">sync_channel(n)</text>
+  <text x="550" y="415" class="small">Buffer de n elementos</text>
+</svg>

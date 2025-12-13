@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 12px; fill: #569cd6; }
+    .function { font-family: 'Fira Code', monospace; font-size: 12px; fill: #dcdcaa; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .box-highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .thread-main { fill: #264f78; stroke: #3c3c3c; stroke-width: 1; }
+    .thread-spawn { fill: #4d3319; stroke: #CE422B; stroke-width: 1; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <text x="400" y="35" text-anchor="middle" class="title">Threads en Rust</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">std::thread - Ejecución paralela</text>
+  
+  <!-- Timeline -->
+  <line x1="100" y1="100" x2="100" y2="400" stroke="#3c3c3c" stroke-width="2"/>
+  <line x1="350" y1="100" x2="350" y2="400" stroke="#3c3c3c" stroke-width="2"/>
+  
+  <text x="100" y="90" text-anchor="middle" class="label">Thread Principal</text>
+  <text x="350" y="90" text-anchor="middle" class="label">Thread Hijo</text>
+  
+  <!-- Main thread blocks -->
+  <rect x="60" y="110" width="80" height="40" class="thread-main" rx="4"/>
+  <text x="100" y="135" text-anchor="middle" class="code">spawn()</text>
+  
+  <!-- Arrow to spawn -->
+  <path d="M 140 130 Q 200 130 310 150" class="arrow"/>
+  
+  <!-- Child thread blocks -->
+  <rect x="310" y="140" width="80" height="35" class="thread-spawn" rx="4"/>
+  <text x="350" y="162" text-anchor="middle" class="code">inicio</text>
+  
+  <rect x="310" y="185" width="80" height="60" class="thread-spawn" rx="4"/>
+  <text x="350" y="210" text-anchor="middle" class="code">trabajo</text>
+  <text x="350" y="230" text-anchor="middle" class="small">...</text>
+  
+  <rect x="310" y="255" width="80" height="35" class="thread-spawn" rx="4"/>
+  <text x="350" y="277" text-anchor="middle" class="code">fin</text>
+  
+  <!-- Main continues -->
+  <rect x="60" y="160" width="80" height="80" class="thread-main" rx="4"/>
+  <text x="100" y="195" text-anchor="middle" class="code">continúa</text>
+  <text x="100" y="215" text-anchor="middle" class="small">en paralelo</text>
+  
+  <!-- Join -->
+  <rect x="60" y="250" width="80" height="40" class="thread-main" rx="4"/>
+  <text x="100" y="275" text-anchor="middle" class="code">join()</text>
+  
+  <!-- Arrow from child end to join -->
+  <path d="M 310 272 Q 250 290 140 280" class="arrow" stroke="#CE422B"/>
+  
+  <!-- After join -->
+  <rect x="60" y="310" width="80" height="40" class="thread-main" rx="4"/>
+  <text x="100" y="335" text-anchor="middle" class="code">resultado</text>
+  
+  <!-- Code example -->
+  <rect x="480" y="100" width="280" height="200" class="box" rx="4"/>
+  <text x="500" y="125" class="keyword">let</text>
+  <text x="525" y="125" class="code">handle =</text>
+  <text x="500" y="145" class="code">  thread::</text>
+  <text x="560" y="145" class="function">spawn</text>
+  <text x="610" y="145" class="code">(</text>
+  <text x="618" y="145" class="keyword">move</text>
+  <text x="655" y="145" class="code">|| {</text>
+  
+  <text x="510" y="170" class="code">  </text>
+  <text x="525" y="170" class="small">// código del thread</text>
+  <text x="510" y="190" class="code">  42</text>
+  <text x="510" y="210" class="code">});</text>
+  
+  <text x="500" y="240" class="small">// Esperar resultado</text>
+  <text x="500" y="260" class="keyword">let</text>
+  <text x="525" y="260" class="code">r = handle.</text>
+  <text x="605" y="260" class="function">join</text>
+  <text x="635" y="260" class="code">()</text>
+  <text x="500" y="280" class="code">  .</text>
+  <text x="515" y="280" class="function">unwrap</text>
+  <text x="565" y="280" class="code">();</text>
+  
+  <!-- Legend -->
+  <rect x="480" y="320" width="280" height="70" class="box" rx="4"/>
+  <text x="620" y="345" text-anchor="middle" class="label">Conceptos Clave</text>
+  
+  <rect x="495" y="355" width="15" height="15" class="thread-main" rx="2"/>
+  <text x="520" y="367" class="small">Thread principal</text>
+  
+  <rect x="620" y="355" width="15" height="15" class="thread-spawn" rx="2"/>
+  <text x="645" y="367" class="small">Thread hijo</text>
+  
+  <text x="500" y="382" class="keyword">move</text>
+  <text x="540" y="382" class="small">= transferir ownership</text>
+</svg>

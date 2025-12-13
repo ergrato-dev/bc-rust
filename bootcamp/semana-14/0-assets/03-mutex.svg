@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 12px; fill: #569cd6; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .thread { fill: #264f78; stroke: #569cd6; stroke-width: 2; }
+    .thread-blocked { fill: #4d3319; stroke: #CE422B; stroke-width: 2; }
+    .mutex { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .data { fill: #2d4a2d; stroke: #6a9955; stroke-width: 2; }
+    .locked { fill: #CE422B; }
+    .unlocked { fill: #6a9955; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <text x="400" y="35" text-anchor="middle" class="title">Mutex - Exclusión Mutua</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">Solo un thread accede a la vez</text>
+  
+  <!-- Estado 1: Thread A tiene lock -->
+  <rect x="40" y="85" width="220" height="170" class="box" rx="4"/>
+  <text x="150" y="105" text-anchor="middle" class="label">Estado 1: Thread A tiene lock</text>
+  
+  <rect x="55" y="120" width="80" height="40" class="thread" rx="4"/>
+  <text x="95" y="145" text-anchor="middle" class="code">Thread A</text>
+  
+  <rect x="165" y="120" width="80" height="40" class="thread-blocked" rx="4"/>
+  <text x="205" y="140" text-anchor="middle" class="code">Thread B</text>
+  <text x="205" y="155" text-anchor="middle" class="small">bloqueado</text>
+  
+  <rect x="90" y="180" width="120" height="60" class="mutex" rx="4"/>
+  <circle cx="110" cy="200" r="8" class="locked"/>
+  <text x="150" y="200" text-anchor="middle" class="code">Mutex</text>
+  <text x="150" y="220" text-anchor="middle" class="small">LOCKED</text>
+  
+  <!-- Flecha de A a Mutex -->
+  <line x1="95" y1="160" x2="120" y2="180" stroke="#6a9955" stroke-width="2"/>
+  
+  <!-- Estado 2: Thread B espera -->
+  <rect x="290" y="85" width="220" height="170" class="box" rx="4"/>
+  <text x="400" y="105" text-anchor="middle" class="label">Estado 2: A libera, B adquiere</text>
+  
+  <rect x="305" y="120" width="80" height="40" class="thread" rx="4"/>
+  <text x="345" y="145" text-anchor="middle" class="code">Thread A</text>
+  
+  <rect x="415" y="120" width="80" height="40" class="thread" rx="4"/>
+  <text x="455" y="145" text-anchor="middle" class="code">Thread B</text>
+  
+  <rect x="340" y="180" width="120" height="60" class="mutex" rx="4"/>
+  <circle cx="360" cy="200" r="8" class="unlocked"/>
+  <text x="400" y="200" text-anchor="middle" class="code">Mutex</text>
+  <text x="400" y="220" text-anchor="middle" class="small">UNLOCKED</text>
+  
+  <!-- Flecha de B a Mutex -->
+  <line x1="455" y1="160" x2="430" y2="180" stroke="#CE422B" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Estado 3: Thread B tiene lock -->
+  <rect x="540" y="85" width="220" height="170" class="box" rx="4"/>
+  <text x="650" y="105" text-anchor="middle" class="label">Estado 3: Thread B tiene lock</text>
+  
+  <rect x="555" y="120" width="80" height="40" class="thread" rx="4"/>
+  <text x="595" y="145" text-anchor="middle" class="code">Thread A</text>
+  
+  <rect x="665" y="120" width="80" height="40" class="thread" rx="4"/>
+  <text x="705" y="145" text-anchor="middle" class="code">Thread B</text>
+  
+  <rect x="590" y="180" width="120" height="60" class="mutex" rx="4"/>
+  <circle cx="610" cy="200" r="8" class="locked"/>
+  <text x="650" y="200" text-anchor="middle" class="code">Mutex</text>
+  <text x="650" y="220" text-anchor="middle" class="small">LOCKED</text>
+  
+  <!-- Flecha de B a Mutex -->
+  <line x1="705" y1="160" x2="680" y2="180" stroke="#6a9955" stroke-width="2"/>
+  
+  <!-- Código -->
+  <rect x="40" y="275" width="350" height="180" class="box" rx="4"/>
+  <text x="215" y="300" text-anchor="middle" class="label">Patrón Arc + Mutex</text>
+  
+  <text x="55" y="325" class="keyword">use</text>
+  <text x="80" y="325" class="code">std::sync::{</text>
+  <text x="165" y="325" class="type">Arc</text>
+  <text x="185" y="325" class="code">,</text>
+  <text x="195" y="325" class="type">Mutex</text>
+  <text x="235" y="325" class="code">};</text>
+  
+  <text x="55" y="350" class="keyword">let</text>
+  <text x="80" y="350" class="code">data =</text>
+  <text x="120" y="350" class="type">Arc</text>
+  <text x="145" y="350" class="code">::new(</text>
+  <text x="55" y="370" class="code">    </text>
+  <text x="75" y="370" class="type">Mutex</text>
+  <text x="115" y="370" class="code">::new(0)</text>
+  <text x="55" y="390" class="code">);</text>
+  
+  <text x="55" y="420" class="keyword">let</text>
+  <text x="80" y="420" class="code">data_clone =</text>
+  <text x="165" y="420" class="type">Arc</text>
+  <text x="190" y="420" class="code">::clone(&data);</text>
+  
+  <text x="55" y="445" class="code">*data.</text>
+  <text x="95" y="445" class="type">lock</text>
+  <text x="125" y="445" class="code">().</text>
+  <text x="145" y="445" class="type">unwrap</text>
+  <text x="195" y="445" class="code">() += 1;</text>
+  
+  <!-- Comparación Mutex vs RwLock -->
+  <rect x="410" y="275" width="350" height="180" class="box" rx="4"/>
+  <text x="585" y="300" text-anchor="middle" class="label">Mutex vs RwLock</text>
+  
+  <text x="430" y="330" class="type">Mutex&lt;T&gt;</text>
+  <text x="430" y="355" class="small">• 1 lector O 1 escritor</text>
+  <text x="430" y="375" class="small">• Más simple</text>
+  <text x="430" y="395" class="small">• Escrituras frecuentes</text>
+  
+  <text x="590" y="330" class="type">RwLock&lt;T&gt;</text>
+  <text x="590" y="355" class="small">• N lectores O 1 escritor</text>
+  <text x="590" y="375" class="small">• Más complejo</text>
+  <text x="590" y="395" class="small">• Lecturas frecuentes</text>
+  
+  <!-- Legend -->
+  <circle cx="440" cy="435" r="8" class="locked"/>
+  <text x="455" y="440" class="small">Locked</text>
+  
+  <circle cx="530" cy="435" r="8" class="unlocked"/>
+  <text x="545" y="440" class="small">Unlocked</text>
+</svg>
