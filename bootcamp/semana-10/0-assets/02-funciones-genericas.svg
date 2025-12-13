@@ -49,81 +49,77 @@
   
   <!-- Examples Grid -->
   <!-- Example 1: Simple -->
-  <rect x="30" y="155" width="235" height="110" rx="6" fill="#252526" stroke="#3c3c3c"/>
-  <text x="147" y="175" text-anchor="middle" class="label">Función Simple</text>
-  <text x="45" y="200" class="code">
+  <rect x="30" y="185" width="235" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="147" y="205" text-anchor="middle" class="label">Función Simple</text>
+  <text x="45" y="230" class="code">
     <tspan class="keyword">fn</tspan> <tspan class="function">identidad</tspan>&lt;<tspan class="type">T</tspan>&gt;(x: <tspan class="type">T</tspan>) -&gt; <tspan class="type">T</tspan> {
   </text>
-  <text x="45" y="218" class="code">    x</text>
-  <text x="45" y="236" class="code">}</text>
-  <text x="147" y="255" text-anchor="middle" class="small">Sin bounds - cualquier tipo</text>
+  <text x="45" y="248" class="code">    x</text>
+  <text x="45" y="266" class="code">}</text>
+  <text x="147" y="280" text-anchor="middle" class="small">Sin bounds - cualquier tipo</text>
   
   <!-- Example 2: With Bound -->
-  <rect x="282" y="155" width="235" height="110" rx="6" fill="#252526" stroke="#3c3c3c"/>
-  <text x="400" y="175" text-anchor="middle" class="label">Con Trait Bound</text>
-  <text x="297" y="200" class="code">
+  <rect x="282" y="185" width="235" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="400" y="205" text-anchor="middle" class="label">Con Trait Bound</text>
+  <text x="297" y="230" class="code">
     <tspan class="keyword">fn</tspan> <tspan class="function">clonar</tspan>&lt;<tspan class="type">T</tspan>: <tspan class="type">Clone</tspan>&gt;(x: &amp;<tspan class="type">T</tspan>) -&gt; <tspan class="type">T</tspan> {
   </text>
-  <text x="297" y="218" class="code">    x.<tspan class="function">clone</tspan>()</text>
-  <text x="297" y="236" class="code">}</text>
-  <text x="400" y="255" text-anchor="middle" class="small">T debe implementar Clone</text>
+  <text x="297" y="248" class="code">    x.<tspan class="function">clone</tspan>()</text>
+  <text x="297" y="266" class="code">}</text>
+  <text x="400" y="280" text-anchor="middle" class="small">T debe implementar Clone</text>
   
   <!-- Example 3: Multiple Types -->
-  <rect x="534" y="155" width="235" height="110" rx="6" fill="#252526" stroke="#3c3c3c"/>
-  <text x="652" y="175" text-anchor="middle" class="label">Múltiples Tipos</text>
-  <text x="549" y="200" class="code">
-    <tspan class="keyword">fn</tspan> <tspan class="function">par</tspan>&lt;<tspan class="type">T</tspan>, <tspan class="type">U</tspan>&gt;(a: <tspan class="type">T</tspan>, b: <tspan class="type">U</tspan>)
+  <rect x="534" y="185" width="235" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="652" y="205" text-anchor="middle" class="label">Múltiples Tipos</text>
+  <text x="549" y="230" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">par</tspan>&lt;<tspan class="type">T</tspan>, <tspan class="type">U</tspan>&gt;(a: <tspan class="type">T</tspan>, b: <tspan class="type">U</tspan>) -&gt; (<tspan class="type">T</tspan>, <tspan class="type">U</tspan>) {
   </text>
-  <text x="549" y="218" class="code">    -&gt; (<tspan class="type">T</tspan>, <tspan class="type">U</tspan>) {</text>
-  <text x="549" y="236" class="code">    (a, b)</text>
-  <text x="549" y="254" class="code">}</text>
+  <text x="549" y="248" class="code">    (a, b)</text>
+  <text x="549" y="266" class="code">}</text>
+  <text x="652" y="280" text-anchor="middle" class="small">Dos tipos genéricos T y U</text>
   
   <!-- Where Clause Section -->
-  <rect x="30" y="280" width="360" height="130" rx="6" fill="#252526" stroke="#569cd6"/>
-  <text x="210" y="300" text-anchor="middle" class="label" style="fill:#569cd6;">Cláusula where</text>
+  <rect x="30" y="300" width="360" height="120" rx="6" fill="#252526" stroke="#569cd6"/>
+  <text x="210" y="320" text-anchor="middle" class="label" style="fill:#569cd6;">Cláusula where</text>
   
-  <text x="45" y="325" class="code">
+  <text x="45" y="348" class="code">
     <tspan class="keyword">fn</tspan> <tspan class="function">procesar</tspan>&lt;<tspan class="type">T</tspan>, <tspan class="type">U</tspan>&gt;(t: <tspan class="type">T</tspan>, u: <tspan class="type">U</tspan>)
   </text>
-  <text x="45" y="345" class="code">
-    <tspan class="keyword">where</tspan>
-  </text>
-  <text x="45" y="365" class="code">
-    <tspan class="type">T</tspan>: <tspan class="type">Clone</tspan> + <tspan class="type">Debug</tspan>,
-  </text>
-  <text x="45" y="385" class="code">
-    <tspan class="type">U</tspan>: <tspan class="type">Display</tspan> + <tspan class="type">Default</tspan>,
-  </text>
-  <text x="45" y="400" class="code">{ ... }</text>
+  <text x="45" y="368" class="code"><tspan class="keyword">where</tspan> <tspan class="type">T</tspan>: <tspan class="type">Clone</tspan> + <tspan class="type">Debug</tspan>,</text>
+  <text x="45" y="388" class="code">      <tspan class="type">U</tspan>: <tspan class="type">Display</tspan> + <tspan class="type">Default</tspan></text>
+  <text x="45" y="408" class="code">{ <tspan class="comment">/* código */</tspan> }</text>
   
   <!-- Turbofish Section -->
-  <rect x="410" y="280" width="360" height="130" rx="6" fill="#252526" stroke="#CE422B"/>
-  <text x="590" y="300" text-anchor="middle" class="label" style="fill:#CE422B;">Turbofish ::</text>
+  <rect x="410" y="300" width="360" height="120" rx="6" fill="#252526" stroke="#CE422B"/>
+  <text x="590" y="320" text-anchor="middle" class="label" style="fill:#CE422B;">Turbofish ::</text>
   
-  <text x="425" y="325" class="code">
+  <text x="425" y="348" class="code">
     <tspan class="comment">// Especificar tipo explícitamente</tspan>
   </text>
-  <text x="425" y="350" class="code">
+  <text x="425" y="370" class="code">
     <tspan class="keyword">let</tspan> n = <tspan class="string">"42"</tspan>.<tspan class="function">parse</tspan>::&lt;<tspan class="type">i32</tspan>&gt;();
   </text>
-  <text x="425" y="375" class="code">
+  <text x="425" y="392" class="code">
     <tspan class="keyword">let</tspan> v = <tspan class="type">Vec</tspan>::&lt;<tspan class="type">i32</tspan>&gt;::<tspan class="function">new</tspan>();
   </text>
-  <text x="425" y="400" class="code">
+  <text x="425" y="414" class="code">
     <tspan class="keyword">let</tspan> x = <tspan class="function">identidad</tspan>::&lt;<tspan class="type">f64</tspan>&gt;(<tspan class="number">3.14</tspan>);
   </text>
   
   <!-- Usage Examples -->
-  <rect x="30" y="425" width="740" height="85" rx="6" fill="#2d2d2d" stroke="#4ec9b0"/>
-  <text x="400" y="445" text-anchor="middle" class="label" style="fill:#4ec9b0;">Inferencia de Tipos - El compilador deduce T</text>
+  <rect x="30" y="435" width="740" height="105" rx="6" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="400" y="458" text-anchor="middle" class="label" style="fill:#4ec9b0;">Inferencia de Tipos - El compilador deduce T</text>
   
-  <text x="50" y="475" class="code">
+  <text x="50" y="490" class="code">
     <tspan class="keyword">let</tspan> a = <tspan class="function">identidad</tspan>(<tspan class="number">42</tspan>);       <tspan class="comment">// T = i32</tspan>
   </text>
-  <text x="350" y="475" class="code">
+  <text x="50" y="515" class="code">
     <tspan class="keyword">let</tspan> b = <tspan class="function">identidad</tspan>(<tspan class="string">"hola"</tspan>);  <tspan class="comment">// T = &amp;str</tspan>
   </text>
-  <text x="620" y="475" class="code">
+  <text x="400" y="490" class="code">
     <tspan class="keyword">let</tspan> c = <tspan class="function">identidad</tspan>(<tspan class="number">3.14</tspan>);    <tspan class="comment">// T = f64</tspan>
+  </text>
+  <text x="400" y="515" class="code">
+    <tspan class="keyword">let</tspan> d = <tspan class="function">par</tspan>(<tspan class="number">1</tspan>, <tspan class="string">"a"</tspan>);        <tspan class="comment">// (i32, &amp;str)</tspan>
   </text>
 </svg>
