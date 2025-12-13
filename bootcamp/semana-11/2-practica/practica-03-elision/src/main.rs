@@ -116,19 +116,15 @@ impl<'a> TextProcessor<'a> {
 // ============================================================
 
 /// Retorna la cadena más corta
-fn min_by_len(a: &str, b: &str) -> &str {
-    // TODO: Esta función necesita lifetime 'a
-    if a.len() <= b.len() {
-        a
-    } else {
-        b
-    }
+fn min_by_len<'a>(a: &'a str, b: &'a str) -> &'a str {
+    // TODO: Implementa - retorna la cadena más corta
+    todo!("Implementa min_by_len")
 }
 
 /// Retorna a o b basándose en el flag
-fn either(a: &str, b: &str, pick_a: bool) -> &str {
-    // TODO: Esta función necesita lifetime 'a
-    if pick_a { a } else { b }
+fn either<'a>(a: &'a str, b: &'a str, pick_a: bool) -> &'a str {
+    // TODO: Implementa - si pick_a es true, retorna a
+    todo!("Implementa either")
 }
 
 // ============================================================

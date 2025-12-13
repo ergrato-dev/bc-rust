@@ -19,7 +19,7 @@ fn main() {
 
 fn demo_lexer() {
     println!("📝 Demo Lexer (Tokenizador)");
-    println!("-".repeat(40));
+    println!("{}", "-".repeat(40));
 
     let code = "let x = 42 + 3.14";
     println!("Input: '{}'", code);
@@ -36,7 +36,7 @@ fn demo_lexer() {
 
 fn demo_key_value() {
     println!("🔑 Demo Key=Value Parser");
-    println!("-".repeat(40));
+    println!("{}", "-".repeat(40));
 
     // Single key-value
     let single = "database_url = postgres://localhost/db";
@@ -64,7 +64,7 @@ database = mydb
 
 fn demo_csv() {
     println!("📊 Demo CSV Parser");
-    println!("-".repeat(40));
+    println!("{}", "-".repeat(40));
 
     let csv_data = r#"nombre,edad,ciudad
 Alice,30,Madrid
@@ -86,7 +86,7 @@ Charlie,35,Valencia"#;
 
 fn demo_ini() {
     println!("📁 Demo INI Parser");
-    println!("-".repeat(40));
+    println!("{}", "-".repeat(40));
 
     let ini_content = r#"
 [database]
@@ -117,7 +117,7 @@ level = debug
 
 fn demo_extract() {
     println!("🔍 Demo Extracción");
-    println!("-".repeat(40));
+    println!("{}", "-".repeat(40));
 
     // Extract words
     let text = "Rust es un lenguaje de programación, ¡increíble!";

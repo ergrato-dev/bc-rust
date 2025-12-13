@@ -48,13 +48,10 @@ fn main() {
 // Pista: Ambos parámetros pueden ser retornados
 // ============================================================
 
-fn longest(x: &str, y: &str) -> &str {
-    // TODO: Agrega lifetime 'a a la firma
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    // TODO: Implementa la lógica para retornar el más largo
+    // Pista: Compara x.len() con y.len()
+    todo!("Implementa longest")
 }
 
 // ============================================================
@@ -102,13 +99,10 @@ fn get_prefix(text: &str, delimiter: char) -> &str {
 // Pista: Similar a longest - ambas pueden retornarse
 // ============================================================
 
-fn pick_one(a: &str, b: &str, pick_first: bool) -> &str {
-    // TODO: Agrega lifetime 'a a la firma
-    if pick_first {
-        a
-    } else {
-        b
-    }
+fn pick_one<'a>(a: &'a str, b: &'a str, pick_first: bool) -> &'a str {
+    // TODO: Implementa la lógica
+    // Pista: Si pick_first es true, retorna a, sino b
+    todo!("Implementa pick_one")
 }
 
 // ============================================================
