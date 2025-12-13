@@ -14,21 +14,21 @@ fn main() {
     println!("=== Práctica 02: Channels ===\n");
 
     // Ejemplo 1: Channel básico
-    ejemplo_channel_basico();
+    example_basic_channel();
 
     // Ejemplo 2: Múltiples productores
-    ejemplo_multiples_productores();
+    example_multiple_producers();
 
     // Ejemplo 3: Iterando mensajes
-    ejemplo_iterando_mensajes();
+    example_iterating_messages();
 
     // Ejecuta los ejercicios
     println!("\n=== Ejercicios ===\n");
 
     // Descomenta para probar tus soluciones:
-    // ejercicio_1_pipeline();
-    // ejercicio_2_agregador();
-    // ejercicio_3_broadcast();
+    // exercise_1_pipeline();
+    // exercise_2_aggregator();
+    // exercise_3_broadcast();
 }
 
 // ============================================================================
@@ -36,16 +36,16 @@ fn main() {
 // ============================================================================
 
 /// Ejemplo: Channel básico productor-consumidor
-fn ejemplo_channel_basico() {
+fn example_basic_channel() {
     println!("--- Ejemplo: Channel Básico ---");
 
     // Crear un channel
     let (tx, rx) = mpsc::channel();
 
     // Productor en otro thread
-    let productor = thread::spawn(move || {
-        let mensajes = vec!["Hola", "desde", "otro", "thread"];
-        for msg in mensajes {
+    let producer = thread::spawn(move || {
+        let messages = vec!["Hola", "desde", "otro", "thread"];
+        for msg in messages {
             tx.send(msg).expect("Error enviando");
             println!("  Enviado: {}", msg);
             thread::sleep(Duration::from_millis(50));
@@ -60,12 +60,12 @@ fn ejemplo_channel_basico() {
     }
     println!("Channel cerrado");
 
-    productor.join().unwrap();
+    producer.join().unwrap();
     println!();
 }
 
 /// Ejemplo: Múltiples productores (MPSC)
-fn ejemplo_multiples_productores() {
+fn example_multiple_producers() {
     println!("--- Ejemplo: Múltiples Productores ---");
 
     let (tx, rx) = mpsc::channel();
@@ -76,9 +76,9 @@ fn ejemplo_multiples_productores() {
         let tx_clone = tx.clone(); // Clonar el sender
         let handle = thread::spawn(move || {
             for i in 0..3 {
-                let mensaje = format!("P{}-M{}", id, i);
-                tx_clone.send(mensaje.clone()).unwrap();
-                println!("  Productor {} envió: {}", id, mensaje);
+                let message = format!("P{}-M{}", id, i);
+                tx_clone.send(message.clone()).unwrap();
+                println!("  Productor {} envió: {}", id, message);
                 thread::sleep(Duration::from_millis(30));
             }
         });
@@ -103,7 +103,7 @@ fn ejemplo_multiples_productores() {
 }
 
 /// Ejemplo: Iterando sobre mensajes con for
-fn ejemplo_iterando_mensajes() {
+fn example_iterating_messages() {
     println!("--- Ejemplo: Iterando Mensajes ---");
 
     let (tx, rx) = mpsc::channel();
@@ -115,8 +115,8 @@ fn ejemplo_iterando_mensajes() {
     });
 
     // rx implementa Iterator
-    let suma: i32 = rx.iter().sum();
-    println!("Suma de mensajes: {}\n", suma);
+    let total: i32 = rx.iter().sum();
+    println!("Suma de mensajes: {}\n", total);
 }
 
 // ============================================================================
@@ -141,16 +141,16 @@ fn ejemplo_iterando_mensajes() {
 /// assert_eq!(resultado, vec![20, 40, 60, 80, 100]);
 /// ```
 #[allow(dead_code)]
-fn ejercicio_1_pipeline() {
+fn exercise_1_pipeline() {
     println!("--- Ejercicio 1: Pipeline ---");
 
-    let resultado = pipeline(20);
+    let result = pipeline(20);
 
     println!("Pipeline de 1 a 20:");
-    println!("  Pares * 10 = {:?}", resultado);
+    println!("  Pares * 10 = {:?}", result);
 
-    let esperado: Vec<i32> = (1..=20).filter(|x| x % 2 == 0).map(|x| x * 10).collect();
-    assert_eq!(resultado, esperado);
+    let expected: Vec<i32> = (1..=20).filter(|x| x % 2 == 0).map(|x| x * 10).collect();
+    assert_eq!(result, expected);
     println!("✓ Ejercicio 1 completado!\n");
 }
 
@@ -189,29 +189,29 @@ fn pipeline(n: i32) -> Vec<i32> {
 /// assert_eq!(resultado, 55); // 1 + 4 + 9 + 16 + 25
 /// ```
 #[allow(dead_code)]
-fn ejercicio_2_agregador() {
+fn exercise_2_aggregator() {
     println!("--- Ejercicio 2: Agregador ---");
 
-    let tareas: Vec<i32> = (1..=10).collect();
+    let tasks: Vec<i32> = (1..=10).collect();
     let num_workers = 3;
 
-    let resultado = agregador(&tareas, num_workers);
+    let result = aggregator(&tasks, num_workers);
 
-    println!("Tareas: {:?}", tareas);
+    println!("Tareas: {:?}", tasks);
     println!("Workers: {}", num_workers);
-    println!("Suma de cuadrados: {}", resultado);
+    println!("Suma de cuadrados: {}", result);
 
-    let esperado: i32 = tareas.iter().map(|x| x * x).sum();
-    assert_eq!(resultado, esperado);
+    let expected: i32 = tasks.iter().map(|x| x * x).sum();
+    assert_eq!(result, expected);
     println!("✓ Ejercicio 2 completado!\n");
 }
 
-fn agregador(tareas: &[i32], num_workers: usize) -> i32 {
+fn aggregator(tasks: &[i32], num_workers: usize) -> i32 {
     // TODO: Implementa el agregador
     //
     // Estrategia:
     // 1. Crear un channel para resultados (tx, rx)
-    // 2. Dividir tareas entre workers (chunks)
+    // 2. Dividir tasks entre workers (chunks)
     // 3. Cada worker:
     //    - Recibe su chunk de tareas
     //    - Calcula el cuadrado de cada una
@@ -221,8 +221,8 @@ fn agregador(tareas: &[i32], num_workers: usize) -> i32 {
     //
     // Hint: Puedes enviar cada resultado individual o la suma parcial
 
-    let _ = (tareas, num_workers);
-    todo!("Implementa agregador")
+    let _ = (tasks, num_workers);
+    todo!("Implementa aggregator")
 }
 
 /// # Ejercicio 3: Sistema de Broadcast
@@ -242,24 +242,24 @@ fn agregador(tareas: &[i32], num_workers: usize) -> i32 {
 /// assert_eq!(resultado, vec![5, 5, 5]);
 /// ```
 #[allow(dead_code)]
-fn ejercicio_3_broadcast() {
+fn exercise_3_broadcast() {
     println!("--- Ejercicio 3: Broadcast ---");
 
-    let num_mensajes = 10;
-    let num_consumidores = 4;
+    let num_messages = 10;
+    let num_consumers = 4;
 
-    let resultado = broadcast(num_mensajes, num_consumidores);
+    let result = broadcast(num_messages, num_consumers);
 
-    println!("Mensajes: {}", num_mensajes);
-    println!("Consumidores: {}", num_consumidores);
-    println!("Mensajes recibidos por cada uno: {:?}", resultado);
+    println!("Mensajes: {}", num_messages);
+    println!("Consumidores: {}", num_consumers);
+    println!("Mensajes recibidos por cada uno: {:?}", result);
 
-    assert_eq!(resultado.len(), num_consumidores);
-    assert!(resultado.iter().all(|&c| c == num_mensajes));
+    assert_eq!(result.len(), num_consumers);
+    assert!(result.iter().all(|&c| c == num_messages));
     println!("✓ Ejercicio 3 completado!\n");
 }
 
-fn broadcast(num_mensajes: usize, num_consumidores: usize) -> Vec<usize> {
+fn broadcast(num_messages: usize, num_consumers: usize) -> Vec<usize> {
     // TODO: Implementa el broadcast
     //
     // Estrategia:
@@ -274,7 +274,7 @@ fn broadcast(num_mensajes: usize, num_consumidores: usize) -> Vec<usize> {
     //
     // Hint: El mensaje debe ser Clone para enviarlo múltiples veces
 
-    let _ = (num_mensajes, num_consumidores);
+    let _ = (num_messages, num_consumers);
     todo!("Implementa broadcast")
 }
 
@@ -288,60 +288,60 @@ mod tests {
 
     #[test]
     fn test_pipeline_10() {
-        let resultado = pipeline(10);
-        assert_eq!(resultado, vec![20, 40, 60, 80, 100]);
+        let result = pipeline(10);
+        assert_eq!(result, vec![20, 40, 60, 80, 100]);
     }
 
     #[test]
     fn test_pipeline_5() {
-        let resultado = pipeline(5);
-        assert_eq!(resultado, vec![20, 40]);
+        let result = pipeline(5);
+        assert_eq!(result, vec![20, 40]);
     }
 
     #[test]
     fn test_pipeline_1() {
-        let resultado = pipeline(1);
-        assert_eq!(resultado, vec![]);
+        let result = pipeline(1);
+        assert_eq!(result, vec![]);
     }
 
     #[test]
-    fn test_agregador_simple() {
-        let tareas = vec![1, 2, 3];
-        let resultado = agregador(&tareas, 2);
-        assert_eq!(resultado, 14); // 1 + 4 + 9
+    fn test_aggregator_simple() {
+        let tasks = vec![1, 2, 3];
+        let result = aggregator(&tasks, 2);
+        assert_eq!(result, 14); // 1 + 4 + 9
     }
 
     #[test]
-    fn test_agregador_grande() {
-        let tareas: Vec<i32> = (1..=100).collect();
-        let resultado = agregador(&tareas, 4);
-        let esperado: i32 = (1..=100).map(|x| x * x).sum();
-        assert_eq!(resultado, esperado);
+    fn test_aggregator_large() {
+        let tasks: Vec<i32> = (1..=100).collect();
+        let result = aggregator(&tasks, 4);
+        let expected: i32 = (1..=100).map(|x| x * x).sum();
+        assert_eq!(result, expected);
     }
 
     #[test]
-    fn test_agregador_un_worker() {
-        let tareas = vec![1, 2, 3, 4, 5];
-        let resultado = agregador(&tareas, 1);
-        assert_eq!(resultado, 55);
+    fn test_aggregator_one_worker() {
+        let tasks = vec![1, 2, 3, 4, 5];
+        let result = aggregator(&tasks, 1);
+        assert_eq!(result, 55);
     }
 
     #[test]
-    fn test_broadcast_basico() {
-        let resultado = broadcast(5, 3);
-        assert_eq!(resultado, vec![5, 5, 5]);
+    fn test_broadcast_basic() {
+        let result = broadcast(5, 3);
+        assert_eq!(result, vec![5, 5, 5]);
     }
 
     #[test]
-    fn test_broadcast_muchos_consumidores() {
-        let resultado = broadcast(10, 5);
-        assert_eq!(resultado.len(), 5);
-        assert!(resultado.iter().all(|&c| c == 10));
+    fn test_broadcast_many_consumers() {
+        let result = broadcast(10, 5);
+        assert_eq!(result.len(), 5);
+        assert!(result.iter().all(|&c| c == 10));
     }
 
     #[test]
-    fn test_broadcast_un_consumidor() {
-        let resultado = broadcast(7, 1);
-        assert_eq!(resultado, vec![7]);
+    fn test_broadcast_one_consumer() {
+        let result = broadcast(7, 1);
+        assert_eq!(result, vec![7]);
     }
 }

@@ -1507,19 +1507,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "practica-01-threads"
-version = "0.1.0"
-
-[[package]]
 name = "practica-01-unit-tests"
 version = "0.1.0"
 
 [[package]]
 name = "practica-01-vectores"
-version = "0.1.0"
-
-[[package]]
-name = "practica-02-channels"
 version = "0.1.0"
 
 [[package]]
@@ -1569,10 +1561,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "practica-03-mutex"
-version = "0.1.0"
-
-[[package]]
 name = "practica-03-trait-bounds"
 version = "0.1.0"
 
@@ -1613,10 +1601,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
 ]
-
-[[package]]
-name = "practica-04-patrones"
-version = "0.1.0"
 
 [[package]]
 name = "practica-04-tdd"
@@ -1661,7 +1645,15 @@ name = "practice-01-lifetimes-basic"
 version = "0.1.0"
 
 [[package]]
+name = "practice-01-threads"
+version = "0.1.0"
+
+[[package]]
 name = "practice-02-capture"
+version = "0.1.0"
+
+[[package]]
+name = "practice-02-channels"
 version = "0.1.0"
 
 [[package]]
@@ -1685,6 +1677,10 @@ name = "practice-03-fn-traits"
 version = "0.1.0"
 
 [[package]]
+name = "practice-03-mutex"
+version = "0.1.0"
+
+[[package]]
 name = "practice-03-refcell"
 version = "0.1.0"
 
@@ -1698,6 +1694,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practice-04-lifetimes-advanced"
+version = "0.1.0"
+
+[[package]]
+name = "practice-04-patterns"
 version = "0.1.0"
 
 [[package]]
@@ -1737,6 +1737,10 @@ version = "0.1.0"
 
 [[package]]
 name = "project-pipeline"
+version = "0.1.0"
+
+[[package]]
+name = "project-workers"
 version = "0.1.0"
 
 [[package]]
@@ -1783,10 +1787,6 @@ version = "0.1.0"
 
 [[package]]
 name = "proyecto-inventario"
-version = "0.1.0"
-
-[[package]]
-name = "proyecto-workers"
 version = "0.1.0"
 
 [[package]]

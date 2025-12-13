@@ -15,16 +15,16 @@ use std::time::{Duration, Instant};
 fn main() {
     println!("=== Proyecto Final: Thread Pool ===\n");
 
-    demo_basica();
-    demo_con_resultados();
-    demo_estadisticas();
+    demo_basic();
+    demo_with_results();
+    demo_statistics();
 }
 
 // ============================================================================
 // DEMOS
 // ============================================================================
 
-fn demo_basica() {
+fn demo_basic() {
     println!("--- Demo: Uso Básico ---");
 
     let pool = ThreadPool::new(4);
@@ -40,7 +40,7 @@ fn demo_basica() {
     println!("  Pool cerrado\n");
 }
 
-fn demo_con_resultados() {
+fn demo_with_results() {
     println!("--- Demo: Jobs con Resultados ---");
 
     let pool = ThreadPool::new(4);
@@ -56,17 +56,17 @@ fn demo_con_resultados() {
     }
 
     // Recolectar resultados
-    let resultados: Vec<i32> = receivers
+    let results: Vec<i32> = receivers
         .into_iter()
         .map(|rx| rx.recv().unwrap())
         .collect();
 
-    println!("  Cuadrados: {:?}", resultados);
+    println!("  Cuadrados: {:?}", results);
     pool.shutdown();
     println!();
 }
 
-fn demo_estadisticas() {
+fn demo_statistics() {
     println!("--- Demo: Estadísticas ---");
 
     let pool = ThreadPool::with_stats(4);
@@ -284,34 +284,34 @@ impl Worker {
 }
 
 // ============================================================================
-// EJERCICIOS ADICIONALES
+// ADDITIONAL EXERCISES
 // ============================================================================
 
-/// # Ejercicio 1: Timeout para Jobs
+/// # Exercise 1: Job Timeout
 ///
 /// Implementa una versión de execute que cancele jobs que tarden demasiado.
 /// Hint: Usar un thread separado con sleep + flag atómico
 #[allow(dead_code)]
-fn ejercicio_timeout() {
+fn exercise_timeout() {
     // TODO: Implementar execute_with_timeout
 }
 
-/// # Ejercicio 2: Prioridad de Jobs
+/// # Exercise 2: Job Priority
 ///
 /// Implementa una cola con prioridades (alta, media, baja).
 /// Los jobs de alta prioridad se ejecutan primero.
 #[allow(dead_code)]
-fn ejercicio_prioridad() {
+fn exercise_priority() {
     // TODO: Implementar PriorityThreadPool
 }
 
-/// # Ejercicio 3: Pool Dinámico
+/// # Exercise 3: Dynamic Pool
 ///
 /// Implementa un pool que ajuste el número de workers según la carga.
 /// - Si hay muchos jobs pendientes, agregar workers
 /// - Si los workers están idle, reducir
 #[allow(dead_code)]
-fn ejercicio_dinamico() {
+fn exercise_dynamic() {
     // TODO: Implementar DynamicThreadPool
 }
 

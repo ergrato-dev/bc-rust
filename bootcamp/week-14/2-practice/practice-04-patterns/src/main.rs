@@ -14,15 +14,15 @@ fn main() {
     println!("=== Práctica 04: Patrones de Concurrencia ===\n");
 
     // Ejemplo: Fork-Join simple
-    ejemplo_fork_join();
+    example_fork_join();
 
     // Ejecuta los ejercicios
     println!("\n=== Ejercicios ===\n");
 
     // Descomenta para probar tus soluciones:
-    // ejercicio_1_worker_pool();
-    // ejercicio_2_map_reduce();
-    // ejercicio_3_pipeline_procesamiento();
+    // exercise_1_worker_pool();
+    // exercise_2_map_reduce();
+    // exercise_3_processing_pipeline();
 }
 
 // ============================================================================
@@ -30,22 +30,22 @@ fn main() {
 // ============================================================================
 
 /// Ejemplo: Patrón Fork-Join
-fn ejemplo_fork_join() {
+fn example_fork_join() {
     println!("--- Ejemplo: Fork-Join ---");
 
-    let datos = vec![1, 2, 3, 4, 5, 6, 7, 8];
+    let data = vec![1, 2, 3, 4, 5, 6, 7, 8];
     let num_threads = 4;
-    let chunk_size = (datos.len() + num_threads - 1) / num_threads;
+    let chunk_size = (data.len() + num_threads - 1) / num_threads;
 
     // Fork: dividir trabajo
-    let handles: Vec<_> = datos
+    let handles: Vec<_> = data
         .chunks(chunk_size)
         .map(|chunk| {
             let chunk = chunk.to_vec();
             thread::spawn(move || {
-                let suma: i32 = chunk.iter().sum();
-                println!("  Thread procesó {:?} = {}", chunk, suma);
-                suma
+                let sum: i32 = chunk.iter().sum();
+                println!("  Thread procesó {:?} = {}", chunk, sum);
+                sum
             })
         })
         .collect();
@@ -70,15 +70,15 @@ fn ejemplo_fork_join() {
 /// - Los workers procesan jobs concurrentemente
 /// - `shutdown()` espera a que terminen todos los jobs
 #[allow(dead_code)]
-fn ejercicio_1_worker_pool() {
+fn exercise_1_worker_pool() {
     println!("--- Ejercicio 1: Worker Pool ---");
 
     let pool = WorkerPool::new(4);
-    let resultados = Arc::new(Mutex::new(Vec::new()));
+    let results = Arc::new(Mutex::new(Vec::new()));
 
     // Enviar 10 jobs
     for i in 0..10 {
-        let res = Arc::clone(&resultados);
+        let res = Arc::clone(&results);
         pool.execute(move || {
             thread::sleep(Duration::from_millis(50));
             let mut r = res.lock().unwrap();
@@ -90,7 +90,7 @@ fn ejercicio_1_worker_pool() {
     // Esperar a que terminen
     pool.shutdown();
 
-    let res = resultados.lock().unwrap();
+    let res = results.lock().unwrap();
     println!("  Resultados: {:?}", *res);
     assert_eq!(res.len(), 10);
     println!("✓ Ejercicio 1 completado!\n");
@@ -150,31 +150,31 @@ impl WorkerPool {
 /// - Cada thread aplica map_fn a sus datos
 /// - Combinar resultados con reduce_fn
 #[allow(dead_code)]
-fn ejercicio_2_map_reduce() {
+fn exercise_2_map_reduce() {
     println!("--- Ejercicio 2: Map-Reduce ---");
 
-    let palabras = vec![
+    let words = vec![
         "hola", "mundo", "rust", "es", "genial", "hola", "rust", "rust",
     ];
 
     // Contar frecuencia de palabras
-    let frecuencias = map_reduce(
-        &palabras,
-        |palabra| vec![(palabra.to_string(), 1)],      // Map: emitir (palabra, 1)
-        |counts| {                                      // Reduce: sumar counts
-            let mut mapa = std::collections::HashMap::new();
-            for (palabra, count) in counts {
-                *mapa.entry(palabra).or_insert(0) += count;
+    let frequencies = map_reduce(
+        &words,
+        |word| vec![(word.to_string(), 1)],             // Map: emitir (palabra, 1)
+        |counts| {                                       // Reduce: sumar counts
+            let mut map = std::collections::HashMap::new();
+            for (word, count) in counts {
+                *map.entry(word).or_insert(0) += count;
             }
-            mapa.into_iter().collect()
+            map.into_iter().collect()
         },
         2,
     );
 
-    println!("  Frecuencias: {:?}", frecuencias);
+    println!("  Frecuencias: {:?}", frequencies);
 
     // Verificar
-    let rust_count: i32 = frecuencias
+    let rust_count: i32 = frequencies
         .iter()
         .filter(|(p, _)| p == "rust")
         .map(|(_, c)| c)
@@ -184,7 +184,7 @@ fn ejercicio_2_map_reduce() {
 }
 
 fn map_reduce<T, K, V, M, R>(
-    datos: &[T],
+    data: &[T],
     map_fn: M,
     reduce_fn: R,
     num_threads: usize,
@@ -198,14 +198,14 @@ where
 {
     // TODO: Implementa Map-Reduce
     //
-    // 1. Dividir datos en chunks
+    // 1. Dividir data en chunks
     // 2. Cada thread aplica map_fn a cada elemento de su chunk
     // 3. Recolectar todos los (K, V) de todos los threads
     // 4. Aplicar reduce_fn al resultado combinado
     //
     // Hint: Cada thread retorna Vec<(K, V)>
 
-    let _ = (datos, map_fn, reduce_fn, num_threads);
+    let _ = (data, map_fn, reduce_fn, num_threads);
     todo!("Implementa map_reduce")
 }
 
@@ -222,31 +222,31 @@ where
 /// - Conectadas por channels
 /// - Retornar las imágenes procesadas
 #[allow(dead_code)]
-fn ejercicio_3_pipeline_procesamiento() {
+fn exercise_3_processing_pipeline() {
     println!("--- Ejercicio 3: Pipeline de Procesamiento ---");
 
-    let imagenes_entrada = vec![1, -2, 3, -4, 5, 6, -7, 8, 9, 10];
-    let resultado = pipeline_imagenes(imagenes_entrada.clone());
+    let input_images = vec![1, -2, 3, -4, 5, 6, -7, 8, 9, 10];
+    let result = image_pipeline(input_images.clone());
 
-    println!("  Entrada: {:?}", imagenes_entrada);
-    println!("  Salida:  {:?}", resultado);
+    println!("  Entrada: {:?}", input_images);
+    println!("  Salida:  {:?}", result);
 
     // Solo positivos, duplicados
-    let esperado: Vec<i32> = imagenes_entrada
+    let expected: Vec<i32> = input_images
         .iter()
         .filter(|&&x| x > 0)
         .map(|&x| x * 2)
         .collect();
 
-    assert_eq!(resultado, esperado);
+    assert_eq!(result, expected);
     println!("✓ Ejercicio 3 completado!\n");
 }
 
-fn pipeline_imagenes(imagenes: Vec<i32>) -> Vec<i32> {
+fn image_pipeline(images: Vec<i32>) -> Vec<i32> {
     // TODO: Implementa el pipeline
     //
     // Etapa 1 - Generador:
-    //   - Recibe imagenes
+    //   - Recibe images
     //   - Envía cada una por chan1
     //
     // Etapa 2 - Filtro:
@@ -266,8 +266,8 @@ fn pipeline_imagenes(imagenes: Vec<i32>) -> Vec<i32> {
     // Estructura:
     // [Gen] --chan1--> [Filtro] --chan2--> [Transform] --chan3--> [Guardador]
 
-    let _ = imagenes;
-    todo!("Implementa pipeline_imagenes")
+    let _ = images;
+    todo!("Implementa image_pipeline")
 }
 
 // ============================================================================
@@ -279,12 +279,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_worker_pool_basico() {
+    fn test_worker_pool_basic() {
         let pool = WorkerPool::new(2);
-        let contador = Arc::new(Mutex::new(0));
+        let counter = Arc::new(Mutex::new(0));
 
         for _ in 0..5 {
-            let c = Arc::clone(&contador);
+            let c = Arc::clone(&counter);
             pool.execute(move || {
                 let mut num = c.lock().unwrap();
                 *num += 1;
@@ -292,16 +292,16 @@ mod tests {
         }
 
         pool.shutdown();
-        assert_eq!(*contador.lock().unwrap(), 5);
+        assert_eq!(*counter.lock().unwrap(), 5);
     }
 
     #[test]
-    fn test_worker_pool_orden() {
+    fn test_worker_pool_order() {
         let pool = WorkerPool::new(4);
-        let resultados = Arc::new(Mutex::new(Vec::new()));
+        let results = Arc::new(Mutex::new(Vec::new()));
 
         for i in 0..10 {
-            let r = Arc::clone(&resultados);
+            let r = Arc::clone(&results);
             pool.execute(move || {
                 let mut v = r.lock().unwrap();
                 v.push(i);
@@ -309,51 +309,51 @@ mod tests {
         }
 
         pool.shutdown();
-        assert_eq!(resultados.lock().unwrap().len(), 10);
+        assert_eq!(results.lock().unwrap().len(), 10);
     }
 
     #[test]
-    fn test_map_reduce_suma() {
-        let numeros = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    fn test_map_reduce_sum() {
+        let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-        let resultado = map_reduce(
-            &numeros,
+        let result = map_reduce(
+            &numbers,
             |&n| vec![("sum".to_string(), n)],
             |pairs| {
-                let suma: i32 = pairs.iter().map(|(_, v)| v).sum();
-                vec![("total".to_string(), suma)]
+                let sum: i32 = pairs.iter().map(|(_, v)| v).sum();
+                vec![("total".to_string(), sum)]
             },
             2,
         );
 
-        assert_eq!(resultado, vec![("total".to_string(), 55)]);
+        assert_eq!(result, vec![("total".to_string(), 55)]);
     }
 
     #[test]
-    fn test_pipeline_solo_positivos() {
-        let entrada = vec![1, -1, 2, -2, 3];
-        let salida = pipeline_imagenes(entrada);
-        assert_eq!(salida, vec![2, 4, 6]);
+    fn test_pipeline_only_positives() {
+        let input = vec![1, -1, 2, -2, 3];
+        let output = image_pipeline(input);
+        assert_eq!(output, vec![2, 4, 6]);
     }
 
     #[test]
-    fn test_pipeline_todos_positivos() {
-        let entrada = vec![1, 2, 3, 4, 5];
-        let salida = pipeline_imagenes(entrada);
-        assert_eq!(salida, vec![2, 4, 6, 8, 10]);
+    fn test_pipeline_all_positives() {
+        let input = vec![1, 2, 3, 4, 5];
+        let output = image_pipeline(input);
+        assert_eq!(output, vec![2, 4, 6, 8, 10]);
     }
 
     #[test]
-    fn test_pipeline_todos_negativos() {
-        let entrada = vec![-1, -2, -3];
-        let salida = pipeline_imagenes(entrada);
-        assert!(salida.is_empty());
+    fn test_pipeline_all_negatives() {
+        let input = vec![-1, -2, -3];
+        let output = image_pipeline(input);
+        assert!(output.is_empty());
     }
 
     #[test]
-    fn test_pipeline_vacio() {
-        let entrada: Vec<i32> = vec![];
-        let salida = pipeline_imagenes(entrada);
-        assert!(salida.is_empty());
+    fn test_pipeline_empty() {
+        let input: Vec<i32> = vec![];
+        let output = image_pipeline(input);
+        assert!(output.is_empty());
     }
 }

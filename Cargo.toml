@@ -55,7 +55,7 @@ members = [
     "bootcamp/week-14/2-practice/practice-01-threads",
     "bootcamp/week-14/2-practice/practice-02-channels",
     "bootcamp/week-14/2-practice/practice-03-mutex",
-    "bootcamp/week-14/2-practice/practice-04-patrones",
+    "bootcamp/week-14/2-practice/practice-04-patterns",
     "bootcamp/week-14/2-practice/project-workers",
     
     # Week 15 - Async/Await

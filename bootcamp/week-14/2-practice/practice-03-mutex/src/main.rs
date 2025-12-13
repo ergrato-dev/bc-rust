@@ -15,21 +15,21 @@ fn main() {
     println!("=== Práctica 03: Mutex y RwLock ===\n");
 
     // Ejemplo 1: Mutex básico
-    ejemplo_mutex_basico();
+    example_basic_mutex();
 
     // Ejemplo 2: Arc + Mutex
-    ejemplo_arc_mutex();
+    example_arc_mutex();
 
     // Ejemplo 3: RwLock
-    ejemplo_rwlock();
+    example_rwlock();
 
     // Ejecuta los ejercicios
     println!("\n=== Ejercicios ===\n");
 
     // Descomenta para probar tus soluciones:
-    // ejercicio_1_contador_concurrente();
-    // ejercicio_2_cache_concurrente();
-    // ejercicio_3_banco();
+    // exercise_1_concurrent_counter();
+    // exercise_2_concurrent_cache();
+    // exercise_3_bank();
 }
 
 // ============================================================================
@@ -37,37 +37,37 @@ fn main() {
 // ============================================================================
 
 /// Ejemplo: Mutex básico
-fn ejemplo_mutex_basico() {
+fn example_basic_mutex() {
     println!("--- Ejemplo: Mutex Básico ---");
 
-    let datos = Mutex::new(vec![1, 2, 3]);
+    let data = Mutex::new(vec![1, 2, 3]);
 
     // Obtener el lock
     {
-        let mut guard = datos.lock().unwrap();
+        let mut guard = data.lock().unwrap();
         guard.push(4);
         println!("  Dentro del lock: {:?}", *guard);
         // guard se dropea aquí, liberando el lock
     }
 
     // Podemos obtener el lock de nuevo
-    let guard = datos.lock().unwrap();
+    let guard = data.lock().unwrap();
     println!("  Después del lock: {:?}", *guard);
     println!();
 }
 
 /// Ejemplo: Arc + Mutex para compartir entre threads
-fn ejemplo_arc_mutex() {
+fn example_arc_mutex() {
     println!("--- Ejemplo: Arc + Mutex ---");
 
-    let contador = Arc::new(Mutex::new(0));
+    let counter = Arc::new(Mutex::new(0));
     let mut handles = vec![];
 
     for _ in 0..5 {
-        let contador_clone = Arc::clone(&contador);
+        let counter_clone = Arc::clone(&counter);
         let handle = thread::spawn(move || {
             for _ in 0..100 {
-                let mut num = contador_clone.lock().unwrap();
+                let mut num = counter_clone.lock().unwrap();
                 *num += 1;
             }
         });
@@ -78,32 +78,32 @@ fn ejemplo_arc_mutex() {
         h.join().unwrap();
     }
 
-    println!("  Contador final: {}", *contador.lock().unwrap());
+    println!("  Contador final: {}", *counter.lock().unwrap());
     println!();
 }
 
 /// Ejemplo: RwLock para múltiples lectores
-fn ejemplo_rwlock() {
+fn example_rwlock() {
     println!("--- Ejemplo: RwLock ---");
 
-    let datos = Arc::new(RwLock::new(vec![1, 2, 3]));
+    let data = Arc::new(RwLock::new(vec![1, 2, 3]));
     let mut handles = vec![];
 
     // Múltiples lectores simultáneos
     for i in 0..3 {
-        let datos_clone = Arc::clone(&datos);
+        let data_clone = Arc::clone(&data);
         handles.push(thread::spawn(move || {
-            let guard = datos_clone.read().unwrap();
+            let guard = data_clone.read().unwrap();
             println!("  Lector {}: {:?}", i, *guard);
             thread::sleep(Duration::from_millis(10));
         }));
     }
 
     // Un escritor (espera a que terminen los lectores)
-    let datos_clone = Arc::clone(&datos);
+    let data_clone = Arc::clone(&data);
     handles.push(thread::spawn(move || {
         thread::sleep(Duration::from_millis(5));
-        let mut guard = datos_clone.write().unwrap();
+        let mut guard = data_clone.write().unwrap();
         guard.push(4);
         println!("  Escritor: agregó 4");
     }));
@@ -112,7 +112,7 @@ fn ejemplo_rwlock() {
         h.join().unwrap();
     }
 
-    println!("  Final: {:?}", *datos.read().unwrap());
+    println!("  Final: {:?}", *data.read().unwrap());
     println!();
 }
 
@@ -130,15 +130,15 @@ fn ejemplo_rwlock() {
 /// - `get()` retorna el valor actual
 /// - Todas las operaciones deben ser thread-safe
 #[allow(dead_code)]
-fn ejercicio_1_contador_concurrente() {
+fn exercise_1_concurrent_counter() {
     println!("--- Ejercicio 1: Contador Concurrente ---");
 
-    let contador = ContadorConcurrente::new(0);
+    let counter = ConcurrentCounter::new(0);
     let mut handles = vec![];
 
     // 5 threads incrementan 100 veces cada uno
     for _ in 0..5 {
-        let c = contador.clone();
+        let c = counter.clone();
         handles.push(thread::spawn(move || {
             for _ in 0..100 {
                 c.increment();
@@ -148,7 +148,7 @@ fn ejercicio_1_contador_concurrente() {
 
     // 2 threads decrementan 50 veces cada uno
     for _ in 0..2 {
-        let c = contador.clone();
+        let c = counter.clone();
         handles.push(thread::spawn(move || {
             for _ in 0..50 {
                 c.decrement();
@@ -160,22 +160,22 @@ fn ejercicio_1_contador_concurrente() {
         h.join().unwrap();
     }
 
-    let final_value = contador.get();
+    let final_value = counter.get();
     println!("  Valor final: {}", final_value);
     assert_eq!(final_value, 400); // 500 - 100
     println!("✓ Ejercicio 1 completado!\n");
 }
 
 #[derive(Clone)]
-struct ContadorConcurrente {
+struct ConcurrentCounter {
     // TODO: Agrega el campo necesario (Arc<Mutex<i32>>)
-    valor: Arc<Mutex<i32>>,
+    value: Arc<Mutex<i32>>,
 }
 
-impl ContadorConcurrente {
-    fn new(inicial: i32) -> Self {
+impl ConcurrentCounter {
+    fn new(initial: i32) -> Self {
         // TODO: Implementa el constructor
-        let _ = inicial;
+        let _ = initial;
         todo!("Implementa new")
     }
 
@@ -204,10 +204,10 @@ impl ContadorConcurrente {
 /// - `set()` inserta o actualiza un valor - exclusivo
 /// - `contains()` verifica si existe la key - puede tener múltiples lectores
 #[allow(dead_code)]
-fn ejercicio_2_cache_concurrente() {
+fn exercise_2_concurrent_cache() {
     println!("--- Ejercicio 2: Cache Concurrente ---");
 
-    let cache: CacheConcurrente<String, i32> = CacheConcurrente::new();
+    let cache: ConcurrentCache<String, i32> = ConcurrentCache::new();
     let mut handles = vec![];
 
     // Writers
@@ -241,12 +241,12 @@ fn ejercicio_2_cache_concurrente() {
 }
 
 #[derive(Clone)]
-struct CacheConcurrente<K, V> {
+struct ConcurrentCache<K, V> {
     // TODO: Agrega el campo necesario (Arc<RwLock<HashMap<K, V>>>)
-    datos: Arc<RwLock<HashMap<K, V>>>,
+    data: Arc<RwLock<HashMap<K, V>>>,
 }
 
-impl<K, V> CacheConcurrente<K, V>
+impl<K, V> ConcurrentCache<K, V>
 where
     K: std::hash::Hash + Eq + Clone,
     V: Clone,
@@ -286,28 +286,28 @@ where
 /// - `transferir()` mueve dinero entre cuentas atómicamente
 /// - `saldo()` retorna el saldo de una cuenta
 #[allow(dead_code)]
-fn ejercicio_3_banco() {
+fn exercise_3_bank() {
     println!("--- Ejercicio 3: Sistema Bancario ---");
 
-    let banco = Banco::new();
+    let bank = Bank::new();
 
-    banco.crear_cuenta("Alice", 1000);
-    banco.crear_cuenta("Bob", 500);
+    bank.create_account("Alice", 1000);
+    bank.create_account("Bob", 500);
 
     let mut handles = vec![];
 
     // Múltiples transferencias concurrentes
     for _ in 0..10 {
-        let b = banco.clone();
+        let b = bank.clone();
         handles.push(thread::spawn(move || {
-            b.transferir("Alice", "Bob", 50);
+            b.transfer("Alice", "Bob", 50);
         }));
     }
 
     for _ in 0..5 {
-        let b = banco.clone();
+        let b = bank.clone();
         handles.push(thread::spawn(move || {
-            b.transferir("Bob", "Alice", 30);
+            b.transfer("Bob", "Alice", 30);
         }));
     }
 
@@ -315,59 +315,59 @@ fn ejercicio_3_banco() {
         h.join().unwrap();
     }
 
-    let saldo_alice = banco.saldo("Alice").unwrap();
-    let saldo_bob = banco.saldo("Bob").unwrap();
+    let balance_alice = bank.balance("Alice").unwrap();
+    let balance_bob = bank.balance("Bob").unwrap();
 
-    println!("  Saldo Alice: {}", saldo_alice);
-    println!("  Saldo Bob: {}", saldo_bob);
+    println!("  Saldo Alice: {}", balance_alice);
+    println!("  Saldo Bob: {}", balance_bob);
 
     // El total debe ser el mismo (1000 + 500 = 1500)
-    assert_eq!(saldo_alice + saldo_bob, 1500);
+    assert_eq!(balance_alice + balance_bob, 1500);
     println!("✓ Ejercicio 3 completado!\n");
 }
 
 #[derive(Clone)]
-struct Banco {
+struct Bank {
     // TODO: Agrega el campo necesario
     // Hint: Arc<Mutex<HashMap<String, i32>>> para las cuentas
-    cuentas: Arc<Mutex<HashMap<String, i32>>>,
+    accounts: Arc<Mutex<HashMap<String, i32>>>,
 }
 
-impl Banco {
+impl Bank {
     fn new() -> Self {
         // TODO: Implementa
         todo!("Implementa new")
     }
 
-    fn crear_cuenta(&self, nombre: &str, saldo_inicial: i32) {
+    fn create_account(&self, name: &str, initial_balance: i32) {
         // TODO: Implementa
-        let _ = (nombre, saldo_inicial);
-        todo!("Implementa crear_cuenta")
+        let _ = (name, initial_balance);
+        todo!("Implementa create_account")
     }
 
-    fn depositar(&self, nombre: &str, cantidad: i32) -> bool {
+    fn deposit(&self, name: &str, amount: i32) -> bool {
         // TODO: Implementa
-        let _ = (nombre, cantidad);
-        todo!("Implementa depositar")
+        let _ = (name, amount);
+        todo!("Implementa deposit")
     }
 
-    fn retirar(&self, nombre: &str, cantidad: i32) -> bool {
+    fn withdraw(&self, name: &str, amount: i32) -> bool {
         // TODO: Retorna false si no hay suficiente saldo
-        let _ = (nombre, cantidad);
-        todo!("Implementa retirar")
+        let _ = (name, amount);
+        todo!("Implementa withdraw")
     }
 
-    fn transferir(&self, desde: &str, hacia: &str, cantidad: i32) -> bool {
+    fn transfer(&self, from: &str, to: &str, amount: i32) -> bool {
         // TODO: Implementa transferencia atómica
         // IMPORTANTE: Usar un solo lock para evitar deadlocks
-        let _ = (desde, hacia, cantidad);
-        todo!("Implementa transferir")
+        let _ = (from, to, amount);
+        todo!("Implementa transfer")
     }
 
-    fn saldo(&self, nombre: &str) -> Option<i32> {
+    fn balance(&self, name: &str) -> Option<i32> {
         // TODO: Implementa
-        let _ = nombre;
-        todo!("Implementa saldo")
+        let _ = name;
+        todo!("Implementa balance")
     }
 }
 
@@ -380,24 +380,24 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_contador_increment() {
-        let c = ContadorConcurrente::new(0);
+    fn test_counter_increment() {
+        let c = ConcurrentCounter::new(0);
         c.increment();
         c.increment();
         assert_eq!(c.get(), 2);
     }
 
     #[test]
-    fn test_contador_decrement() {
-        let c = ContadorConcurrente::new(10);
+    fn test_counter_decrement() {
+        let c = ConcurrentCounter::new(10);
         c.decrement();
         c.decrement();
         assert_eq!(c.get(), 8);
     }
 
     #[test]
-    fn test_contador_concurrente() {
-        let c = ContadorConcurrente::new(0);
+    fn test_counter_concurrent() {
+        let c = ConcurrentCounter::new(0);
         let mut handles = vec![];
 
         for _ in 0..10 {
@@ -418,14 +418,14 @@ mod tests {
 
     #[test]
     fn test_cache_set_get() {
-        let cache: CacheConcurrente<String, i32> = CacheConcurrente::new();
+        let cache: ConcurrentCache<String, i32> = ConcurrentCache::new();
         cache.set("key1".to_string(), 42);
         assert_eq!(cache.get(&"key1".to_string()), Some(42));
     }
 
     #[test]
     fn test_cache_contains() {
-        let cache: CacheConcurrente<String, i32> = CacheConcurrente::new();
+        let cache: ConcurrentCache<String, i32> = ConcurrentCache::new();
         cache.set("exists".to_string(), 1);
         assert!(cache.contains(&"exists".to_string()));
         assert!(!cache.contains(&"not_exists".to_string()));
@@ -433,53 +433,53 @@ mod tests {
 
     #[test]
     fn test_cache_update() {
-        let cache: CacheConcurrente<String, i32> = CacheConcurrente::new();
+        let cache: ConcurrentCache<String, i32> = ConcurrentCache::new();
         cache.set("key".to_string(), 1);
         cache.set("key".to_string(), 2);
         assert_eq!(cache.get(&"key".to_string()), Some(2));
     }
 
     #[test]
-    fn test_banco_crear_cuenta() {
-        let banco = Banco::new();
-        banco.crear_cuenta("Test", 100);
-        assert_eq!(banco.saldo("Test"), Some(100));
+    fn test_bank_create_account() {
+        let bank = Bank::new();
+        bank.create_account("Test", 100);
+        assert_eq!(bank.balance("Test"), Some(100));
     }
 
     #[test]
-    fn test_banco_depositar() {
-        let banco = Banco::new();
-        banco.crear_cuenta("Test", 100);
-        banco.depositar("Test", 50);
-        assert_eq!(banco.saldo("Test"), Some(150));
+    fn test_bank_deposit() {
+        let bank = Bank::new();
+        bank.create_account("Test", 100);
+        bank.deposit("Test", 50);
+        assert_eq!(bank.balance("Test"), Some(150));
     }
 
     #[test]
-    fn test_banco_retirar() {
-        let banco = Banco::new();
-        banco.crear_cuenta("Test", 100);
-        assert!(banco.retirar("Test", 50));
-        assert_eq!(banco.saldo("Test"), Some(50));
-        assert!(!banco.retirar("Test", 100)); // No hay suficiente
+    fn test_bank_withdraw() {
+        let bank = Bank::new();
+        bank.create_account("Test", 100);
+        assert!(bank.withdraw("Test", 50));
+        assert_eq!(bank.balance("Test"), Some(50));
+        assert!(!bank.withdraw("Test", 100)); // No hay suficiente
     }
 
     #[test]
-    fn test_banco_transferir() {
-        let banco = Banco::new();
-        banco.crear_cuenta("A", 100);
-        banco.crear_cuenta("B", 50);
-        assert!(banco.transferir("A", "B", 30));
-        assert_eq!(banco.saldo("A"), Some(70));
-        assert_eq!(banco.saldo("B"), Some(80));
+    fn test_bank_transfer() {
+        let bank = Bank::new();
+        bank.create_account("A", 100);
+        bank.create_account("B", 50);
+        assert!(bank.transfer("A", "B", 30));
+        assert_eq!(bank.balance("A"), Some(70));
+        assert_eq!(bank.balance("B"), Some(80));
     }
 
     #[test]
-    fn test_banco_transferir_insuficiente() {
-        let banco = Banco::new();
-        banco.crear_cuenta("A", 20);
-        banco.crear_cuenta("B", 50);
-        assert!(!banco.transferir("A", "B", 100));
-        assert_eq!(banco.saldo("A"), Some(20));
-        assert_eq!(banco.saldo("B"), Some(50));
+    fn test_bank_transfer_insufficient() {
+        let bank = Bank::new();
+        bank.create_account("A", 20);
+        bank.create_account("B", 50);
+        assert!(!bank.transfer("A", "B", 100));
+        assert_eq!(bank.balance("A"), Some(20));
+        assert_eq!(bank.balance("B"), Some(50));
     }
 }
