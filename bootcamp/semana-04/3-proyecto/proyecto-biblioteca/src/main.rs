@@ -322,7 +322,7 @@ mod tests {
         let results = lib.find_by_title("book");
         assert_eq!(results.len(), 3); // All contain "Book"
         
-        let results = lib.find_by_title("B");
+        let results = lib.find_by_title("Book B");
         assert_eq!(results.len(), 1);
     }
     
