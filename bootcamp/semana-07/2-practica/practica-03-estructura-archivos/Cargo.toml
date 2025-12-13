@@ -2,5 +2,8 @@
 name = "practica-estructura-archivos"
 version = "0.1.0"
 edition = "2024"
+description = "Practice 03: File structure - Multi-file module organization"
+
+[workspace]
 
 [dependencies]

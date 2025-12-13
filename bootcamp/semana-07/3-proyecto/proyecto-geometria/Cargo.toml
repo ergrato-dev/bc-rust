@@ -2,5 +2,8 @@
 name = "proyecto-geometria"
 version = "0.1.0"
 edition = "2024"
+description = "Geometry project: Modular library for geometric calculations"
+
+[workspace]
 
 [dependencies]

@@ -1,104 +1,104 @@
 // src/main.rs
-// Demostración de la biblioteca de geometría
+// Demonstration of the geometry library
 
-use proyecto_geometria::calculos::{area, perimetro};
-use proyecto_geometria::formato;
-use proyecto_geometria::{Circulo, Forma, Rectangulo, Triangulo};
+use proyecto_geometria::calculations::{area, perimeter};
+use proyecto_geometria::format;
+use proyecto_geometria::{Circle, Rectangle, Shape, Triangle};
 
 fn main() {
     println!("╔═══════════════════════════════════════════╗");
-    println!("║   Biblioteca de Geometría Modular         ║");
-    println!("║   Semana 07 - Módulos y Crates            ║");
+    println!("║   Modular Geometry Library                ║");
+    println!("║   Week 07 - Modules and Crates            ║");
     println!("╚═══════════════════════════════════════════╝\n");
 
-    // Crear formas
-    let circulo = Circulo::nuevo(5.0);
-    let rectangulo = Rectangulo::nuevo(4.0, 3.0);
-    let cuadrado = Rectangulo::cuadrado(5.0);
-    let triangulo = Triangulo::nuevo(3.0, 4.0, 5.0);
-    let equilatero = Triangulo::equilatero(6.0);
+    // Create shapes
+    let circle = Circle::new(5.0);
+    let rectangle = Rectangle::new(4.0, 3.0);
+    let square = Rectangle::square(5.0);
+    let triangle = Triangle::new(3.0, 4.0, 5.0);
+    let equilateral = Triangle::equilateral(6.0);
 
-    // Mostrar información de cada forma
-    println!("=== Formas Creadas ===\n");
+    // Show information for each shape
+    println!("=== Created Shapes ===\n");
 
-    mostrar_info(&circulo);
-    mostrar_info(&rectangulo);
-    mostrar_info(&cuadrado);
-    mostrar_info(&triangulo);
-    mostrar_info(&equilatero);
+    show_info(&circle);
+    show_info(&rectangle);
+    show_info(&square);
+    show_info(&triangle);
+    show_info(&equilateral);
 
-    // Calcular áreas y perímetros
-    println!("\n=== Cálculos ===\n");
+    // Calculate areas and perimeters
+    println!("\n=== Calculations ===\n");
 
-    let datos = vec![
+    let data = vec![
         (
-            circulo.nombre(),
-            area::area_circulo(&circulo),
-            perimetro::perimetro_circulo(&circulo),
+            circle.name(),
+            area::circle_area(&circle),
+            perimeter::circle_perimeter(&circle),
         ),
         (
-            rectangulo.nombre(),
-            area::area_rectangulo(&rectangulo),
-            perimetro::perimetro_rectangulo(&rectangulo),
+            rectangle.name(),
+            area::rectangle_area(&rectangle),
+            perimeter::rectangle_perimeter(&rectangle),
         ),
         (
-            cuadrado.nombre(),
-            area::area_rectangulo(&cuadrado),
-            perimetro::perimetro_rectangulo(&cuadrado),
+            square.name(),
+            area::rectangle_area(&square),
+            perimeter::rectangle_perimeter(&square),
         ),
         (
-            triangulo.nombre(),
-            area::area_triangulo(&triangulo),
-            perimetro::perimetro_triangulo(&triangulo),
+            triangle.name(),
+            area::triangle_area(&triangle),
+            perimeter::triangle_perimeter(&triangle),
         ),
         (
-            equilatero.nombre(),
-            area::area_triangulo(&equilatero),
-            perimetro::perimetro_triangulo(&equilatero),
+            equilateral.name(),
+            area::triangle_area(&equilateral),
+            perimeter::triangle_perimeter(&equilateral),
         ),
     ];
 
-    // Mostrar tabla formateada
-    println!("{}", formato::formatear_tabla(&datos));
+    // Show formatted table
+    println!("{}", format::format_table(&data));
 
-    // Mostrar con unidades
-    println!("\n=== Resultados con Unidades ===\n");
-    let area_circulo = area::area_circulo(&circulo);
-    let perim_circulo = perimetro::perimetro_circulo(&circulo);
+    // Show with units
+    println!("\n=== Results with Units ===\n");
+    let circle_area = area::circle_area(&circle);
+    let circle_perimeter = perimeter::circle_perimeter(&circle);
 
     println!(
-        "Círculo (radio = 5 cm):",
+        "Circle (radius = 5 cm):",
     );
-    println!("  Área: {}", formato::formatear_area(area_circulo, "cm"));
+    println!("  Area: {}", format::format_area(circle_area, "cm"));
     println!(
-        "  Circunferencia: {}",
-        formato::formatear_con_unidad(perim_circulo, "cm")
+        "  Circumference: {}",
+        format::format_with_unit(circle_perimeter, "cm")
     );
 
-    // Validación de formas
-    println!("\n=== Validación de Formas ===\n");
+    // Shape validation
+    println!("\n=== Shape Validation ===\n");
 
-    let triangulo_invalido = Triangulo::nuevo(1.0, 2.0, 10.0);
-    let circulo_invalido = Circulo::nuevo(-5.0);
+    let invalid_triangle = Triangle::new(1.0, 2.0, 10.0);
+    let invalid_circle = Circle::new(-5.0);
 
-    validar_y_mostrar(&circulo);
-    validar_y_mostrar(&rectangulo);
-    validar_y_mostrar(&triangulo);
-    validar_y_mostrar(&triangulo_invalido);
-    validar_y_mostrar(&circulo_invalido);
+    validate_and_show(&circle);
+    validate_and_show(&rectangle);
+    validate_and_show(&triangle);
+    validate_and_show(&invalid_triangle);
+    validate_and_show(&invalid_circle);
 
-    println!("\n=== Fin de la demostración ===");
+    println!("\n=== End of demonstration ===");
 }
 
-fn mostrar_info<T: Forma + std::fmt::Debug>(forma: &T) {
-    println!("{}: {:?}", forma.nombre(), forma);
+fn show_info<T: Shape + std::fmt::Debug>(shape: &T) {
+    println!("{}: {:?}", shape.name(), shape);
 }
 
-fn validar_y_mostrar<T: Forma>(forma: &T) {
-    let estado = if forma.es_valida() {
-        "✓ Válida"
+fn validate_and_show<T: Shape>(shape: &T) {
+    let status = if shape.is_valid() {
+        "✓ Valid"
     } else {
-        "✗ Inválida"
+        "✗ Invalid"
     };
-    println!("{}: {}", forma.nombre(), estado);
+    println!("{}: {}", shape.name(), status);
 }

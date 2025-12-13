@@ -2,5 +2,8 @@
 name = "practica-modulos-basicos"
 version = "0.1.0"
 edition = "2024"
+description = "Practice 01: Basic modules - Module and submodule syntax"
+
+[workspace]
 
 [dependencies]
