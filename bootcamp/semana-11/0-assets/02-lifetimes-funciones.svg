@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580">
+  <defs>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" font-family="Segoe UI, sans-serif" font-size="24" fill="#d4d4d4" text-anchor="middle" font-weight="bold">Lifetimes en Funciones</text>
+  <text x="450" y="58" font-family="Segoe UI, sans-serif" font-size="14" fill="#808080" text-anchor="middle">Anotando relaciones entre referencias de entrada y salida</text>
+  
+  <!-- Function Anatomy -->
+  <rect x="30" y="80" width="840" height="140" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="450" y="105" font-family="Segoe UI, sans-serif" font-size="16" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Anatomía de una Función con Lifetimes</text>
+  
+  <!-- Function signature breakdown -->
+  <text x="80" y="145" font-family="Fira Code, monospace" font-size="16" fill="#569cd6">fn</text>
+  <text x="110" y="145" font-family="Fira Code, monospace" font-size="16" fill="#dcdcaa"> longest</text>
+  <text x="195" y="145" font-family="Fira Code, monospace" font-size="16" fill="#d4d4d4">&lt;</text>
+  <text x="205" y="145" font-family="Fira Code, monospace" font-size="16" fill="#CE422B">'a</text>
+  <text x="225" y="145" font-family="Fira Code, monospace" font-size="16" fill="#d4d4d4">&gt;(</text>
+  <text x="245" y="145" font-family="Fira Code, monospace" font-size="16" fill="#9cdcfe">x</text>
+  <text x="257" y="145" font-family="Fira Code, monospace" font-size="16" fill="#d4d4d4">: &amp;</text>
+  <text x="285" y="145" font-family="Fira Code, monospace" font-size="16" fill="#CE422B">'a</text>
+  <text x="305" y="145" font-family="Fira Code, monospace" font-size="16" fill="#4ec9b0"> str</text>
+  <text x="340" y="145" font-family="Fira Code, monospace" font-size="16" fill="#d4d4d4">, </text>
+  <text x="360" y="145" font-family="Fira Code, monospace" font-size="16" fill="#9cdcfe">y</text>
+  <text x="372" y="145" font-family="Fira Code, monospace" font-size="16" fill="#d4d4d4">: &amp;</text>
+  <text x="400" y="145" font-family="Fira Code, monospace" font-size="16" fill="#CE422B">'a</text>
+  <text x="420" y="145" font-family="Fira Code, monospace" font-size="16" fill="#4ec9b0"> str</text>
+  <text x="455" y="145" font-family="Fira Code, monospace" font-size="16" fill="#d4d4d4">) -&gt; &amp;</text>
+  <text x="515" y="145" font-family="Fira Code, monospace" font-size="16" fill="#CE422B">'a</text>
+  <text x="535" y="145" font-family="Fira Code, monospace" font-size="16" fill="#4ec9b0"> str</text>
+  
+  <!-- Annotations -->
+  <line x1="212" y1="155" x2="212" y2="175" stroke="#CE422B" stroke-width="2"/>
+  <text x="212" y="192" font-family="Segoe UI, sans-serif" font-size="11" fill="#CE422B" text-anchor="middle">Declaración</text>
+  <text x="212" y="205" font-family="Segoe UI, sans-serif" font-size="11" fill="#CE422B" text-anchor="middle">del lifetime</text>
+  
+  <line x1="295" y1="155" x2="295" y2="175" stroke="#CE422B" stroke-width="2"/>
+  <text x="295" y="192" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080" text-anchor="middle">Input 1</text>
+  
+  <line x1="410" y1="155" x2="410" y2="175" stroke="#CE422B" stroke-width="2"/>
+  <text x="410" y="192" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080" text-anchor="middle">Input 2</text>
+  
+  <line x1="525" y1="155" x2="525" y2="175" stroke="#CE422B" stroke-width="2"/>
+  <text x="525" y="192" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080" text-anchor="middle">Output</text>
+  
+  <!-- Meaning box -->
+  <rect x="610" y="125" width="240" height="70" rx="4" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="730" y="150" font-family="Segoe UI, sans-serif" font-size="12" fill="#4ec9b0" text-anchor="middle" font-weight="bold">Significado:</text>
+  <text x="730" y="170" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">"El retorno vive tanto como</text>
+  <text x="730" y="185" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">el más corto de x e y"</text>
+  
+  <!-- Visualization Section -->
+  <rect x="30" y="235" width="400" height="180" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="230" y="260" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Visualización de Lifetimes</text>
+  
+  <!-- Timeline visualization -->
+  <text x="50" y="290" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="80" y="290" font-family="Fira Code, monospace" font-size="11" fill="#9cdcfe"> s1</text>
+  <text x="105" y="290" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> = </text>
+  <text x="125" y="290" font-family="Fira Code, monospace" font-size="11" fill="#ce9178">"largo"</text>
+  <text x="175" y="290" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">;</text>
+  <rect x="200" y="280" width="200" height="12" rx="2" fill="#4ec9b0" opacity="0.3"/>
+  <text x="300" y="290" font-family="Segoe UI, sans-serif" font-size="10" fill="#4ec9b0" text-anchor="middle">'a</text>
+  
+  <text x="50" y="320" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">{</text>
+  
+  <text x="70" y="340" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="100" y="340" font-family="Fira Code, monospace" font-size="11" fill="#9cdcfe"> s2</text>
+  <text x="125" y="340" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> = </text>
+  <text x="145" y="340" font-family="Fira Code, monospace" font-size="11" fill="#ce9178">"xy"</text>
+  <text x="175" y="340" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">;</text>
+  <rect x="200" y="330" width="100" height="12" rx="2" fill="#CE422B" opacity="0.3"/>
+  <text x="250" y="340" font-family="Segoe UI, sans-serif" font-size="10" fill="#CE422B" text-anchor="middle">'b (más corto)</text>
+  
+  <text x="70" y="360" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="100" y="360" font-family="Fira Code, monospace" font-size="11" fill="#9cdcfe"> r</text>
+  <text x="112" y="360" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> = longest(&amp;s1,&amp;s2);</text>
+  <rect x="200" y="350" width="100" height="12" rx="2" fill="#dcdcaa" opacity="0.3"/>
+  <text x="250" y="360" font-family="Segoe UI, sans-serif" font-size="10" fill="#dcdcaa" text-anchor="middle">resultado: 'b</text>
+  
+  <text x="50" y="380" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">}</text>
+  <text x="70" y="380" font-family="Segoe UI, sans-serif" font-size="10" fill="#808080">← s2 y r terminan aquí</text>
+  
+  <text x="50" y="400" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// s1 sigue vivo</text>
+  
+  <!-- Common Patterns -->
+  <rect x="470" y="235" width="400" height="180" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="670" y="260" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Patrones Comunes</text>
+  
+  <!-- Pattern 1 -->
+  <rect x="490" y="275" width="160" height="55" rx="4" fill="#1e1e1e"/>
+  <text x="570" y="295" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0" text-anchor="middle">Un input → un output</text>
+  <text x="500" y="318" font-family="Fira Code, monospace" font-size="10" fill="#569cd6">fn</text>
+  <text x="515" y="318" font-family="Fira Code, monospace" font-size="10" fill="#dcdcaa"> f</text>
+  <text x="527" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">&lt;</text>
+  <text x="533" y="318" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="547" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">&gt;(x:&amp;</text>
+  <text x="575" y="318" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="588" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4"> T)-&gt;&amp;</text>
+  <text x="620" y="318" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="633" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4"> T</text>
+  
+  <!-- Pattern 2 -->
+  <rect x="690" y="275" width="160" height="55" rx="4" fill="#1e1e1e"/>
+  <text x="770" y="295" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0" text-anchor="middle">Solo uno importa</text>
+  <text x="700" y="318" font-family="Fira Code, monospace" font-size="10" fill="#569cd6">fn</text>
+  <text x="715" y="318" font-family="Fira Code, monospace" font-size="10" fill="#dcdcaa"> f</text>
+  <text x="725" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">&lt;</text>
+  <text x="731" y="318" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="745" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">&gt;(x:&amp;</text>
+  <text x="773" y="318" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="786" y="318" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4"> T,_:&amp;U)</text>
+  
+  <!-- Pattern 3 -->
+  <rect x="490" y="345" width="360" height="55" rx="4" fill="#1e1e1e"/>
+  <text x="670" y="365" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0" text-anchor="middle">Múltiples inputs, retorno de cualquiera</text>
+  <text x="500" y="388" font-family="Fira Code, monospace" font-size="10" fill="#569cd6">fn</text>
+  <text x="515" y="388" font-family="Fira Code, monospace" font-size="10" fill="#dcdcaa"> choose</text>
+  <text x="565" y="388" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">&lt;</text>
+  <text x="572" y="388" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="586" y="388" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">&gt;(a:&amp;</text>
+  <text x="620" y="388" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="633" y="388" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4"> T,b:&amp;</text>
+  <text x="673" y="388" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="686" y="388" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4"> T,pick:bool)-&gt;&amp;</text>
+  <text x="795" y="388" font-family="Fira Code, monospace" font-size="10" fill="#CE422B">'a</text>
+  <text x="808" y="388" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4"> T</text>
+  
+  <!-- Error Section -->
+  <rect x="30" y="430" width="410" height="130" rx="8" fill="#2d2d2d" stroke="#f44747"/>
+  <text x="235" y="455" font-family="Segoe UI, sans-serif" font-size="14" fill="#f44747" text-anchor="middle" font-weight="bold">❌ Error Común: Retornar Valor Local</text>
+  
+  <rect x="50" y="470" width="370" height="75" rx="4" fill="#1e1e1e"/>
+  <text x="60" y="490" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="80" y="490" font-family="Fira Code, monospace" font-size="11" fill="#dcdcaa"> bad</text>
+  <text x="110" y="490" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&lt;</text>
+  <text x="118" y="490" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="133" y="490" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&gt;() -&gt; &amp;</text>
+  <text x="185" y="490" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="200" y="490" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="230" y="490" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> {</text>
+  <text x="70" y="510" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="100" y="510" font-family="Fira Code, monospace" font-size="11" fill="#9cdcfe"> s</text>
+  <text x="112" y="510" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> = String::from(</text>
+  <text x="238" y="510" font-family="Fira Code, monospace" font-size="11" fill="#ce9178">"hola"</text>
+  <text x="283" y="510" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">);</text>
+  <text x="70" y="530" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&amp;s </text>
+  <text x="95" y="530" font-family="Fira Code, monospace" font-size="11" fill="#f44747">// ← s se destruye aquí!</text>
+  <text x="60" y="545" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">}</text>
+  
+  <!-- Success Section -->
+  <rect x="460" y="430" width="410" height="130" rx="8" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="665" y="455" font-family="Segoe UI, sans-serif" font-size="14" fill="#4ec9b0" text-anchor="middle" font-weight="bold">✅ Solución: Retornar 'static o Owned</text>
+  
+  <rect x="480" y="470" width="370" height="75" rx="4" fill="#1e1e1e"/>
+  <text x="490" y="490" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// Opción 1: literal ('static)</text>
+  <text x="490" y="510" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="510" y="510" font-family="Fira Code, monospace" font-size="11" fill="#dcdcaa"> good</text>
+  <text x="545" y="510" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">() -&gt; &amp;</text>
+  <text x="600" y="510" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'static</text>
+  <text x="655" y="510" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="685" y="510" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> { </text>
+  <text x="705" y="510" font-family="Fira Code, monospace" font-size="11" fill="#ce9178">"hola"</text>
+  <text x="755" y="510" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> }</text>
+  <text x="490" y="530" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// Opción 2: retornar owned</text>
+  <text x="490" y="545" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="510" y="545" font-family="Fira Code, monospace" font-size="11" fill="#dcdcaa"> good2</text>
+  <text x="552" y="545" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">() -&gt; </text>
+  <text x="595" y="545" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0">String</text>
+  <text x="645" y="545" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> { String::from(</text>
+  <text x="770" y="545" font-family="Fira Code, monospace" font-size="11" fill="#ce9178">"hola"</text>
+  <text x="815" y="545" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">) }</text>
+</svg>

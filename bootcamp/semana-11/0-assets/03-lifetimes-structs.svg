@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <defs>
+    <marker id="arrowhead3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" font-family="Segoe UI, sans-serif" font-size="24" fill="#d4d4d4" text-anchor="middle" font-weight="bold">Lifetimes en Structs</text>
+  <text x="450" y="58" font-family="Segoe UI, sans-serif" font-size="14" fill="#808080" text-anchor="middle">Estructuras que contienen referencias</text>
+  
+  <!-- Why Section -->
+  <rect x="30" y="80" width="400" height="130" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="230" y="105" font-family="Segoe UI, sans-serif" font-size="14" fill="#f44747" text-anchor="middle" font-weight="bold">❌ Sin Lifetime: Error</text>
+  
+  <rect x="50" y="120" width="360" height="75" rx="4" fill="#1e1e1e"/>
+  <text x="60" y="145" font-family="Fira Code, monospace" font-size="12" fill="#569cd6">struct</text>
+  <text x="108" y="145" font-family="Fira Code, monospace" font-size="12" fill="#4ec9b0"> Excerpt</text>
+  <text x="180" y="145" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4"> {</text>
+  <text x="70" y="165" font-family="Fira Code, monospace" font-size="12" fill="#9cdcfe">part</text>
+  <text x="105" y="165" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">: &amp;</text>
+  <text x="130" y="165" font-family="Fira Code, monospace" font-size="12" fill="#4ec9b0">str</text>
+  <text x="155" y="165" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">,</text>
+  <text x="180" y="165" font-family="Fira Code, monospace" font-size="12" fill="#f44747">// ← Error!</text>
+  <text x="60" y="185" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">}</text>
+  
+  <!-- With Lifetime Section -->
+  <rect x="470" y="80" width="400" height="130" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="670" y="105" font-family="Segoe UI, sans-serif" font-size="14" fill="#4ec9b0" text-anchor="middle" font-weight="bold">✅ Con Lifetime: Correcto</text>
+  
+  <rect x="490" y="120" width="360" height="75" rx="4" fill="#1e1e1e"/>
+  <text x="500" y="145" font-family="Fira Code, monospace" font-size="12" fill="#569cd6">struct</text>
+  <text x="548" y="145" font-family="Fira Code, monospace" font-size="12" fill="#4ec9b0"> Excerpt</text>
+  <text x="620" y="145" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">&lt;</text>
+  <text x="630" y="145" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'a</text>
+  <text x="648" y="145" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">&gt; {</text>
+  <text x="510" y="165" font-family="Fira Code, monospace" font-size="12" fill="#9cdcfe">part</text>
+  <text x="545" y="165" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">: &amp;</text>
+  <text x="570" y="165" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'a</text>
+  <text x="590" y="165" font-family="Fira Code, monospace" font-size="12" fill="#4ec9b0"> str</text>
+  <text x="620" y="165" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">,</text>
+  <text x="500" y="185" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">}</text>
+  
+  <!-- Memory Diagram -->
+  <rect x="30" y="225" width="400" height="175" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="230" y="250" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Diagrama de Memoria</text>
+  
+  <!-- Original data -->
+  <rect x="50" y="270" width="180" height="50" rx="4" fill="#3c3c3c" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="140" y="290" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0" text-anchor="middle">novela: String</text>
+  <text x="140" y="308" font-family="Fira Code, monospace" font-size="10" fill="#ce9178" text-anchor="middle">"Llámame Ishmael..."</text>
+  
+  <!-- Struct instance -->
+  <rect x="260" y="335" width="150" height="50" rx="4" fill="#3c3c3c" stroke="#569cd6" stroke-width="2"/>
+  <text x="335" y="355" font-family="Fira Code, monospace" font-size="11" fill="#569cd6" text-anchor="middle">excerpt: Excerpt</text>
+  <text x="335" y="373" font-family="Fira Code, monospace" font-size="10" fill="#808080" text-anchor="middle">part: &amp;novela[..16]</text>
+  
+  <!-- Arrow from struct to data -->
+  <path d="M 280 335 Q 200 320 170 320" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrowhead3)"/>
+  <text x="200" y="312" font-family="Segoe UI, sans-serif" font-size="10" fill="#CE422B">'a</text>
+  
+  <!-- Constraint -->
+  <rect x="50" y="340" width="180" height="45" rx="4" fill="#1e1e1e" stroke="#CE422B" stroke-dasharray="4"/>
+  <text x="140" y="360" font-family="Segoe UI, sans-serif" font-size="10" fill="#CE422B" text-anchor="middle">Excerpt no puede vivir</text>
+  <text x="140" y="375" font-family="Segoe UI, sans-serif" font-size="10" fill="#CE422B" text-anchor="middle">más que novela</text>
+  
+  <!-- impl Block Section -->
+  <rect x="470" y="225" width="400" height="175" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="670" y="250" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Implementando Métodos</text>
+  
+  <rect x="490" y="265" width="360" height="120" rx="4" fill="#1e1e1e"/>
+  <text x="500" y="287" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">impl</text>
+  <text x="530" y="287" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&lt;</text>
+  <text x="540" y="287" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="555" y="287" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&gt; </text>
+  <text x="570" y="287" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0">Excerpt</text>
+  <text x="630" y="287" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&lt;</text>
+  <text x="640" y="287" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="655" y="287" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&gt; {</text>
+  
+  <text x="515" y="310" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// No retorna ref: no necesita 'a</text>
+  <text x="515" y="328" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="535" y="328" font-family="Fira Code, monospace" font-size="11" fill="#dcdcaa"> len</text>
+  <text x="565" y="328" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">(&amp;</text>
+  <text x="585" y="328" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">self</text>
+  <text x="615" y="328" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">) -&gt; </text>
+  <text x="660" y="328" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0">usize</text>
+  <text x="700" y="328" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> { </text>
+  <text x="720" y="328" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">self</text>
+  <text x="750" y="328" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">.part.len() }</text>
+  
+  <text x="515" y="352" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// Retorna ref: usa 'a del campo</text>
+  <text x="515" y="370" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">fn</text>
+  <text x="535" y="370" font-family="Fira Code, monospace" font-size="11" fill="#dcdcaa"> part</text>
+  <text x="570" y="370" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">(&amp;</text>
+  <text x="588" y="370" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">self</text>
+  <text x="618" y="370" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">) -&gt; &amp;</text>
+  <text x="663" y="370" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="680" y="370" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="710" y="370" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> { </text>
+  <text x="730" y="370" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">self</text>
+  <text x="760" y="370" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">.part }</text>
+  
+  <text x="500" y="385" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">}</text>
+  
+  <!-- Multiple References -->
+  <rect x="30" y="415" width="410" height="115" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="235" y="440" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Múltiples Referencias</text>
+  
+  <rect x="50" y="455" width="370" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="60" y="477" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// Mismo lifetime para ambas</text>
+  <text x="60" y="497" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">struct</text>
+  <text x="108" y="497" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> Pair</text>
+  <text x="145" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&lt;</text>
+  <text x="155" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="170" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&gt; { first: &amp;</text>
+  <text x="270" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="287" y="497" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="318" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">, second: &amp;</text>
+  <text x="395" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="410" y="497" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="438" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> }</text>
+  
+  <!-- Different Lifetimes -->
+  <rect x="460" y="415" width="410" height="115" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="665" y="440" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Lifetimes Diferentes</text>
+  
+  <rect x="480" y="455" width="370" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="490" y="477" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// Lifetimes independientes</text>
+  <text x="490" y="497" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">struct</text>
+  <text x="538" y="497" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> Ctx</text>
+  <text x="568" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&lt;</text>
+  <text x="578" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="593" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">,</text>
+  <text x="603" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'b</text>
+  <text x="618" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">&gt; { text: &amp;</text>
+  <text x="710" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'a</text>
+  <text x="727" y="497" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="758" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">, meta: &amp;</text>
+  <text x="828" y="497" font-family="Fira Code, monospace" font-size="11" fill="#CE422B">'b</text>
+  <text x="843" y="497" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0"> str</text>
+  <text x="873" y="497" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> }</text>
+</svg>

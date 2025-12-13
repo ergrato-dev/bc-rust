@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" font-family="Segoe UI, sans-serif" font-size="24" fill="#d4d4d4" text-anchor="middle" font-weight="bold">Reglas de Elision de Lifetimes</text>
+  <text x="450" y="58" font-family="Segoe UI, sans-serif" font-size="14" fill="#808080" text-anchor="middle">Cuándo Rust infiere lifetimes automáticamente</text>
+  
+  <!-- Rule 1 -->
+  <rect x="30" y="80" width="270" height="145" rx="8" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="165" y="105" font-family="Segoe UI, sans-serif" font-size="16" fill="#CE422B" text-anchor="middle" font-weight="bold">Regla 1</text>
+  <text x="165" y="125" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">Cada ref de entrada obtiene</text>
+  <text x="165" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">su propio lifetime</text>
+  
+  <rect x="45" y="152" width="240" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="55" y="172" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Escribes:</text>
+  <text x="55" y="188" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">fn f(x: &amp;T, y: &amp;U)</text>
+  <text x="55" y="205" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Rust ve: fn f&lt;'a,'b&gt;(x: &amp;'a T, y: &amp;'b U)</text>
+  
+  <!-- Rule 2 -->
+  <rect x="315" y="80" width="270" height="145" rx="8" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="450" y="105" font-family="Segoe UI, sans-serif" font-size="16" fill="#4ec9b0" text-anchor="middle" font-weight="bold">Regla 2</text>
+  <text x="450" y="125" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">Si hay exactamente UN input lt,</text>
+  <text x="450" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">se aplica a todos los outputs</text>
+  
+  <rect x="330" y="152" width="240" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="340" y="172" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Escribes:</text>
+  <text x="340" y="188" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">fn f(x: &amp;T) -&gt; &amp;T</text>
+  <text x="340" y="205" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Rust ve: fn f&lt;'a&gt;(x: &amp;'a T) -&gt; &amp;'a T</text>
+  
+  <!-- Rule 3 -->
+  <rect x="600" y="80" width="270" height="145" rx="8" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="735" y="105" font-family="Segoe UI, sans-serif" font-size="16" fill="#569cd6" text-anchor="middle" font-weight="bold">Regla 3</text>
+  <text x="735" y="125" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">Si hay &amp;self o &amp;mut self,</text>
+  <text x="735" y="140" font-family="Segoe UI, sans-serif" font-size="11" fill="#d4d4d4" text-anchor="middle">su lt se aplica a outputs</text>
+  
+  <rect x="615" y="152" width="240" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="625" y="172" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Escribes:</text>
+  <text x="625" y="188" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">fn f(&amp;self, x: &amp;T) -&gt; &amp;U</text>
+  <text x="625" y="205" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Rust: ...(&amp;'a self,...) -&gt; &amp;'a U</text>
+  
+  <!-- Examples Section -->
+  <text x="450" y="250" font-family="Segoe UI, sans-serif" font-size="16" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Aplicando las Reglas</text>
+  
+  <!-- Example 1: Works -->
+  <rect x="30" y="270" width="270" height="135" rx="8" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="165" y="295" font-family="Segoe UI, sans-serif" font-size="13" fill="#4ec9b0" text-anchor="middle" font-weight="bold">✅ Funciona (Regla 2)</text>
+  
+  <rect x="45" y="307" width="240" height="85" rx="4" fill="#1e1e1e"/>
+  <text x="55" y="327" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">fn first_word(s: &amp;str) -&gt; &amp;str</text>
+  <text x="55" y="347" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Paso 1: fn&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;str</text>
+  <text x="55" y="367" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Paso 2: fn&lt;'a&gt;(s: &amp;'a str) -&gt; &amp;'a str</text>
+  <text x="55" y="387" font-family="Fira Code, monospace" font-size="10" fill="#4ec9b0">// ✓ Completo!</text>
+  
+  <!-- Example 2: Works with self -->
+  <rect x="315" y="270" width="270" height="135" rx="8" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="450" y="295" font-family="Segoe UI, sans-serif" font-size="13" fill="#4ec9b0" text-anchor="middle" font-weight="bold">✅ Funciona (Regla 3)</text>
+  
+  <rect x="330" y="307" width="240" height="85" rx="4" fill="#1e1e1e"/>
+  <text x="340" y="327" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">fn name(&amp;self, _: &amp;str) -&gt; &amp;str</text>
+  <text x="340" y="347" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Paso 1: &lt;'a,'b&gt;(&amp;'a self,&amp;'b str)</text>
+  <text x="340" y="367" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Paso 3: ... -&gt; &amp;'a str</text>
+  <text x="340" y="387" font-family="Fira Code, monospace" font-size="10" fill="#4ec9b0">// ✓ Completo (usa 'a de self)!</text>
+  
+  <!-- Example 3: Fails -->
+  <rect x="600" y="270" width="270" height="135" rx="8" fill="#2d2d2d" stroke="#f44747"/>
+  <text x="735" y="295" font-family="Segoe UI, sans-serif" font-size="13" fill="#f44747" text-anchor="middle" font-weight="bold">❌ Requiere Anotación</text>
+  
+  <rect x="615" y="307" width="240" height="85" rx="4" fill="#1e1e1e"/>
+  <text x="625" y="327" font-family="Fira Code, monospace" font-size="10" fill="#d4d4d4">fn longest(x: &amp;str, y: &amp;str) -&gt; &amp;str</text>
+  <text x="625" y="347" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Paso 1: &lt;'a,'b&gt;(x: &amp;'a, y: &amp;'b)</text>
+  <text x="625" y="367" font-family="Fira Code, monospace" font-size="10" fill="#808080">// Paso 2: No aplica (2 inputs)</text>
+  <text x="625" y="387" font-family="Fira Code, monospace" font-size="10" fill="#f44747">// ✗ Output sin lifetime!</text>
+  
+  <!-- Quick Reference Table -->
+  <rect x="30" y="420" width="410" height="140" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="235" y="445" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Referencia Rápida</text>
+  
+  <text x="50" y="470" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">fn(x: &amp;T) -&gt; &amp;T</text>
+  <text x="250" y="470" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0">✓ Elision</text>
+  
+  <text x="50" y="492" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">fn(&amp;self) -&gt; &amp;T</text>
+  <text x="250" y="492" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0">✓ Elision</text>
+  
+  <text x="50" y="514" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">fn(&amp;self, x: &amp;T) -&gt; &amp;U</text>
+  <text x="250" y="514" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0">✓ Elision (usa self)</text>
+  
+  <text x="50" y="536" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">fn(x: &amp;T, y: &amp;U) -&gt; &amp;V</text>
+  <text x="250" y="536" font-family="Segoe UI, sans-serif" font-size="11" fill="#f44747">✗ Anotación requerida</text>
+  
+  <!-- Structs always need annotation -->
+  <rect x="460" y="420" width="410" height="140" rx="8" fill="#2d2d2d" stroke="#f44747"/>
+  <text x="665" y="445" font-family="Segoe UI, sans-serif" font-size="14" fill="#f44747" text-anchor="middle" font-weight="bold">⚠️ Structs: Siempre Explícito</text>
+  
+  <rect x="480" y="460" width="370" height="85" rx="4" fill="#1e1e1e"/>
+  <text x="490" y="482" font-family="Fira Code, monospace" font-size="11" fill="#6a9955">// Las reglas de elision NO aplican a structs</text>
+  <text x="490" y="502" font-family="Fira Code, monospace" font-size="11" fill="#f44747">struct Bad { r: &amp;str }      </text>
+  <text x="765" y="502" font-family="Segoe UI, sans-serif" font-size="10" fill="#f44747">// ✗ Error</text>
+  <text x="490" y="522" font-family="Fira Code, monospace" font-size="11" fill="#4ec9b0">struct Good&lt;'a&gt; { r: &amp;'a str }</text>
+  <text x="765" y="522" font-family="Segoe UI, sans-serif" font-size="10" fill="#4ec9b0">// ✓ OK</text>
+</svg>

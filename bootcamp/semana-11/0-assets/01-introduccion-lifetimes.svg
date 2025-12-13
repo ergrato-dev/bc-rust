@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" font-family="Segoe UI, sans-serif" font-size="24" fill="#d4d4d4" text-anchor="middle" font-weight="bold">Introducción a Lifetimes</text>
+  <text x="450" y="58" font-family="Segoe UI, sans-serif" font-size="14" fill="#808080" text-anchor="middle">El sistema de verificación de referencias de Rust</text>
+  
+  <!-- Left Section: The Problem -->
+  <rect x="30" y="85" width="400" height="200" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="230" y="110" font-family="Segoe UI, sans-serif" font-size="16" fill="#CE422B" text-anchor="middle" font-weight="bold">❌ El Problema: Dangling Reference</text>
+  
+  <!-- Memory diagram - problematic -->
+  <rect x="50" y="130" width="160" height="35" rx="4" fill="#3c3c3c" stroke="#f44747" stroke-width="2"/>
+  <text x="130" y="152" font-family="Fira Code, monospace" font-size="12" fill="#f44747" text-anchor="middle">valor = 5</text>
+  <text x="130" y="180" font-family="Segoe UI, sans-serif" font-size="10" fill="#808080" text-anchor="middle">← se destruye aquí</text>
+  
+  <rect x="250" y="130" width="160" height="35" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+  <text x="330" y="152" font-family="Fira Code, monospace" font-size="12" fill="#569cd6" text-anchor="middle">referencia = &amp;valor</text>
+  
+  <!-- Arrow showing dangling -->
+  <line x1="330" y1="165" x2="210" y2="165" stroke="#f44747" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowhead)"/>
+  <text x="270" y="195" font-family="Segoe UI, sans-serif" font-size="11" fill="#f44747" text-anchor="middle">¡Apunta a memoria inválida!</text>
+  
+  <!-- Code snippet - problem -->
+  <rect x="50" y="210" width="360" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="60" y="230" font-family="Fira Code, monospace" font-size="11" fill="#808080">// En C/C++ esto compila pero crashea</text>
+  <text x="60" y="248" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">int* r; { int x=5; r=&amp;x; }</text>
+  <text x="60" y="263" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">printf("%d", *r); <tspan fill="#f44747">// 💥 UB!</tspan></text>
+  
+  <!-- Right Section: The Solution -->
+  <rect x="470" y="85" width="400" height="200" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="670" y="110" font-family="Segoe UI, sans-serif" font-size="16" fill="#4ec9b0" text-anchor="middle" font-weight="bold">✅ La Solución: Lifetimes</text>
+  
+  <!-- Memory diagram - safe -->
+  <rect x="490" y="130" width="160" height="35" rx="4" fill="#3c3c3c" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="570" y="152" font-family="Fira Code, monospace" font-size="12" fill="#4ec9b0" text-anchor="middle">valor: 'a</text>
+  
+  <rect x="690" y="130" width="160" height="35" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+  <text x="770" y="152" font-family="Fira Code, monospace" font-size="12" fill="#569cd6" text-anchor="middle">ref: &amp;'a valor</text>
+  
+  <!-- Arrow showing valid ref -->
+  <line x1="690" y1="147" x2="650" y2="147" stroke="#4ec9b0" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="670" y="182" font-family="Segoe UI, sans-serif" font-size="11" fill="#4ec9b0" text-anchor="middle">ref válida mientras valor exista</text>
+  
+  <!-- Code snippet - solution -->
+  <rect x="490" y="210" width="360" height="60" rx="4" fill="#1e1e1e"/>
+  <text x="500" y="230" font-family="Fira Code, monospace" font-size="11" fill="#808080">// Rust previene esto en compilación</text>
+  <text x="500" y="248" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="525" y="248" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> r; { </text>
+  <text x="560" y="248" font-family="Fira Code, monospace" font-size="11" fill="#569cd6">let</text>
+  <text x="585" y="248" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4"> x=</text>
+  <text x="605" y="248" font-family="Fira Code, monospace" font-size="11" fill="#b5cea8">5</text>
+  <text x="615" y="248" font-family="Fira Code, monospace" font-size="11" fill="#d4d4d4">; r=&amp;x; }</text>
+  <text x="500" y="263" font-family="Fira Code, monospace" font-size="11" fill="#f44747">// Error: x does not live long enough</text>
+  
+  <!-- Center: What is a Lifetime -->
+  <rect x="200" y="305" width="500" height="100" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="450" y="335" font-family="Segoe UI, sans-serif" font-size="18" fill="#d4d4d4" text-anchor="middle" font-weight="bold">¿Qué es un Lifetime?</text>
+  <text x="450" y="365" font-family="Segoe UI, sans-serif" font-size="14" fill="#d4d4d4" text-anchor="middle">El <tspan fill="#CE422B" font-weight="bold">alcance</tspan> durante el cual una referencia es <tspan fill="#4ec9b0" font-weight="bold">válida</tspan>.</text>
+  <text x="450" y="390" font-family="Segoe UI, sans-serif" font-size="13" fill="#808080" text-anchor="middle">Rust verifica en tiempo de compilación que todas las referencias</text>
+  <text x="450" y="405" font-family="Segoe UI, sans-serif" font-size="13" fill="#808080" text-anchor="middle">apunten a datos que aún existen.</text>
+  
+  <!-- Bottom: Syntax -->
+  <rect x="30" y="425" width="260" height="105" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="160" y="450" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Sintaxis</text>
+  <text x="50" y="475" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">&amp;i32       </text>
+  <text x="150" y="475" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080">referencia</text>
+  <text x="50" y="495" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">&amp;</text>
+  <text x="62" y="495" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'a</text>
+  <text x="77" y="495" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4"> i32    </text>
+  <text x="150" y="495" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080">con lifetime</text>
+  <text x="50" y="515" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4">&amp;</text>
+  <text x="62" y="515" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'a</text>
+  <text x="77" y="515" font-family="Fira Code, monospace" font-size="12" fill="#569cd6"> mut</text>
+  <text x="108" y="515" font-family="Fira Code, monospace" font-size="12" fill="#d4d4d4"> i32</text>
+  <text x="150" y="515" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080">mutable con lt</text>
+  
+  <!-- Naming conventions -->
+  <rect x="320" y="425" width="260" height="105" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="450" y="450" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">Nombres Comunes</text>
+  <text x="340" y="475" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'a</text>
+  <text x="375" y="475" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080">primer lifetime</text>
+  <text x="340" y="495" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'b, 'c</text>
+  <text x="400" y="495" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080">adicionales</text>
+  <text x="340" y="515" font-family="Fira Code, monospace" font-size="12" fill="#CE422B">'static</text>
+  <text x="415" y="515" font-family="Segoe UI, sans-serif" font-size="11" fill="#808080">toda la ejecución</text>
+  
+  <!-- Key insight -->
+  <rect x="610" y="425" width="260" height="105" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="740" y="450" font-family="Segoe UI, sans-serif" font-size="14" fill="#dcdcaa" text-anchor="middle" font-weight="bold">💡 Insight Clave</text>
+  <text x="740" y="478" font-family="Segoe UI, sans-serif" font-size="12" fill="#d4d4d4" text-anchor="middle">Los lifetimes son</text>
+  <text x="740" y="498" font-family="Segoe UI, sans-serif" font-size="14" fill="#4ec9b0" text-anchor="middle" font-weight="bold">VERIFICACIÓN</text>
+  <text x="740" y="518" font-family="Segoe UI, sans-serif" font-size="12" fill="#d4d4d4" text-anchor="middle">no control de duración</text>
+</svg>
