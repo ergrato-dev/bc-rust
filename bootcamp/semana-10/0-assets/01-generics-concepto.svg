@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+      .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+      .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+      .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+      .code { font-family: 'Fira Code', monospace; font-size: 13px; fill: #d4d4d4; }
+      .keyword { fill: #569cd6; }
+      .type { fill: #4ec9b0; }
+      .function { fill: #dcdcaa; }
+      .string { fill: #ce9178; }
+      .comment { fill: #6a9955; }
+      .number { fill: #b5cea8; }
+      .accent { fill: #CE422B; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" class="title">¿Qué son los Generics?</text>
+  <text x="400" y="58" text-anchor="middle" class="subtitle">Código reutilizable para múltiples tipos</text>
+  
+  <!-- Sin Generics Box -->
+  <rect x="30" y="80" width="350" height="180" rx="8" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="205" y="105" text-anchor="middle" class="label" style="fill:#f44747;">❌ Sin Generics: Duplicación</text>
+  
+  <text x="50" y="135" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">mayor_i32</tspan>(a: <tspan class="type">i32</tspan>, b: <tspan class="type">i32</tspan>) -&gt; <tspan class="type">i32</tspan>
+  </text>
+  <text x="50" y="155" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">mayor_f64</tspan>(a: <tspan class="type">f64</tspan>, b: <tspan class="type">f64</tspan>) -&gt; <tspan class="type">f64</tspan>
+  </text>
+  <text x="50" y="175" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">mayor_char</tspan>(a: <tspan class="type">char</tspan>, b: <tspan class="type">char</tspan>) -&gt; <tspan class="type">char</tspan>
+  </text>
+  <text x="50" y="195" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">mayor_str</tspan>(a: <tspan class="type">&amp;str</tspan>, b: <tspan class="type">&amp;str</tspan>) -&gt; <tspan class="type">&amp;str</tspan>
+  </text>
+  
+  <text x="205" y="240" text-anchor="middle" class="small">N tipos = N funciones idénticas</text>
+  
+  <!-- Con Generics Box -->
+  <rect x="420" y="80" width="350" height="180" rx="8" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="595" y="105" text-anchor="middle" class="label" style="fill:#4ec9b0;">✅ Con Generics: Una función</text>
+  
+  <text x="440" y="145" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">mayor</tspan>&lt;<tspan class="type">T</tspan>: <tspan class="type">PartialOrd</tspan>&gt;(
+  </text>
+  <text x="440" y="165" class="code">    a: <tspan class="type">T</tspan>, b: <tspan class="type">T</tspan></text>
+  <text x="440" y="185" class="code">) -&gt; <tspan class="type">T</tspan> {</text>
+  <text x="440" y="205" class="code">    <tspan class="keyword">if</tspan> a &gt; b { a } <tspan class="keyword">else</tspan> { b }</text>
+  <text x="440" y="225" class="code">}</text>
+  
+  <text x="595" y="250" text-anchor="middle" class="small">1 función para TODOS los tipos</text>
+  
+  <!-- Arrow -->
+  <path d="M385 170 L415 170" stroke="#CE422B" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Monomorphization Section -->
+  <rect x="30" y="280" width="740" height="200" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="400" y="305" text-anchor="middle" class="label">Monomorphization: El compilador genera código específico</text>
+  
+  <!-- Generic Code -->
+  <rect x="50" y="325" width="180" height="70" rx="6" fill="#1e1e1e" stroke="#569cd6"/>
+  <text x="140" y="350" text-anchor="middle" class="code">
+    <tspan class="function">mayor</tspan>&lt;<tspan class="type">T</tspan>&gt;(a, b)
+  </text>
+  <text x="140" y="375" text-anchor="middle" class="small">Código genérico</text>
+  
+  <!-- Arrows to specialized -->
+  <path d="M235 360 L285 340" stroke="#808080" stroke-width="2" fill="none"/>
+  <path d="M235 360 L285 360" stroke="#808080" stroke-width="2" fill="none"/>
+  <path d="M235 360 L285 380" stroke="#808080" stroke-width="2" fill="none"/>
+  
+  <!-- Specialized boxes -->
+  <rect x="290" y="320" width="150" height="35" rx="4" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="365" y="343" text-anchor="middle" class="code">
+    <tspan class="function">mayor_i32</tspan>()
+  </text>
+  
+  <rect x="290" y="360" width="150" height="35" rx="4" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="365" y="383" text-anchor="middle" class="code">
+    <tspan class="function">mayor_f64</tspan>()
+  </text>
+  
+  <rect x="290" y="400" width="150" height="35" rx="4" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="365" y="423" text-anchor="middle" class="code">
+    <tspan class="function">mayor_str</tspan>()
+  </text>
+  
+  <!-- Benefits -->
+  <rect x="480" y="320" width="270" height="120" rx="6" fill="#1e1e1e" stroke="#6a9955"/>
+  <text x="615" y="345" text-anchor="middle" class="label" style="fill:#6a9955;">Zero-Cost Abstraction</text>
+  <text x="500" y="370" class="small">✓ Sin overhead en runtime</text>
+  <text x="500" y="390" class="small">✓ Código optimizado por tipo</text>
+  <text x="500" y="410" class="small">✓ Inlining posible</text>
+  <text x="500" y="430" class="small">✓ Mismo rendimiento que código manual</text>
+</svg>

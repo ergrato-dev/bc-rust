@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; fill: #d4d4d4; font-weight: bold; }
+      .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+      .small { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+      .code { font-family: 'Fira Code', monospace; font-size: 12px; fill: #d4d4d4; }
+      .keyword { fill: #569cd6; }
+      .type { fill: #4ec9b0; }
+      .function { fill: #dcdcaa; }
+      .field { fill: #9cdcfe; }
+      .comment { fill: #6a9955; }
+      .number { fill: #b5cea8; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">Structs y Enums Genéricos</text>
+  
+  <!-- Struct Section -->
+  <rect x="30" y="50" width="360" height="200" rx="8" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="210" y="75" text-anchor="middle" class="label" style="fill:#4ec9b0;">Struct Genérico</text>
+  
+  <text x="50" y="105" class="code">
+    <tspan class="keyword">struct</tspan> <tspan class="type">Punto</tspan>&lt;<tspan class="type">T</tspan>&gt; {
+  </text>
+  <text x="50" y="125" class="code">
+    <tspan class="field">x</tspan>: <tspan class="type">T</tspan>,
+  </text>
+  <text x="50" y="145" class="code">
+    <tspan class="field">y</tspan>: <tspan class="type">T</tspan>,
+  </text>
+  <text x="50" y="165" class="code">}</text>
+  
+  <text x="50" y="195" class="code">
+    <tspan class="comment">// Uso</tspan>
+  </text>
+  <text x="50" y="215" class="code">
+    <tspan class="keyword">let</tspan> p1 = <tspan class="type">Punto</tspan> { <tspan class="field">x</tspan>: <tspan class="number">5</tspan>, <tspan class="field">y</tspan>: <tspan class="number">10</tspan> };
+  </text>
+  <text x="50" y="235" class="code">
+    <tspan class="keyword">let</tspan> p2 = <tspan class="type">Punto</tspan> { <tspan class="field">x</tspan>: <tspan class="number">1.0</tspan>, <tspan class="field">y</tspan>: <tspan class="number">4.0</tspan> };
+  </text>
+  
+  <!-- Enum Section -->
+  <rect x="410" y="50" width="360" height="200" rx="8" fill="#2d2d2d" stroke="#CE422B"/>
+  <text x="590" y="75" text-anchor="middle" class="label" style="fill:#CE422B;">Enum Genérico</text>
+  
+  <text x="430" y="105" class="code">
+    <tspan class="keyword">enum</tspan> <tspan class="type">Resultado</tspan>&lt;<tspan class="type">T</tspan>, <tspan class="type">E</tspan>&gt; {
+  </text>
+  <text x="430" y="125" class="code">
+    <tspan class="type">Ok</tspan>(<tspan class="type">T</tspan>),
+  </text>
+  <text x="430" y="145" class="code">
+    <tspan class="type">Err</tspan>(<tspan class="type">E</tspan>),
+  </text>
+  <text x="430" y="165" class="code">}</text>
+  
+  <text x="430" y="195" class="code">
+    <tspan class="comment">// Uso</tspan>
+  </text>
+  <text x="430" y="215" class="code">
+    <tspan class="keyword">let</tspan> ok: <tspan class="type">Resultado</tspan>&lt;<tspan class="type">i32</tspan>, <tspan class="type">String</tspan>&gt; =
+  </text>
+  <text x="430" y="235" class="code">
+        <tspan class="type">Resultado</tspan>::<tspan class="type">Ok</tspan>(<tspan class="number">42</tspan>);
+  </text>
+  
+  <!-- impl Blocks Section -->
+  <rect x="30" y="265" width="740" height="300" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="400" y="290" text-anchor="middle" class="label">Implementaciones (impl blocks)</text>
+  
+  <!-- impl for all T -->
+  <rect x="50" y="305" width="330" height="115" rx="6" fill="#1e1e1e" stroke="#569cd6"/>
+  <text x="215" y="325" text-anchor="middle" class="small" style="fill:#569cd6;">Para TODOS los tipos T</text>
+  
+  <text x="65" y="350" class="code">
+    <tspan class="keyword">impl</tspan>&lt;<tspan class="type">T</tspan>&gt; <tspan class="type">Punto</tspan>&lt;<tspan class="type">T</tspan>&gt; {
+  </text>
+  <text x="65" y="370" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">new</tspan>(x: <tspan class="type">T</tspan>, y: <tspan class="type">T</tspan>) -&gt; <tspan class="type">Self</tspan> {
+  </text>
+  <text x="65" y="390" class="code">
+        <tspan class="type">Self</tspan> { x, y }
+  </text>
+  <text x="65" y="410" class="code">    }</text>
+  <text x="65" y="415" class="code">}</text>
+  
+  <!-- impl with bound -->
+  <rect x="400" y="305" width="350" height="115" rx="6" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="575" y="325" text-anchor="middle" class="small" style="fill:#4ec9b0;">Solo para T: Clone</text>
+  
+  <text x="415" y="350" class="code">
+    <tspan class="keyword">impl</tspan>&lt;<tspan class="type">T</tspan>: <tspan class="type">Clone</tspan>&gt; <tspan class="type">Punto</tspan>&lt;<tspan class="type">T</tspan>&gt; {
+  </text>
+  <text x="415" y="370" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">clonar_x</tspan>(&amp;<tspan class="keyword">self</tspan>) -&gt; <tspan class="type">T</tspan> {
+  </text>
+  <text x="415" y="390" class="code">
+        <tspan class="keyword">self</tspan>.x.<tspan class="function">clone</tspan>()
+  </text>
+  <text x="415" y="410" class="code">    }</text>
+  <text x="415" y="415" class="code">}</text>
+  
+  <!-- impl for specific type -->
+  <rect x="50" y="435" width="330" height="115" rx="6" fill="#1e1e1e" stroke="#dcdcaa"/>
+  <text x="215" y="455" text-anchor="middle" class="small" style="fill:#dcdcaa;">Solo para f64</text>
+  
+  <text x="65" y="480" class="code">
+    <tspan class="keyword">impl</tspan> <tspan class="type">Punto</tspan>&lt;<tspan class="type">f64</tspan>&gt; {
+  </text>
+  <text x="65" y="500" class="code">
+    <tspan class="keyword">fn</tspan> <tspan class="function">distancia</tspan>(&amp;<tspan class="keyword">self</tspan>) -&gt; <tspan class="type">f64</tspan> {
+  </text>
+  <text x="65" y="520" class="code">
+        (<tspan class="keyword">self</tspan>.x.<tspan class="function">powi</tspan>(<tspan class="number">2</tspan>) +
+  </text>
+  <text x="65" y="540" class="code">
+         <tspan class="keyword">self</tspan>.y.<tspan class="function">powi</tspan>(<tspan class="number">2</tspan>)).<tspan class="function">sqrt</tspan>()
+  </text>
+  
+  <!-- Summary box -->
+  <rect x="400" y="435" width="350" height="115" rx="6" fill="#1e1e1e" stroke="#6a9955"/>
+  <text x="575" y="455" text-anchor="middle" class="small" style="fill:#6a9955;">Resumen</text>
+  
+  <text x="420" y="480" class="small">• impl&lt;T&gt; Type&lt;T&gt; → todos los tipos</text>
+  <text x="420" y="500" class="small">• impl&lt;T: Bound&gt; Type&lt;T&gt; → tipos con bound</text>
+  <text x="420" y="520" class="small">• impl Type&lt;Concreto&gt; → solo ese tipo</text>
+  <text x="420" y="545" class="small" style="fill:#4ec9b0;">Los bounds van donde se NECESITAN</text>
+</svg>
