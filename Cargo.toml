@@ -53,6 +53,13 @@ members = [
     "bootcamp/semana-13/2-practica/practica-03-refcell",
     "bootcamp/semana-13/2-practica/practica-04-weak",
     "bootcamp/semana-13/2-practica/proyecto-cache",
+    
+    # Semana 14 - Concurrencia
+    "bootcamp/semana-14/2-practica/practica-01-threads",
+    "bootcamp/semana-14/2-practica/practica-02-channels",
+    "bootcamp/semana-14/2-practica/practica-03-mutex",
+    "bootcamp/semana-14/2-practica/practica-04-patrones",
+    "bootcamp/semana-14/2-practica/proyecto-workers",
 ]
 
 [workspace.package]

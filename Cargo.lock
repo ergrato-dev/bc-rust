@@ -179,11 +179,19 @@ name = "practica-01-lifetimes-basicos"
 version = "0.1.0"
 
 [[package]]
+name = "practica-01-threads"
+version = "0.1.0"
+
+[[package]]
 name = "practica-01-vectores"
 version = "0.1.0"
 
 [[package]]
 name = "practica-02-captura"
+version = "0.1.0"
+
+[[package]]
+name = "practica-02-channels"
 version = "0.1.0"
 
 [[package]]
@@ -219,6 +227,10 @@ name = "practica-03-hashmaps"
 version = "0.1.0"
 
 [[package]]
+name = "practica-03-mutex"
+version = "0.1.0"
+
+[[package]]
 name = "practica-03-refcell"
 version = "0.1.0"
 
@@ -244,6 +256,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practica-04-lifetimes-avanzados"
+version = "0.1.0"
+
+[[package]]
+name = "practica-04-patrones"
 version = "0.1.0"
 
 [[package]]
@@ -311,6 +327,10 @@ version = "0.1.0"
 
 [[package]]
 name = "proyecto-pipeline"
+version = "0.1.0"
+
+[[package]]
+name = "proyecto-workers"
 version = "0.1.0"
 
 [[package]]

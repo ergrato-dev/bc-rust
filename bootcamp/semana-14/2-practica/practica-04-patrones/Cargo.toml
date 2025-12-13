@@ -1,0 +1,8 @@
+[package]
+name = "practica-04-patrones"
+version = "0.1.0"
+edition = "2024"
+authors = ["Bootcamp Rust"]
+description = "Práctica 04: Patrones de concurrencia"
+
+[dependencies]

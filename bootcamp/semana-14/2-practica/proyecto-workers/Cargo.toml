@@ -1,0 +1,8 @@
+[package]
+name = "proyecto-workers"
+version = "0.1.0"
+edition = "2024"
+authors = ["Bootcamp Rust"]
+description = "Proyecto Final Semana 14: Thread Pool completo"
+
+[dependencies]
