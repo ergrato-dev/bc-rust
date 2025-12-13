@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580">
   <defs>
     <style>
       .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; font-weight: bold; fill: #d4d4d4; }
       .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
       .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
       .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
-      .code { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+      .code { font-family: 'Fira Code', 'Consolas', monospace; font-size: 10px; fill: #d4d4d4; }
       .keyword { fill: #569cd6; }
       .function { fill: #dcdcaa; }
       .string { fill: #ce9178; }
@@ -19,14 +19,14 @@
   <rect width="100%" height="100%" fill="#1e1e1e"/>
   
   <!-- Title -->
-  <text x="400" y="35" text-anchor="middle" class="title">⚡ Iteradores Avanzados</text>
-  <text x="400" y="58" text-anchor="middle" class="subtitle">Crear iteradores personalizados y patrones avanzados</text>
+  <text x="400" y="30" text-anchor="middle" class="title">⚡ Iteradores Avanzados</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">Crear iteradores personalizados y patrones avanzados</text>
   
   <!-- Custom Iterator -->
-  <rect x="30" y="75" width="350" height="200" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
-  <text x="205" y="100" text-anchor="middle" class="label" style="fill:#CE422B;">Implementar Iterator</text>
+  <rect x="25" y="65" width="360" height="195" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="205" y="85" text-anchor="middle" class="label" style="fill:#CE422B;">Implementar Iterator</text>
   
-  <text x="45" y="125" class="code">
+  <text x="40" y="105" class="code">
     <tspan class="keyword">struct</tspan>
     <tspan class="type"> Contador</tspan>
     <tspan> { actual: </tspan>
@@ -35,21 +35,21 @@
     <tspan class="type">u32</tspan>
     <tspan> }</tspan>
   </text>
-  <text x="45" y="150" class="code">
+  <text x="40" y="125" class="code">
     <tspan class="keyword">impl</tspan>
     <tspan class="type"> Iterator</tspan>
     <tspan class="keyword"> for</tspan>
     <tspan class="type"> Contador</tspan>
     <tspan> {</tspan>
   </text>
-  <text x="60" y="170" class="code">
+  <text x="55" y="142" class="code">
     <tspan class="keyword">type</tspan>
     <tspan class="type"> Item</tspan>
     <tspan> = </tspan>
     <tspan class="type">u32</tspan>
     <tspan>;</tspan>
   </text>
-  <text x="60" y="190" class="code">
+  <text x="55" y="159" class="code">
     <tspan class="keyword">fn</tspan>
     <tspan class="function"> next</tspan>
     <tspan>(&amp;</tspan>
@@ -60,23 +60,29 @@
     <tspan class="type">u32</tspan>
     <tspan>&gt; {</tspan>
   </text>
-  <text x="75" y="210" class="code">
+  <text x="70" y="176" class="code">
     <tspan class="keyword">if</tspan>
     <tspan> self.actual &lt; self.max {</tspan>
   </text>
-  <text x="90" y="227" class="code">self.actual += <tspan class="number">1</tspan>;</text>
-  <text x="90" y="244" class="code">
+  <text x="85" y="193" class="code">self.actual += <tspan class="number">1</tspan>;</text>
+  <text x="85" y="210" class="code">
     <tspan class="type">Some</tspan>
     <tspan>(self.actual)</tspan>
   </text>
-  <text x="75" y="261" class="code">} <tspan class="keyword">else</tspan> { <tspan class="type">None</tspan> }</text>
-  <text x="45" y="278" class="code">} }</text>
+  <text x="70" y="227" class="code">
+    <tspan>} </tspan>
+    <tspan class="keyword">else</tspan>
+    <tspan> { </tspan>
+    <tspan class="type">None</tspan>
+    <tspan> }</tspan>
+  </text>
+  <text x="40" y="250" class="code">} }</text>
   
   <!-- Usage example -->
-  <rect x="420" y="75" width="350" height="200" rx="8" fill="#252526" stroke="#4ec9b0"/>
-  <text x="595" y="100" text-anchor="middle" class="label" style="fill:#4ec9b0;">Pipeline de Datos</text>
+  <rect x="415" y="65" width="360" height="195" rx="8" fill="#252526" stroke="#4ec9b0"/>
+  <text x="595" y="85" text-anchor="middle" class="label" style="fill:#4ec9b0;">Pipeline de Datos</text>
   
-  <text x="435" y="125" class="code">
+  <text x="430" y="108" class="code">
     <tspan class="keyword">let</tspan>
     <tspan> datos = </tspan>
     <tspan class="keyword">vec!</tspan>
@@ -86,7 +92,7 @@
     <tspan class="string">"RUST"</tspan>
     <tspan>];</tspan>
   </text>
-  <text x="435" y="155" class="code">
+  <text x="430" y="130" class="code">
     <tspan class="keyword">let</tspan>
     <tspan> resultado: </tspan>
     <tspan class="type">Vec</tspan>
@@ -94,52 +100,49 @@
     <tspan class="type">String</tspan>
     <tspan>&gt; = datos</tspan>
   </text>
-  <text x="450" y="175" class="code">
+  <text x="445" y="148" class="code">
     <tspan>.</tspan>
     <tspan class="function">iter</tspan>
     <tspan>()</tspan>
   </text>
-  <text x="450" y="195" class="code">
+  <text x="445" y="166" class="code">
     <tspan>.</tspan>
     <tspan class="function">map</tspan>
     <tspan>(|s| s.</tspan>
     <tspan class="function">trim</tspan>
     <tspan>())</tspan>
-    <tspan class="comment">       // quitar espacios</tspan>
   </text>
-  <text x="450" y="215" class="code">
+  <text x="445" y="184" class="code">
     <tspan>.</tspan>
     <tspan class="function">filter</tspan>
     <tspan>(|s| !s.</tspan>
     <tspan class="function">is_empty</tspan>
     <tspan>())</tspan>
-    <tspan class="comment"> // no vacíos</tspan>
   </text>
-  <text x="450" y="235" class="code">
+  <text x="445" y="202" class="code">
     <tspan>.</tspan>
     <tspan class="function">map</tspan>
     <tspan>(|s| s.</tspan>
     <tspan class="function">to_lowercase</tspan>
     <tspan>())</tspan>
-    <tspan class="comment"> // minúsculas</tspan>
   </text>
-  <text x="450" y="255" class="code">
+  <text x="445" y="220" class="code">
     <tspan>.</tspan>
     <tspan class="function">collect</tspan>
     <tspan>();</tspan>
   </text>
-  <text x="435" y="278" class="code">
-    <tspan class="comment">// resultado = ["hola", "rust"]</tspan>
+  <text x="430" y="250" class="code">
+    <tspan class="comment">// → ["hola", "rust"]</tspan>
   </text>
   
   <!-- Advanced adapters -->
-  <rect x="30" y="290" width="355" height="210" rx="8" fill="#252526" stroke="#569cd6"/>
-  <text x="207" y="315" text-anchor="middle" class="label" style="fill:#569cd6;">Adaptadores Avanzados</text>
+  <rect x="25" y="275" width="360" height="180" rx="8" fill="#252526" stroke="#569cd6"/>
+  <text x="205" y="295" text-anchor="middle" class="label" style="fill:#569cd6;">Adaptadores Avanzados</text>
   
-  <text x="45" y="345" class="code">
+  <text x="40" y="320" class="code">
     <tspan class="comment">// flat_map: map + flatten</tspan>
   </text>
-  <text x="45" y="365" class="code">
+  <text x="40" y="340" class="code">
     <tspan class="keyword">vec!</tspan>
     <tspan>[</tspan>
     <tspan class="string">"a b"</tspan>
@@ -149,21 +152,21 @@
     <tspan class="function">iter</tspan>
     <tspan>()</tspan>
   </text>
-  <text x="60" y="385" class="code">
+  <text x="55" y="358" class="code">
     <tspan>.</tspan>
     <tspan class="function">flat_map</tspan>
     <tspan>(|s| s.</tspan>
     <tspan class="function">split_whitespace</tspan>
     <tspan>())</tspan>
   </text>
-  <text x="60" y="405" class="code">
+  <text x="55" y="376" class="code">
     <tspan class="comment">// → ["a", "b", "c", "d"]</tspan>
   </text>
   
-  <text x="45" y="435" class="code">
+  <text x="40" y="405" class="code">
     <tspan class="comment">// windows: ventanas deslizantes</tspan>
   </text>
-  <text x="45" y="455" class="code">
+  <text x="40" y="425" class="code">
     <tspan>[</tspan>
     <tspan class="number">1</tspan>
     <tspan>,</tspan>
@@ -178,18 +181,18 @@
     <tspan class="number">2</tspan>
     <tspan>)</tspan>
   </text>
-  <text x="60" y="475" class="code">
+  <text x="55" y="443" class="code">
     <tspan class="comment">// → [1,2], [2,3], [3,4]</tspan>
   </text>
   
   <!-- Infinite iterators -->
-  <rect x="415" y="290" width="355" height="210" rx="8" fill="#252526" stroke="#dcdcaa"/>
-  <text x="592" y="315" text-anchor="middle" class="label" style="fill:#dcdcaa;">Iteradores Infinitos</text>
+  <rect x="415" y="275" width="360" height="180" rx="8" fill="#252526" stroke="#dcdcaa"/>
+  <text x="595" y="295" text-anchor="middle" class="label" style="fill:#dcdcaa;">Iteradores Infinitos</text>
   
-  <text x="430" y="345" class="code">
-    <tspan class="comment">// repeat: repetir valor</tspan>
+  <text x="430" y="320" class="code">
+    <tspan class="comment">// repeat: repetir valor infinitamente</tspan>
   </text>
-  <text x="430" y="365" class="code">
+  <text x="430" y="340" class="code">
     <tspan class="type">std::iter</tspan>
     <tspan>::</tspan>
     <tspan class="function">repeat</tspan>
@@ -201,14 +204,14 @@
     <tspan class="number">5</tspan>
     <tspan>)</tspan>
   </text>
-  <text x="445" y="385" class="code">
+  <text x="445" y="358" class="code">
     <tspan class="comment">// → [1, 1, 1, 1, 1]</tspan>
   </text>
   
-  <text x="430" y="415" class="code">
+  <text x="430" y="390" class="code">
     <tspan class="comment">// successors: secuencia con generador</tspan>
   </text>
-  <text x="430" y="435" class="code">
+  <text x="430" y="410" class="code">
     <tspan class="function">successors</tspan>
     <tspan>(</tspan>
     <tspan class="type">Some</tspan>
@@ -220,14 +223,23 @@
     <tspan class="number">2</tspan>
     <tspan>))</tspan>
   </text>
-  <text x="445" y="455" class="code">
+  <text x="445" y="428" class="code">
     <tspan>.</tspan>
     <tspan class="function">take</tspan>
     <tspan>(</tspan>
     <tspan class="number">5</tspan>
     <tspan>)</tspan>
   </text>
-  <text x="445" y="475" class="code">
-    <tspan class="comment">// → [1, 2, 4, 8, 16] (potencias de 2)</tspan>
+  <text x="445" y="446" class="code">
+    <tspan class="comment">// → [1, 2, 4, 8, 16]</tspan>
   </text>
+  
+  <!-- Key concepts -->
+  <rect x="25" y="470" width="750" height="95" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="400" y="492" text-anchor="middle" class="label" style="fill:#CE422B;">💡 Conceptos Clave</text>
+  
+  <text x="55" y="520" class="small" style="fill:#4ec9b0;">• Lazy evaluation: los iteradores no computan hasta collect/for</text>
+  <text x="55" y="540" class="small" style="fill:#dcdcaa;">• Zero-cost: el compilador optimiza las cadenas de iteradores</text>
+  <text x="430" y="520" class="small" style="fill:#569cd6;">• Composición: encadenar adaptadores para transformaciones</text>
+  <text x="430" y="540" class="small" style="fill:#808080;">• take(n): limitar iteradores infinitos</text>
 </svg>
