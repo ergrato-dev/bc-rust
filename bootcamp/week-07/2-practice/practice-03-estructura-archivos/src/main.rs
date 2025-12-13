@@ -59,9 +59,9 @@ fn main() {
 
     // Reduce stock after sale
     println!("\n--- Updating Stock ---");
-    laptop.reduce_stock(1).unwrap();
-    mouse.reduce_stock(2).unwrap();
-    keyboard.reduce_stock(1).unwrap();
+    laptop.reduce_stock(1);
+    mouse.reduce_stock(2);
+    keyboard.reduce_stock(1);
 
     println!("Laptop stock: {}", laptop.quantity);
     println!("Mouse stock: {}", mouse.quantity);
