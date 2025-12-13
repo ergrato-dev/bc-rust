@@ -1,5 +1,5 @@
 [package]
-name = "practica-01-lifetimes-basicos"
+name = "practice-01-lifetimes-basic"
 version = "0.1.0"
 edition = "2024"
 

@@ -38,7 +38,7 @@ impl<'a> Parser<'a> {
     ///
     /// # Ejemplo
     /// ```
-    /// use proyecto_parser::Parser;
+    /// use project_parser::Parser;
     ///
     /// let parser = Parser::new("name=rust");
     /// let kv = parser.parse_key_value('=').unwrap();

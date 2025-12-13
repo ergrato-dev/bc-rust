@@ -1,5 +1,5 @@
 [package]
-name = "practica-02-lifetimes-structs"
+name = "practice-02-lifetimes-structs"
 version = "0.1.0"
 edition = "2024"
 

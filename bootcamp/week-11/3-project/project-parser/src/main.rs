@@ -2,8 +2,8 @@
 //!
 //! Este programa demuestra las capacidades del parser zero-copy.
 
-use proyecto_parser::{Lexer, Parser};
-use proyecto_parser::parser::IniParser;
+use project_parser::{Lexer, Parser};
+use project_parser::parser::IniParser;
 
 fn main() {
     println!("=== Parser de Texto Eficiente ===\n");
