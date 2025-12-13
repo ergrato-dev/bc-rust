@@ -1,92 +1,92 @@
-//! Modelos de datos
+//! Data models
 
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
 use utoipa::ToSchema;
 
-/// Tarea almacenada en la base de datos
+/// Task stored in the database
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, ToSchema)]
-pub struct Tarea {
-    /// ID único de la tarea
+pub struct Task {
+    /// Unique task ID
     #[schema(example = 1)]
     pub id: i64,
-    /// Título de la tarea
-    #[schema(example = "Aprender Rust")]
-    pub titulo: String,
-    /// Descripción opcional
-    #[schema(example = "Completar el bootcamp de 17 semanas")]
-    pub descripcion: Option<String>,
-    /// Estado de completitud
+    /// Task title
+    #[schema(example = "Learn Rust")]
+    pub title: String,
+    /// Optional description
+    #[schema(example = "Complete the 17-week bootcamp")]
+    pub description: Option<String>,
+    /// Completion status
     #[schema(example = false)]
-    pub completada: bool,
-    /// Fecha de creación
+    pub completed: bool,
+    /// Creation timestamp
     #[schema(example = "2025-01-15 10:30:00")]
-    pub creada_en: String,
-    /// Fecha de última actualización
+    pub created_at: String,
+    /// Last update timestamp
     #[schema(example = "2025-01-15 12:00:00")]
-    pub actualizada_en: String,
+    pub updated_at: String,
 }
 
-/// DTO para crear una tarea
+/// DTO for creating a task
 #[derive(Debug, Deserialize, ToSchema)]
-pub struct CrearTarea {
-    /// Título de la tarea (requerido)
-    #[schema(example = "Aprender Rust")]
-    pub titulo: String,
-    /// Descripción opcional de la tarea
-    #[schema(example = "Completar el bootcamp")]
-    pub descripcion: Option<String>,
+pub struct CreateTask {
+    /// Task title (required)
+    #[schema(example = "Learn Rust")]
+    pub title: String,
+    /// Optional task description
+    #[schema(example = "Complete the bootcamp")]
+    pub description: Option<String>,
 }
 
-/// DTO para actualizar una tarea
+/// DTO for updating a task
 #[derive(Debug, Deserialize, ToSchema)]
-pub struct ActualizarTarea {
-    /// Nuevo título (opcional)
-    #[schema(example = "Dominar Rust")]
-    pub titulo: Option<String>,
-    /// Nueva descripción (opcional)
-    #[schema(example = "Ahora soy un experto")]
-    pub descripcion: Option<String>,
-    /// Nuevo estado de completitud (opcional)
+pub struct UpdateTask {
+    /// New title (optional)
+    #[schema(example = "Master Rust")]
+    pub title: Option<String>,
+    /// New description (optional)
+    #[schema(example = "Now I'm an expert")]
+    pub description: Option<String>,
+    /// New completion status (optional)
     #[schema(example = true)]
-    pub completada: Option<bool>,
+    pub completed: Option<bool>,
 }
 
-/// Filtros de consulta
+/// Query filters
 #[derive(Debug, Deserialize, Default, ToSchema)]
-pub struct FiltroTareas {
-    /// Filtrar por estado de completitud
+pub struct TaskFilters {
+    /// Filter by completion status
     #[schema(example = false)]
-    pub completada: Option<bool>,
-    /// Límite de resultados
+    pub completed: Option<bool>,
+    /// Results limit
     #[schema(example = 10)]
-    pub limite: Option<i64>,
-    /// Offset para paginación
+    pub limit: Option<i64>,
+    /// Pagination offset
     #[schema(example = 0)]
     pub offset: Option<i64>,
 }
 
-/// Estadísticas de tareas
+/// Task statistics
 #[derive(Debug, Serialize, ToSchema)]
-pub struct EstadisticasTareas {
-    /// Total de tareas
+pub struct TaskStats {
+    /// Total tasks
     #[schema(example = 100)]
     pub total: i64,
-    /// Tareas completadas
+    /// Completed tasks
     #[schema(example = 75)]
-    pub completadas: i64,
-    /// Tareas pendientes
+    pub completed: i64,
+    /// Pending tasks
     #[schema(example = 25)]
-    pub pendientes: i64,
+    pub pending: i64,
 }
 
-/// Respuesta de error de la API
+/// API error response
 #[derive(Debug, Serialize, ToSchema)]
 pub struct ErrorResponse {
-    /// Mensaje de error
-    #[schema(example = "Tarea no encontrada")]
+    /// Error message
+    #[schema(example = "Task not found")]
     pub error: String,
-    /// Código HTTP
+    /// HTTP status code
     #[schema(example = 404)]
-    pub codigo: u16,
+    pub code: u16,
 }
