@@ -25,61 +25,61 @@ fn main() {
 // ============================================================================
 
 /// Suma elementos usando iter() - préstamo inmutable
-fn sumar_elementos(numeros: &[i32]) -> i32 {
-    numeros.iter().sum()
+fn sum_elements(numbers: &[i32]) -> i32 {
+    numbers.iter().sum()
 }
 
 /// Duplica elementos in-place usando iter_mut() - préstamo mutable
-fn duplicar_elementos(numeros: &mut [i32]) {
-    for num in numeros.iter_mut() {
+fn double_elements(numbers: &mut [i32]) {
+    for num in numbers.iter_mut() {
         *num *= 2;
     }
 }
 
 /// Convierte a mayúsculas consumiendo el vector - into_iter()
-fn a_mayusculas(palabras: Vec<String>) -> Vec<String> {
-    palabras.into_iter().map(|s| s.to_uppercase()).collect()
+fn to_uppercase_vec(words: Vec<String>) -> Vec<String> {
+    words.into_iter().map(|s| s.to_uppercase()).collect()
 }
 
 /// Filtra y transforma sin consumir el original
-fn filtrar_positivos(numeros: &[i32]) -> Vec<i32> {
-    numeros.iter().filter(|&&n| n > 0).copied().collect()
+fn filter_positives(numbers: &[i32]) -> Vec<i32> {
+    numbers.iter().filter(|&&n| n > 0).copied().collect()
 }
 
 /// Encuentra el máximo sin consumir
-fn encontrar_maximo(numeros: &[i32]) -> Option<i32> {
-    numeros.iter().copied().max()
+fn find_maximum(numbers: &[i32]) -> Option<i32> {
+    numbers.iter().copied().max()
 }
 
 fn demo_tipos_iteradores() {
     println!("--- Ejercicio 1: Tipos de Iteradores ---");
 
     // iter() - préstamo inmutable
-    let numeros = vec![1, 2, 3, 4, 5];
-    let suma = sumar_elementos(&numeros);
-    println!("Suma de {:?}: {}", numeros, suma);
+    let numbers = vec![1, 2, 3, 4, 5];
+    let total = sum_elements(&numbers);
+    println!("Suma de {:?}: {}", numbers, total);
 
     // iter_mut() - préstamo mutable
     let mut nums = vec![1, 2, 3];
     println!("Antes de duplicar: {:?}", nums);
-    duplicar_elementos(&mut nums);
+    double_elements(&mut nums);
     println!("Después de duplicar: {:?}", nums);
 
     // into_iter() - consume el vector
-    let palabras = vec!["hola".to_string(), "mundo".to_string()];
-    let mayusculas = a_mayusculas(palabras);
+    let words = vec!["hola".to_string(), "mundo".to_string()];
+    let uppercase = to_uppercase_vec(words);
     // palabras ya no es accesible aquí
-    println!("En mayúsculas: {:?}", mayusculas);
+    println!("En mayúsculas: {:?}", uppercase);
 
     // Filtrar positivos
-    let mixtos = vec![-2, -1, 0, 1, 2, 3];
-    let positivos = filtrar_positivos(&mixtos);
-    println!("Positivos de {:?}: {:?}", mixtos, positivos);
+    let mixed = vec![-2, -1, 0, 1, 2, 3];
+    let positives = filter_positives(&mixed);
+    println!("Positivos de {:?}: {:?}", mixed, positives);
 
     // Máximo
-    let valores = vec![42, 17, 93, 5, 68];
-    if let Some(max) = encontrar_maximo(&valores) {
-        println!("Máximo de {:?}: {}", valores, max);
+    let values = vec![42, 17, 93, 5, 68];
+    if let Some(max) = find_maximum(&values) {
+        println!("Máximo de {:?}: {}", values, max);
     }
 
     println!();
@@ -90,18 +90,18 @@ fn demo_tipos_iteradores() {
 // ============================================================================
 
 /// Aplica una función a cada elemento
-fn mapear_cuadrados(numeros: &[i32]) -> Vec<i32> {
-    numeros.iter().map(|n| n * n).collect()
+fn map_squares(numbers: &[i32]) -> Vec<i32> {
+    numbers.iter().map(|n| n * n).collect()
 }
 
 /// Filtra elementos que cumplen un predicado
-fn filtrar_pares(numeros: &[i32]) -> Vec<i32> {
-    numeros.iter().filter(|&&n| n % 2 == 0).copied().collect()
+fn filter_evens(numbers: &[i32]) -> Vec<i32> {
+    numbers.iter().filter(|&&n| n % 2 == 0).copied().collect()
 }
 
 /// Combina filter y map
-fn cuadrados_de_pares(numeros: &[i32]) -> Vec<i32> {
-    numeros
+fn squares_of_evens(numbers: &[i32]) -> Vec<i32> {
+    numbers
         .iter()
         .filter(|&&n| n % 2 == 0)
         .map(|n| n * n)
@@ -109,8 +109,8 @@ fn cuadrados_de_pares(numeros: &[i32]) -> Vec<i32> {
 }
 
 /// Usa enumerate para obtener índices
-fn con_indices(elementos: &[&str]) -> Vec<(usize, String)> {
-    elementos
+fn with_indices(elements: &[&str]) -> Vec<(usize, String)> {
+    elements
         .iter()
         .enumerate()
         .map(|(i, s)| (i, s.to_string()))
@@ -118,33 +118,33 @@ fn con_indices(elementos: &[&str]) -> Vec<(usize, String)> {
 }
 
 /// Combina dos iteradores con zip
-fn combinar_pares(primeros: &[i32], segundos: &[i32]) -> Vec<(i32, i32)> {
-    primeros.iter().zip(segundos.iter()).map(|(&a, &b)| (a, b)).collect()
+fn combine_pairs(first: &[i32], second: &[i32]) -> Vec<(i32, i32)> {
+    first.iter().zip(second.iter()).map(|(&a, &b)| (a, b)).collect()
 }
 
 /// Aplana estructuras anidadas con flat_map
-fn aplanar(anidado: &[Vec<i32>]) -> Vec<i32> {
-    anidado.iter().flat_map(|v| v.iter().copied()).collect()
+fn flatten_nested(nested: &[Vec<i32>]) -> Vec<i32> {
+    nested.iter().flat_map(|v| v.iter().copied()).collect()
 }
 
 /// Toma los primeros n elementos
-fn primeros_n(elementos: &[i32], n: usize) -> Vec<i32> {
-    elementos.iter().take(n).copied().collect()
+fn first_n(elements: &[i32], n: usize) -> Vec<i32> {
+    elements.iter().take(n).copied().collect()
 }
 
 /// Salta los primeros n elementos
-fn sin_primeros_n(elementos: &[i32], n: usize) -> Vec<i32> {
-    elementos.iter().skip(n).copied().collect()
+fn skip_first_n(elements: &[i32], n: usize) -> Vec<i32> {
+    elements.iter().skip(n).copied().collect()
 }
 
 /// Toma mientras se cumple la condición
-fn tomar_mientras_positivo(elementos: &[i32]) -> Vec<i32> {
-    elementos.iter().take_while(|&&n| n > 0).copied().collect()
+fn take_while_positive(elements: &[i32]) -> Vec<i32> {
+    elements.iter().take_while(|&&n| n > 0).copied().collect()
 }
 
 /// Cadena de operaciones
-fn pipeline_completo(numeros: &[i32]) -> Vec<i32> {
-    numeros
+fn complete_pipeline(numbers: &[i32]) -> Vec<i32> {
+    numbers
         .iter()
         .filter(|&&n| n > 0)         // Solo positivos
         .map(|n| n * 2)               // Duplicar
