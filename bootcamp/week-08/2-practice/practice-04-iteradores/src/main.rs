@@ -156,40 +156,40 @@ fn complete_pipeline(numbers: &[i32]) -> Vec<i32> {
 fn demo_adaptadores() {
     println!("--- Ejercicio 2: Adaptadores ---");
 
-    let numeros = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     // Map
-    println!("Cuadrados: {:?}", mapear_cuadrados(&numeros));
+    println!("Cuadrados: {:?}", map_squares(&numbers));
 
     // Filter
-    println!("Pares: {:?}", filtrar_pares(&numeros));
+    println!("Pares: {:?}", filter_evens(&numbers));
 
     // Filter + Map
-    println!("Cuadrados de pares: {:?}", cuadrados_de_pares(&numeros));
+    println!("Cuadrados de pares: {:?}", squares_of_evens(&numbers));
 
     // Enumerate
-    let frutas = vec!["manzana", "pera", "naranja"];
-    println!("Con índices: {:?}", con_indices(&frutas));
+    let fruits = vec!["manzana", "pera", "naranja"];
+    println!("Con índices: {:?}", with_indices(&fruits));
 
     // Zip
     let a = vec![1, 2, 3];
     let b = vec![10, 20, 30];
-    println!("Combinados: {:?}", combinar_pares(&a, &b));
+    println!("Combinados: {:?}", combine_pairs(&a, &b));
 
     // Flat map
-    let anidado = vec![vec![1, 2], vec![3, 4, 5], vec![6]];
-    println!("Aplanado: {:?}", aplanar(&anidado));
+    let nested = vec![vec![1, 2], vec![3, 4, 5], vec![6]];
+    println!("Aplanado: {:?}", flatten_nested(&nested));
 
     // Take y Skip
-    println!("Primeros 3: {:?}", primeros_n(&numeros, 3));
-    println!("Sin primeros 3: {:?}", sin_primeros_n(&numeros, 3));
+    println!("Primeros 3: {:?}", first_n(&numbers, 3));
+    println!("Sin primeros 3: {:?}", skip_first_n(&numbers, 3));
 
     // Take while
-    let mixtos = vec![5, 3, 8, -1, 4, 6];
-    println!("Mientras positivo: {:?}", tomar_mientras_positivo(&mixtos));
+    let mixed = vec![5, 3, 8, -1, 4, 6];
+    println!("Mientras positivo: {:?}", take_while_positive(&mixed));
 
     // Pipeline completo
-    println!("Pipeline completo: {:?}", pipeline_completo(&numeros));
+    println!("Pipeline completo: {:?}", complete_pipeline(&numbers));
 
     println!();
 }
@@ -199,72 +199,72 @@ fn demo_adaptadores() {
 // ============================================================================
 
 /// Recolecta en un vector
-fn a_vector(iter: impl Iterator<Item = i32>) -> Vec<i32> {
+fn to_vector(iter: impl Iterator<Item = i32>) -> Vec<i32> {
     iter.collect()
 }
 
 /// Recolecta en un HashMap
-fn a_hashmap(pares: impl Iterator<Item = (String, i32)>) -> HashMap<String, i32> {
-    pares.collect()
+fn to_hashmap(pairs: impl Iterator<Item = (String, i32)>) -> HashMap<String, i32> {
+    pairs.collect()
 }
 
 /// Suma con fold
-fn suma_con_fold(numeros: &[i32]) -> i32 {
-    numeros.iter().fold(0, |acc, &n| acc + n)
+fn sum_with_fold(numbers: &[i32]) -> i32 {
+    numbers.iter().fold(0, |acc, &n| acc + n)
 }
 
 /// Producto con fold
-fn producto_con_fold(numeros: &[i32]) -> i32 {
-    numeros.iter().fold(1, |acc, &n| acc * n)
+fn product_with_fold(numbers: &[i32]) -> i32 {
+    numbers.iter().fold(1, |acc, &n| acc * n)
 }
 
 /// Concatena strings con fold
-fn concatenar_con_separador(palabras: &[&str], sep: &str) -> String {
-    palabras
+fn join_with_separator(words: &[&str], separator: &str) -> String {
+    words
         .iter()
         .enumerate()
-        .fold(String::new(), |mut acc, (i, palabra)| {
+        .fold(String::new(), |mut acc, (i, word)| {
             if i > 0 {
-                acc.push_str(sep);
+                acc.push_str(separator);
             }
-            acc.push_str(palabra);
+            acc.push_str(word);
             acc
         })
 }
 
 /// Reduce para encontrar el máximo
-fn maximo_con_reduce(numeros: &[i32]) -> Option<i32> {
-    numeros.iter().copied().reduce(|max, n| if n > max { n } else { max })
+fn maximum_with_reduce(numbers: &[i32]) -> Option<i32> {
+    numbers.iter().copied().reduce(|max, n| if n > max { n } else { max })
 }
 
 /// Encuentra el primer elemento que cumple
-fn primer_par(numeros: &[i32]) -> Option<i32> {
-    numeros.iter().find(|&&n| n % 2 == 0).copied()
+fn first_even(numbers: &[i32]) -> Option<i32> {
+    numbers.iter().find(|&&n| n % 2 == 0).copied()
 }
 
 /// Encuentra la posición del primer elemento que cumple
-fn posicion_mayor_que(numeros: &[i32], umbral: i32) -> Option<usize> {
-    numeros.iter().position(|&n| n > umbral)
+fn position_greater_than(numbers: &[i32], threshold: i32) -> Option<usize> {
+    numbers.iter().position(|&n| n > threshold)
 }
 
 /// Verifica si algún elemento cumple
-fn alguno_negativo(numeros: &[i32]) -> bool {
-    numeros.iter().any(|&n| n < 0)
+fn any_negative(numbers: &[i32]) -> bool {
+    numbers.iter().any(|&n| n < 0)
 }
 
 /// Verifica si todos los elementos cumplen
-fn todos_positivos(numeros: &[i32]) -> bool {
-    numeros.iter().all(|&n| n > 0)
+fn all_positive(numbers: &[i32]) -> bool {
+    numbers.iter().all(|&n| n > 0)
 }
 
 /// Cuenta elementos que cumplen
-fn contar_pares(numeros: &[i32]) -> usize {
-    numeros.iter().filter(|&&n| n % 2 == 0).count()
+fn count_evens(numbers: &[i32]) -> usize {
+    numbers.iter().filter(|&&n| n % 2 == 0).count()
 }
 
 /// Particiona en dos grupos
-fn particionar_por_paridad(numeros: &[i32]) -> (Vec<i32>, Vec<i32>) {
-    numeros.iter().partition(|&&n| n % 2 == 0)
+fn partition_by_parity(numbers: &[i32]) -> (Vec<i32>, Vec<i32>) {
+    numbers.iter().partition(|&&n| n % 2 == 0)
 }
 
 fn demo_consumidores() {
