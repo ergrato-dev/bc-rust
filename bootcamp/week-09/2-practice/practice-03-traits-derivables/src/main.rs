@@ -138,58 +138,58 @@ impl Version {
 // Deriva Hash para HashMap y Default para valores iniciales
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-struct ProductoId {
-    categoria: String,
-    numero: u32,
+struct ProductId {
+    category: String,
+    number: u32,
 }
 
-impl ProductoId {
-    fn new(categoria: &str, numero: u32) -> Self {
-        ProductoId {
-            categoria: categoria.to_string(),
-            numero,
+impl ProductId {
+    fn new(category: &str, number: u32) -> Self {
+        ProductId {
+            category: category.to_string(),
+            number,
         }
     }
 }
 
 #[derive(Debug, Clone, Default)]
-struct Configuracion {
+struct Config {
     debug: bool,
-    max_conexiones: u32,
+    max_connections: u32,
     timeout_ms: u64,
-    nombre_app: String,
+    app_name: String,
 }
 
-impl Configuracion {
-    fn produccion() -> Self {
-        Configuracion {
+impl Config {
+    fn production() -> Self {
+        Config {
             debug: false,
-            max_conexiones: 1000,
+            max_connections: 1000,
             timeout_ms: 30000,
-            nombre_app: String::from("MiApp"),
+            app_name: String::from("MiApp"),
         }
     }
     
-    fn desarrollo() -> Self {
-        Configuracion {
+    fn development() -> Self {
+        Config {
             debug: true,
-            max_conexiones: 10,
+            max_connections: 10,
             timeout_ms: 60000,
-            nombre_app: String::from("MiApp-Dev"),
+            app_name: String::from("MiApp-Dev"),
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Default)]
-struct Etiqueta {
-    nombre: String,
+struct Tag {
+    name: String,
     color: String,
 }
 
-impl Etiqueta {
-    fn new(nombre: &str, color: &str) -> Self {
-        Etiqueta {
-            nombre: nombre.to_string(),
+impl Tag {
+    fn new(name: &str, color: &str) -> Self {
+        Tag {
+            name: name.to_string(),
             color: color.to_string(),
         }
     }
@@ -200,79 +200,79 @@ fn main() {
     
     // Ejercicio 1: Debug y Clone
     println!("--- Ejercicio 1: Debug y Clone ---");
-    let producto = Producto::new(1, "Laptop", 999.99, 10);
-    println!("Producto: {:?}", producto);
+    let product = Product::new(1, "Laptop", 999.99, 10);
+    println!("Product: {:?}", product);
     
-    let producto_clon = producto.clone();
-    println!("Clon: {:?}", producto_clon);
+    let product_clone = product.clone();
+    println!("Clone: {:?}", product_clone);
     
-    let punto = Punto2D::new(3.0, 4.0);
-    let punto2 = punto; // Copy, no move
-    println!("Punto original: {:?}", punto);
-    println!("Punto copiado: {:?}", punto2);
-    println!("Distancia al origen: {:.2}", punto.distancia(&Punto2D::new(0.0, 0.0)));
+    let point = Point2D::new(3.0, 4.0);
+    let point2 = point; // Copy, no move
+    println!("Original point: {:?}", point);
+    println!("Copied point: {:?}", point2);
+    println!("Distance to origin: {:.2}", point.distance(&Point2D::new(0.0, 0.0)));
     
     // Ejercicio 2: PartialEq y Eq
     println!("\n--- Ejercicio 2: PartialEq y Eq ---");
-    let user1 = Usuario::new(1, "user@test.com");
-    let user2 = Usuario::new(1, "user@test.com");
-    let user3 = Usuario::new(2, "other@test.com");
+    let user1 = User::new(1, "user@test.com");
+    let user2 = User::new(1, "user@test.com");
+    let user3 = User::new(2, "other@test.com");
     
     println!("user1 == user2: {}", user1 == user2);
     println!("user1 == user3: {}", user1 == user3);
     println!("user1 != user3: {}", user1 != user3);
     
-    let coord1 = Coordenada::new(40.4168, -3.7038);
-    let coord2 = Coordenada::new(40.4168, -3.7038);
-    println!("Coordenadas iguales: {}", coord1 == coord2);
+    let coord1 = Coordinate::new(40.4168, -3.7038);
+    let coord2 = Coordinate::new(40.4168, -3.7038);
+    println!("Coordinates equal: {}", coord1 == coord2);
     
     // Ejercicio 3: PartialOrd y Ord
     println!("\n--- Ejercicio 3: PartialOrd y Ord ---");
-    let mut estudiantes = vec![
-        Estudiante::new("Carlos", 85),
-        Estudiante::new("Ana", 92),
-        Estudiante::new("Bob", 85),
-        Estudiante::new("Diana", 78),
+    let mut students = vec![
+        Student::new("Carlos", 85),
+        Student::new("Ana", 92),
+        Student::new("Bob", 85),
+        Student::new("Diana", 78),
     ];
     
-    estudiantes.sort();
-    println!("Estudiantes ordenados:");
-    for e in &estudiantes {
-        println!("  {}: {}", e.nombre, e.nota);
+    students.sort();
+    println!("Sorted students:");
+    for s in &students {
+        println!("  {}: {}", s.name, s.grade);
     }
     
-    let mut versiones = vec![
+    let mut versions = vec![
         Version::new(1, 0, 0),
         Version::new(2, 1, 0),
         Version::new(1, 2, 3),
         Version::new(2, 0, 1),
     ];
-    versiones.sort();
-    println!("\nVersiones ordenadas:");
-    for v in &versiones {
+    versions.sort();
+    println!("\nSorted versions:");
+    for v in &versions {
         println!("  {}.{}.{}", v.major, v.minor, v.patch);
     }
     
     // Ejercicio 4: Hash y Default
     println!("\n--- Ejercicio 4: Hash y Default ---");
-    let mut inventario: HashMap<ProductoId, u32> = HashMap::new();
-    inventario.insert(ProductoId::new("ELEC", 1), 50);
-    inventario.insert(ProductoId::new("ELEC", 2), 30);
-    inventario.insert(ProductoId::new("ROPA", 1), 100);
+    let mut inventory: HashMap<ProductId, u32> = HashMap::new();
+    inventory.insert(ProductId::new("ELEC", 1), 50);
+    inventory.insert(ProductId::new("ELEC", 2), 30);
+    inventory.insert(ProductId::new("ROPA", 1), 100);
     
-    let id_buscar = ProductoId::new("ELEC", 1);
-    println!("Stock de {:?}: {:?}", id_buscar, inventario.get(&id_buscar));
+    let id_to_find = ProductId::new("ELEC", 1);
+    println!("Stock of {:?}: {:?}", id_to_find, inventory.get(&id_to_find));
     
-    let config_default: Configuracion = Default::default();
-    let config_prod = Configuracion::produccion();
-    println!("\nConfig default: {:?}", config_default);
-    println!("Config producción: {:?}", config_prod);
+    let config_default: Config = Default::default();
+    let config_prod = Config::production();
+    println!("\nDefault config: {:?}", config_default);
+    println!("Production config: {:?}", config_prod);
     
-    let mut etiquetas: HashSet<Etiqueta> = HashSet::new();
-    etiquetas.insert(Etiqueta::new("rust", "orange"));
-    etiquetas.insert(Etiqueta::new("programming", "blue"));
-    etiquetas.insert(Etiqueta::new("rust", "orange")); // Duplicado, no se añade
-    println!("\nEtiquetas únicas: {}", etiquetas.len());
+    let mut tags: HashSet<Tag> = HashSet::new();
+    tags.insert(Tag::new("rust", "orange"));
+    tags.insert(Tag::new("programming", "blue"));
+    tags.insert(Tag::new("rust", "orange")); // Duplicado, no se añade
+    println!("\nUnique tags: {}", tags.len());
 }
 
 #[cfg(test)]
@@ -281,82 +281,82 @@ mod tests {
     
     // Tests Ejercicio 1: Debug y Clone
     #[test]
-    fn test_producto_debug() {
-        let p = Producto::new(1, "Test", 10.0, 5);
+    fn test_product_debug() {
+        let p = Product::new(1, "Test", 10.0, 5);
         let debug = format!("{:?}", p);
         assert!(debug.contains("Test"));
         assert!(debug.contains("10"));
     }
     
     #[test]
-    fn test_producto_clone() {
-        let p1 = Producto::new(1, "Original", 100.0, 10);
+    fn test_product_clone() {
+        let p1 = Product::new(1, "Original", 100.0, 10);
         let p2 = p1.clone();
         assert_eq!(p1.id, p2.id);
-        assert_eq!(p1.nombre, p2.nombre);
+        assert_eq!(p1.name, p2.name);
     }
     
     #[test]
-    fn test_punto_copy() {
-        let p1 = Punto2D::new(1.0, 2.0);
+    fn test_point_copy() {
+        let p1 = Point2D::new(1.0, 2.0);
         let p2 = p1; // Copy
         assert_eq!(p1.x, p2.x);
         assert_eq!(p1.y, p2.y);
     }
     
     #[test]
-    fn test_punto_distancia() {
-        let origen = Punto2D::new(0.0, 0.0);
-        let punto = Punto2D::new(3.0, 4.0);
-        assert!((punto.distancia(&origen) - 5.0).abs() < 0.001);
+    fn test_point_distance() {
+        let origin = Point2D::new(0.0, 0.0);
+        let point = Point2D::new(3.0, 4.0);
+        assert!((point.distance(&origin) - 5.0).abs() < 0.001);
     }
     
     // Tests Ejercicio 2: PartialEq y Eq
     #[test]
-    fn test_usuario_igualdad() {
-        let u1 = Usuario::new(1, "test@test.com");
-        let u2 = Usuario::new(1, "test@test.com");
+    fn test_user_equality() {
+        let u1 = User::new(1, "test@test.com");
+        let u2 = User::new(1, "test@test.com");
         assert_eq!(u1, u2);
     }
     
     #[test]
-    fn test_usuario_desigualdad() {
-        let u1 = Usuario::new(1, "a@a.com");
-        let u2 = Usuario::new(2, "b@b.com");
+    fn test_user_inequality() {
+        let u1 = User::new(1, "a@a.com");
+        let u2 = User::new(2, "b@b.com");
         assert_ne!(u1, u2);
     }
     
     #[test]
-    fn test_coordenada_igualdad() {
-        let c1 = Coordenada::new(1.5, 2.5);
-        let c2 = Coordenada::new(1.5, 2.5);
+    fn test_coordinate_equality() {
+        let c1 = Coordinate::new(1.5, 2.5);
+        let c2 = Coordinate::new(1.5, 2.5);
         assert_eq!(c1, c2);
     }
     
     // Tests Ejercicio 3: PartialOrd y Ord
     #[test]
-    fn test_estudiante_ordenamiento() {
-        let e1 = Estudiante::new("Ana", 90);
-        let e2 = Estudiante::new("Bob", 85);
-        assert!(e1 > e2); // Mayor nota
+    fn test_student_ordering() {
+        let s1 = Student::new("Ana", 90);
+        let s2 = Student::new("Bob", 85);
+        assert!(s1 > s2); // Mayor grade
     }
     
     #[test]
-    fn test_estudiante_ordenamiento_mismo_nota() {
-        let e1 = Estudiante::new("Ana", 90);
-        let e2 = Estudiante::new("Bob", 90);
-        assert!(e1 < e2); // Mismo nota, ordena por nombre
+    fn test_student_ordering_same_grade() {
+        let s1 = Student::new("Ana", 90);
+        let s2 = Student::new("Bob", 90);
+        assert!(s1 < s2); // Same grade, ordena por name
     }
     
     #[test]
-    fn test_estudiante_sort() {
-        let mut estudiantes = vec![
-            Estudiante::new("Carlos", 80),
-            Estudiante::new("Ana", 90),
+    fn test_student_sort() {
+        let mut students = vec![
+            Student::new("Carlos", 80),
+            Student::new("Ana", 90),
         ];
-        estudiantes.sort();
-        assert_eq!(estudiantes[0].nombre, "Carlos");
-        assert_eq!(estudiantes[1].nombre, "Ana");
+        students.sort();
+        assert_eq!(students[0].name, "Carlos");
+        assert_eq!(students[1].name, "Ana");
     }
     
     #[test]
@@ -383,49 +383,49 @@ mod tests {
     
     // Tests Ejercicio 4: Hash y Default
     #[test]
-    fn test_producto_id_hash() {
-        let mut map: HashMap<ProductoId, String> = HashMap::new();
-        map.insert(ProductoId::new("A", 1), String::from("Producto A1"));
+    fn test_product_id_hash() {
+        let mut map: HashMap<ProductId, String> = HashMap::new();
+        map.insert(ProductId::new("A", 1), String::from("Product A1"));
         
-        let id = ProductoId::new("A", 1);
-        assert_eq!(map.get(&id), Some(&String::from("Producto A1")));
+        let id = ProductId::new("A", 1);
+        assert_eq!(map.get(&id), Some(&String::from("Product A1")));
     }
     
     #[test]
-    fn test_configuracion_default() {
-        let config: Configuracion = Default::default();
+    fn test_config_default() {
+        let config: Config = Default::default();
         assert!(!config.debug);
-        assert_eq!(config.max_conexiones, 0);
+        assert_eq!(config.max_connections, 0);
         assert_eq!(config.timeout_ms, 0);
-        assert_eq!(config.nombre_app, "");
+        assert_eq!(config.app_name, "");
     }
     
     #[test]
-    fn test_configuracion_produccion() {
-        let config = Configuracion::produccion();
+    fn test_config_production() {
+        let config = Config::production();
         assert!(!config.debug);
-        assert_eq!(config.max_conexiones, 1000);
+        assert_eq!(config.max_connections, 1000);
     }
     
     #[test]
-    fn test_configuracion_desarrollo() {
-        let config = Configuracion::desarrollo();
+    fn test_config_development() {
+        let config = Config::development();
         assert!(config.debug);
-        assert_eq!(config.max_conexiones, 10);
+        assert_eq!(config.max_connections, 10);
     }
     
     #[test]
-    fn test_etiqueta_hashset() {
-        let mut set: HashSet<Etiqueta> = HashSet::new();
-        set.insert(Etiqueta::new("rust", "orange"));
-        set.insert(Etiqueta::new("rust", "orange")); // Duplicado
+    fn test_tag_hashset() {
+        let mut set: HashSet<Tag> = HashSet::new();
+        set.insert(Tag::new("rust", "orange"));
+        set.insert(Tag::new("rust", "orange")); // Duplicate
         assert_eq!(set.len(), 1);
     }
     
     #[test]
-    fn test_etiqueta_default() {
-        let etiqueta: Etiqueta = Default::default();
-        assert_eq!(etiqueta.nombre, "");
-        assert_eq!(etiqueta.color, "");
+    fn test_tag_default() {
+        let tag: Tag = Default::default();
+        assert_eq!(tag.name, "");
+        assert_eq!(tag.color, "");
     }
 }

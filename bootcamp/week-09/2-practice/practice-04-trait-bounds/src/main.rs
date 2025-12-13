@@ -14,28 +14,28 @@ use std::hash::Hash;
 // Funciones genéricas con trait bounds simples
 
 /// Imprime cualquier tipo que implemente Display
-fn imprimir<T: Display>(valor: T) {
-    println!("{}", valor);
+fn print_value<T: Display>(value: T) {
+    println!("{}", value);
 }
 
 /// Imprime con formato debug
-fn debug<T: Debug>(valor: T) {
-    println!("{:?}", valor);
+fn print_debug<T: Debug>(value: T) {
+    println!("{:?}", value);
 }
 
 /// Encuentra el mayor de dos valores
-fn mayor<T: PartialOrd>(a: T, b: T) -> T {
+fn larger<T: PartialOrd>(a: T, b: T) -> T {
     if a >= b { a } else { b }
 }
 
 /// Encuentra el menor de dos valores
-fn menor<T: PartialOrd>(a: T, b: T) -> T {
+fn smaller<T: PartialOrd>(a: T, b: T) -> T {
     if a <= b { a } else { b }
 }
 
 /// Duplica un valor clonable
-fn duplicar<T: Clone>(valor: &T) -> (T, T) {
-    (valor.clone(), valor.clone())
+fn duplicate<T: Clone>(value: &T) -> (T, T) {
+    (value.clone(), value.clone())
 }
 
 // ============================================
@@ -45,19 +45,19 @@ fn duplicar<T: Clone>(valor: &T) -> (T, T) {
 // Combina varios traits con +
 
 /// Imprime en ambos formatos
-fn imprimir_ambos<T: Display + Debug>(valor: T) {
-    println!("Display: {}", valor);
-    println!("Debug: {:?}", valor);
+fn print_both<T: Display + Debug>(value: T) {
+    println!("Display: {}", value);
+    println!("Debug: {:?}", value);
 }
 
 /// Encuentra el mayor en una lista y lo imprime
-fn mayor_en_lista<T: PartialOrd + Display + Clone>(lista: &[T]) -> Option<T> {
-    if lista.is_empty() {
+fn largest_in_list<T: PartialOrd + Display + Clone>(list: &[T]) -> Option<T> {
+    if list.is_empty() {
         return None;
     }
     
-    let mut max = lista[0].clone();
-    for item in lista.iter() {
+    let mut max = list[0].clone();
+    for item in list.iter() {
         if item > &max {
             max = item.clone();
         }
@@ -66,15 +66,15 @@ fn mayor_en_lista<T: PartialOrd + Display + Clone>(lista: &[T]) -> Option<T> {
 }
 
 /// Ordena y devuelve una copia
-fn ordenar_copia<T: Ord + Clone>(lista: &[T]) -> Vec<T> {
-    let mut copia = lista.to_vec();
-    copia.sort();
-    copia
+fn sort_copy<T: Ord + Clone>(list: &[T]) -> Vec<T> {
+    let mut copy = list.to_vec();
+    copy.sort();
+    copy
 }
 
 /// Cuenta elementos únicos
-fn contar_unicos<T: Eq + Hash + Clone>(lista: &[T]) -> usize {
-    let set: std::collections::HashSet<T> = lista.iter().cloned().collect();
+fn count_unique<T: Eq + Hash + Clone>(list: &[T]) -> usize {
+    let set: std::collections::HashSet<T> = list.iter().cloned().collect();
     set.len()
 }
 
@@ -85,7 +85,7 @@ fn contar_unicos<T: Eq + Hash + Clone>(lista: &[T]) -> usize {
 // Usa where para bounds complejos
 
 /// Procesa dos tipos diferentes
-fn procesar<T, U>(t: T, u: U) -> String
+fn process<T, U>(t: T, u: U) -> String
 where
     T: Display + Clone,
     U: Debug + Default,
@@ -94,36 +94,36 @@ where
 }
 
 /// Contenedor genérico con bounds
-struct Contenedor<T>
+struct Container<T>
 where
     T: Clone + Debug,
 {
-    valor: T,
-    historial: Vec<T>,
+    value: T,
+    history: Vec<T>,
 }
 
-impl<T> Contenedor<T>
+impl<T> Container<T>
 where
     T: Clone + Debug,
 {
-    fn new(valor: T) -> Self {
-        Contenedor {
-            valor: valor.clone(),
-            historial: vec![valor],
+    fn new(value: T) -> Self {
+        Container {
+            value: value.clone(),
+            history: vec![value],
         }
     }
     
-    fn actualizar(&mut self, nuevo: T) {
-        self.historial.push(self.valor.clone());
-        self.valor = nuevo;
+    fn update(&mut self, new_value: T) {
+        self.history.push(self.value.clone());
+        self.value = new_value;
     }
     
-    fn obtener(&self) -> &T {
-        &self.valor
+    fn get(&self) -> &T {
+        &self.value
     }
     
-    fn historial(&self) -> &[T] {
-        &self.historial
+    fn history(&self) -> &[T] {
+        &self.history
     }
 }
 
@@ -133,7 +133,7 @@ where
     K: Eq + Hash + Clone + Display,
     V: Clone + Debug,
 {
-    datos: HashMap<K, V>,
+    data: HashMap<K, V>,
     hits: u32,
     misses: u32,
 }
@@ -145,18 +145,18 @@ where
 {
     fn new() -> Self {
         Cache {
-            datos: HashMap::new(),
+            data: HashMap::new(),
             hits: 0,
             misses: 0,
         }
     }
     
-    fn insertar(&mut self, clave: K, valor: V) {
-        self.datos.insert(clave, valor);
+    fn insert(&mut self, key: K, value: V) {
+        self.data.insert(key, value);
     }
     
-    fn obtener(&mut self, clave: &K) -> Option<V> {
-        match self.datos.get(clave) {
+    fn get(&mut self, key: &K) -> Option<V> {
+        match self.data.get(key) {
             Some(v) => {
                 self.hits += 1;
                 Some(v.clone())
@@ -168,7 +168,7 @@ where
         }
     }
     
-    fn estadisticas(&self) -> (u32, u32) {
+    fn stats(&self) -> (u32, u32) {
         (self.hits, self.misses)
     }
 }
@@ -180,40 +180,40 @@ where
 // Usa impl Trait como parámetro y retorno
 
 /// Acepta cualquier tipo Display
-fn mostrar(item: impl Display) {
+fn show(item: impl Display) {
     println!("Mostrando: {}", item);
 }
 
 /// Acepta cualquier iterador de i32
-fn sumar_iterador(iter: impl Iterator<Item = i32>) -> i32 {
+fn sum_iterator(iter: impl Iterator<Item = i32>) -> i32 {
     iter.sum()
 }
 
 /// Retorna un iterador (tipo oculto)
-fn crear_rango(inicio: i32, fin: i32) -> impl Iterator<Item = i32> {
-    inicio..fin
+fn create_range(start: i32, end: i32) -> impl Iterator<Item = i32> {
+    start..end
 }
 
 /// Retorna un iterador con filtro
-fn numeros_pares(hasta: i32) -> impl Iterator<Item = i32> {
-    (0..hasta).filter(|n| n % 2 == 0)
+fn even_numbers(up_to: i32) -> impl Iterator<Item = i32> {
+    (0..up_to).filter(|n| n % 2 == 0)
 }
 
 /// Retorna un iterador mapeado
-fn cuadrados(hasta: i32) -> impl Iterator<Item = i32> {
-    (1..=hasta).map(|n| n * n)
+fn squares(up_to: i32) -> impl Iterator<Item = i32> {
+    (1..=up_to).map(|n| n * n)
 }
 
 /// Acepta cualquier cosa que se pueda convertir a String
-fn procesar_texto(texto: impl Into<String>) -> String {
-    let s: String = texto.into();
+fn process_text(text: impl Into<String>) -> String {
+    let s: String = text.into();
     s.to_uppercase()
 }
 
 /// Función que acepta múltiples bounds con impl
-fn analizar(item: impl Display + Debug + Clone) -> String {
-    let clon = item.clone();
-    format!("Display: {} | Debug: {:?}", item, clon)
+fn analyze(item: impl Display + Debug + Clone) -> String {
+    let clone = item.clone();
+    format!("Display: {} | Debug: {:?}", item, clone)
 }
 
 fn main() {
@@ -221,72 +221,72 @@ fn main() {
     
     // Ejercicio 1: Bounds Básicos
     println!("--- Ejercicio 1: Bounds Básicos ---");
-    imprimir(42);
-    imprimir("Hola mundo");
+    print_value(42);
+    print_value("Hola mundo");
     
-    debug(vec![1, 2, 3]);
+    print_debug(vec![1, 2, 3]);
     
-    println!("Mayor de 10 y 20: {}", mayor(10, 20));
-    println!("Menor de 'a' y 'z': {}", menor('a', 'z'));
+    println!("Larger of 10 and 20: {}", larger(10, 20));
+    println!("Smaller of 'a' and 'z': {}", smaller('a', 'z'));
     
-    let (a, b) = duplicar(&String::from("test"));
-    println!("Duplicado: ({}, {})", a, b);
+    let (a, b) = duplicate(&String::from("test"));
+    println!("Duplicated: ({}, {})", a, b);
     
     // Ejercicio 2: Múltiples Bounds
     println!("\n--- Ejercicio 2: Múltiples Bounds ---");
-    imprimir_ambos(42);
+    print_both(42);
     
-    let numeros = vec![3, 1, 4, 1, 5, 9, 2, 6];
-    if let Some(max) = mayor_en_lista(&numeros) {
-        println!("Mayor en lista: {}", max);
+    let numbers = vec![3, 1, 4, 1, 5, 9, 2, 6];
+    if let Some(max) = largest_in_list(&numbers) {
+        println!("Largest in list: {}", max);
     }
     
-    let ordenados = ordenar_copia(&numeros);
-    println!("Ordenados: {:?}", ordenados);
+    let sorted = sort_copy(&numbers);
+    println!("Sorted: {:?}", sorted);
     
-    let con_duplicados = vec![1, 2, 2, 3, 3, 3, 4];
-    println!("Elementos únicos: {}", contar_unicos(&con_duplicados));
+    let with_duplicates = vec![1, 2, 2, 3, 3, 3, 4];
+    println!("Unique elements: {}", count_unique(&with_duplicates));
     
     // Ejercicio 3: Where Clauses
     println!("\n--- Ejercicio 3: Where Clauses ---");
-    let resultado = procesar("Hola", vec![1, 2, 3]);
-    println!("Procesado: {}", resultado);
+    let result = process("Hola", vec![1, 2, 3]);
+    println!("Processed: {}", result);
     
-    let mut contenedor = Contenedor::new(100);
-    contenedor.actualizar(200);
-    contenedor.actualizar(300);
-    println!("Valor actual: {:?}", contenedor.obtener());
-    println!("Historial: {:?}", contenedor.historial());
+    let mut container = Container::new(100);
+    container.update(200);
+    container.update(300);
+    println!("Current value: {:?}", container.get());
+    println!("History: {:?}", container.history());
     
     let mut cache: Cache<String, i32> = Cache::new();
-    cache.insertar(String::from("uno"), 1);
-    cache.insertar(String::from("dos"), 2);
+    cache.insert(String::from("uno"), 1);
+    cache.insert(String::from("dos"), 2);
     
-    println!("Cache 'uno': {:?}", cache.obtener(&String::from("uno")));
-    println!("Cache 'tres': {:?}", cache.obtener(&String::from("tres")));
-    println!("Estadísticas (hits, misses): {:?}", cache.estadisticas());
+    println!("Cache 'uno': {:?}", cache.get(&String::from("uno")));
+    println!("Cache 'tres': {:?}", cache.get(&String::from("tres")));
+    println!("Stats (hits, misses): {:?}", cache.stats());
     
     // Ejercicio 4: impl Trait
     println!("\n--- Ejercicio 4: impl Trait ---");
-    mostrar(42);
-    mostrar("texto");
+    show(42);
+    show("texto");
     
-    let suma = sumar_iterador(vec![1, 2, 3, 4, 5].into_iter());
-    println!("Suma del iterador: {}", suma);
+    let sum = sum_iterator(vec![1, 2, 3, 4, 5].into_iter());
+    println!("Iterator sum: {}", sum);
     
-    let rango: Vec<i32> = crear_rango(1, 5).collect();
-    println!("Rango: {:?}", rango);
+    let range: Vec<i32> = create_range(1, 5).collect();
+    println!("Range: {:?}", range);
     
-    let pares: Vec<i32> = numeros_pares(10).collect();
-    println!("Pares hasta 10: {:?}", pares);
+    let evens: Vec<i32> = even_numbers(10).collect();
+    println!("Even numbers up to 10: {:?}", evens);
     
-    let cuads: Vec<i32> = cuadrados(5).collect();
-    println!("Cuadrados 1-5: {:?}", cuads);
+    let sqs: Vec<i32> = squares(5).collect();
+    println!("Squares 1-5: {:?}", sqs);
     
-    println!("Texto procesado: {}", procesar_texto("hola"));
-    println!("Texto procesado: {}", procesar_texto(String::from("mundo")));
+    println!("Processed text: {}", process_text("hola"));
+    println!("Processed text: {}", process_text(String::from("mundo")));
     
-    println!("Análisis: {}", analizar(42));
+    println!("Analysis: {}", analyze(42));
 }
 
 #[cfg(test)]
@@ -295,151 +295,151 @@ mod tests {
     
     // Tests Ejercicio 1: Bounds Básicos
     #[test]
-    fn test_mayor_enteros() {
-        assert_eq!(mayor(5, 10), 10);
-        assert_eq!(mayor(10, 5), 10);
+    fn test_larger_integers() {
+        assert_eq!(larger(5, 10), 10);
+        assert_eq!(larger(10, 5), 10);
     }
     
     #[test]
-    fn test_mayor_strings() {
-        assert_eq!(mayor("apple", "banana"), "banana");
+    fn test_larger_strings() {
+        assert_eq!(larger("apple", "banana"), "banana");
     }
     
     #[test]
-    fn test_menor_enteros() {
-        assert_eq!(menor(5, 10), 5);
-        assert_eq!(menor(10, 5), 5);
+    fn test_smaller_integers() {
+        assert_eq!(smaller(5, 10), 5);
+        assert_eq!(smaller(10, 5), 5);
     }
     
     #[test]
-    fn test_duplicar() {
-        let (a, b) = duplicar(&42);
+    fn test_duplicate() {
+        let (a, b) = duplicate(&42);
         assert_eq!(a, 42);
         assert_eq!(b, 42);
     }
     
     #[test]
-    fn test_duplicar_string() {
-        let (a, b) = duplicar(&String::from("test"));
+    fn test_duplicate_string() {
+        let (a, b) = duplicate(&String::from("test"));
         assert_eq!(a, "test");
         assert_eq!(b, "test");
     }
     
     // Tests Ejercicio 2: Múltiples Bounds
     #[test]
-    fn test_mayor_en_lista() {
-        let lista = vec![1, 5, 3, 9, 2];
-        assert_eq!(mayor_en_lista(&lista), Some(9));
+    fn test_largest_in_list() {
+        let list = vec![1, 5, 3, 9, 2];
+        assert_eq!(largest_in_list(&list), Some(9));
     }
     
     #[test]
-    fn test_mayor_en_lista_vacia() {
-        let lista: Vec<i32> = vec![];
-        assert_eq!(mayor_en_lista(&lista), None);
+    fn test_largest_in_empty_list() {
+        let list: Vec<i32> = vec![];
+        assert_eq!(largest_in_list(&list), None);
     }
     
     #[test]
-    fn test_ordenar_copia() {
-        let lista = vec![3, 1, 4, 1, 5];
-        let ordenada = ordenar_copia(&lista);
-        assert_eq!(ordenada, vec![1, 1, 3, 4, 5]);
+    fn test_sort_copy() {
+        let list = vec![3, 1, 4, 1, 5];
+        let sorted = sort_copy(&list);
+        assert_eq!(sorted, vec![1, 1, 3, 4, 5]);
     }
     
     #[test]
-    fn test_contar_unicos() {
-        let lista = vec![1, 2, 2, 3, 3, 3];
-        assert_eq!(contar_unicos(&lista), 3);
+    fn test_count_unique() {
+        let list = vec![1, 2, 2, 3, 3, 3];
+        assert_eq!(count_unique(&list), 3);
     }
     
     #[test]
-    fn test_contar_unicos_strings() {
-        let lista = vec!["a", "b", "a", "c", "b"];
-        assert_eq!(contar_unicos(&lista), 3);
+    fn test_count_unique_strings() {
+        let list = vec!["a", "b", "a", "c", "b"];
+        assert_eq!(count_unique(&list), 3);
     }
     
     // Tests Ejercicio 3: Where Clauses
     #[test]
-    fn test_procesar() {
-        let resultado = procesar("test", 42);
-        assert!(resultado.contains("test"));
-        assert!(resultado.contains("42"));
+    fn test_process() {
+        let result = process("test", 42);
+        assert!(result.contains("test"));
+        assert!(result.contains("42"));
     }
     
     #[test]
-    fn test_contenedor_new() {
-        let cont = Contenedor::new(100);
-        assert_eq!(*cont.obtener(), 100);
+    fn test_container_new() {
+        let cont = Container::new(100);
+        assert_eq!(*cont.get(), 100);
     }
     
     #[test]
-    fn test_contenedor_actualizar() {
-        let mut cont = Contenedor::new(1);
-        cont.actualizar(2);
-        cont.actualizar(3);
-        assert_eq!(*cont.obtener(), 3);
-        assert_eq!(cont.historial().len(), 3);
+    fn test_container_update() {
+        let mut cont = Container::new(1);
+        cont.update(2);
+        cont.update(3);
+        assert_eq!(*cont.get(), 3);
+        assert_eq!(cont.history().len(), 3);
     }
     
     #[test]
-    fn test_cache_insertar_obtener() {
+    fn test_cache_insert_get() {
         let mut cache: Cache<String, i32> = Cache::new();
-        cache.insertar(String::from("key"), 42);
-        assert_eq!(cache.obtener(&String::from("key")), Some(42));
+        cache.insert(String::from("key"), 42);
+        assert_eq!(cache.get(&String::from("key")), Some(42));
     }
     
     #[test]
     fn test_cache_miss() {
         let mut cache: Cache<String, i32> = Cache::new();
-        assert_eq!(cache.obtener(&String::from("noexiste")), None);
+        assert_eq!(cache.get(&String::from("noexiste")), None);
     }
     
     #[test]
-    fn test_cache_estadisticas() {
+    fn test_cache_stats() {
         let mut cache: Cache<String, i32> = Cache::new();
-        cache.insertar(String::from("a"), 1);
-        cache.obtener(&String::from("a")); // hit
-        cache.obtener(&String::from("b")); // miss
-        assert_eq!(cache.estadisticas(), (1, 1));
+        cache.insert(String::from("a"), 1);
+        cache.get(&String::from("a")); // hit
+        cache.get(&String::from("b")); // miss
+        assert_eq!(cache.stats(), (1, 1));
     }
     
     // Tests Ejercicio 4: impl Trait
     #[test]
-    fn test_sumar_iterador() {
-        let suma = sumar_iterador(vec![1, 2, 3].into_iter());
-        assert_eq!(suma, 6);
+    fn test_sum_iterator() {
+        let sum = sum_iterator(vec![1, 2, 3].into_iter());
+        assert_eq!(sum, 6);
     }
     
     #[test]
-    fn test_crear_rango() {
-        let rango: Vec<i32> = crear_rango(1, 4).collect();
-        assert_eq!(rango, vec![1, 2, 3]);
+    fn test_create_range() {
+        let range: Vec<i32> = create_range(1, 4).collect();
+        assert_eq!(range, vec![1, 2, 3]);
     }
     
     #[test]
-    fn test_numeros_pares() {
-        let pares: Vec<i32> = numeros_pares(8).collect();
-        assert_eq!(pares, vec![0, 2, 4, 6]);
+    fn test_even_numbers() {
+        let evens: Vec<i32> = even_numbers(8).collect();
+        assert_eq!(evens, vec![0, 2, 4, 6]);
     }
     
     #[test]
-    fn test_cuadrados() {
-        let cuads: Vec<i32> = cuadrados(4).collect();
-        assert_eq!(cuads, vec![1, 4, 9, 16]);
+    fn test_squares() {
+        let sqs: Vec<i32> = squares(4).collect();
+        assert_eq!(sqs, vec![1, 4, 9, 16]);
     }
     
     #[test]
-    fn test_procesar_texto_str() {
-        assert_eq!(procesar_texto("hola"), "HOLA");
+    fn test_process_text_str() {
+        assert_eq!(process_text("hola"), "HOLA");
     }
     
     #[test]
-    fn test_procesar_texto_string() {
-        assert_eq!(procesar_texto(String::from("mundo")), "MUNDO");
+    fn test_process_text_string() {
+        assert_eq!(process_text(String::from("mundo")), "MUNDO");
     }
     
     #[test]
-    fn test_analizar() {
-        let resultado = analizar(42);
-        assert!(resultado.contains("42"));
+    fn test_analyze() {
+        let result = analyze(42);
+        assert!(result.contains("42"));
     }
 }
