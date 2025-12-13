@@ -7,168 +7,168 @@ fn main() {
     println!("=== Práctica 04: Weak ===\n");
 
     println!("--- Ejercicio 1: Weak Básico ---");
-    ejercicio_weak_basico();
+    exercise_weak_basic();
 
     println!("\n--- Ejercicio 2: Árbol con Parent ---");
-    ejercicio_arbol();
+    exercise_tree();
 
     println!("\n--- Ejercicio 3: Observer Pattern ---");
-    ejercicio_observer();
+    exercise_observer();
 
     println!("\n✅ Todos los ejercicios completados!");
 }
 
-fn ejercicio_weak_basico() {
-    let fuerte = Rc::new(42);
-    let debil = Rc::downgrade(&fuerte);
+fn exercise_weak_basic() {
+    let strong_ref = Rc::new(42);
+    let weak_ref = Rc::downgrade(&strong_ref);
     
-    println!("Valor con Rc: {}", fuerte);
-    println!("Strong count: {}", Rc::strong_count(&fuerte));
-    println!("Weak count: {}", Rc::weak_count(&fuerte));
+    println!("Valor con Rc: {}", strong_ref);
+    println!("Strong count: {}", Rc::strong_count(&strong_ref));
+    println!("Weak count: {}", Rc::weak_count(&strong_ref));
     
-    match debil.upgrade() {
-        Some(valor) => println!("Valor via Weak: {}", valor),
+    match weak_ref.upgrade() {
+        Some(value) => println!("Valor via Weak: {}", value),
         None => println!("El valor ya no existe"),
     }
     
-    drop(fuerte);
+    drop(strong_ref);
     
-    match debil.upgrade() {
-        Some(valor) => println!("Valor: {}", valor),
+    match weak_ref.upgrade() {
+        Some(value) => println!("Valor: {}", value),
         None => println!("Weak::upgrade() retornó None (correcto!)"),
     }
 }
 
 #[derive(Debug)]
-struct Nodo {
-    valor: i32,
-    parent: RefCell<Weak<Nodo>>,
-    children: RefCell<Vec<Rc<Nodo>>>,
+struct Node {
+    value: i32,
+    parent: RefCell<Weak<Node>>,
+    children: RefCell<Vec<Rc<Node>>>,
 }
 
-impl Nodo {
-    fn new(valor: i32) -> Rc<Nodo> {
-        Rc::new(Nodo {
-            valor,
+impl Node {
+    fn new(value: i32) -> Rc<Node> {
+        Rc::new(Node {
+            value,
             parent: RefCell::new(Weak::new()),
             children: RefCell::new(Vec::new()),
         })
     }
     
-    fn agregar_hijo(parent: &Rc<Nodo>, hijo: &Rc<Nodo>) {
-        parent.children.borrow_mut().push(Rc::clone(hijo));
-        *hijo.parent.borrow_mut() = Rc::downgrade(parent);
+    fn add_child(parent: &Rc<Node>, child: &Rc<Node>) {
+        parent.children.borrow_mut().push(Rc::clone(child));
+        *child.parent.borrow_mut() = Rc::downgrade(parent);
     }
     
-    fn obtener_parent(&self) -> Option<Rc<Nodo>> {
+    fn get_parent(&self) -> Option<Rc<Node>> {
         self.parent.borrow().upgrade()
     }
 }
 
-fn ejercicio_arbol() {
-    let raiz = Nodo::new(1);
-    let hijo1 = Nodo::new(2);
-    let hijo2 = Nodo::new(3);
-    let nieto = Nodo::new(4);
+fn exercise_tree() {
+    let root = Node::new(1);
+    let child1 = Node::new(2);
+    let child2 = Node::new(3);
+    let grandchild = Node::new(4);
     
-    Nodo::agregar_hijo(&raiz, &hijo1);
-    Nodo::agregar_hijo(&raiz, &hijo2);
-    Nodo::agregar_hijo(&hijo1, &nieto);
+    Node::add_child(&root, &child1);
+    Node::add_child(&root, &child2);
+    Node::add_child(&child1, &grandchild);
     
-    println!("Raíz: {}", raiz.valor);
-    println!("  Hijos: {:?}", raiz.children.borrow().iter().map(|n| n.valor).collect::<Vec<_>>());
+    println!("Raíz: {}", root.value);
+    println!("  Hijos: {:?}", root.children.borrow().iter().map(|n| n.value).collect::<Vec<_>>());
     
-    if let Some(parent) = nieto.obtener_parent() {
-        println!("Padre de nieto (4): {}", parent.valor);
+    if let Some(parent) = grandchild.get_parent() {
+        println!("Padre de grandchild (4): {}", parent.value);
         
-        if let Some(abuelo) = parent.obtener_parent() {
-            println!("Abuelo de nieto (4): {}", abuelo.valor);
+        if let Some(grandparent) = parent.get_parent() {
+            println!("Abuelo de grandchild (4): {}", grandparent.value);
         }
     }
     
     println!("\nReference counts:");
-    println!("  raiz - strong: {}, weak: {}", 
-             Rc::strong_count(&raiz), Rc::weak_count(&raiz));
-    println!("  hijo1 - strong: {}, weak: {}", 
-             Rc::strong_count(&hijo1), Rc::weak_count(&hijo1));
+    println!("  root - strong: {}, weak: {}", 
+             Rc::strong_count(&root), Rc::weak_count(&root));
+    println!("  child1 - strong: {}, weak: {}", 
+             Rc::strong_count(&child1), Rc::weak_count(&child1));
 }
 
-struct Publicador {
-    observadores: RefCell<Vec<Weak<Observador>>>,
-    valor: RefCell<String>,
+struct Publisher {
+    observers: RefCell<Vec<Weak<Observer>>>,
+    value: RefCell<String>,
 }
 
-struct Observador {
-    nombre: String,
+struct Observer {
+    name: String,
 }
 
-impl Publicador {
+impl Publisher {
     fn new() -> Self {
-        Publicador {
-            observadores: RefCell::new(Vec::new()),
-            valor: RefCell::new(String::new()),
+        Publisher {
+            observers: RefCell::new(Vec::new()),
+            value: RefCell::new(String::new()),
         }
     }
     
-    fn suscribir(&self, obs: &Rc<Observador>) {
-        self.observadores.borrow_mut().push(Rc::downgrade(obs));
+    fn subscribe(&self, obs: &Rc<Observer>) {
+        self.observers.borrow_mut().push(Rc::downgrade(obs));
     }
     
-    fn notificar(&self, mensaje: &str) {
-        *self.valor.borrow_mut() = mensaje.to_string();
+    fn notify(&self, message: &str) {
+        *self.value.borrow_mut() = message.to_string();
         
-        let obs = self.observadores.borrow();
-        let mut vivos = 0;
-        let mut muertos = 0;
+        let obs = self.observers.borrow();
+        let mut alive = 0;
+        let mut dead = 0;
         
         for weak_obs in obs.iter() {
             match weak_obs.upgrade() {
                 Some(obs) => {
-                    println!("  → {} recibió: '{}'", obs.nombre, mensaje);
-                    vivos += 1;
+                    println!("  → {} recibió: '{}'", obs.name, message);
+                    alive += 1;
                 }
                 None => {
-                    muertos += 1;
+                    dead += 1;
                 }
             }
         }
         
-        println!("  Observadores: {} vivos, {} eliminados", vivos, muertos);
+        println!("  Observadores: {} vivos, {} eliminados", alive, dead);
     }
     
-    fn limpiar_muertos(&self) {
-        self.observadores.borrow_mut().retain(|weak| weak.upgrade().is_some());
+    fn cleanup_dead(&self) {
+        self.observers.borrow_mut().retain(|weak| weak.upgrade().is_some());
     }
 }
 
-impl Observador {
-    fn new(nombre: &str) -> Rc<Self> {
-        Rc::new(Observador {
-            nombre: nombre.to_string(),
+impl Observer {
+    fn new(name: &str) -> Rc<Self> {
+        Rc::new(Observer {
+            name: name.to_string(),
         })
     }
 }
 
-fn ejercicio_observer() {
-    let publicador = Publicador::new();
+fn exercise_observer() {
+    let publisher = Publisher::new();
     
-    let obs1 = Observador::new("Alice");
-    let obs2 = Observador::new("Bob");
+    let obs1 = Observer::new("Alice");
+    let obs2 = Observer::new("Bob");
     
-    publicador.suscribir(&obs1);
-    publicador.suscribir(&obs2);
+    publisher.subscribe(&obs1);
+    publisher.subscribe(&obs2);
     
     println!("Notificación 1:");
-    publicador.notificar("Hola a todos");
+    publisher.notify("Hola a todos");
     
     drop(obs2);
     
     println!("\nNotificación 2 (después de drop obs2):");
-    publicador.notificar("Solo Alice recibirá esto");
+    publisher.notify("Solo Alice recibirá esto");
     
-    publicador.limpiar_muertos();
+    publisher.cleanup_dead();
     println!("\nDespués de limpiar: {} observadores", 
-             publicador.observadores.borrow().len());
+             publisher.observers.borrow().len());
 }
 
 #[cfg(test)]
@@ -186,39 +186,39 @@ mod tests {
     }
 
     #[test]
-    fn test_arbol_parent() {
-        let raiz = Nodo::new(1);
-        let hijo = Nodo::new(2);
+    fn test_tree_parent() {
+        let root = Node::new(1);
+        let child = Node::new(2);
         
-        Nodo::agregar_hijo(&raiz, &hijo);
+        Node::add_child(&root, &child);
         
-        let parent = hijo.obtener_parent();
+        let parent = child.get_parent();
         assert!(parent.is_some());
-        assert_eq!(parent.unwrap().valor, 1);
+        assert_eq!(parent.unwrap().value, 1);
     }
 
     #[test]
-    fn test_arbol_no_memory_leak() {
-        let raiz = Nodo::new(1);
-        let hijo = Nodo::new(2);
+    fn test_tree_no_memory_leak() {
+        let root = Node::new(1);
+        let child = Node::new(2);
         
-        Nodo::agregar_hijo(&raiz, &hijo);
+        Node::add_child(&root, &child);
         
-        assert_eq!(Rc::strong_count(&raiz), 1);
-        assert_eq!(Rc::strong_count(&hijo), 2);
-        assert_eq!(Rc::weak_count(&raiz), 1);
+        assert_eq!(Rc::strong_count(&root), 1);
+        assert_eq!(Rc::strong_count(&child), 2);
+        assert_eq!(Rc::weak_count(&root), 1);
     }
 
     #[test]
     fn test_observer_cleanup() {
-        let pub_ = Publicador::new();
-        let obs = Observador::new("Test");
+        let pub_ = Publisher::new();
+        let obs = Observer::new("Test");
         
-        pub_.suscribir(&obs);
-        assert_eq!(pub_.observadores.borrow().len(), 1);
+        pub_.subscribe(&obs);
+        assert_eq!(pub_.observers.borrow().len(), 1);
         
         drop(obs);
-        pub_.limpiar_muertos();
-        assert_eq!(pub_.observadores.borrow().len(), 0);
+        pub_.cleanup_dead();
+        assert_eq!(pub_.observers.borrow().len(), 0);
     }
 }

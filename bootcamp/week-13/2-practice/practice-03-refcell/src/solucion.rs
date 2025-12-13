@@ -7,39 +7,39 @@ fn main() {
     println!("=== Práctica 03: RefCell ===\n");
 
     println!("--- Ejercicio 1: RefCell Básico ---");
-    ejercicio_refcell_basico();
+    exercise_refcell_basic();
 
     println!("\n--- Ejercicio 2: Contador Compartido ---");
-    ejercicio_contador();
+    exercise_counter();
 
     println!("\n--- Ejercicio 3: Cache Interno ---");
-    ejercicio_cache();
+    exercise_cache();
 
     println!("\n✅ Todos los ejercicios completados!");
 }
 
 // EJERCICIO 1: RefCell Básico
 
-fn ejercicio_refcell_basico() {
-    let datos = RefCell::new(vec![1, 2, 3]);
+fn exercise_refcell_basic() {
+    let data = RefCell::new(vec![1, 2, 3]);
     
     {
-        let r = datos.borrow();
+        let r = data.borrow();
         println!("Datos: {:?}", *r);
         println!("Longitud: {}", r.len());
     }
     
     {
-        let mut r = datos.borrow_mut();
+        let mut r = data.borrow_mut();
         r.push(4);
         r.push(5);
     }
     
-    println!("Después de agregar: {:?}", datos.borrow());
+    println!("Después de agregar: {:?}", data.borrow());
     
     // Demostrar try_borrow_mut
-    let r1 = datos.borrow();
-    match datos.try_borrow_mut() {
+    let r1 = data.borrow();
+    match data.try_borrow_mut() {
         Ok(mut r) => r.push(6),
         Err(e) => println!("Error esperado: {}", e),
     }
@@ -47,107 +47,107 @@ fn ejercicio_refcell_basico() {
     
     // Ahora sí funciona
     {
-        let mut r = datos.borrow_mut();
+        let mut r = data.borrow_mut();
         r.push(6);
     }
-    println!("Final: {:?}", datos.borrow());
+    println!("Final: {:?}", data.borrow());
 }
 
 // EJERCICIO 2: Contador Compartido
 
 #[derive(Debug)]
-struct Contador {
-    valor: i32,
-    nombre: String,
+struct Counter {
+    value: i32,
+    name: String,
 }
 
-impl Contador {
-    fn new(nombre: &str) -> Rc<RefCell<Self>> {
-        Rc::new(RefCell::new(Contador {
-            valor: 0,
-            nombre: nombre.to_string(),
+impl Counter {
+    fn new(name: &str) -> Rc<RefCell<Self>> {
+        Rc::new(RefCell::new(Counter {
+            value: 0,
+            name: name.to_string(),
         }))
     }
     
-    fn incrementar(contador: &Rc<RefCell<Self>>) {
-        contador.borrow_mut().valor += 1;
+    fn increment(counter: &Rc<RefCell<Self>>) {
+        counter.borrow_mut().value += 1;
     }
     
-    fn obtener_valor(contador: &Rc<RefCell<Self>>) -> i32 {
-        contador.borrow().valor
+    fn get_value(counter: &Rc<RefCell<Self>>) -> i32 {
+        counter.borrow().value
     }
     
-    fn obtener_nombre(contador: &Rc<RefCell<Self>>) -> String {
-        contador.borrow().nombre.clone()
+    fn get_name(counter: &Rc<RefCell<Self>>) -> String {
+        counter.borrow().name.clone()
     }
 }
 
-fn ejercicio_contador() {
-    let contador = Contador::new("Principal");
+fn exercise_counter() {
+    let counter = Counter::new("Principal");
     
     println!("Contador '{}' inicial: {}", 
-             Contador::obtener_nombre(&contador),
-             Contador::obtener_valor(&contador));
+             Counter::get_name(&counter),
+             Counter::get_value(&counter));
     
-    let ref1 = Rc::clone(&contador);
-    let ref2 = Rc::clone(&contador);
+    let ref1 = Rc::clone(&counter);
+    let ref2 = Rc::clone(&counter);
     
-    Contador::incrementar(&ref1);
-    Contador::incrementar(&ref2);
-    Contador::incrementar(&contador);
+    Counter::increment(&ref1);
+    Counter::increment(&ref2);
+    Counter::increment(&counter);
     
-    println!("Valor después de 3 incrementos: {}", Contador::obtener_valor(&contador));
-    println!("Strong count: {}", Rc::strong_count(&contador));
+    println!("Valor después de 3 incrementos: {}", Counter::get_value(&counter));
+    println!("Strong count: {}", Rc::strong_count(&counter));
 }
 
 // EJERCICIO 3: Cache con Interior Mutability
 
-struct Calculadora {
+struct Calculator {
     cache: RefCell<Option<i32>>,
     base: i32,
 }
 
-impl Calculadora {
+impl Calculator {
     fn new(base: i32) -> Self {
-        Calculadora {
+        Calculator {
             cache: RefCell::new(None),
             base,
         }
     }
     
-    fn calcular_costoso(&self) -> i32 {
-        if let Some(valor) = *self.cache.borrow() {
+    fn expensive_calculate(&self) -> i32 {
+        if let Some(value) = *self.cache.borrow() {
             println!("  (usando cache)");
-            return valor;
+            return value;
         }
         
         println!("  (calculando...)");
-        let resultado = self.base * self.base * 2;
+        let result = self.base * self.base * 2;
         
-        *self.cache.borrow_mut() = Some(resultado);
+        *self.cache.borrow_mut() = Some(result);
         
-        resultado
+        result
     }
     
-    fn invalidar_cache(&self) {
+    fn invalidate_cache(&self) {
         *self.cache.borrow_mut() = None;
     }
 }
 
-fn ejercicio_cache() {
-    let calc = Calculadora::new(5);
+fn exercise_cache() {
+    let calc = Calculator::new(5);
     
     println!("Primera llamada:");
-    let r1 = calc.calcular_costoso();
+    let r1 = calc.expensive_calculate();
     println!("Resultado: {}", r1);
     
     println!("\nSegunda llamada:");
-    let r2 = calc.calcular_costoso();
+    let r2 = calc.expensive_calculate();
     println!("Resultado: {}", r2);
     
     println!("\nInvalidar cache y recalcular:");
-    calc.invalidar_cache();
-    let r3 = calc.calcular_costoso();
+    calc.invalidate_cache();
+    let r3 = calc.expensive_calculate();
     println!("Resultado: {}", r3);
 }
 
@@ -175,33 +175,33 @@ mod tests {
     }
 
     #[test]
-    fn test_contador_compartido() {
-        let contador = Contador::new("Test");
-        let ref1 = Rc::clone(&contador);
+    fn test_shared_counter() {
+        let counter = Counter::new("Test");
+        let ref1 = Rc::clone(&counter);
         
-        Contador::incrementar(&contador);
-        Contador::incrementar(&ref1);
+        Counter::increment(&counter);
+        Counter::increment(&ref1);
         
-        assert_eq!(Contador::obtener_valor(&contador), 2);
+        assert_eq!(Counter::get_value(&counter), 2);
     }
 
     #[test]
     fn test_cache() {
-        let calc = Calculadora::new(3);
+        let calc = Calculator::new(3);
         
-        let r1 = calc.calcular_costoso();
-        let r2 = calc.calcular_costoso();
+        let r1 = calc.expensive_calculate();
+        let r2 = calc.expensive_calculate();
         
         assert_eq!(r1, r2);
         assert_eq!(r1, 18);
     }
 
     #[test]
-    fn test_cache_invalidacion() {
-        let calc = Calculadora::new(4);
+    fn test_cache_invalidation() {
+        let calc = Calculator::new(4);
         
-        let _ = calc.calcular_costoso();
-        calc.invalidar_cache();
+        let _ = calc.expensive_calculate();
+        calc.invalidate_cache();
         
         assert!(calc.cache.borrow().is_none());
     }

@@ -14,15 +14,15 @@ fn main() {
 
     // Ejercicio 1: Compartir datos con Rc
     println!("--- Ejercicio 1: Rc Básico ---");
-    ejercicio_rc_basico();
+    exercise_rc_basic();
 
     // Ejercicio 2: Grafo con nodos compartidos
     println!("\n--- Ejercicio 2: Grafo con Rc ---");
-    ejercicio_grafo();
+    exercise_graph();
 
     // Ejercicio 3: Arc en multi-threading
     println!("\n--- Ejercicio 3: Arc Multi-thread ---");
-    ejercicio_arc();
+    exercise_arc();
 
     println!("\n✅ Todos los ejercicios completados!");
 }
@@ -31,18 +31,18 @@ fn main() {
 // EJERCICIO 1: Rc Básico
 // ============================================================
 
-fn ejercicio_rc_basico() {
+fn exercise_rc_basic() {
     // Crear un Rc con un vector
-    let datos = Rc::new(vec![1, 2, 3, 4, 5]);
+    let data = Rc::new(vec![1, 2, 3, 4, 5]);
     
-    println!("Datos originales: {:?}", datos);
-    println!("Strong count inicial: {}", Rc::strong_count(&datos));
+    println!("Datos originales: {:?}", data);
+    println!("Strong count inicial: {}", Rc::strong_count(&data));
     
     // ↓ Crea dos clones del Rc
-    let _clone1 = Rc::clone(&datos); // ← Descomentar y completar
-    let _clone2 = Rc::clone(&datos); // ← Descomentar y completar
+    let _clone1 = Rc::clone(&data); // ← Descomentar y completar
+    let _clone2 = Rc::clone(&data); // ← Descomentar y completar
     
-    println!("Strong count después de clones: {}", Rc::strong_count(&datos));
+    println!("Strong count después de clones: {}", Rc::strong_count(&data));
     
     // ↓ Verifica que todos apuntan a los mismos datos
     // println!("Clone1: {:?}", clone1);
@@ -50,7 +50,7 @@ fn ejercicio_rc_basico() {
     
     // ↓ Drop uno de los clones y verifica el count
     // drop(clone1);
-    // println!("Strong count después de drop: {}", Rc::strong_count(&datos));
+    // println!("Strong count después de drop: {}", Rc::strong_count(&data));
 }
 
 // ============================================================
@@ -58,49 +58,49 @@ fn ejercicio_rc_basico() {
 // ============================================================
 
 #[derive(Debug)]
-struct Nodo {
-    nombre: String,
-    conexiones: Vec<Rc<Nodo>>,
+struct Node {
+    name: String,
+    connections: Vec<Rc<Node>>,
 }
 
-impl Nodo {
-    fn new(nombre: &str) -> Rc<Self> {
+impl Node {
+    fn new(name: &str) -> Rc<Self> {
         // ↓ Implementa: crea un nodo envuelto en Rc
-        Rc::new(Nodo {
-            nombre: nombre.to_string(),
-            conexiones: vec![],
+        Rc::new(Node {
+            name: name.to_string(),
+            connections: vec![],
         })
     }
     
-    fn conectar(nodo: &mut Rc<Nodo>, destino: &Rc<Nodo>) {
+    fn connect(node: &mut Rc<Node>, dest: &Rc<Node>) {
         // ↓ Implementa: agrega una conexión al nodo
         // Pista: necesitas Rc::get_mut o usar RefCell
         // Por simplicidad, vamos a crear un nuevo nodo con la conexión
-        let nuevo = Nodo {
-            nombre: Rc::get_mut(nodo).map(|n| n.nombre.clone()).unwrap_or_default(),
-            conexiones: vec![Rc::clone(destino)],
+        let new_node = Node {
+            name: Rc::get_mut(node).map(|n| n.name.clone()).unwrap_or_default(),
+            connections: vec![Rc::clone(dest)],
         };
-        *nodo = Rc::new(nuevo);
+        *node = Rc::new(new_node);
     }
 }
 
-fn ejercicio_grafo() {
+fn exercise_graph() {
     // Crear nodos
-    let mut a = Nodo::new("A");
-    let b = Nodo::new("B");
-    let c = Nodo::new("C");
+    let mut a = Node::new("A");
+    let b = Node::new("B");
+    let c = Node::new("C");
     
     println!("Nodo B strong_count: {}", Rc::strong_count(&b));
     
     // Conectar A -> B y A -> C
-    Nodo::conectar(&mut a, &b);
+    Node::connect(&mut a, &b);
     
     println!("Después de conectar A->B:");
     println!("Nodo B strong_count: {}", Rc::strong_count(&b));
     
     // ↓ Crea otro nodo D que también conecte a B
-    // let mut d = Nodo::new("D");
-    // Nodo::conectar(&mut d, &b);
+    // let mut d = Node::new("D");
+    // Node::connect(&mut d, &b);
     // println!("Nodo B strong_count después de D->B: {}", Rc::strong_count(&b));
     
     let _ = c; // Evitar warning
@@ -110,39 +110,39 @@ fn ejercicio_grafo() {
 // EJERCICIO 3: Arc en Multi-threading
 // ============================================================
 
-fn ejercicio_arc() {
+fn exercise_arc() {
     // Crear datos compartidos entre threads
-    let datos = Arc::new(vec![1, 2, 3, 4, 5]);
+    let data = Arc::new(vec![1, 2, 3, 4, 5]);
     
-    println!("Datos: {:?}", datos);
-    println!("Arc strong_count inicial: {}", Arc::strong_count(&datos));
+    println!("Datos: {:?}", data);
+    println!("Arc strong_count inicial: {}", Arc::strong_count(&data));
     
     let mut handles = vec![];
     
     // ↓ Crea 3 threads que lean los datos
     for i in 0..3 {
-        let datos_clone = Arc::clone(&datos);
+        let data_clone = Arc::clone(&data);
         
         let handle = thread::spawn(move || {
             // ↓ Implementa: calcula algo con los datos
-            let suma: i32 = datos_clone.iter().sum();
-            println!("Thread {}: suma = {}", i, suma);
-            suma
+            let sum: i32 = data_clone.iter().sum();
+            println!("Thread {}: suma = {}", i, sum);
+            sum
         });
         
         handles.push(handle);
     }
     
-    println!("Arc strong_count con threads activos: {}", Arc::strong_count(&datos));
+    println!("Arc strong_count con threads activos: {}", Arc::strong_count(&data));
     
     // Esperar a todos los threads
-    let mut resultados = vec![];
+    let mut results = vec![];
     for handle in handles {
-        resultados.push(handle.join().unwrap());
+        results.push(handle.join().unwrap());
     }
     
-    println!("Resultados de threads: {:?}", resultados);
-    println!("Arc strong_count final: {}", Arc::strong_count(&datos));
+    println!("Resultados de threads: {:?}", results);
+    println!("Arc strong_count final: {}", Arc::strong_count(&data));
 }
 
 // ============================================================
@@ -186,8 +186,8 @@ mod tests {
     }
 
     #[test]
-    fn test_nodo_creation() {
-        let nodo = Nodo::new("Test");
-        assert_eq!(Rc::strong_count(&nodo), 1);
+    fn test_node_creation() {
+        let node = Node::new("Test");
+        assert_eq!(Rc::strong_count(&node), 1);
     }
 }
