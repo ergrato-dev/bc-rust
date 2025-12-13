@@ -1,0 +1,5 @@
+[package]
+name = "practica-01-funciones-genericas"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica de funciones genéricas en Rust"

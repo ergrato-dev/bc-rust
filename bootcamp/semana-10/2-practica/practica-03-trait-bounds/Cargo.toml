@@ -1,0 +1,5 @@
+[package]
+name = "practica-03-trait-bounds"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica de trait bounds en Rust"

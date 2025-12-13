@@ -1,0 +1,5 @@
+[package]
+name = "practica-02-structs-genericos"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica de structs y enums genéricos en Rust"
