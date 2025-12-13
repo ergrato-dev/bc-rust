@@ -37,7 +37,7 @@ pub async fn list_tasks(
     let tasks = match filters.completed {
         Some(completed) => {
             sqlx::query_as::<_, Task>(
-                "SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE completada = ? ORDER BY id DESC LIMIT ? OFFSET ?",
+                "SELECT id, title, description, completed, created_at, updated_at FROM tasks WHERE completed = ? ORDER BY id DESC LIMIT ? OFFSET ?",
             )
             .bind(completed)
             .bind(limit)
@@ -47,7 +47,7 @@ pub async fn list_tasks(
         }
         None => {
             sqlx::query_as::<_, Task>(
-                "SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas ORDER BY id DESC LIMIT ? OFFSET ?",
+                "SELECT id, title, description, completed, created_at, updated_at FROM tasks ORDER BY id DESC LIMIT ? OFFSET ?",
             )
             .bind(limit)
             .bind(offset)
@@ -78,7 +78,7 @@ pub async fn get_task(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
 ) -> Result<Json<Task>> {
-    let task = sqlx::query_as::<_, Task>("SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE id = ?")
+    let task = sqlx::query_as::<_, Task>("SELECT id, title, description, completed, created_at, updated_at FROM tasks WHERE id = ?")
         .bind(id)
         .fetch_optional(&pool)
         .await?
@@ -115,7 +115,7 @@ pub async fn create_task(
         ));
     }
 
-    let result = sqlx::query("INSERT INTO tareas (titulo, descripcion) VALUES (?, ?)")
+    let result = sqlx::query("INSERT INTO tasks (title, description) VALUES (?, ?)")
         .bind(&data.title)
         .bind(&data.description)
         .execute(&pool)
@@ -123,7 +123,7 @@ pub async fn create_task(
 
     let id = result.last_insert_rowid();
 
-    let task = sqlx::query_as::<_, Task>("SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE id = ?")
+    let task = sqlx::query_as::<_, Task>("SELECT id, title, description, completed, created_at, updated_at FROM tasks WHERE id = ?")
         .bind(id)
         .fetch_one(&pool)
         .await?;
@@ -154,10 +154,10 @@ pub async fn update_task(
     Json(data): Json<UpdateTask>,
 ) -> Result<Json<Task>> {
     // Verify it exists
-    let exists = sqlx::query("SELECT id FROM tareas WHERE id = ?")
+    let exists = sqlx::query("SELECT id FROM tasks WHERE id = ?")
         .bind(id)
         .fetch_optional(&pool)
-        .await?;
+        .await?;;
 
     if exists.is_none() {
         return Err(ApiError::NotFound(format!("Task {} not found", id)));
@@ -169,7 +169,7 @@ pub async fn update_task(
             return Err(ApiError::Validation("Title cannot be empty".into()));
         }
         sqlx::query(
-            "UPDATE tareas SET titulo = ?, actualizada_en = CURRENT_TIMESTAMP WHERE id = ?",
+            "UPDATE tasks SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
         )
         .bind(title)
         .bind(id)
@@ -179,7 +179,7 @@ pub async fn update_task(
 
     if let Some(description) = &data.description {
         sqlx::query(
-            "UPDATE tareas SET descripcion = ?, actualizada_en = CURRENT_TIMESTAMP WHERE id = ?",
+            "UPDATE tasks SET description = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
         )
         .bind(description)
         .bind(id)
@@ -189,7 +189,7 @@ pub async fn update_task(
 
     if let Some(completed) = data.completed {
         sqlx::query(
-            "UPDATE tareas SET completada = ?, actualizada_en = CURRENT_TIMESTAMP WHERE id = ?",
+            "UPDATE tasks SET completed = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
         )
         .bind(completed)
         .bind(id)
@@ -198,7 +198,7 @@ pub async fn update_task(
     }
 
     // Get updated task
-    let task = sqlx::query_as::<_, Task>("SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE id = ?")
+    let task = sqlx::query_as::<_, Task>("SELECT id, title, description, completed, created_at, updated_at FROM tasks WHERE id = ?")
         .bind(id)
         .fetch_one(&pool)
         .await?;
@@ -225,7 +225,7 @@ pub async fn delete_task(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
 ) -> Result<StatusCode> {
-    let result = sqlx::query("DELETE FROM tareas WHERE id = ?")
+    let result = sqlx::query("DELETE FROM tasks WHERE id = ?")
         .bind(id)
         .execute(&pool)
         .await?;
@@ -249,12 +249,12 @@ pub async fn delete_task(
     tag = "Statistics"
 )]
 pub async fn get_stats(State(pool): State<SqlitePool>) -> Result<Json<TaskStats>> {
-    let total: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM tareas")
+    let total: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM tasks")
         .fetch_one(&pool)
         .await?;
 
     let completed_count: (i64,) =
-        sqlx::query_as("SELECT COUNT(*) FROM tareas WHERE completada = TRUE")
+        sqlx::query_as("SELECT COUNT(*) FROM tasks WHERE completed = TRUE")
             .fetch_one(&pool)
             .await?;
 

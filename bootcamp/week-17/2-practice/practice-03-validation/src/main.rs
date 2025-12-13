@@ -193,31 +193,31 @@ pub struct ContactResponse {
 }
 
 // =============================================================================
-// ROUTER Y MAIN
+// ROUTER AND MAIN
 // =============================================================================
 
-pub fn crear_app() -> Router {
+pub fn create_app() -> Router {
     Router::new()
-        .route("/registro", post(registrar))
-        .route("/contacto", post(contacto))
+        .route("/register", post(register))
+        .route("/contact", post(contact))
 }
 
 #[tokio::main]
 async fn main() {
-    let app = crear_app();
+    let app = create_app();
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
         .await
-        .expect("No se pudo iniciar el servidor");
+        .expect("Could not start server");
 
-    println!("🚀 API con Validación");
+    println!("🚀 API with Validation");
     println!("   http://localhost:3000");
     println!();
     println!("📝 Endpoints:");
-    println!("   POST /registro - Registrar usuario (validación completa)");
-    println!("   POST /contacto - Formulario de contacto");
+    println!("   POST /register - Register user (full validation)");
+    println!("   POST /contact  - Contact form");
     println!();
-    println!("💡 Prueba enviar datos inválidos para ver los errores");
+    println!("💡 Try sending invalid data to see errors");
 
     axum::serve(listener, app).await.unwrap();
 }
@@ -231,80 +231,80 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_validacion_exitosa() {
-        let datos = RegistroUsuario {
-            nombre: "Ana García".to_string(),
+    fn test_validation_success() {
+        let data = UserRegistration {
+            name: "Ana García".to_string(),
             email: "ana@ejemplo.com".to_string(),
-            edad: 25,
+            age: 25,
             password: "MiPassword123".to_string(),
         };
-        assert!(validar_registro(&datos).is_ok());
+        assert!(validate_registration(&data).is_ok());
     }
 
     #[test]
-    fn test_nombre_vacio() {
-        let datos = RegistroUsuario {
-            nombre: "".to_string(),
+    fn test_empty_name() {
+        let data = UserRegistration {
+            name: "".to_string(),
             email: "ana@ejemplo.com".to_string(),
-            edad: 25,
+            age: 25,
             password: "MiPassword123".to_string(),
         };
-        let result = validar_registro(&datos);
+        let result = validate_registration(&data);
         assert!(result.is_err());
         assert!(result.unwrap_err().iter().any(|e| e.contains("nombre")));
     }
 
     #[test]
-    fn test_email_invalido() {
-        let datos = RegistroUsuario {
-            nombre: "Ana".to_string(),
+    fn test_invalid_email() {
+        let data = UserRegistration {
+            name: "Ana".to_string(),
             email: "email-sin-arroba".to_string(),
-            edad: 25,
+            age: 25,
             password: "MiPassword123".to_string(),
         };
-        let result = validar_registro(&datos);
+        let result = validate_registration(&data);
         assert!(result.is_err());
         assert!(result.unwrap_err().iter().any(|e| e.contains("email")));
     }
 
     #[test]
-    fn test_edad_menor() {
-        let datos = RegistroUsuario {
-            nombre: "Ana".to_string(),
+    fn test_underage() {
+        let data = UserRegistration {
+            name: "Ana".to_string(),
             email: "ana@ejemplo.com".to_string(),
-            edad: 15,
+            age: 15,
             password: "MiPassword123".to_string(),
         };
-        let result = validar_registro(&datos);
+        let result = validate_registration(&data);
         assert!(result.is_err());
         assert!(result.unwrap_err().iter().any(|e| e.contains("18")));
     }
 
     #[test]
-    fn test_password_debil() {
-        let datos = RegistroUsuario {
-            nombre: "Ana".to_string(),
+    fn test_weak_password() {
+        let data = UserRegistration {
+            name: "Ana".to_string(),
             email: "ana@ejemplo.com".to_string(),
-            edad: 25,
+            age: 25,
             password: "abc".to_string(),
         };
-        let result = validar_registro(&datos);
+        let result = validate_registration(&data);
         assert!(result.is_err());
-        let errores = result.unwrap_err();
-        assert!(errores.len() >= 2); // Al menos 2 errores de password
+        let errors = result.unwrap_err();
+        assert!(errors.len() >= 2); // At least 2 password errors
     }
 
     #[test]
-    fn test_multiples_errores() {
-        let datos = RegistroUsuario {
-            nombre: "".to_string(),
+    fn test_multiple_errors() {
+        let data = UserRegistration {
+            name: "".to_string(),
             email: "invalido".to_string(),
-            edad: 10,
+            age: 10,
             password: "123".to_string(),
         };
-        let result = validar_registro(&datos);
+        let result = validate_registration(&data);
         assert!(result.is_err());
-        let errores = result.unwrap_err();
-        assert!(errores.len() >= 4);
+        let errors = result.unwrap_err();
+        assert!(errors.len() >= 4);
     }
 }

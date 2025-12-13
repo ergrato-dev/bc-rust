@@ -29,7 +29,7 @@ use tower_http::{cors::CorsLayer, trace::TraceLayer};
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
 
-use proyecto_api_tareas::{db, handlers, models, routes};
+use project_task_api::{db, handlers, models, routes};
 
 /// Task API OpenAPI Documentation
 #[derive(OpenApi)]

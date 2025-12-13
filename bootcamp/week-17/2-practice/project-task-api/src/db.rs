@@ -18,13 +18,13 @@ pub async fn create_pool() -> Result<DbPool, sqlx::Error> {
     // Create table if not exists
     sqlx::query(
         r#"
-        CREATE TABLE IF NOT EXISTS tareas (
+        CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            titulo TEXT NOT NULL,
-            descripcion TEXT,
-            completada BOOLEAN NOT NULL DEFAULT FALSE,
-            creada_en DATETIME DEFAULT CURRENT_TIMESTAMP,
-            actualizada_en DATETIME DEFAULT CURRENT_TIMESTAMP
+            title TEXT NOT NULL,
+            description TEXT,
+            completed BOOLEAN NOT NULL DEFAULT FALSE,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
         "#,
     )
@@ -34,8 +34,8 @@ pub async fn create_pool() -> Result<DbPool, sqlx::Error> {
     // Create index for status searches
     sqlx::query(
         r#"
-        CREATE INDEX IF NOT EXISTS idx_tareas_completada 
-        ON tareas(completada)
+        CREATE INDEX IF NOT EXISTS idx_tasks_completed 
+        ON tasks(completed)
         "#,
     )
     .execute(&pool)

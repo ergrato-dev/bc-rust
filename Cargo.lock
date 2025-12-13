@@ -1491,26 +1491,8 @@ name = "practica-01-funciones-genericas"
 version = "0.1.0"
 
 [[package]]
-name = "practica-01-hello-axum"
-version = "0.1.0"
-dependencies = [
- "axum",
- "tokio",
-]
-
-[[package]]
 name = "practica-01-vectores"
 version = "0.1.0"
-
-[[package]]
-name = "practica-02-crud"
-version = "0.1.0"
-dependencies = [
- "axum",
- "serde",
- "serde_json",
- "tokio",
-]
 
 [[package]]
 name = "practica-02-strings"
@@ -1529,35 +1511,12 @@ name = "practica-03-trait-bounds"
 version = "0.1.0"
 
 [[package]]
-name = "practica-03-validacion"
-version = "0.1.0"
-dependencies = [
- "axum",
- "serde",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "practica-04-generics-avanzados"
 version = "0.1.0"
 
 [[package]]
 name = "practica-04-iteradores"
 version = "0.1.0"
-
-[[package]]
-name = "practica-04-middleware"
-version = "0.1.0"
-dependencies = [
- "axum",
- "serde",
- "serde_json",
- "tokio",
- "tower-http",
- "tracing",
- "tracing-subscriber",
-]
 
 [[package]]
 name = "practica-crates-externos"
@@ -1602,6 +1561,14 @@ name = "practice-01-definir-traits"
 version = "0.1.0"
 
 [[package]]
+name = "practice-01-hello-axum"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "tokio",
+]
+
+[[package]]
 name = "practice-01-lifetimes-basic"
 version = "0.1.0"
 
@@ -1620,6 +1587,16 @@ version = "0.1.0"
 [[package]]
 name = "practice-02-channels"
 version = "0.1.0"
+
+[[package]]
+name = "practice-02-crud"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "serde",
+ "serde_json",
+ "tokio",
+]
 
 [[package]]
 name = "practice-02-implementar-traits"
@@ -1678,6 +1655,16 @@ name = "practice-03-traits-derivables"
 version = "0.1.0"
 
 [[package]]
+name = "practice-03-validation"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "practice-04-channels"
 version = "0.1.0"
 dependencies = [
@@ -1691,6 +1678,19 @@ version = "0.1.0"
 [[package]]
 name = "practice-04-lifetimes-advanced"
 version = "0.1.0"
+
+[[package]]
+name = "practice-04-middleware"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+]
 
 [[package]]
 name = "practice-04-patterns"
@@ -1752,15 +1752,7 @@ name = "project-pipeline"
 version = "0.1.0"
 
 [[package]]
-name = "project-tested-calculator"
-version = "0.1.0"
-
-[[package]]
-name = "project-workers"
-version = "0.1.0"
-
-[[package]]
-name = "proyecto-api-tareas"
+name = "project-task-api"
 version = "0.1.0"
 dependencies = [
  "axum",
@@ -1776,6 +1768,14 @@ dependencies = [
  "utoipa",
  "utoipa-swagger-ui",
 ]
+
+[[package]]
+name = "project-tested-calculator"
+version = "0.1.0"
+
+[[package]]
+name = "project-workers"
+version = "0.1.0"
 
 [[package]]
 name = "proyecto-contenedor"

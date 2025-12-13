@@ -129,30 +129,30 @@ fn rand_id() -> u32 {
 
 #[derive(Serialize)]
 struct InfoResponse {
-    mensaje: String,
+    message: String,
     version: String,
 }
 
-/// Endpoint público (sin auth)
-async fn publico() -> impl IntoResponse {
+/// Public endpoint (no auth)
+async fn public_handler() -> impl IntoResponse {
     Json(InfoResponse {
-        mensaje: "Este endpoint es público".to_string(),
+        message: "Este endpoint es público".to_string(),
         version: "1.0.0".to_string(),
     })
 }
 
-/// Endpoint que requiere autenticación
-async fn privado() -> impl IntoResponse {
+/// Endpoint that requires authentication
+async fn private_handler() -> impl IntoResponse {
     Json(InfoResponse {
-        mensaje: "¡Acceso autorizado al área privada!".to_string(),
+        message: "¡Acceso autorizado al área privada!".to_string(),
         version: "1.0.0".to_string(),
     })
 }
 
-/// Endpoint de administración
-async fn admin() -> impl IntoResponse {
+/// Admin endpoint
+async fn admin_handler() -> impl IntoResponse {
     Json(InfoResponse {
-        mensaje: "Panel de administración".to_string(),
+        message: "Panel de administración".to_string(),
         version: "1.0.0".to_string(),
     })
 }
@@ -166,22 +166,22 @@ async fn health() -> &'static str {
 // ROUTER
 // =============================================================================
 
-pub fn crear_app() -> Router {
-    // Rutas públicas
-    let rutas_publicas = Router::new()
-        .route("/", get(publico))
+pub fn create_app() -> Router {
+    // Public routes
+    let public_routes = Router::new()
+        .route("/", get(public_handler))
         .route("/health", get(health));
 
-    // Rutas protegidas (requieren auth)
-    let rutas_protegidas = Router::new()
-        .route("/privado", get(privado))
-        .route("/admin", get(admin))
+    // Protected routes (require auth)
+    let protected_routes = Router::new()
+        .route("/private", get(private_handler))
+        .route("/admin", get(admin_handler))
         .layer(middleware::from_fn(auth_middleware));
 
-    // Combinar y aplicar middleware global
+    // Combine and apply global middleware
     Router::new()
-        .merge(rutas_publicas)
-        .merge(rutas_protegidas)
+        .merge(public_routes)
+        .merge(protected_routes)
         .layer(middleware::from_fn(request_id_middleware))
         .layer(middleware::from_fn(logging_middleware))
         .layer(TraceLayer::new_for_http())
@@ -193,30 +193,30 @@ pub fn crear_app() -> Router {
 
 #[tokio::main]
 async fn main() {
-    // Inicializar tracing/logging
+    // Initialize tracing/logging
     tracing_subscriber::fmt()
         .with_target(false)
         .compact()
         .init();
 
-    let app = crear_app();
+    let app = create_app();
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000")
         .await
-        .expect("No se pudo iniciar el servidor");
+        .expect("Could not start server");
 
-    tracing::info!("🚀 API con Middleware");
+    tracing::info!("🚀 API with Middleware");
     tracing::info!("   http://localhost:3000");
     tracing::info!("");
-    tracing::info!("📝 Endpoints públicos:");
-    tracing::info!("   GET /        - Info pública");
+    tracing::info!("📝 Public endpoints:");
+    tracing::info!("   GET /        - Public info");
     tracing::info!("   GET /health  - Health check");
     tracing::info!("");
-    tracing::info!("🔒 Endpoints protegidos (requieren Authorization):");
-    tracing::info!("   GET /privado - Área privada");
-    tracing::info!("   GET /admin   - Administración");
+    tracing::info!("🔒 Protected endpoints (require Authorization):");
+    tracing::info!("   GET /private - Private area");
+    tracing::info!("   GET /admin   - Administration");
     tracing::info!("");
-    tracing::info!("💡 Token válido: Bearer mi-token-secreto");
+    tracing::info!("💡 Valid token: Bearer mi-token-secreto");
 
     axum::serve(listener, app).await.unwrap();
 }
@@ -232,8 +232,8 @@ mod tests {
     use tower::ServiceExt;
 
     #[tokio::test]
-    async fn test_ruta_publica() {
-        let app = crear_app();
+    async fn test_public_route() {
+        let app = create_app();
         
         let response = app
             .oneshot(
@@ -249,13 +249,13 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_ruta_protegida_sin_token() {
-        let app = crear_app();
+    async fn test_protected_route_without_token() {
+        let app = create_app();
         
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/privado")
+                    .uri("/private")
                     .body(Body::empty())
                     .unwrap()
             )
@@ -266,13 +266,13 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_ruta_protegida_con_token() {
-        let app = crear_app();
+    async fn test_protected_route_with_token() {
+        let app = create_app();
         
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/privado")
+                    .uri("/private")
                     .header("Authorization", "Bearer mi-token-secreto")
                     .body(Body::empty())
                     .unwrap()
@@ -284,13 +284,13 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_token_invalido() {
-        let app = crear_app();
+    async fn test_invalid_token() {
+        let app = create_app();
         
         let response = app
             .oneshot(
                 Request::builder()
-                    .uri("/privado")
+                    .uri("/private")
                     .header("Authorization", "Bearer token-incorrecto")
                     .body(Body::empty())
                     .unwrap()
