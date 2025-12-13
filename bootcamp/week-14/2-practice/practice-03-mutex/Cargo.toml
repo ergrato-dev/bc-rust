@@ -1,5 +1,5 @@
 [package]
-name = "practica-03-mutex"
+name = "practice-03-mutex"
 version = "0.1.0"
 edition = "2024"
 authors = ["Bootcamp Rust"]

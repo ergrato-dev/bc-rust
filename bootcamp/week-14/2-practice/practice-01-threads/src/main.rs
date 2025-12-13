@@ -13,21 +13,21 @@ fn main() {
     println!("=== Práctica 01: Threads ===\n");
 
     // Ejemplo 1: Thread básico
-    ejemplo_thread_basico();
+    example_basic_thread();
 
     // Ejemplo 2: Múltiples threads
-    ejemplo_multiples_threads();
+    example_multiple_threads();
 
     // Ejemplo 3: Move closure
-    ejemplo_move_closure();
+    example_move_closure();
 
     // Ejecuta los ejercicios
     println!("\n=== Ejercicios ===\n");
 
     // Descomenta para probar tus soluciones:
-    // ejercicio_1_suma_paralela();
-    // ejercicio_2_busqueda_paralela();
-    // ejercicio_3_procesador_datos();
+    // exercise_1_parallel_sum();
+    // exercise_2_parallel_search();
+    // exercise_3_data_processor();
 }
 
 // ============================================================================
@@ -35,7 +35,7 @@ fn main() {
 // ============================================================================
 
 /// Ejemplo: Crear un thread básico y esperar su resultado
-fn ejemplo_thread_basico() {
+fn example_basic_thread() {
     println!("--- Ejemplo: Thread Básico ---");
 
     // Crear un thread
@@ -51,12 +51,12 @@ fn ejemplo_thread_basico() {
     println!("Thread principal esperando...");
 
     // Esperar al thread y obtener su resultado
-    let resultado = handle.join().expect("El thread falló");
-    println!("Thread terminó con resultado: {}\n", resultado);
+    let result = handle.join().expect("El thread falló");
+    println!("Thread terminó con resultado: {}\n", result);
 }
 
 /// Ejemplo: Crear múltiples threads
-fn ejemplo_multiples_threads() {
+fn example_multiple_threads() {
     println!("--- Ejemplo: Múltiples Threads ---");
 
     let mut handles = vec![];
@@ -72,33 +72,33 @@ fn ejemplo_multiples_threads() {
     }
 
     // Esperar a todos los threads
-    let resultados: Vec<i32> = handles
+    let results: Vec<i32> = handles
         .into_iter()
         .map(|h| h.join().expect("Thread falló"))
         .collect();
 
-    println!("Resultados: {:?}\n", resultados);
+    println!("Resultados: {:?}\n", results);
 }
 
 /// Ejemplo: Mover datos al thread con `move`
-fn ejemplo_move_closure() {
+fn example_move_closure() {
     println!("--- Ejemplo: Move Closure ---");
 
-    let datos = vec![1, 2, 3, 4, 5];
-    let nombre = String::from("Procesador");
+    let data = vec![1, 2, 3, 4, 5];
+    let name = String::from("Procesador");
 
-    // `move` transfiere ownership de `datos` y `nombre` al thread
+    // `move` transfiere ownership de `data` y `name` al thread
     let handle = thread::spawn(move || {
-        println!("  {} procesando: {:?}", nombre, datos);
-        let suma: i32 = datos.iter().sum();
-        suma
+        println!("  {} procesando: {:?}", name, data);
+        let sum: i32 = data.iter().sum();
+        sum
     });
 
-    // Aquí ya no podemos usar `datos` ni `nombre`
-    // println!("{}", nombre); // ERROR: value moved
+    // Aquí ya no podemos usar `data` ni `name`
+    // println!("{}", name); // ERROR: value moved
 
-    let resultado = handle.join().expect("Thread falló");
-    println!("Suma calculada: {}\n", resultado);
+    let result = handle.join().expect("Thread falló");
+    println!("Suma calculada: {}\n", result);
 }
 
 // ============================================================================
@@ -122,24 +122,24 @@ fn ejemplo_move_closure() {
 /// assert_eq!(resultado, 55);
 /// ```
 #[allow(dead_code)]
-fn ejercicio_1_suma_paralela() {
+fn exercise_1_parallel_sum() {
     println!("--- Ejercicio 1: Suma Paralela ---");
 
-    let numeros: Vec<i32> = (1..=100).collect();
+    let numbers: Vec<i32> = (1..=100).collect();
     let num_threads = 4;
 
-    let resultado = suma_paralela(&numeros, num_threads);
+    let result = parallel_sum(&numbers, num_threads);
 
-    println!("Suma de 1 a 100 con {} threads: {}", num_threads, resultado);
-    assert_eq!(resultado, 5050, "La suma debería ser 5050");
+    println!("Suma de 1 a 100 con {} threads: {}", num_threads, result);
+    assert_eq!(result, 5050, "La suma debería ser 5050");
     println!("✓ Ejercicio 1 completado!\n");
 }
 
-fn suma_paralela(numeros: &[i32], num_threads: usize) -> i32 {
+fn parallel_sum(numbers: &[i32], num_threads: usize) -> i32 {
     // TODO: Implementa la suma paralela
     //
     // Pasos sugeridos:
-    // 1. Calcular el tamaño de cada chunk: numeros.len() / num_threads
+    // 1. Calcular el tamaño de cada chunk: numbers.len() / num_threads
     // 2. Usar chunks() para dividir el slice
     // 3. Para cada chunk, crear un thread que calcule la suma
     // 4. Recolectar los handles en un Vec
@@ -148,7 +148,7 @@ fn suma_paralela(numeros: &[i32], num_threads: usize) -> i32 {
     // Hint: Necesitarás clonar los datos para moverlos al thread
     // let chunk_vec: Vec<i32> = chunk.to_vec();
 
-    todo!("Implementa suma_paralela")
+    todo!("Implementa parallel_sum")
 }
 
 /// # Ejercicio 2: Búsqueda Paralela
@@ -168,30 +168,30 @@ fn suma_paralela(numeros: &[i32], num_threads: usize) -> i32 {
 /// assert_eq!(resultado, Some(6));
 /// ```
 #[allow(dead_code)]
-fn ejercicio_2_busqueda_paralela() {
+fn exercise_2_parallel_search() {
     println!("--- Ejercicio 2: Búsqueda Paralela ---");
 
-    let datos: Vec<i32> = (0..1000).collect();
-    let objetivo = 777;
+    let data: Vec<i32> = (0..1000).collect();
+    let target = 777;
     let num_threads = 4;
 
-    let resultado = busqueda_paralela(&datos, objetivo, num_threads);
+    let result = parallel_search(&data, target, num_threads);
 
-    println!("Buscando {} con {} threads", objetivo, num_threads);
-    match resultado {
+    println!("Buscando {} con {} threads", target, num_threads);
+    match result {
         Some(idx) => println!("Encontrado en índice: {}", idx),
         None => println!("No encontrado"),
     }
-    assert_eq!(resultado, Some(777));
+    assert_eq!(result, Some(777));
     println!("✓ Ejercicio 2 completado!\n");
 }
 
-fn busqueda_paralela(datos: &[i32], objetivo: i32, num_threads: usize) -> Option<usize> {
+fn parallel_search(data: &[i32], target: i32, num_threads: usize) -> Option<usize> {
     // TODO: Implementa la búsqueda paralela
     //
     // Pasos sugeridos:
     // 1. Calcular el tamaño de cada chunk
-    // 2. Para cada chunk, crear un thread que busque el objetivo
+    // 2. Para cada chunk, crear un thread que busque el target
     // 3. El thread debe retornar Option<usize> con el índice GLOBAL
     //    (no el índice dentro del chunk)
     // 4. Recolectar resultados y retornar el primero que sea Some
@@ -199,7 +199,7 @@ fn busqueda_paralela(datos: &[i32], objetivo: i32, num_threads: usize) -> Option
     // Hint: Para calcular el índice global:
     // indice_global = indice_chunk * chunk_size + indice_local
 
-    todo!("Implementa busqueda_paralela")
+    todo!("Implementa parallel_search")
 }
 
 /// # Ejercicio 3: Procesador de Datos
@@ -219,24 +219,24 @@ fn busqueda_paralela(datos: &[i32], objetivo: i32, num_threads: usize) -> Option
 /// assert_eq!(resultado, vec![1, 4, 9, 16]);
 /// ```
 #[allow(dead_code)]
-fn ejercicio_3_procesador_datos() {
+fn exercise_3_data_processor() {
     println!("--- Ejercicio 3: Procesador de Datos ---");
 
-    let datos: Vec<i32> = (1..=20).collect();
+    let data: Vec<i32> = (1..=20).collect();
     let num_threads = 4;
 
     // Calcular cuadrados en paralelo
-    let cuadrados = procesar_paralelo(&datos, |x| x * x, num_threads);
+    let squares = process_parallel(&data, |x| x * x, num_threads);
 
-    println!("Datos originales: {:?}", datos);
-    println!("Cuadrados: {:?}", cuadrados);
+    println!("Datos originales: {:?}", data);
+    println!("Cuadrados: {:?}", squares);
 
-    let esperado: Vec<i32> = datos.iter().map(|x| x * x).collect();
-    assert_eq!(cuadrados, esperado);
+    let expected: Vec<i32> = data.iter().map(|x| x * x).collect();
+    assert_eq!(squares, expected);
     println!("✓ Ejercicio 3 completado!\n");
 }
 
-fn procesar_paralelo<F>(datos: &[i32], transformar: F, num_threads: usize) -> Vec<i32>
+fn process_parallel<F>(data: &[i32], transform: F, num_threads: usize) -> Vec<i32>
 where
     F: Fn(i32) -> i32 + Send + Sync + Clone + 'static,
 {
@@ -244,16 +244,16 @@ where
     //
     // Pasos sugeridos:
     // 1. Dividir datos en chunks
-    // 2. Para cada chunk, clonar la función transformar
-    // 3. Cada thread aplica transformar a cada elemento de su chunk
+    // 2. Para cada chunk, clonar la función transform
+    // 3. Cada thread aplica transform a cada elemento de su chunk
     // 4. Recolectar resultados manteniendo el orden
     //
     // Hint: Usa enumerate() en chunks para mantener el orden
     // Los resultados deben estar en un Vec<(usize, Vec<i32>)>
     // Luego ordenar por el índice y aplanar
 
-    let _ = (datos, transformar, num_threads);
-    todo!("Implementa procesar_paralelo")
+    let _ = (data, transform, num_threads);
+    todo!("Implementa process_parallel")
 }
 
 // ============================================================================
@@ -265,72 +265,72 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_suma_paralela_basico() {
-        let numeros: Vec<i32> = (1..=10).collect();
-        let resultado = suma_paralela(&numeros, 2);
-        assert_eq!(resultado, 55);
+    fn test_parallel_sum_basic() {
+        let numbers: Vec<i32> = (1..=10).collect();
+        let result = parallel_sum(&numbers, 2);
+        assert_eq!(result, 55);
     }
 
     #[test]
-    fn test_suma_paralela_grande() {
-        let numeros: Vec<i32> = (1..=1000).collect();
-        let resultado = suma_paralela(&numeros, 4);
-        assert_eq!(resultado, 500500);
+    fn test_parallel_sum_large() {
+        let numbers: Vec<i32> = (1..=1000).collect();
+        let result = parallel_sum(&numbers, 4);
+        assert_eq!(result, 500500);
     }
 
     #[test]
-    fn test_suma_paralela_un_thread() {
-        let numeros: Vec<i32> = (1..=100).collect();
-        let resultado = suma_paralela(&numeros, 1);
-        assert_eq!(resultado, 5050);
+    fn test_parallel_sum_one_thread() {
+        let numbers: Vec<i32> = (1..=100).collect();
+        let result = parallel_sum(&numbers, 1);
+        assert_eq!(result, 5050);
     }
 
     #[test]
-    fn test_busqueda_paralela_encontrado() {
-        let datos: Vec<i32> = (0..100).collect();
-        let resultado = busqueda_paralela(&datos, 50, 4);
-        assert_eq!(resultado, Some(50));
+    fn test_parallel_search_found() {
+        let data: Vec<i32> = (0..100).collect();
+        let result = parallel_search(&data, 50, 4);
+        assert_eq!(result, Some(50));
     }
 
     #[test]
-    fn test_busqueda_paralela_no_encontrado() {
-        let datos: Vec<i32> = (0..100).collect();
-        let resultado = busqueda_paralela(&datos, 200, 4);
-        assert_eq!(resultado, None);
+    fn test_parallel_search_not_found() {
+        let data: Vec<i32> = (0..100).collect();
+        let result = parallel_search(&data, 200, 4);
+        assert_eq!(result, None);
     }
 
     #[test]
-    fn test_busqueda_paralela_primero() {
-        let datos: Vec<i32> = (0..100).collect();
-        let resultado = busqueda_paralela(&datos, 0, 4);
-        assert_eq!(resultado, Some(0));
+    fn test_parallel_search_first() {
+        let data: Vec<i32> = (0..100).collect();
+        let result = parallel_search(&data, 0, 4);
+        assert_eq!(result, Some(0));
     }
 
     #[test]
-    fn test_busqueda_paralela_ultimo() {
-        let datos: Vec<i32> = (0..100).collect();
-        let resultado = busqueda_paralela(&datos, 99, 4);
-        assert_eq!(resultado, Some(99));
+    fn test_parallel_search_last() {
+        let data: Vec<i32> = (0..100).collect();
+        let result = parallel_search(&data, 99, 4);
+        assert_eq!(result, Some(99));
     }
 
     #[test]
-    fn test_procesar_paralelo_cuadrados() {
-        let datos = vec![1, 2, 3, 4, 5];
-        let resultado = procesar_paralelo(&datos, |x| x * x, 2);
-        assert_eq!(resultado, vec![1, 4, 9, 16, 25]);
+    fn test_process_parallel_squares() {
+        let data = vec![1, 2, 3, 4, 5];
+        let result = process_parallel(&data, |x| x * x, 2);
+        assert_eq!(result, vec![1, 4, 9, 16, 25]);
     }
 
     #[test]
-    fn test_procesar_paralelo_doble() {
-        let datos = vec![1, 2, 3, 4];
-        let resultado = procesar_paralelo(&datos, |x| x * 2, 2);
-        assert_eq!(resultado, vec![2, 4, 6, 8]);
+    fn test_process_parallel_double() {
+        let data = vec![1, 2, 3, 4];
+        let result = process_parallel(&data, |x| x * 2, 2);
+        assert_eq!(result, vec![2, 4, 6, 8]);
     }
 
     #[test]
-    fn test_procesar_paralelo_orden() {
-        let datos: Vec<i32> = (1..=100).collect();
-        let resultado = procesar_paralelo(&datos, |x| x, 4);
-        assert_eq!(resultado, datos);
+    fn test_process_parallel_order() {
+        let data: Vec<i32> = (1..=100).collect();
+        let result = process_parallel(&data, |x| x, 4);
+        assert_eq!(result, data);
     }
 }
