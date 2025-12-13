@@ -7,6 +7,8 @@
 - Combinar smart pointers efectivamente
 - Aplicar patrones comunes en Rust
 
+![Patrones con Smart Pointers](../0-assets/05-patrones.svg)
+
 ## 📚 El Problema de los Ciclos
 
 ### Memory Leak con Rc

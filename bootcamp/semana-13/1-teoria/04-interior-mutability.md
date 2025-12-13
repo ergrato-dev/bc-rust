@@ -7,6 +7,8 @@
 - Elegir la herramienta correcta para cada caso
 - Entender UnsafeCell como base
 
+![Interior Mutability](../0-assets/04-interior-mutability.svg)
+
 ## 📚 Conceptos
 
 ### ¿Qué es Interior Mutability?

@@ -7,6 +7,8 @@
 - Combinar `Rc<RefCell<T>>` para mutabilidad compartida
 - Manejar errores de borrowing
 
+![RefCell](../0-assets/03-refcell.svg)
+
 ## 📚 Conceptos
 
 ### El Problema

@@ -7,6 +7,8 @@
 - Usar `Arc<T>` para ownership compartido (multi-threaded)
 - Conocer strong_count y weak_count
 
+![Rc y Arc](../0-assets/02-rc-arc.svg)
+
 ## 📚 Conceptos
 
 ### ¿Por Qué Reference Counting?

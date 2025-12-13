@@ -6,6 +6,8 @@
 - Usar `Box<T>` para almacenar datos en el heap
 - Implementar tipos recursivos con Box
 
+![Box y Heap](../0-assets/01-box-heap.svg)
+
 ## 📚 Conceptos
 
 ### Stack vs Heap
