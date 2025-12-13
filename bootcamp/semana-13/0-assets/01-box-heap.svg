@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .number { fill: #b5cea8; }
+    .accent { fill: #CE422B; }
+    .comment { fill: #6a9955; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="400" y="35" text-anchor="middle" class="title">Box&lt;T&gt; y Heap Allocation</text>
+  <text x="400" y="55" text-anchor="middle" class="subtitle">Smart pointer para datos en el heap</text>
+  
+  <!-- Stack vs Heap -->
+  <rect x="40" y="80" width="320" height="180" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="200" y="105" text-anchor="middle" class="label" style="font-weight:bold;">STACK</text>
+  
+  <rect x="60" y="120" width="120" height="40" rx="4" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="120" y="145" text-anchor="middle" class="code"><tspan class="keyword">let</tspan> x = <tspan class="number">5</tspan>;</text>
+  
+  <rect x="60" y="170" width="60" height="35" rx="4" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="90" y="192" text-anchor="middle" class="number">5</text>
+  <text x="90" y="220" text-anchor="middle" class="comment">// stack</text>
+  
+  <!-- Box en stack apuntando a heap -->
+  <rect x="200" y="120" width="140" height="40" rx="4" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="270" y="145" text-anchor="middle" class="code"><tspan class="keyword">let</tspan> b = <tspan class="type">Box</tspan>::new(<tspan class="number">5</tspan>);</text>
+  
+  <rect x="200" y="170" width="60" height="35" rx="4" fill="#1e1e1e" stroke="#CE422B"/>
+  <text x="230" y="192" text-anchor="middle" class="code">ptr</text>
+  <text x="230" y="220" text-anchor="middle" class="comment">// stack</text>
+  
+  <!-- Heap -->
+  <rect x="440" y="80" width="320" height="180" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="600" y="105" text-anchor="middle" class="label" style="font-weight:bold;">HEAP</text>
+  
+  <rect x="500" y="170" width="60" height="35" rx="4" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="530" y="192" text-anchor="middle" class="number">5</text>
+  <text x="530" y="220" text-anchor="middle" class="comment">// heap</text>
+  
+  <!-- Flecha del puntero -->
+  <path d="M260 187 L490 187" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Lista enlazada con Box -->
+  <text x="400" y="295" text-anchor="middle" class="label" style="font-weight:bold;">LISTA ENLAZADA CON BOX</text>
+  
+  <!-- Nodo 1 -->
+  <rect x="80" y="320" width="100" height="70" rx="6" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="130" y="342" text-anchor="middle" class="label">Cons</text>
+  <line x1="80" y1="350" x2="180" y2="350" stroke="#3c3c3c"/>
+  <text x="100" y="368" class="code">val: <tspan class="number">1</tspan></text>
+  <text x="100" y="382" class="code">next:</text>
+  <rect x="145" y="358" width="25" height="20" rx="2" fill="#1e1e1e" stroke="#CE422B"/>
+  
+  <!-- Nodo 2 -->
+  <rect x="250" y="320" width="100" height="70" rx="6" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="300" y="342" text-anchor="middle" class="label">Cons</text>
+  <line x1="250" y1="350" x2="350" y2="350" stroke="#3c3c3c"/>
+  <text x="270" y="368" class="code">val: <tspan class="number">2</tspan></text>
+  <text x="270" y="382" class="code">next:</text>
+  <rect x="315" y="358" width="25" height="20" rx="2" fill="#1e1e1e" stroke="#CE422B"/>
+  
+  <!-- Nodo 3 -->
+  <rect x="420" y="320" width="100" height="70" rx="6" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="470" y="342" text-anchor="middle" class="label">Cons</text>
+  <line x1="420" y1="350" x2="520" y2="350" stroke="#3c3c3c"/>
+  <text x="440" y="368" class="code">val: <tspan class="number">3</tspan></text>
+  <text x="440" y="382" class="code">next:</text>
+  <rect x="485" y="358" width="25" height="20" rx="2" fill="#1e1e1e" stroke="#CE422B"/>
+  
+  <!-- Nil -->
+  <rect x="590" y="340" width="60" height="30" rx="6" fill="#2d2d2d" stroke="#808080"/>
+  <text x="620" y="360" text-anchor="middle" class="label">Nil</text>
+  
+  <!-- Flechas entre nodos -->
+  <path d="M170 368 L240 368" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M340 368 L410 368" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <path d="M510 368 L580 355" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Notas -->
+  <rect x="40" y="420" width="720" height="60" rx="6" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="60" y="445" class="code"><tspan class="keyword">enum</tspan> <tspan class="type">List</tspan> { Cons(i32, <tspan class="type">Box</tspan>&lt;<tspan class="type">List</tspan>&gt;), Nil }</text>
+  <text x="60" y="465" class="comment">// Box tiene tamaño fijo (1 puntero), permitiendo tipos recursivos</text>
+</svg>

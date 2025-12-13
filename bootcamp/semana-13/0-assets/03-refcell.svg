@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .number { fill: #b5cea8; }
+    .accent { fill: #CE422B; }
+    .success { fill: #4ec9b0; }
+    .error { fill: #f14c4c; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="400" y="35" text-anchor="middle" class="title">RefCell&lt;T&gt; - Borrowing en Runtime</text>
+  <text x="400" y="55" text-anchor="middle" class="subtitle">Verifica reglas de borrowing en tiempo de ejecución</text>
+  
+  <!-- Comparación Compile vs Runtime -->
+  <text x="220" y="90" text-anchor="middle" class="label" style="font-weight:bold;">COMPILE TIME</text>
+  <text x="580" y="90" text-anchor="middle" class="label" style="font-weight:bold;">RUNTIME (RefCell)</text>
+  
+  <!-- Compile time box -->
+  <rect x="60" y="105" width="320" height="120" rx="8" fill="#252526" stroke="#569cd6"/>
+  <text x="80" y="135" class="code"><tspan class="keyword">let mut</tspan> x = <tspan class="number">5</tspan>;</text>
+  <text x="80" y="160" class="code"><tspan class="keyword">let</tspan> r1 = &amp;x;    <tspan style="fill:#6a9955;">// OK: &amp;T</tspan></text>
+  <text x="80" y="185" class="code"><tspan class="keyword">let</tspan> r2 = &amp;<tspan class="keyword">mut</tspan> x; <tspan class="error">// Error!</tspan></text>
+  <text x="80" y="210" class="code" style="fill:#6a9955;">// Error detectado en compilación</text>
+  
+  <!-- Runtime box -->
+  <rect x="420" y="105" width="340" height="120" rx="8" fill="#252526" stroke="#CE422B"/>
+  <text x="440" y="135" class="code"><tspan class="keyword">let</tspan> x = <tspan class="type">RefCell</tspan>::new(<tspan class="number">5</tspan>);</text>
+  <text x="440" y="160" class="code"><tspan class="keyword">let</tspan> r1 = x.borrow();     <tspan style="fill:#6a9955;">// OK</tspan></text>
+  <text x="440" y="185" class="code"><tspan class="keyword">let</tspan> r2 = x.borrow_mut(); <tspan class="error">// PANIC!</tspan></text>
+  <text x="440" y="210" class="code" style="fill:#6a9955;">// Error detectado en runtime</text>
+  
+  <!-- RefCell State Diagram -->
+  <text x="400" y="260" text-anchor="middle" class="label" style="font-weight:bold;">ESTADOS DE REFCELL</text>
+  
+  <!-- Estado Idle -->
+  <rect x="60" y="280" width="140" height="70" rx="8" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="130" y="310" text-anchor="middle" class="success" style="font-size:14px;">IDLE</text>
+  <text x="130" y="330" text-anchor="middle" class="label">borrow_count = 0</text>
+  
+  <!-- Estado Borrowed -->
+  <rect x="280" y="280" width="140" height="70" rx="8" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+  <text x="350" y="310" text-anchor="middle" class="keyword" style="font-size:14px;">BORROWED</text>
+  <text x="350" y="330" text-anchor="middle" class="label">N readers OK</text>
+  
+  <!-- Estado MutBorrowed -->
+  <rect x="500" y="280" width="160" height="70" rx="8" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="580" y="310" text-anchor="middle" class="accent" style="font-size:14px;">MUT BORROWED</text>
+  <text x="580" y="330" text-anchor="middle" class="label">1 writer only</text>
+  
+  <!-- Flechas de transición -->
+  <path d="M200 315 L270 315" stroke="#4ec9b0" stroke-width="2" fill="none" marker-end="url(#arrowGreen)"/>
+  <text x="235" y="305" class="code" style="font-size:9px;">borrow()</text>
+  
+  <path d="M270 330 L200 330" stroke="#569cd6" stroke-width="2" fill="none" marker-end="url(#arrowBlue2)"/>
+  <text x="235" y="345" class="code" style="font-size:9px;">drop</text>
+  
+  <path d="M130 350 L130 380 Q130 400 200 400 L570 400 Q650 400 650 360 L650 350" stroke="#CE422B" stroke-width="2" fill="none" marker-end="url(#arrowRed2)"/>
+  <text x="400" y="415" text-anchor="middle" class="code" style="font-size:9px;">borrow_mut()</text>
+  
+  <defs>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4ec9b0"/>
+    </marker>
+    <marker id="arrowBlue2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#569cd6"/>
+    </marker>
+    <marker id="arrowRed2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+  </defs>
+  
+  <!-- Patrón Rc<RefCell<T>> -->
+  <rect x="60" y="440" width="680" height="45" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="80" y="462" class="code"><tspan class="keyword">let</tspan> shared = <tspan class="type">Rc</tspan>::new(<tspan class="type">RefCell</tspan>::new(data));  <tspan style="fill:#6a9955;">// Múltiples owners + mutabilidad</tspan></text>
+  <text x="80" y="478" class="code">shared.borrow_mut().modify();  <tspan style="fill:#6a9955;">// Cualquier Rc puede mutar</tspan></text>
+</svg>
