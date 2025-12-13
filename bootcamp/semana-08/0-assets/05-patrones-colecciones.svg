@@ -21,7 +21,7 @@
 
   <!-- Yes branch -->
   <path d="M 350 127 L 200 127 L 200 170" stroke="#6a9955" stroke-width="2" fill="none"/>
-  <text x="275" y="120" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Sí</text>
+  <text x="275" y="115" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Sí</text>
 
   <!-- HashMap -->
   <rect x="100" y="170" width="200" height="70" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
@@ -31,7 +31,7 @@
 
   <!-- No branch -->
   <path d="M 550 127 L 700 127 L 700 170" stroke="#CE422B" stroke-width="2" fill="none"/>
-  <text x="625" y="120" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">No</text>
+  <text x="625" y="115" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">No</text>
 
   <!-- Question 2 -->
   <rect x="600" y="170" width="200" height="45" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
@@ -39,7 +39,7 @@
 
   <!-- Yes to unique -->
   <path d="M 600 192 L 500 192 L 500 245" stroke="#6a9955" stroke-width="2" fill="none"/>
-  <text x="550" y="185" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Sí</text>
+  <text x="550" y="182" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6a9955">Sí</text>
 
   <!-- HashSet -->
   <rect x="400" y="245" width="200" height="70" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="2"/>
@@ -49,7 +49,7 @@
 
   <!-- No to unique -->
   <path d="M 800 192 L 830 192 L 830 245" stroke="#CE422B" stroke-width="2" fill="none"/>
-  <text x="815" y="185" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">No</text>
+  <text x="815" y="182" font-family="'Segoe UI', sans-serif" font-size="11" fill="#CE422B">No</text>
 
   <!-- Vec -->
   <rect x="700" y="245" width="170" height="70" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
