@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" class="title">RefCell&lt;T&gt; - Mutabilidad Interior</text>
+  <text x="450" y="55" text-anchor="middle" class="subtitle">Borrowing verificado en runtime</text>
+  
+  <!-- Compile vs Runtime -->
+  <rect x="30" y="75" width="400" height="160" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="230" y="100" text-anchor="middle" class="label" style="font-weight: bold;">Compile Time vs Runtime</text>
+  
+  <!-- Compile time -->
+  <rect x="50" y="115" width="170" height="100" rx="4" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="135" y="140" text-anchor="middle" class="type">&amp;T / &amp;mut T</text>
+  <text x="135" y="165" text-anchor="middle" class="small">Borrow checker</text>
+  <text x="135" y="185" text-anchor="middle" class="small">en compilación</text>
+  <text x="135" y="205" text-anchor="middle" class="small" style="fill: #4ec9b0;">✓ Sin overhead</text>
+  
+  <!-- Runtime -->
+  <rect x="240" y="115" width="170" height="100" rx="4" fill="#2d2d2d" stroke="#ce9178"/>
+  <text x="325" y="140" text-anchor="middle" class="type">RefCell&lt;T&gt;</text>
+  <text x="325" y="165" text-anchor="middle" class="small">Borrow tracking</text>
+  <text x="325" y="185" text-anchor="middle" class="small">en runtime</text>
+  <text x="325" y="205" text-anchor="middle" class="small" style="fill: #ce9178;">⚠ Puede hacer panic</text>
+  
+  <!-- Borrowing Rules -->
+  <rect x="470" y="75" width="400" height="160" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="670" y="100" text-anchor="middle" class="label" style="font-weight: bold;">Reglas de Borrowing (Runtime)</text>
+  
+  <!-- Rules table -->
+  <g transform="translate(490, 115)">
+    <rect x="0" y="0" width="170" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="85" y="20" text-anchor="middle" class="small">Múltiples borrow()</text>
+    <text x="200" y="20" class="small" style="fill: #4ec9b0;">✓ OK</text>
+    
+    <rect x="0" y="40" width="170" height="30" rx="4" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="85" y="60" text-anchor="middle" class="small">Un borrow_mut()</text>
+    <text x="200" y="60" class="small" style="fill: #4ec9b0;">✓ OK</text>
+    
+    <rect x="0" y="80" width="170" height="30" rx="4" fill="#2d2d2d" stroke="#f44747"/>
+    <text x="85" y="100" text-anchor="middle" class="small">borrow + borrow_mut</text>
+    <text x="200" y="100" class="small" style="fill: #f44747;">✗ PANIC</text>
+    
+    <rect x="0" y="120" width="170" height="30" rx="4" fill="#2d2d2d" stroke="#f44747"/>
+    <text x="85" y="140" text-anchor="middle" class="small">Múltiples borrow_mut</text>
+    <text x="200" y="140" class="small" style="fill: #f44747;">✗ PANIC</text>
+  </g>
+  
+  <!-- API Section -->
+  <rect x="30" y="255" width="400" height="130" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="230" y="280" text-anchor="middle" class="label" style="font-weight: bold;">API de RefCell</text>
+  
+  <text x="50" y="305" class="code">celda.borrow()</text>
+  <text x="200" y="305" class="small">→ Ref&lt;T&gt; (inmutable)</text>
+  
+  <text x="50" y="330" class="code">celda.borrow_mut()</text>
+  <text x="200" y="330" class="small">→ RefMut&lt;T&gt; (mutable)</text>
+  
+  <text x="50" y="355" class="code">celda.try_borrow()</text>
+  <text x="200" y="355" class="small">→ Result&lt;Ref&lt;T&gt;&gt;</text>
+  
+  <text x="50" y="380" class="code">celda.try_borrow_mut()</text>
+  <text x="200" y="380" class="small">→ Result&lt;RefMut&lt;T&gt;&gt;</text>
+  
+  <!-- Pattern: Rc<RefCell<T>> -->
+  <rect x="470" y="255" width="400" height="130" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="670" y="280" text-anchor="middle" class="label" style="font-weight: bold;">Patrón: Rc&lt;RefCell&lt;T&gt;&gt;</text>
+  
+  <text x="490" y="310" class="small">Múltiples dueños + Mutabilidad</text>
+  
+  <text x="490" y="340" class="keyword">let</text>
+  <text x="515" y="340" class="code">nodo = Rc::new(RefCell::new(</text>
+  
+  <text x="510" y="360" class="code">Nodo { valor: 1 }</text>
+  <text x="490" y="380" class="code">));</text>
+  
+  <!-- Cell vs RefCell -->
+  <rect x="30" y="400" width="840" height="105" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="450" y="425" text-anchor="middle" class="label" style="font-weight: bold;">Cell&lt;T&gt; vs RefCell&lt;T&gt;</text>
+  
+  <!-- Cell -->
+  <rect x="50" y="445" width="380" height="45" rx="4" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="240" y="465" text-anchor="middle" class="type">Cell&lt;T&gt;</text>
+  <text x="240" y="483" text-anchor="middle" class="small">Solo tipos Copy, get/set, sin borrows, sin panic</text>
+  
+  <!-- RefCell -->
+  <rect x="470" y="445" width="380" height="45" rx="4" fill="#2d2d2d" stroke="#ce9178"/>
+  <text x="660" y="465" text-anchor="middle" class="type">RefCell&lt;T&gt;</text>
+  <text x="660" y="483" text-anchor="middle" class="small">Cualquier tipo, borrow/borrow_mut, puede panic</text>
+</svg>

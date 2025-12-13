@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" class="title">Patrones Avanzados con Smart Pointers</text>
+  <text x="450" y="55" text-anchor="middle" class="subtitle">Combinaciones para estructuras complejas</text>
+  
+  <!-- Tree Pattern -->
+  <rect x="30" y="75" width="400" height="200" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="230" y="100" text-anchor="middle" class="label" style="font-weight: bold;">Árbol con Parent/Children</text>
+  
+  <!-- Tree nodes -->
+  <g transform="translate(150, 130)">
+    <!-- Root -->
+    <rect x="50" y="0" width="60" height="35" rx="4" fill="#3c3c3c" stroke="#4ec9b0"/>
+    <text x="80" y="22" text-anchor="middle" class="small">Raíz</text>
+    
+    <!-- Children -->
+    <rect x="0" y="70" width="60" height="35" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+    <text x="30" y="92" text-anchor="middle" class="small">Hijo 1</text>
+    
+    <rect x="100" y="70" width="60" height="35" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+    <text x="130" y="92" text-anchor="middle" class="small">Hijo 2</text>
+    
+    <!-- Arrows down (Rc) -->
+    <line x1="65" y1="35" x2="30" y2="70" stroke="#4ec9b0" stroke-width="2" marker-end="url(#arrowhead4)"/>
+    <line x1="95" y1="35" x2="130" y2="70" stroke="#4ec9b0" stroke-width="2" marker-end="url(#arrowhead4)"/>
+    
+    <!-- Arrows up (Weak) -->
+    <line x1="40" y1="70" x2="70" y2="40" stroke="#808080" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead4-gray)"/>
+    <line x1="120" y1="70" x2="90" y2="40" stroke="#808080" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead4-gray)"/>
+    
+    <!-- Legend -->
+    <line x1="0" y1="130" x2="30" y2="130" stroke="#4ec9b0" stroke-width="2"/>
+    <text x="40" y="134" class="small" style="fill: #4ec9b0;">Rc (strong)</text>
+    
+    <line x1="100" y1="130" x2="130" y2="130" stroke="#808080" stroke-width="2" stroke-dasharray="4"/>
+    <text x="140" y="134" class="small">Weak</text>
+  </g>
+  
+  <!-- State Machine Pattern -->
+  <rect x="470" y="75" width="400" height="200" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="670" y="100" text-anchor="middle" class="label" style="font-weight: bold;">State Machine con Box&lt;dyn Trait&gt;</text>
+  
+  <!-- States -->
+  <g transform="translate(490, 120)">
+    <rect x="0" y="0" width="80" height="35" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+    <text x="40" y="22" text-anchor="middle" class="small">Pendiente</text>
+    
+    <line x1="80" y1="17" x2="110" y2="17" stroke="#CE422B" stroke-width="2" marker-end="url(#arrowhead4)"/>
+    
+    <rect x="120" y="0" width="80" height="35" rx="4" fill="#3c3c3c" stroke="#dcdcaa"/>
+    <text x="160" y="22" text-anchor="middle" class="small">EnProceso</text>
+    
+    <line x1="200" y1="17" x2="230" y2="17" stroke="#CE422B" stroke-width="2" marker-end="url(#arrowhead4)"/>
+    
+    <rect x="240" y="0" width="80" height="35" rx="4" fill="#3c3c3c" stroke="#4ec9b0"/>
+    <text x="280" y="22" text-anchor="middle" class="small">Completado</text>
+  </g>
+  
+  <text x="490" y="180" class="code">estado: Box&lt;dyn Estado&gt;</text>
+  <text x="490" y="200" class="small">Cada estado implementa el trait Estado</text>
+  <text x="490" y="220" class="small">siguiente() consume self y retorna nuevo estado</text>
+  
+  <!-- Multi-thread Pattern -->
+  <rect x="30" y="295" width="400" height="120" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="230" y="320" text-anchor="middle" class="label" style="font-weight: bold;">Multi-thread: Arc&lt;Mutex&lt;T&gt;&gt;</text>
+  
+  <!-- Threads -->
+  <g transform="translate(50, 340)">
+    <rect x="0" y="0" width="70" height="30" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+    <text x="35" y="20" text-anchor="middle" class="small">Thread 1</text>
+    
+    <rect x="90" y="0" width="70" height="30" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+    <text x="125" y="20" text-anchor="middle" class="small">Thread 2</text>
+    
+    <rect x="180" y="0" width="70" height="30" rx="4" fill="#3c3c3c" stroke="#569cd6"/>
+    <text x="215" y="20" text-anchor="middle" class="small">Thread 3</text>
+    
+    <!-- Arrows to shared -->
+    <line x1="35" y1="30" x2="125" y2="55" stroke="#dcdcaa" stroke-width="2"/>
+    <line x1="125" y1="30" x2="125" y2="55" stroke="#dcdcaa" stroke-width="2"/>
+    <line x1="215" y1="30" x2="125" y2="55" stroke="#dcdcaa" stroke-width="2"/>
+    
+    <!-- Shared data -->
+    <rect x="80" y="55" width="90" height="30" rx="4" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="125" y="75" text-anchor="middle" class="type">Mutex&lt;T&gt;</text>
+  </g>
+  
+  <!-- Combination Table -->
+  <rect x="470" y="295" width="400" height="120" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="670" y="320" text-anchor="middle" class="label" style="font-weight: bold;">Tabla de Combinaciones</text>
+  
+  <g transform="translate(490, 340)">
+    <text x="0" y="0" class="type">Rc&lt;T&gt;</text>
+    <text x="120" y="0" class="small">→ Múltiples dueños (1 thread)</text>
+    
+    <text x="0" y="22" class="type">Rc&lt;RefCell&lt;T&gt;&gt;</text>
+    <text x="120" y="22" class="small">→ + Mutabilidad interior</text>
+    
+    <text x="0" y="44" class="type">Arc&lt;T&gt;</text>
+    <text x="120" y="44" class="small">→ Múltiples dueños (N threads)</text>
+    
+    <text x="0" y="66" class="type">Arc&lt;Mutex&lt;T&gt;&gt;</text>
+    <text x="120" y="66" class="small">→ + Mutabilidad thread-safe</text>
+  </g>
+  
+  <!-- Decision Guide -->
+  <rect x="30" y="435" width="840" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="450" y="460" text-anchor="middle" class="label" style="font-weight: bold;">Guía de Decisión</text>
+  
+  <g transform="translate(50, 475)">
+    <text x="0" y="0" class="small">¿Único dueño?</text>
+    <text x="120" y="0" class="small">→</text>
+    <text x="140" y="0" class="type">Box&lt;T&gt;</text>
+    
+    <text x="250" y="0" class="small">¿Múltiples dueños?</text>
+    <text x="400" y="0" class="small">→</text>
+    <text x="420" y="0" class="type">Rc&lt;T&gt;</text>
+    <text x="480" y="0" class="small">o</text>
+    <text x="505" y="0" class="type">Arc&lt;T&gt;</text>
+    
+    <text x="0" y="30" class="small">¿Mutabilidad interior?</text>
+    <text x="140" y="30" class="small">→</text>
+    <text x="160" y="30" class="type">RefCell&lt;T&gt;</text>
+    <text x="260" y="30" class="small">o</text>
+    <text x="285" y="30" class="type">Mutex&lt;T&gt;</text>
+    
+    <text x="400" y="30" class="small">¿Evitar ciclos?</text>
+    <text x="505" y="30" class="small">→</text>
+    <text x="525" y="30" class="type">Weak&lt;T&gt;</text>
+  </g>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead4" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#CE422B"/>
+    </marker>
+    <marker id="arrowhead4-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+</svg>
