@@ -1,109 +1,109 @@
-//! Contenedor con capacidad limitada usando const generics.
+//! Bounded capacity container using const generics.
 //!
-//! # Ejemplo
+//! # Example
 //!
 //! ```
-//! use proyecto_contenedor::Limitado;
+//! use proyecto_contenedor::Bounded;
 //!
-//! let mut contenedor: Limitado<i32, 3> = Limitado::new();
-//! assert!(contenedor.insertar(1).is_ok());
-//! assert!(contenedor.insertar(2).is_ok());
-//! assert!(contenedor.insertar(3).is_ok());
-//! assert!(contenedor.insertar(4).is_err()); // Lleno!
+//! let mut container: Bounded<i32, 3> = Bounded::new();
+//! assert!(container.insert(1).is_ok());
+//! assert!(container.insert(2).is_ok());
+//! assert!(container.insert(3).is_ok());
+//! assert!(container.insert(4).is_err()); // Full!
 //! ```
 
 use std::fmt::Debug;
 
-/// Contenedor con capacidad máxima fija definida en tiempo de compilación.
+/// Container with fixed maximum capacity defined at compile time.
 ///
-/// `N` es la capacidad máxima del contenedor.
-pub struct Limitado<T, const N: usize> {
-    elementos: Vec<T>,
+/// `N` is the maximum capacity of the container.
+pub struct Bounded<T, const N: usize> {
+    elements: Vec<T>,
 }
 
-impl<T, const N: usize> Limitado<T, N> {
-    /// Crea un nuevo contenedor vacío con capacidad N.
+impl<T, const N: usize> Bounded<T, N> {
+    /// Creates a new empty container with capacity N.
     ///
-    /// # Ejemplo
+    /// # Example
     ///
     /// ```
-    /// use proyecto_contenedor::Limitado;
-    /// let contenedor: Limitado<u8, 10> = Limitado::new();
-    /// assert_eq!(contenedor.capacidad(), 10);
+    /// use proyecto_contenedor::Bounded;
+    /// let container: Bounded<u8, 10> = Bounded::new();
+    /// assert_eq!(container.capacity(), 10);
     /// ```
     pub fn new() -> Self {
-        Limitado {
-            elementos: Vec::with_capacity(N),
+        Bounded {
+            elements: Vec::with_capacity(N),
         }
     }
 
-    /// Intenta insertar un elemento en el contenedor.
+    /// Attempts to insert an element into the container.
     ///
-    /// Devuelve `Ok(())` si hay espacio, o `Err(valor)` si está lleno,
-    /// devolviendo el valor que no pudo ser insertado.
+    /// Returns `Ok(())` if there is space, or `Err(value)` if full,
+    /// returning the value that could not be inserted.
     ///
-    /// # Ejemplo
+    /// # Example
     ///
     /// ```
-    /// use proyecto_contenedor::Limitado;
-    /// let mut contenedor: Limitado<i32, 2> = Limitado::new();
-    /// assert_eq!(contenedor.insertar(1), Ok(()));
-    /// assert_eq!(contenedor.insertar(2), Ok(()));
-    /// assert_eq!(contenedor.insertar(3), Err(3)); // Devuelve el valor
+    /// use proyecto_contenedor::Bounded;
+    /// let mut container: Bounded<i32, 2> = Bounded::new();
+    /// assert_eq!(container.insert(1), Ok(()));
+    /// assert_eq!(container.insert(2), Ok(()));
+    /// assert_eq!(container.insert(3), Err(3)); // Returns the value
     /// ```
-    pub fn insertar(&mut self, valor: T) -> Result<(), T> {
-        if self.elementos.len() < N {
-            self.elementos.push(valor);
+    pub fn insert(&mut self, value: T) -> Result<(), T> {
+        if self.elements.len() < N {
+            self.elements.push(value);
             Ok(())
         } else {
-            Err(valor)
+            Err(value)
         }
     }
 
-    /// Remueve y devuelve el último elemento insertado.
+    /// Removes and returns the last inserted element.
     ///
-    /// Devuelve `None` si el contenedor está vacío.
-    pub fn remover(&mut self) -> Option<T> {
-        self.elementos.pop()
+    /// Returns `None` if the container is empty.
+    pub fn remove(&mut self) -> Option<T> {
+        self.elements.pop()
     }
 
-    /// Devuelve la cantidad actual de elementos.
+    /// Returns the current number of elements.
     pub fn len(&self) -> usize {
-        self.elementos.len()
+        self.elements.len()
     }
 
-    /// Devuelve la capacidad máxima del contenedor.
-    pub fn capacidad(&self) -> usize {
+    /// Returns the maximum capacity of the container.
+    pub fn capacity(&self) -> usize {
         N
     }
 
-    /// Verifica si el contenedor está lleno.
-    pub fn esta_lleno(&self) -> bool {
-        self.elementos.len() >= N
+    /// Checks if the container is full.
+    pub fn is_full(&self) -> bool {
+        self.elements.len() >= N
     }
 
-    /// Verifica si el contenedor está vacío.
-    pub fn esta_vacio(&self) -> bool {
-        self.elementos.is_empty()
+    /// Checks if the container is empty.
+    pub fn is_empty(&self) -> bool {
+        self.elements.is_empty()
     }
 
-    /// Devuelve una referencia al elemento en el índice dado.
-    pub fn obtener(&self, indice: usize) -> Option<&T> {
-        self.elementos.get(indice)
+    /// Returns a reference to the element at the given index.
+    pub fn get(&self, index: usize) -> Option<&T> {
+        self.elements.get(index)
     }
 }
 
-impl<T, const N: usize> Default for Limitado<T, N> {
+impl<T, const N: usize> Default for Bounded<T, N> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<T: Debug, const N: usize> Debug for Limitado<T, N> {
+impl<T: Debug, const N: usize> Debug for Bounded<T, N> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Limitado")
-            .field("capacidad", &N)
-            .field("elementos", &self.elementos)
+        f.debug_struct("Bounded")
+            .field("capacity", &N)
+            .field("elements", &self.elements)
             .finish()
     }
 }
@@ -114,79 +114,79 @@ mod tests {
 
     #[test]
     fn test_new() {
-        let contenedor: Limitado<i32, 5> = Limitado::new();
-        assert!(contenedor.esta_vacio());
-        assert_eq!(contenedor.capacidad(), 5);
+        let container: Bounded<i32, 5> = Bounded::new();
+        assert!(container.is_empty());
+        assert_eq!(container.capacity(), 5);
     }
 
     #[test]
-    fn test_insertar_ok() {
-        let mut contenedor: Limitado<char, 3> = Limitado::new();
-        assert_eq!(contenedor.insertar('a'), Ok(()));
-        assert_eq!(contenedor.insertar('b'), Ok(()));
-        assert_eq!(contenedor.insertar('c'), Ok(()));
-        assert_eq!(contenedor.len(), 3);
+    fn test_insert_ok() {
+        let mut container: Bounded<char, 3> = Bounded::new();
+        assert_eq!(container.insert('a'), Ok(()));
+        assert_eq!(container.insert('b'), Ok(()));
+        assert_eq!(container.insert('c'), Ok(()));
+        assert_eq!(container.len(), 3);
     }
 
     #[test]
-    fn test_insertar_lleno() {
-        let mut contenedor: Limitado<i32, 2> = Limitado::new();
-        assert_eq!(contenedor.insertar(1), Ok(()));
-        assert_eq!(contenedor.insertar(2), Ok(()));
-        assert_eq!(contenedor.insertar(3), Err(3));
-        assert_eq!(contenedor.len(), 2);
+    fn test_insert_full() {
+        let mut container: Bounded<i32, 2> = Bounded::new();
+        assert_eq!(container.insert(1), Ok(()));
+        assert_eq!(container.insert(2), Ok(()));
+        assert_eq!(container.insert(3), Err(3));
+        assert_eq!(container.len(), 2);
     }
 
     #[test]
-    fn test_remover() {
-        let mut contenedor: Limitado<i32, 3> = Limitado::new();
-        contenedor.insertar(1).unwrap();
-        contenedor.insertar(2).unwrap();
+    fn test_remove() {
+        let mut container: Bounded<i32, 3> = Bounded::new();
+        container.insert(1).unwrap();
+        container.insert(2).unwrap();
 
-        assert_eq!(contenedor.remover(), Some(2));
-        assert_eq!(contenedor.remover(), Some(1));
-        assert_eq!(contenedor.remover(), None);
+        assert_eq!(container.remove(), Some(2));
+        assert_eq!(container.remove(), Some(1));
+        assert_eq!(container.remove(), None);
     }
 
     #[test]
-    fn test_esta_lleno() {
-        let mut contenedor: Limitado<u8, 2> = Limitado::new();
-        assert!(!contenedor.esta_lleno());
+    fn test_is_full() {
+        let mut container: Bounded<u8, 2> = Bounded::new();
+        assert!(!container.is_full());
 
-        contenedor.insertar(1).unwrap();
-        assert!(!contenedor.esta_lleno());
+        container.insert(1).unwrap();
+        assert!(!container.is_full());
 
-        contenedor.insertar(2).unwrap();
-        assert!(contenedor.esta_lleno());
+        container.insert(2).unwrap();
+        assert!(container.is_full());
     }
 
     #[test]
-    fn test_obtener() {
-        let mut contenedor: Limitado<&str, 3> = Limitado::new();
-        contenedor.insertar("a").unwrap();
-        contenedor.insertar("b").unwrap();
+    fn test_get() {
+        let mut container: Bounded<&str, 3> = Bounded::new();
+        container.insert("a").unwrap();
+        container.insert("b").unwrap();
 
-        assert_eq!(contenedor.obtener(0), Some(&"a"));
-        assert_eq!(contenedor.obtener(1), Some(&"b"));
-        assert_eq!(contenedor.obtener(2), None);
+        assert_eq!(container.get(0), Some(&"a"));
+        assert_eq!(container.get(1), Some(&"b"));
+        assert_eq!(container.get(2), None);
     }
 
     #[test]
-    fn test_diferentes_tamaños() {
-        let _pequeño: Limitado<i32, 1> = Limitado::new();
-        let _mediano: Limitado<i32, 100> = Limitado::new();
-        let _grande: Limitado<i32, 1000> = Limitado::new();
+    fn test_different_sizes() {
+        let _small: Bounded<i32, 1> = Bounded::new();
+        let _medium: Bounded<i32, 100> = Bounded::new();
+        let _large: Bounded<i32, 1000> = Bounded::new();
 
-        // Verificamos que cada uno tiene su capacidad correcta
-        assert_eq!(_pequeño.capacidad(), 1);
-        assert_eq!(_mediano.capacidad(), 100);
-        assert_eq!(_grande.capacidad(), 1000);
+        // Verify each has correct capacity
+        assert_eq!(_small.capacity(), 1);
+        assert_eq!(_medium.capacity(), 100);
+        assert_eq!(_large.capacity(), 1000);
     }
 
     #[test]
     fn test_default() {
-        let contenedor: Limitado<String, 5> = Limitado::default();
-        assert!(contenedor.esta_vacio());
-        assert_eq!(contenedor.capacidad(), 5);
+        let container: Bounded<String, 5> = Bounded::default();
+        assert!(container.is_empty());
+        assert_eq!(container.capacity(), 5);
     }
 }

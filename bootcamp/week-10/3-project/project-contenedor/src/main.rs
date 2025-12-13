@@ -1,32 +1,32 @@
-//! Demostración de la biblioteca de contenedores genéricos
+//! Demonstration of the generic containers library
 
-use proyecto_contenedor::{Cache, Cola, Deque, Limitado};
+use proyecto_contenedor::{Bounded, Cache, Deque, Queue};
 
 fn main() {
-    println!("=== Biblioteca de Contenedores Genéricos ===\n");
+    println!("=== Generic Containers Library ===\n");
 
-    demo_cola();
+    demo_queue();
     demo_deque();
-    demo_limitado();
+    demo_bounded();
     demo_cache();
 
-    println!("✅ ¡Todas las demos completadas!");
+    println!("✅ All demos completed!");
 }
 
-fn demo_cola() {
-    println!("📦 Demo: Cola<T>");
+fn demo_queue() {
+    println!("📦 Demo: Queue<T>");
     println!("{}", "-".repeat(40));
 
-    let mut cola: Cola<&str> = Cola::new();
-    cola.encolar("primero");
-    cola.encolar("segundo");
-    cola.encolar("tercero");
+    let mut queue: Queue<&str> = Queue::new();
+    queue.enqueue("first");
+    queue.enqueue("second");
+    queue.enqueue("third");
 
-    println!("Cola creada con 3 elementos");
-    println!("Frente: {:?}", cola.frente());
-    println!("Desencolando: {:?}", cola.desencolar());
-    println!("Nuevo frente: {:?}", cola.frente());
-    println!("Longitud: {}\n", cola.len());
+    println!("Queue created with 3 elements");
+    println!("Front: {:?}", queue.front());
+    println!("Dequeuing: {:?}", queue.dequeue());
+    println!("New front: {:?}", queue.front());
+    println!("Length: {}\n", queue.len());
 }
 
 fn demo_deque() {
@@ -34,31 +34,31 @@ fn demo_deque() {
     println!("{}", "-".repeat(40));
 
     let mut deque: Deque<i32> = Deque::new();
-    deque.push_atras(2);
-    deque.push_frente(1);
-    deque.push_atras(3);
+    deque.push_back(2);
+    deque.push_front(1);
+    deque.push_back(3);
 
     println!("Deque: [1, 2, 3]");
-    println!("Frente: {:?}", deque.frente());
-    println!("Atrás: {:?}", deque.atras());
-    println!("Pop frente: {:?}", deque.pop_frente());
-    println!("Pop atrás: {:?}", deque.pop_atras());
-    println!("Longitud restante: {}\n", deque.len());
+    println!("Front: {:?}", deque.front());
+    println!("Back: {:?}", deque.back());
+    println!("Pop front: {:?}", deque.pop_front());
+    println!("Pop back: {:?}", deque.pop_back());
+    println!("Remaining length: {}\n", deque.len());
 }
 
-fn demo_limitado() {
-    println!("📦 Demo: Limitado<T, 3>");
+fn demo_bounded() {
+    println!("📦 Demo: Bounded<T, 3>");
     println!("{}", "-".repeat(40));
 
-    let mut limitado: Limitado<char, 3> = Limitado::new();
+    let mut bounded: Bounded<char, 3> = Bounded::new();
 
-    println!("Capacidad: {}", limitado.capacidad());
-    println!("Insertando 'a': {:?}", limitado.insertar('a'));
-    println!("Insertando 'b': {:?}", limitado.insertar('b'));
-    println!("Insertando 'c': {:?}", limitado.insertar('c'));
-    println!("¿Está lleno?: {}", limitado.esta_lleno());
-    println!("Insertando 'd' (debería fallar): {:?}", limitado.insertar('d'));
-    println!("Longitud: {}\n", limitado.len());
+    println!("Capacity: {}", bounded.capacity());
+    println!("Inserting 'a': {:?}", bounded.insert('a'));
+    println!("Inserting 'b': {:?}", bounded.insert('b'));
+    println!("Inserting 'c': {:?}", bounded.insert('c'));
+    println!("Is full?: {}", bounded.is_full());
+    println!("Inserting 'd' (should fail): {:?}", bounded.insert('d'));
+    println!("Length: {}\n", bounded.len());
 }
 
 fn demo_cache() {
@@ -67,17 +67,17 @@ fn demo_cache() {
 
     let mut cache: Cache<&str, i32> = Cache::new(2);
 
-    cache.insertar("uno", 1);
-    cache.insertar("dos", 2);
-    println!("Cache con 'uno' y 'dos'");
+    cache.insert("one", 1);
+    cache.insert("two", 2);
+    println!("Cache with 'one' and 'two'");
 
-    println!("Obteniendo 'uno': {:?}", cache.obtener(&"uno"));
+    println!("Getting 'one': {:?}", cache.get(&"one"));
 
-    cache.insertar("tres", 3); // Esto debería eliminar 'dos' (LRU)
-    println!("Insertado 'tres' (capacidad 2)");
+    cache.insert("three", 3); // Should remove 'two' (LRU)
+    println!("Inserted 'three' (capacity 2)");
 
-    println!("¿Contiene 'uno'?: {}", cache.contiene(&"uno"));
-    println!("¿Contiene 'dos'?: {}", cache.contiene(&"dos")); // Debería ser false
-    println!("¿Contiene 'tres'?: {}", cache.contiene(&"tres"));
-    println!("Longitud: {}\n", cache.len());
+    println!("Contains 'one'?: {}", cache.contains(&"one"));
+    println!("Contains 'two'?: {}", cache.contains(&"two")); // Should be false
+    println!("Contains 'three'?: {}", cache.contains(&"three"));
+    println!("Length: {}\n", cache.len());
 }

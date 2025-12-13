@@ -6,75 +6,75 @@
 #![allow(dead_code)]
 
 // ============================================
-// Ejercicio 1: Par Genérico
+// Ejercicio 1: Pair Genérico
 // ============================================
-struct Par<T> {
-    primero: T,
-    segundo: T,
+struct Pair<T> {
+    first: T,
+    second: T,
 }
 
-impl<T> Par<T> {
-    fn new(primero: T, segundo: T) -> Self {
-        Par { primero, segundo }
+impl<T> Pair<T> {
+    fn new(first: T, second: T) -> Self {
+        Pair { first, second }
     }
 
-    fn primero(&self) -> &T {
-        &self.primero
+    fn first(&self) -> &T {
+        &self.first
     }
 
-    fn segundo(&self) -> &T {
-        &self.segundo
+    fn second(&self) -> &T {
+        &self.second
     }
 
-    fn invertir(self) -> Par<T> {
-        Par {
-            primero: self.segundo,
-            segundo: self.primero,
+    fn swap(self) -> Pair<T> {
+        Pair {
+            first: self.second,
+            second: self.first,
         }
     }
 }
 
 // ============================================
-// Ejercicio 2: Caja Genérica
+// Ejercicio 2: Wrapper Genérico
 // ============================================
-struct Caja<T> {
-    contenido: T,
+struct Wrapper<T> {
+    content: T,
 }
 
-impl<T> Caja<T> {
-    fn new(valor: T) -> Self {
-        Caja { contenido: valor }
+impl<T> Wrapper<T> {
+    fn new(value: T) -> Self {
+        Wrapper { content: value }
     }
 
-    fn valor(&self) -> &T {
-        &self.contenido
+    fn value(&self) -> &T {
+        &self.content
     }
 
-    fn desenvolver(self) -> T {
-        self.contenido
+    fn unwrap_value(self) -> T {
+        self.content
     }
 
-    fn map<U, F>(self, f: F) -> Caja<U>
+    fn map<U, F>(self, f: F) -> Wrapper<U>
     where
         F: FnOnce(T) -> U,
     {
-        Caja {
-            contenido: f(self.contenido),
+        Wrapper {
+            content: f(self.content),
         }
     }
 }
 
 // ============================================
-// Ejercicio 3: Punto Genérico
+// Ejercicio 3: Point Genérico
 // ============================================
-struct Punto<T> {
+struct Point<T> {
     x: T,
     y: T,
 }
 
-impl<T> Punto<T> {
+impl<T> Point<T> {
     fn new(x: T, y: T) -> Self {
-        Punto { x, y }
+        Point { x, y }
     }
 
     fn x(&self) -> &T {
@@ -86,76 +86,76 @@ impl<T> Punto<T> {
     }
 }
 
-impl Punto<f64> {
-    fn distancia_origen(&self) -> f64 {
+impl Point<f64> {
+    fn distance_to_origin(&self) -> f64 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
 }
 
 // ============================================
-// Ejercicio 4: Resultado Simplificado
+// Ejercicio 4: SimpleResult Simplificado
 // ============================================
-enum Resultado<T, E> {
-    Exito(T),
-    Fallo(E),
+enum SimpleResult<T, E> {
+    Success(T),
+    Failure(E),
 }
 
-impl<T, E> Resultado<T, E> {
-    fn exito(valor: T) -> Self {
-        Resultado::Exito(valor)
+impl<T, E> SimpleResult<T, E> {
+    fn success(value: T) -> Self {
+        SimpleResult::Success(value)
     }
 
-    fn fallo(error: E) -> Self {
-        Resultado::Fallo(error)
+    fn failure(error: E) -> Self {
+        SimpleResult::Failure(error)
     }
 
-    fn es_exito(&self) -> bool {
-        matches!(self, Resultado::Exito(_))
+    fn is_success(&self) -> bool {
+        matches!(self, SimpleResult::Success(_))
     }
 
-    fn es_fallo(&self) -> bool {
-        matches!(self, Resultado::Fallo(_))
+    fn is_failure(&self) -> bool {
+        matches!(self, SimpleResult::Failure(_))
     }
 
-    fn obtener_valor(self) -> Option<T> {
+    fn get_value(self) -> Option<T> {
         match self {
-            Resultado::Exito(valor) => Some(valor),
-            Resultado::Fallo(_) => None,
+            SimpleResult::Success(value) => Some(value),
+            SimpleResult::Failure(_) => None,
         }
     }
 }
 
 // ============================================
-// Ejercicio 5: Pila Genérica
+// Ejercicio 5: Stack Genérico
 // ============================================
-struct Pila<T> {
-    elementos: Vec<T>,
+struct Stack<T> {
+    elements: Vec<T>,
 }
 
-impl<T> Pila<T> {
+impl<T> Stack<T> {
     fn new() -> Self {
-        Pila {
-            elementos: Vec::new(),
+        Stack {
+            elements: Vec::new(),
         }
     }
 
-    fn push(&mut self, valor: T) {
-        self.elementos.push(valor);
+    fn push(&mut self, value: T) {
+        self.elements.push(value);
     }
 
     fn pop(&mut self) -> Option<T> {
-        self.elementos.pop()
+        self.elements.pop()
     }
 
     fn peek(&self) -> Option<&T> {
-        self.elementos.last()
+        self.elements.last()
     }
 
     fn len(&self) -> usize {
-        self.elementos.len()
+        self.elements.len()
     }
 
-    fn esta_vacia(&self) -> bool {
-        self.elementos.is_empty()
+    fn is_empty(&self) -> bool {
+        self.elements.is_empty()
     }
 }

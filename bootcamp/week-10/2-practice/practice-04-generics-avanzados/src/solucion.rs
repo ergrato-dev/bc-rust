@@ -10,33 +10,33 @@ use std::marker::PhantomData;
 // ============================================
 // Ejercicio 1: Trait con Tipo Asociado
 // ============================================
-trait Iterador {
+trait SimpleIterator {
     type Item;
-    fn siguiente(&self) -> Option<Self::Item>;
+    fn next(&self) -> Option<Self::Item>;
 }
 
-struct RangoNumerico {
-    actual: std::cell::Cell<i32>,
-    fin: i32,
+struct NumericRange {
+    current: std::cell::Cell<i32>,
+    end: i32,
 }
 
-impl RangoNumerico {
-    fn new(inicio: i32, fin: i32) -> Self {
-        RangoNumerico {
-            actual: std::cell::Cell::new(inicio),
-            fin,
+impl NumericRange {
+    fn new(start: i32, end: i32) -> Self {
+        NumericRange {
+            current: std::cell::Cell::new(start),
+            end,
         }
     }
 }
 
-impl Iterador for RangoNumerico {
+impl SimpleIterator for NumericRange {
     type Item = i32;
 
-    fn siguiente(&self) -> Option<Self::Item> {
-        let current = self.actual.get();
-        if current < self.fin {
-            self.actual.set(current + 1);
-            Some(current)
+    fn next(&self) -> Option<Self::Item> {
+        let curr = self.current.get();
+        if curr < self.end {
+            self.current.set(curr + 1);
+            Some(curr)
         } else {
             None
         }
@@ -47,21 +47,21 @@ impl Iterador for RangoNumerico {
 // Ejercicio 2: Const Generics
 // ============================================
 struct Buffer<T, const N: usize> {
-    datos: [T; N],
+    data: [T; N],
 }
 
 impl<T, const N: usize> Buffer<T, N> {
-    fn new(datos: [T; N]) -> Self {
-        Buffer { datos }
+    fn new(data: [T; N]) -> Self {
+        Buffer { data }
     }
 
-    fn capacidad(&self) -> usize {
+    fn capacity(&self) -> usize {
         N
     }
 
-    fn obtener(&self, indice: usize) -> Option<&T> {
-        if indice < N {
-            Some(&self.datos[indice])
+    fn get(&self, index: usize) -> Option<&T> {
+        if index < N {
+            Some(&self.data[index])
         } else {
             None
         }
@@ -69,9 +69,9 @@ impl<T, const N: usize> Buffer<T, N> {
 }
 
 impl<T: Copy, const N: usize> Buffer<T, N> {
-    fn obtener_copia(&self, indice: usize) -> Option<T> {
-        if indice < N {
-            Some(self.datos[indice])
+    fn get_copy(&self, index: usize) -> Option<T> {
+        if index < N {
+            Some(self.data[index])
         } else {
             None
         }
@@ -81,52 +81,52 @@ impl<T: Copy, const N: usize> Buffer<T, N> {
 // ============================================
 // Ejercicio 3: Type State Pattern
 // ============================================
-struct Pendiente;
-struct Pagado;
-struct Enviado;
-struct Entregado;
+struct Pending;
+struct Paid;
+struct Shipped;
+struct Delivered;
 
-struct Pedido<Estado> {
-    descripcion: String,
-    _estado: PhantomData<Estado>,
+struct Order<State> {
+    description: String,
+    _state: PhantomData<State>,
 }
 
-impl<Estado> Pedido<Estado> {
-    fn descripcion(&self) -> &str {
-        &self.descripcion
+impl<State> Order<State> {
+    fn description(&self) -> &str {
+        &self.description
     }
 }
 
-impl Pedido<Pendiente> {
-    fn nuevo(descripcion: &str) -> Self {
-        Pedido {
-            descripcion: descripcion.to_string(),
-            _estado: PhantomData,
+impl Order<Pending> {
+    fn new(description: &str) -> Self {
+        Order {
+            description: description.to_string(),
+            _state: PhantomData,
         }
     }
 
-    fn pagar(self) -> Pedido<Pagado> {
-        Pedido {
-            descripcion: self.descripcion,
-            _estado: PhantomData,
-        }
-    }
-}
-
-impl Pedido<Pagado> {
-    fn enviar(self) -> Pedido<Enviado> {
-        Pedido {
-            descripcion: self.descripcion,
-            _estado: PhantomData,
+    fn pay(self) -> Order<Paid> {
+        Order {
+            description: self.description,
+            _state: PhantomData,
         }
     }
 }
 
-impl Pedido<Enviado> {
-    fn entregar(self) -> Pedido<Entregado> {
-        Pedido {
-            descripcion: self.descripcion,
-            _estado: PhantomData,
+impl Order<Paid> {
+    fn ship(self) -> Order<Shipped> {
+        Order {
+            description: self.description,
+            _state: PhantomData,
+        }
+    }
+}
+
+impl Order<Shipped> {
+    fn deliver(self) -> Order<Delivered> {
+        Order {
+            description: self.description,
+            _state: PhantomData,
         }
     }
 }
@@ -134,29 +134,29 @@ impl Pedido<Enviado> {
 // ============================================
 // Ejercicio 4: PhantomData para IDs Tipados
 // ============================================
-struct Usuario;
-struct Producto;
+struct User;
+struct Product;
 
 struct Id<T> {
-    valor: u64,
+    value: u64,
     _marker: PhantomData<T>,
 }
 
 impl<T> Id<T> {
-    fn new(valor: u64) -> Self {
+    fn new(value: u64) -> Self {
         Id {
-            valor,
+            value,
             _marker: PhantomData,
         }
     }
 
-    fn valor(&self) -> u64 {
-        self.valor
+    fn value(&self) -> u64 {
+        self.value
     }
 }
 
 impl<T> PartialEq for Id<T> {
     fn eq(&self, other: &Self) -> bool {
-        self.valor == other.valor
+        self.value == other.value
     }
 }

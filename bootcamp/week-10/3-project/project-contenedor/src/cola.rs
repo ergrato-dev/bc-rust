@@ -1,103 +1,103 @@
-//! Cola genérica FIFO (First In, First Out)
+//! Generic FIFO (First In, First Out) Queue
 //!
-//! # Ejemplo
+//! # Example
 //!
 //! ```
-//! use proyecto_contenedor::Cola;
+//! use proyecto_contenedor::Queue;
 //!
-//! let mut cola = Cola::new();
-//! cola.encolar(1);
-//! cola.encolar(2);
-//! assert_eq!(cola.desencolar(), Some(1));
+//! let mut queue = Queue::new();
+//! queue.enqueue(1);
+//! queue.enqueue(2);
+//! assert_eq!(queue.dequeue(), Some(1));
 //! ```
 
 use std::collections::VecDeque;
 use std::fmt::Debug;
 
-/// Cola genérica que implementa el patrón FIFO.
+/// Generic queue implementing the FIFO pattern.
 ///
-/// Los elementos se agregan al final y se remueven del frente.
-pub struct Cola<T> {
-    elementos: VecDeque<T>,
+/// Elements are added at the back and removed from the front.
+pub struct Queue<T> {
+    elements: VecDeque<T>,
 }
 
-impl<T> Cola<T> {
-    /// Crea una nueva cola vacía.
+impl<T> Queue<T> {
+    /// Creates a new empty queue.
     ///
-    /// # Ejemplo
+    /// # Example
     ///
     /// ```
-    /// use proyecto_contenedor::Cola;
-    /// let cola: Cola<i32> = Cola::new();
-    /// assert!(cola.esta_vacia());
+    /// use proyecto_contenedor::Queue;
+    /// let queue: Queue<i32> = Queue::new();
+    /// assert!(queue.is_empty());
     /// ```
     pub fn new() -> Self {
-        Cola {
-            elementos: VecDeque::new(),
+        Queue {
+            elements: VecDeque::new(),
         }
     }
 
-    /// Agrega un elemento al final de la cola.
+    /// Adds an element to the back of the queue.
     ///
-    /// # Ejemplo
+    /// # Example
     ///
     /// ```
-    /// use proyecto_contenedor::Cola;
-    /// let mut cola = Cola::new();
-    /// cola.encolar("hola");
-    /// assert_eq!(cola.len(), 1);
+    /// use proyecto_contenedor::Queue;
+    /// let mut queue = Queue::new();
+    /// queue.enqueue("hello");
+    /// assert_eq!(queue.len(), 1);
     /// ```
-    pub fn encolar(&mut self, valor: T) {
-        self.elementos.push_back(valor);
+    pub fn enqueue(&mut self, value: T) {
+        self.elements.push_back(value);
     }
 
-    /// Remueve y devuelve el elemento del frente de la cola.
+    /// Removes and returns the front element of the queue.
     ///
-    /// Devuelve `None` si la cola está vacía.
+    /// Returns `None` if the queue is empty.
     ///
-    /// # Ejemplo
+    /// # Example
     ///
     /// ```
-    /// use proyecto_contenedor::Cola;
-    /// let mut cola = Cola::new();
-    /// cola.encolar(1);
-    /// cola.encolar(2);
-    /// assert_eq!(cola.desencolar(), Some(1));
-    /// assert_eq!(cola.desencolar(), Some(2));
-    /// assert_eq!(cola.desencolar(), None);
+    /// use proyecto_contenedor::Queue;
+    /// let mut queue = Queue::new();
+    /// queue.enqueue(1);
+    /// queue.enqueue(2);
+    /// assert_eq!(queue.dequeue(), Some(1));
+    /// assert_eq!(queue.dequeue(), Some(2));
+    /// assert_eq!(queue.dequeue(), None);
     /// ```
-    pub fn desencolar(&mut self) -> Option<T> {
-        self.elementos.pop_front()
+    pub fn dequeue(&mut self) -> Option<T> {
+        self.elements.pop_front()
     }
 
-    /// Devuelve una referencia al elemento del frente sin removerlo.
+    /// Returns a reference to the front element without removing it.
     ///
-    /// Devuelve `None` si la cola está vacía.
-    pub fn frente(&self) -> Option<&T> {
-        self.elementos.front()
+    /// Returns `None` if the queue is empty.
+    pub fn front(&self) -> Option<&T> {
+        self.elements.front()
     }
 
-    /// Devuelve la cantidad de elementos en la cola.
+    /// Returns the number of elements in the queue.
     pub fn len(&self) -> usize {
-        self.elementos.len()
+        self.elements.len()
     }
 
-    /// Verifica si la cola está vacía.
-    pub fn esta_vacia(&self) -> bool {
-        self.elementos.is_empty()
+    /// Checks if the queue is empty.
+    pub fn is_empty(&self) -> bool {
+        self.elements.is_empty()
     }
 }
 
-impl<T> Default for Cola<T> {
+impl<T> Default for Queue<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<T: Debug> Debug for Cola<T> {
+impl<T: Debug> Debug for Queue<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("Cola")
-            .field("elementos", &self.elementos)
+        f.debug_struct("Queue")
+            .field("elements", &self.elements)
             .finish()
     }
 }
@@ -108,75 +108,75 @@ mod tests {
 
     #[test]
     fn test_new() {
-        let cola: Cola<i32> = Cola::new();
-        assert!(cola.esta_vacia());
-        assert_eq!(cola.len(), 0);
+        let queue: Queue<i32> = Queue::new();
+        assert!(queue.is_empty());
+        assert_eq!(queue.len(), 0);
     }
 
     #[test]
-    fn test_encolar_desencolar() {
-        let mut cola = Cola::new();
-        cola.encolar(1);
-        cola.encolar(2);
-        cola.encolar(3);
+    fn test_enqueue_dequeue() {
+        let mut queue = Queue::new();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
 
-        assert_eq!(cola.desencolar(), Some(1));
-        assert_eq!(cola.desencolar(), Some(2));
-        assert_eq!(cola.desencolar(), Some(3));
-        assert_eq!(cola.desencolar(), None);
+        assert_eq!(queue.dequeue(), Some(1));
+        assert_eq!(queue.dequeue(), Some(2));
+        assert_eq!(queue.dequeue(), Some(3));
+        assert_eq!(queue.dequeue(), None);
     }
 
     #[test]
-    fn test_frente() {
-        let mut cola = Cola::new();
-        assert_eq!(cola.frente(), None);
+    fn test_front() {
+        let mut queue = Queue::new();
+        assert_eq!(queue.front(), None);
 
-        cola.encolar("a");
-        cola.encolar("b");
-        assert_eq!(cola.frente(), Some(&"a"));
+        queue.enqueue("a");
+        queue.enqueue("b");
+        assert_eq!(queue.front(), Some(&"a"));
 
-        cola.desencolar();
-        assert_eq!(cola.frente(), Some(&"b"));
+        queue.dequeue();
+        assert_eq!(queue.front(), Some(&"b"));
     }
 
     #[test]
     fn test_len() {
-        let mut cola = Cola::new();
-        assert_eq!(cola.len(), 0);
+        let mut queue = Queue::new();
+        assert_eq!(queue.len(), 0);
 
-        cola.encolar(1);
-        assert_eq!(cola.len(), 1);
+        queue.enqueue(1);
+        assert_eq!(queue.len(), 1);
 
-        cola.encolar(2);
-        assert_eq!(cola.len(), 2);
+        queue.enqueue(2);
+        assert_eq!(queue.len(), 2);
 
-        cola.desencolar();
-        assert_eq!(cola.len(), 1);
+        queue.dequeue();
+        assert_eq!(queue.len(), 1);
     }
 
     #[test]
     fn test_fifo_order() {
-        let mut cola = Cola::new();
+        let mut queue = Queue::new();
         for i in 0..10 {
-            cola.encolar(i);
+            queue.enqueue(i);
         }
 
         for i in 0..10 {
-            assert_eq!(cola.desencolar(), Some(i));
+            assert_eq!(queue.dequeue(), Some(i));
         }
     }
 
     #[test]
     fn test_default() {
-        let cola: Cola<String> = Cola::default();
-        assert!(cola.esta_vacia());
+        let queue: Queue<String> = Queue::default();
+        assert!(queue.is_empty());
     }
 
     #[test]
     fn test_debug() {
-        let mut cola = Cola::new();
-        cola.encolar(1);
-        let debug_str = format!("{:?}", cola);
-        assert!(debug_str.contains("Cola"));
+        let mut queue = Queue::new();
+        queue.enqueue(1);
+        let debug_str = format!("{:?}", queue);
+        assert!(debug_str.contains("Queue"));
     }
 }

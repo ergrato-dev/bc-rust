@@ -9,22 +9,22 @@ use std::collections::HashMap;
 use std::fmt::{Debug, Display};
 use std::hash::Hash;
 
-// Ejercicio 1: Imprimir con Debug
-fn imprimir_debug<T: Debug>(valor: &T) {
-    println!("{:?}", valor);
+// Ejercicio 1: Print with Debug
+fn print_debug<T: Debug>(value: &T) {
+    println!("{:?}", value);
 }
 
-// Ejercicio 2: Comparar y Mostrar
-fn mostrar_mayor<T: PartialOrd + Display>(a: T, b: T) {
+// Ejercicio 2: Compare and Show
+fn show_larger<T: PartialOrd + Display>(a: T, b: T) {
     if a > b {
-        println!("El mayor es: {}", a);
+        println!("The larger is: {}", a);
     } else {
-        println!("El mayor es: {}", b);
+        println!("The larger is: {}", b);
     }
 }
 
-// Ejercicio 3: Clonar si es Mayor
-fn clonar_si_mayor<T: PartialOrd + Clone>(a: &T, b: &T) -> Option<T> {
+// Ejercicio 3: Clone if Larger
+fn clone_if_larger<T: PartialOrd + Clone>(a: &T, b: &T) -> Option<T> {
     if a > b {
         Some(a.clone())
     } else {
@@ -32,27 +32,27 @@ fn clonar_si_mayor<T: PartialOrd + Clone>(a: &T, b: &T) -> Option<T> {
     }
 }
 
-// Ejercicio 4: Contar Ocurrencias
-fn contar_ocurrencias<T: Hash + Eq + Clone>(items: &[T]) -> HashMap<T, usize> {
-    let mut conteo = HashMap::new();
+// Ejercicio 4: Count Occurrences
+fn count_occurrences<T: Hash + Eq + Clone>(items: &[T]) -> HashMap<T, usize> {
+    let mut counts = HashMap::new();
     for item in items {
-        *conteo.entry(item.clone()).or_insert(0) += 1;
+        *counts.entry(item.clone()).or_insert(0) += 1;
     }
-    conteo
+    counts
 }
 
-// Ejercicio 5: Valor o Default
-fn valor_o_default<T: Default>(opcion: Option<T>) -> T {
-    opcion.unwrap_or_default()
+// Ejercicio 5: Value or Default
+fn value_or_default<T: Default>(option: Option<T>) -> T {
+    option.unwrap_or_default()
     // Alternativa con match:
-    // match opcion {
-    //     Some(valor) => valor,
+    // match option {
+    //     Some(value) => value,
     //     None => T::default(),
     // }
 }
 
-// Ejercicio Bonus: Múltiples Bounds con Where
-fn combinar_formatos<T, U>(t: T, u: U) -> String
+// Ejercicio Bonus: Multiple Bounds with Where
+fn combine_formats<T, U>(t: T, u: U) -> String
 where
     T: Display + Clone,
     U: Debug + Default,

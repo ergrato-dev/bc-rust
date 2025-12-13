@@ -1,74 +1,74 @@
-//! Deque genérica (Double-Ended Queue)
+//! Generic Deque (Double-Ended Queue)
 //!
-//! Permite insertar y remover elementos de ambos extremos.
+//! Allows inserting and removing elements from both ends.
 //!
-//! # Ejemplo
+//! # Example
 //!
 //! ```
 //! use proyecto_contenedor::Deque;
 //!
 //! let mut deque = Deque::new();
-//! deque.push_frente(1);
-//! deque.push_atras(2);
-//! assert_eq!(deque.pop_frente(), Some(1));
+//! deque.push_front(1);
+//! deque.push_back(2);
+//! assert_eq!(deque.pop_front(), Some(1));
 //! ```
 
 use std::collections::VecDeque;
 use std::fmt::Debug;
 
-/// Cola de doble extremo genérica.
+/// Generic double-ended queue.
 ///
-/// Soporta operaciones eficientes en ambos extremos.
+/// Supports efficient operations at both ends.
 pub struct Deque<T> {
-    elementos: VecDeque<T>,
+    elements: VecDeque<T>,
 }
 
 impl<T> Deque<T> {
-    /// Crea una nueva deque vacía.
+    /// Creates a new empty deque.
     pub fn new() -> Self {
         Deque {
-            elementos: VecDeque::new(),
+            elements: VecDeque::new(),
         }
     }
 
-    /// Agrega un elemento al frente de la deque.
-    pub fn push_frente(&mut self, valor: T) {
-        self.elementos.push_front(valor);
+    /// Adds an element to the front of the deque.
+    pub fn push_front(&mut self, value: T) {
+        self.elements.push_front(value);
     }
 
-    /// Agrega un elemento al final de la deque.
-    pub fn push_atras(&mut self, valor: T) {
-        self.elementos.push_back(valor);
+    /// Adds an element to the back of the deque.
+    pub fn push_back(&mut self, value: T) {
+        self.elements.push_back(value);
     }
 
-    /// Remueve y devuelve el elemento del frente.
-    pub fn pop_frente(&mut self) -> Option<T> {
-        self.elementos.pop_front()
+    /// Removes and returns the front element.
+    pub fn pop_front(&mut self) -> Option<T> {
+        self.elements.pop_front()
     }
 
-    /// Remueve y devuelve el elemento del final.
-    pub fn pop_atras(&mut self) -> Option<T> {
-        self.elementos.pop_back()
+    /// Removes and returns the back element.
+    pub fn pop_back(&mut self) -> Option<T> {
+        self.elements.pop_back()
     }
 
-    /// Devuelve una referencia al elemento del frente.
-    pub fn frente(&self) -> Option<&T> {
-        self.elementos.front()
+    /// Returns a reference to the front element.
+    pub fn front(&self) -> Option<&T> {
+        self.elements.front()
     }
 
-    /// Devuelve una referencia al elemento del final.
-    pub fn atras(&self) -> Option<&T> {
-        self.elementos.back()
+    /// Returns a reference to the back element.
+    pub fn back(&self) -> Option<&T> {
+        self.elements.back()
     }
 
-    /// Devuelve la cantidad de elementos.
+    /// Returns the number of elements.
     pub fn len(&self) -> usize {
-        self.elementos.len()
+        self.elements.len()
     }
 
-    /// Verifica si la deque está vacía.
-    pub fn esta_vacia(&self) -> bool {
-        self.elementos.is_empty()
+    /// Checks if the deque is empty.
+    pub fn is_empty(&self) -> bool {
+        self.elements.is_empty()
     }
 }
 
@@ -81,7 +81,7 @@ impl<T> Default for Deque<T> {
 impl<T: Debug> Debug for Deque<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Deque")
-            .field("elementos", &self.elementos)
+            .field("elements", &self.elements)
             .finish()
     }
 }
@@ -93,62 +93,62 @@ mod tests {
     #[test]
     fn test_new() {
         let deque: Deque<i32> = Deque::new();
-        assert!(deque.esta_vacia());
+        assert!(deque.is_empty());
     }
 
     #[test]
-    fn test_push_pop_frente() {
+    fn test_push_pop_front() {
         let mut deque = Deque::new();
-        deque.push_frente(1);
-        deque.push_frente(2);
-        deque.push_frente(3);
+        deque.push_front(1);
+        deque.push_front(2);
+        deque.push_front(3);
 
-        assert_eq!(deque.pop_frente(), Some(3));
-        assert_eq!(deque.pop_frente(), Some(2));
-        assert_eq!(deque.pop_frente(), Some(1));
+        assert_eq!(deque.pop_front(), Some(3));
+        assert_eq!(deque.pop_front(), Some(2));
+        assert_eq!(deque.pop_front(), Some(1));
     }
 
     #[test]
-    fn test_push_pop_atras() {
+    fn test_push_pop_back() {
         let mut deque = Deque::new();
-        deque.push_atras(1);
-        deque.push_atras(2);
-        deque.push_atras(3);
+        deque.push_back(1);
+        deque.push_back(2);
+        deque.push_back(3);
 
-        assert_eq!(deque.pop_atras(), Some(3));
-        assert_eq!(deque.pop_atras(), Some(2));
-        assert_eq!(deque.pop_atras(), Some(1));
+        assert_eq!(deque.pop_back(), Some(3));
+        assert_eq!(deque.pop_back(), Some(2));
+        assert_eq!(deque.pop_back(), Some(1));
     }
 
     #[test]
     fn test_mixed_operations() {
         let mut deque = Deque::new();
-        deque.push_atras(2);
-        deque.push_frente(1);
-        deque.push_atras(3);
+        deque.push_back(2);
+        deque.push_front(1);
+        deque.push_back(3);
 
         // Deque: [1, 2, 3]
-        assert_eq!(deque.frente(), Some(&1));
-        assert_eq!(deque.atras(), Some(&3));
+        assert_eq!(deque.front(), Some(&1));
+        assert_eq!(deque.back(), Some(&3));
 
-        assert_eq!(deque.pop_frente(), Some(1));
-        assert_eq!(deque.pop_atras(), Some(3));
-        assert_eq!(deque.pop_frente(), Some(2));
+        assert_eq!(deque.pop_front(), Some(1));
+        assert_eq!(deque.pop_back(), Some(3));
+        assert_eq!(deque.pop_front(), Some(2));
     }
 
     #[test]
-    fn test_frente_atras() {
+    fn test_front_back() {
         let mut deque = Deque::new();
-        assert_eq!(deque.frente(), None);
-        assert_eq!(deque.atras(), None);
+        assert_eq!(deque.front(), None);
+        assert_eq!(deque.back(), None);
 
-        deque.push_atras(1);
-        assert_eq!(deque.frente(), Some(&1));
-        assert_eq!(deque.atras(), Some(&1));
+        deque.push_back(1);
+        assert_eq!(deque.front(), Some(&1));
+        assert_eq!(deque.back(), Some(&1));
 
-        deque.push_atras(2);
-        assert_eq!(deque.frente(), Some(&1));
-        assert_eq!(deque.atras(), Some(&2));
+        deque.push_back(2);
+        assert_eq!(deque.front(), Some(&1));
+        assert_eq!(deque.back(), Some(&2));
     }
 
     #[test]
@@ -156,17 +156,17 @@ mod tests {
         let mut deque = Deque::new();
         assert_eq!(deque.len(), 0);
 
-        deque.push_frente(1);
-        deque.push_atras(2);
+        deque.push_front(1);
+        deque.push_back(2);
         assert_eq!(deque.len(), 2);
 
-        deque.pop_frente();
+        deque.pop_front();
         assert_eq!(deque.len(), 1);
     }
 
     #[test]
     fn test_default() {
         let deque: Deque<char> = Deque::default();
-        assert!(deque.esta_vacia());
+        assert!(deque.is_empty());
     }
 }

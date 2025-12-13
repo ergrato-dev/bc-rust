@@ -19,35 +19,35 @@ fn main() {
     println!("=== Práctica 04: Genéricos Avanzados ===\n");
 
     // Ejercicio 1: Trait con tipo asociado
-    let rango = RangoNumerico::new(1, 10);
-    println!("Rango: {:?}", rango.siguiente());
-    println!("Rango: {:?}", rango.siguiente());
+    let range = NumericRange::new(1, 10);
+    println!("Range: {:?}", range.next());
+    println!("Range: {:?}", range.next());
 
     // Ejercicio 2: Const generics
     let buffer: Buffer<u8, 4> = Buffer::new([1, 2, 3, 4]);
-    println!("\nBuffer capacidad: {}", buffer.capacidad());
-    println!("Buffer[0]: {}", buffer.obtener(0).unwrap());
+    println!("\nBuffer capacity: {}", buffer.capacity());
+    println!("Buffer[0]: {}", buffer.get(0).unwrap());
 
     // Ejercicio 3: Type State Pattern
-    let pedido = Pedido::nuevo("Pizza Margherita");
-    println!("\nPedido creado: {}", pedido.descripcion());
+    let order = Order::new("Pizza Margherita");
+    println!("\nOrder created: {}", order.description());
 
-    let pedido_pagado = pedido.pagar();
-    println!("Pedido pagado: {}", pedido_pagado.descripcion());
+    let paid_order = order.pay();
+    println!("Order paid: {}", paid_order.description());
 
-    let pedido_enviado = pedido_pagado.enviar();
-    println!("Pedido enviado: {}", pedido_enviado.descripcion());
+    let shipped_order = paid_order.ship();
+    println!("Order shipped: {}", shipped_order.description());
 
     // Solo los pedidos enviados pueden ser entregados
-    let pedido_entregado = pedido_enviado.entregar();
-    println!("Pedido entregado: {}", pedido_entregado.descripcion());
+    let delivered_order = shipped_order.deliver();
+    println!("Order delivered: {}", delivered_order.description());
 
     // Ejercicio 4: PhantomData para IDs tipados
-    let user_id: Id<Usuario> = Id::new(1);
-    let product_id: Id<Producto> = Id::new(1);
+    let user_id: Id<User> = Id::new(1);
+    let product_id: Id<Product> = Id::new(1);
 
-    println!("\nUser ID: {}", user_id.valor());
-    println!("Product ID: {}", product_id.valor());
+    println!("\nUser ID: {}", user_id.value());
+    println!("Product ID: {}", product_id.value());
 
     // Esto NO debería compilar (descomentar para probar):
     // let igual = user_id == product_id; // Error: tipos diferentes!
@@ -58,41 +58,41 @@ fn main() {
 // ============================================
 // EJERCICIO 1: Trait con Tipo Asociado
 // ============================================
-// Implementa un trait Iterador simplificado con un tipo asociado.
+// Implementa un trait SimpleIterator simplificado con un tipo asociado.
 // El tipo asociado define qué tipo de elementos produce.
 
-trait Iterador {
+trait SimpleIterator {
     // TODO: Define un tipo asociado llamado Item
     type Item;
 
-    // TODO: Define el método siguiente que devuelve Option<Self::Item>
-    fn siguiente(&self) -> Option<Self::Item>;
+    // TODO: Define el método next que devuelve Option<Self::Item>
+    fn next(&self) -> Option<Self::Item>;
 }
 
 // Struct que genera números en un rango
-struct RangoNumerico {
-    actual: std::cell::Cell<i32>,
-    fin: i32,
+struct NumericRange {
+    current: std::cell::Cell<i32>,
+    end: i32,
 }
 
-impl RangoNumerico {
-    fn new(inicio: i32, fin: i32) -> Self {
-        RangoNumerico {
-            actual: std::cell::Cell::new(inicio),
-            fin,
+impl NumericRange {
+    fn new(start: i32, end: i32) -> Self {
+        NumericRange {
+            current: std::cell::Cell::new(start),
+            end,
         }
     }
 }
 
-impl Iterador for RangoNumerico {
+impl SimpleIterator for NumericRange {
     // TODO: Especifica que Item = i32
     type Item = (); // Cambia () por i32
 
-    fn siguiente(&self) -> Option<Self::Item> {
+    fn next(&self) -> Option<Self::Item> {
         // TODO: Implementa la lógica
-        // Si actual < fin, devuelve Some(actual) e incrementa
+        // Si current < end, devuelve Some(current) e incrementa
         // Si no, devuelve None
-        todo!("Implementa Iterador para RangoNumerico")
+        todo!("Implementa SimpleIterator para NumericRange")
     }
 }
 
@@ -103,32 +103,32 @@ impl Iterador for RangoNumerico {
 // N es el tamaño del buffer conocido en tiempo de compilación.
 
 struct Buffer<T, const N: usize> {
-    // TODO: Define un campo `datos` de tipo [T; N]
-    _datos: PhantomData<T>, // Elimina esto al implementar
+    // TODO: Define un campo `data` de tipo [T; N]
+    _data: PhantomData<T>, // Elimina esto al implementar
 }
 
 impl<T, const N: usize> Buffer<T, N> {
-    fn new(_datos: [T; N]) -> Self {
+    fn new(_data: [T; N]) -> Self {
         // TODO: Crea un nuevo Buffer con los datos
         todo!("Implementa Buffer::new")
     }
 
-    fn capacidad(&self) -> usize {
+    fn capacity(&self) -> usize {
         // TODO: Devuelve N (la capacidad del buffer)
-        todo!("Implementa Buffer::capacidad")
+        todo!("Implementa Buffer::capacity")
     }
 
-    fn obtener(&self, _indice: usize) -> Option<&T> {
-        // TODO: Devuelve referencia al elemento en indice si existe
-        todo!("Implementa Buffer::obtener")
+    fn get(&self, _index: usize) -> Option<&T> {
+        // TODO: Devuelve referencia al elemento en index si existe
+        todo!("Implementa Buffer::get")
     }
 }
 
 // Implementación adicional para Buffer con Copy
 impl<T: Copy, const N: usize> Buffer<T, N> {
-    fn obtener_copia(&self, _indice: usize) -> Option<T> {
-        // TODO: Devuelve copia del elemento en indice
-        todo!("Implementa Buffer::obtener_copia")
+    fn get_copy(&self, _index: usize) -> Option<T> {
+        // TODO: Devuelve copia del elemento en index
+        todo!("Implementa Buffer::get_copy")
     }
 }
 
@@ -139,51 +139,51 @@ impl<T: Copy, const N: usize> Buffer<T, N> {
 // está codificado en el tipo, previniendo transiciones inválidas.
 
 // Estados del pedido (tipos marcadores)
-struct Pendiente;
-struct Pagado;
-struct Enviado;
-struct Entregado;
+struct Pending;
+struct Paid;
+struct Shipped;
+struct Delivered;
 
-// Pedido genérico sobre su estado
-struct Pedido<Estado> {
-    descripcion: String,
-    _estado: PhantomData<Estado>,
+// Order genérico sobre su estado
+struct Order<State> {
+    description: String,
+    _state: PhantomData<State>,
 }
 
 // Implementación para cualquier estado
-impl<Estado> Pedido<Estado> {
-    fn descripcion(&self) -> &str {
-        &self.descripcion
+impl<State> Order<State> {
+    fn description(&self) -> &str {
+        &self.description
     }
 }
 
-// Solo Pedido<Pendiente> puede ser creado y pagado
-impl Pedido<Pendiente> {
-    fn nuevo(descripcion: &str) -> Self {
-        // TODO: Crea un pedido en estado Pendiente
-        todo!("Implementa Pedido::nuevo")
+// Solo Order<Pending> puede ser creado y pagado
+impl Order<Pending> {
+    fn new(description: &str) -> Self {
+        // TODO: Crea un pedido en estado Pending
+        todo!("Implementa Order::new")
     }
 
-    fn pagar(self) -> Pedido<Pagado> {
-        // TODO: Transiciona a estado Pagado
-        // Consume self y devuelve nuevo Pedido<Pagado>
-        todo!("Implementa Pedido::pagar")
-    }
-}
-
-// Solo Pedido<Pagado> puede ser enviado
-impl Pedido<Pagado> {
-    fn enviar(self) -> Pedido<Enviado> {
-        // TODO: Transiciona a estado Enviado
-        todo!("Implementa Pedido::enviar")
+    fn pay(self) -> Order<Paid> {
+        // TODO: Transiciona a estado Paid
+        // Consume self y devuelve nuevo Order<Paid>
+        todo!("Implementa Order::pay")
     }
 }
 
-// Solo Pedido<Enviado> puede ser entregado
-impl Pedido<Enviado> {
-    fn entregar(self) -> Pedido<Entregado> {
-        // TODO: Transiciona a estado Entregado
-        todo!("Implementa Pedido::entregar")
+// Solo Order<Paid> puede ser enviado
+impl Order<Paid> {
+    fn ship(self) -> Order<Shipped> {
+        // TODO: Transiciona a estado Shipped
+        todo!("Implementa Order::ship")
+    }
+}
+
+// Solo Order<Shipped> puede ser entregado
+impl Order<Shipped> {
+    fn deliver(self) -> Order<Delivered> {
+        // TODO: Transiciona a estado Delivered
+        todo!("Implementa Order::deliver")
     }
 }
 
@@ -191,36 +191,36 @@ impl Pedido<Enviado> {
 // EJERCICIO 4: PhantomData para IDs Tipados
 // ============================================
 // Implementa IDs que son únicos por tipo de entidad.
-// Un Id<Usuario> no puede confundirse con un Id<Producto>.
+// Un Id<User> no puede confundirse con un Id<Product>.
 
 // Tipos marcadores para entidades
-struct Usuario;
-struct Producto;
+struct User;
+struct Product;
 
 // ID genérico que "pertenece" a un tipo de entidad
 #[derive(Debug)]
 struct Id<T> {
-    valor: u64,
+    value: u64,
     // TODO: Añade PhantomData<T> para "usar" el tipo T
     _marker: PhantomData<T>, // Esto ya está correcto
 }
 
 impl<T> Id<T> {
-    fn new(valor: u64) -> Self {
+    fn new(value: u64) -> Self {
         // TODO: Crea un nuevo Id
         todo!("Implementa Id::new")
     }
 
-    fn valor(&self) -> u64 {
-        // TODO: Devuelve el valor interno
-        todo!("Implementa Id::valor")
+    fn value(&self) -> u64 {
+        // TODO: Devuelve el value interno
+        todo!("Implementa Id::value")
     }
 }
 
 // Implementa PartialEq solo para IDs del mismo tipo
 impl<T> PartialEq for Id<T> {
     fn eq(&self, other: &Self) -> bool {
-        // TODO: Compara los valores
+        // TODO: Compara los values
         todo!("Implementa PartialEq para Id")
     }
 }
@@ -234,63 +234,63 @@ mod tests {
 
     // Tests Ejercicio 1: Tipo Asociado
     #[test]
-    fn test_rango_numerico() {
-        let rango = RangoNumerico::new(0, 3);
-        assert_eq!(rango.siguiente(), Some(0));
-        assert_eq!(rango.siguiente(), Some(1));
-        assert_eq!(rango.siguiente(), Some(2));
-        assert_eq!(rango.siguiente(), None);
+    fn test_numeric_range() {
+        let range = NumericRange::new(0, 3);
+        assert_eq!(range.next(), Some(0));
+        assert_eq!(range.next(), Some(1));
+        assert_eq!(range.next(), Some(2));
+        assert_eq!(range.next(), None);
     }
 
     // Tests Ejercicio 2: Const Generics
     #[test]
-    fn test_buffer_capacidad() {
+    fn test_buffer_capacity() {
         let buffer: Buffer<i32, 5> = Buffer::new([1, 2, 3, 4, 5]);
-        assert_eq!(buffer.capacidad(), 5);
+        assert_eq!(buffer.capacity(), 5);
     }
 
     #[test]
-    fn test_buffer_obtener() {
+    fn test_buffer_get() {
         let buffer: Buffer<char, 3> = Buffer::new(['a', 'b', 'c']);
-        assert_eq!(buffer.obtener(0), Some(&'a'));
-        assert_eq!(buffer.obtener(2), Some(&'c'));
-        assert_eq!(buffer.obtener(3), None);
+        assert_eq!(buffer.get(0), Some(&'a'));
+        assert_eq!(buffer.get(2), Some(&'c'));
+        assert_eq!(buffer.get(3), None);
     }
 
     #[test]
-    fn test_buffer_obtener_copia() {
+    fn test_buffer_get_copy() {
         let buffer: Buffer<i32, 3> = Buffer::new([10, 20, 30]);
-        assert_eq!(buffer.obtener_copia(1), Some(20));
+        assert_eq!(buffer.get_copy(1), Some(20));
     }
 
     // Tests Ejercicio 3: Type State
     #[test]
-    fn test_pedido_flujo_completo() {
-        let pedido = Pedido::nuevo("Test");
-        assert_eq!(pedido.descripcion(), "Test");
+    fn test_order_complete_flow() {
+        let order = Order::new("Test");
+        assert_eq!(order.description(), "Test");
 
-        let pagado = pedido.pagar();
-        assert_eq!(pagado.descripcion(), "Test");
+        let paid = order.pay();
+        assert_eq!(paid.description(), "Test");
 
-        let enviado = pagado.enviar();
-        assert_eq!(enviado.descripcion(), "Test");
+        let shipped = paid.ship();
+        assert_eq!(shipped.description(), "Test");
 
-        let entregado = enviado.entregar();
-        assert_eq!(entregado.descripcion(), "Test");
+        let delivered = shipped.deliver();
+        assert_eq!(delivered.description(), "Test");
     }
 
     // Tests Ejercicio 4: IDs Tipados
     #[test]
-    fn test_id_creacion() {
-        let id: Id<Usuario> = Id::new(42);
-        assert_eq!(id.valor(), 42);
+    fn test_id_creation() {
+        let id: Id<User> = Id::new(42);
+        assert_eq!(id.value(), 42);
     }
 
     #[test]
-    fn test_id_igualdad_mismo_tipo() {
-        let id1: Id<Usuario> = Id::new(1);
-        let id2: Id<Usuario> = Id::new(1);
-        let id3: Id<Usuario> = Id::new(2);
+    fn test_id_equality_same_type() {
+        let id1: Id<User> = Id::new(1);
+        let id2: Id<User> = Id::new(1);
+        let id3: Id<User> = Id::new(2);
 
         assert_eq!(id1, id2);
         assert_ne!(id1, id3);
@@ -299,9 +299,9 @@ mod tests {
     // Este test verifica que IDs de diferentes tipos NO son comparables
     // Si descomentas la línea, no debería compilar
     #[test]
-    fn test_id_tipos_diferentes_no_comparables() {
-        let _user_id: Id<Usuario> = Id::new(1);
-        let _product_id: Id<Producto> = Id::new(1);
+    fn test_id_different_types_not_comparable() {
+        let _user_id: Id<User> = Id::new(1);
+        let _product_id: Id<Product> = Id::new(1);
 
         // La siguiente línea NO debe compilar:
         // assert_ne!(user_id, product_id);

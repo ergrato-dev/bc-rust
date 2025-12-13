@@ -16,39 +16,39 @@ fn main() {
     println!("=== Práctica 03: Trait Bounds ===\n");
 
     // Ejercicio 1: Imprimir con Debug
-    let numeros = vec![1, 2, 3];
-    let punto = (10, 20);
-    imprimir_debug(&numeros);
-    imprimir_debug(&punto);
+    let numbers = vec![1, 2, 3];
+    let point = (10, 20);
+    print_debug(&numbers);
+    print_debug(&point);
 
     // Ejercicio 2: Comparar y mostrar
     println!();
-    mostrar_mayor(10, 5);
-    mostrar_mayor("zebra", "apple");
+    show_larger(10, 5);
+    show_larger("zebra", "apple");
 
     // Ejercicio 3: Clonar si es mayor
     println!();
-    let resultado = clonar_si_mayor(&100, &50);
-    println!("Clonado si mayor: {:?}", resultado);
+    let result = clone_if_larger(&100, &50);
+    println!("Cloned if larger: {:?}", result);
 
     // Ejercicio 4: Contar ocurrencias
     println!();
     let items = vec!["a", "b", "a", "c", "a", "b"];
-    let conteo = contar_ocurrencias(&items);
-    println!("Conteo: {:?}", conteo);
+    let counts = count_occurrences(&items);
+    println!("Counts: {:?}", counts);
 
     // Ejercicio 5: Valor por defecto si None
     println!();
     let some_val: Option<i32> = Some(42);
     let none_val: Option<i32> = None;
-    println!("Con valor: {}", valor_o_default(some_val));
-    println!("Sin valor: {}", valor_o_default(none_val));
+    println!("With value: {}", value_or_default(some_val));
+    println!("Without value: {}", value_or_default(none_val));
 
     println!("\n✅ ¡Práctica completada!");
 }
 
 // ============================================
-// EJERCICIO 1: Imprimir con Debug
+// EJERCICIO 1: Print with Debug
 // ============================================
 // Implementa una función que imprime cualquier valor
 // que implemente Debug.
@@ -56,28 +56,28 @@ fn main() {
 // Trait bound requerido: Debug
 // Formato: "{:?}"
 
-fn imprimir_debug<T>(_valor: &T) {
+fn print_debug<T>(_value: &T) {
     // TODO: Añade el trait bound correcto y usa println! con {:?}
-    todo!("Implementa imprimir_debug")
+    todo!("Implementa print_debug")
 }
 
 // ============================================
-// EJERCICIO 2: Comparar y Mostrar
+// EJERCICIO 2: Compare and Show
 // ============================================
 // Implementa una función que compara dos valores
 // y muestra cuál es mayor.
 //
 // Trait bounds requeridos: PartialOrd + Display
-// Debe imprimir: "El mayor es: X"
+// Debe imprimir: "The larger is: X"
 
-fn mostrar_mayor<T>(_a: T, _b: T) {
+fn show_larger<T>(_a: T, _b: T) {
     // TODO: Añade los trait bounds correctos
     // Compara a y b, imprime el mayor
-    todo!("Implementa mostrar_mayor")
+    todo!("Implementa show_larger")
 }
 
 // ============================================
-// EJERCICIO 3: Clonar si es Mayor
+// EJERCICIO 3: Clone if Larger
 // ============================================
 // Implementa una función que devuelve Some con el clone
 // del primer valor si es mayor que el segundo,
@@ -85,15 +85,15 @@ fn mostrar_mayor<T>(_a: T, _b: T) {
 //
 // Trait bounds requeridos: PartialOrd + Clone
 
-fn clonar_si_mayor<T>(_a: &T, _b: &T) -> Option<T> {
+fn clone_if_larger<T>(_a: &T, _b: &T) -> Option<T> {
     // TODO: Añade los trait bounds correctos
     // Si a > b, devuelve Some(a.clone())
     // Si no, devuelve None
-    todo!("Implementa clonar_si_mayor")
+    todo!("Implementa clone_if_larger")
 }
 
 // ============================================
-// EJERCICIO 4: Contar Ocurrencias
+// EJERCICIO 4: Count Occurrences
 // ============================================
 // Implementa una función que cuenta cuántas veces
 // aparece cada elemento en un slice.
@@ -101,28 +101,28 @@ fn clonar_si_mayor<T>(_a: &T, _b: &T) -> Option<T> {
 // Trait bounds requeridos: Hash + Eq + Clone
 // Devuelve: HashMap<T, usize>
 
-fn contar_ocurrencias<T>(_items: &[T]) -> HashMap<T, usize> {
+fn count_occurrences<T>(_items: &[T]) -> HashMap<T, usize> {
     // TODO: Añade los trait bounds correctos
     // Itera sobre items y cuenta cada uno
-    todo!("Implementa contar_ocurrencias")
+    todo!("Implementa count_occurrences")
 }
 
 // ============================================
-// EJERCICIO 5: Valor o Default
+// EJERCICIO 5: Value or Default
 // ============================================
 // Implementa una función que devuelve el valor
 // de un Option, o el valor por defecto del tipo si es None.
 //
 // Trait bound requerido: Default
 
-fn valor_o_default<T>(_opcion: Option<T>) -> T {
+fn value_or_default<T>(_option: Option<T>) -> T {
     // TODO: Añade el trait bound correcto
     // Usa match o unwrap_or_default()
-    todo!("Implementa valor_o_default")
+    todo!("Implementa value_or_default")
 }
 
 // ============================================
-// EJERCICIO BONUS: Múltiples Bounds con Where
+// EJERCICIO BONUS: Multiple Bounds with Where
 // ============================================
 // Implementa una función que recibe dos tipos diferentes,
 // los formatea y los combina en un String.
@@ -131,10 +131,10 @@ fn valor_o_default<T>(_opcion: Option<T>) -> T {
 // U debe implementar: Debug + Default
 
 #[allow(dead_code)]
-fn combinar_formatos<T, U>(_t: T, _u: U) -> String {
+fn combine_formats<T, U>(_t: T, _u: U) -> String {
     // TODO: Usa cláusula where para los bounds
     // Devuelve format!("{} - {:?}", t, u)
-    todo!("Implementa combinar_formatos")
+    todo!("Implementa combine_formats")
 }
 
 // ============================================
@@ -144,81 +144,81 @@ fn combinar_formatos<T, U>(_t: T, _u: U) -> String {
 mod tests {
     use super::*;
 
-    // Nota: imprimir_debug no tiene test de valor de retorno
+    // Nota: print_debug no tiene test de valor de retorno
     // Solo verificamos que compila con tipos Debug
 
     #[test]
-    fn test_imprimir_debug_compila() {
+    fn test_print_debug_compiles() {
         // Si compila, el bound está correcto
-        imprimir_debug(&42);
-        imprimir_debug(&"hola");
-        imprimir_debug(&vec![1, 2, 3]);
+        print_debug(&42);
+        print_debug(&"hola");
+        print_debug(&vec![1, 2, 3]);
     }
 
     #[test]
-    fn test_mostrar_mayor_compila() {
+    fn test_show_larger_compiles() {
         // Verificamos que compila con tipos PartialOrd + Display
-        mostrar_mayor(10, 5);
-        mostrar_mayor(1.5, 2.5);
-        mostrar_mayor("a", "b");
+        show_larger(10, 5);
+        show_larger(1.5, 2.5);
+        show_larger("a", "b");
     }
 
     #[test]
-    fn test_clonar_si_mayor_some() {
-        assert_eq!(clonar_si_mayor(&10, &5), Some(10));
-        assert_eq!(clonar_si_mayor(&"z", &"a"), Some("z"));
+    fn test_clone_if_larger_some() {
+        assert_eq!(clone_if_larger(&10, &5), Some(10));
+        assert_eq!(clone_if_larger(&"z", &"a"), Some("z"));
     }
 
     #[test]
-    fn test_clonar_si_mayor_none() {
-        assert_eq!(clonar_si_mayor(&5, &10), None);
-        assert_eq!(clonar_si_mayor(&5, &5), None); // No es mayor, es igual
+    fn test_clone_if_larger_none() {
+        assert_eq!(clone_if_larger(&5, &10), None);
+        assert_eq!(clone_if_larger(&5, &5), None); // No es mayor, es igual
     }
 
     #[test]
-    fn test_contar_ocurrencias() {
+    fn test_count_occurrences() {
         let items = vec!["a", "b", "a", "c", "a"];
-        let conteo = contar_ocurrencias(&items);
+        let counts = count_occurrences(&items);
 
-        assert_eq!(conteo.get("a"), Some(&3));
-        assert_eq!(conteo.get("b"), Some(&1));
-        assert_eq!(conteo.get("c"), Some(&1));
+        assert_eq!(counts.get("a"), Some(&3));
+        assert_eq!(counts.get("b"), Some(&1));
+        assert_eq!(counts.get("c"), Some(&1));
     }
 
     #[test]
-    fn test_contar_ocurrencias_numeros() {
+    fn test_count_occurrences_numbers() {
         let items = vec![1, 2, 2, 3, 3, 3];
-        let conteo = contar_ocurrencias(&items);
+        let counts = count_occurrences(&items);
 
-        assert_eq!(conteo.get(&1), Some(&1));
-        assert_eq!(conteo.get(&2), Some(&2));
-        assert_eq!(conteo.get(&3), Some(&3));
+        assert_eq!(counts.get(&1), Some(&1));
+        assert_eq!(counts.get(&2), Some(&2));
+        assert_eq!(counts.get(&3), Some(&3));
     }
 
     #[test]
-    fn test_valor_o_default_some() {
-        assert_eq!(valor_o_default(Some(42)), 42);
-        assert_eq!(valor_o_default(Some(String::from("hola"))), "hola");
+    fn test_value_or_default_some() {
+        assert_eq!(value_or_default(Some(42)), 42);
+        assert_eq!(value_or_default(Some(String::from("hola"))), "hola");
     }
 
     #[test]
-    fn test_valor_o_default_none() {
+    fn test_value_or_default_none() {
         let none_i32: Option<i32> = None;
         let none_string: Option<String> = None;
 
-        assert_eq!(valor_o_default(none_i32), 0); // Default de i32
-        assert_eq!(valor_o_default(none_string), ""); // Default de String
+        assert_eq!(value_or_default(none_i32), 0); // Default de i32
+        assert_eq!(value_or_default(none_string), ""); // Default de String
     }
 
     #[test]
-    fn test_combinar_formatos() {
-        let resultado = combinar_formatos("texto", 42);
-        assert_eq!(resultado, "texto - 42");
+    fn test_combine_formats() {
+        let result = combine_formats("texto", 42);
+        assert_eq!(result, "texto - 42");
     }
 
     #[test]
-    fn test_combinar_formatos_con_default() {
-        let resultado = combinar_formatos(100, String::from("debug"));
-        assert_eq!(resultado, "100 - \"debug\"");
+    fn test_combine_formats_with_default() {
+        let result = combine_formats(100, String::from("debug"));
+        assert_eq!(result, "100 - \"debug\"");
     }
 }
