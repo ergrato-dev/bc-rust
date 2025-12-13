@@ -1,59 +1,59 @@
-// Práctica 01: Ownership Básico
+// Practice 01: Basic Ownership
 // ================================
-// Completa los ejercicios siguiendo las instrucciones en README.md
+// Complete the exercises following the instructions in README.md
 
 fn main() {
-    println!("=== Práctica 01: Ownership Básico ===\n");
+    println!("=== Practice 01: Basic Ownership ===\n");
     
-    ejercicio1();
-    ejercicio2();
-    ejercicio3();
-    ejercicio4();
+    exercise1();
+    exercise2();
+    exercise3();
+    exercise4();
 }
 
-// Ejercicio 1: Corrige usando clone()
-fn ejercicio1() {
-    println!("--- Ejercicio 1: Clone ---");
+// Exercise 1: Fix using clone()
+fn exercise1() {
+    println!("--- Exercise 1: Clone ---");
     
-    let mensaje = String::from("Hola, Rust!");
-    // TODO: Corrige esta línea para que mensaje siga siendo válido
-    let copia = mensaje; // <- Modifica aquí
+    let message = String::from("Hello, Rust!");
+    // TODO: Fix this line so message remains valid
+    let copy = message; // <- Modify here
     
-    // Descomenta cuando hayas corregido:
-    // println!("Original: {}", mensaje);
-    // println!("Copia: {}", copia);
+    // Uncomment when fixed:
+    // println!("Original: {}", message);
+    // println!("Copy: {}", copy);
     
     println!();
 }
 
-// Ejercicio 2: Corrige la función para no tomar ownership
-fn ejercicio2() {
-    println!("--- Ejercicio 2: Funciones ---");
+// Exercise 2: Fix the function to not take ownership
+fn exercise2() {
+    println!("--- Exercise 2: Functions ---");
     
-    let nombre = String::from("Ferris");
-    imprimir_nombre(nombre);
+    let name = String::from("Ferris");
+    print_name(name);
     
-    // Descomenta cuando hayas corregido:
-    // println!("Nombre después: {}", nombre);
+    // Uncomment when fixed:
+    // println!("Name after: {}", name);
     
     println!();
 }
 
-// TODO: Modifica esta función para que no tome ownership
-fn imprimir_nombre(n: String) {
-    println!("Imprimiendo: {}", n);
+// TODO: Modify this function to not take ownership
+fn print_name(n: String) {
+    println!("Printing: {}", n);
 }
 
-// Ejercicio 3: Identifica la variable válida
-fn ejercicio3() {
-    println!("--- Ejercicio 3: Cadena de Moves ---");
+// Exercise 3: Identify the valid variable
+fn exercise3() {
+    println!("--- Exercise 3: Chain of Moves ---");
     
     let a = String::from("Rust");
     let b = a;
     let c = b;
     let d = c;
     
-    // TODO: Descomenta SOLO la línea que compile
+    // TODO: Uncomment ONLY the line that compiles
     // println!("a = {}", a);
     // println!("b = {}", b);
     // println!("c = {}", c);
@@ -62,54 +62,54 @@ fn ejercicio3() {
     println!();
 }
 
-// Ejercicio 4: Observa el orden de Drop
-fn ejercicio4() {
-    println!("--- Ejercicio 4: Scope y Drop ---");
+// Exercise 4: Observe the Drop order
+fn exercise4() {
+    println!("--- Exercise 4: Scope and Drop ---");
     
-    struct Recurso {
-        nombre: String,
+    struct Resource {
+        name: String,
     }
 
-    impl Drop for Recurso {
+    impl Drop for Resource {
         fn drop(&mut self) {
-            println!("  Drop de {}", self.nombre);
+            println!("  Drop of {}", self.name);
         }
     }
 
-    println!("  Inicio");
+    println!("  Start");
     
-    let _r1 = Recurso { nombre: String::from("R1") };
-    println!("  Creando R1");
+    let _r1 = Resource { name: String::from("R1") };
+    println!("  Creating R1");
     
     {
-        let _r2 = Recurso { nombre: String::from("R2") };
-        println!("  Creando R2");
-    } // ¿Cuándo se llama drop de R2?
+        let _r2 = Resource { name: String::from("R2") };
+        println!("  Creating R2");
+    } // When is drop called for R2?
     
-    let _r3 = Recurso { nombre: String::from("R3") };
-    println!("  Creando R3");
+    let _r3 = Resource { name: String::from("R3") };
+    println!("  Creating R3");
     
-    println!("  Fin");
-    // ¿En qué orden se llama drop de R1 y R3?
+    println!("  End");
+    // In what order is drop called for R1 and R3?
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
-    fn test_clone_preserva_original() {
+    fn test_clone_preserves_original() {
         let original = String::from("test");
-        let copia = original.clone();
+        let copy = original.clone();
         
         assert_eq!(original, "test");
-        assert_eq!(copia, "test");
+        assert_eq!(copy, "test");
     }
     
     #[test]
-    fn test_referencia_no_mueve() {
-        let s = String::from("hola");
+    fn test_reference_does_not_move() {
+        let s = String::from("hello");
         let r = &s;
         
-        assert_eq!(s, "hola");
-        assert_eq!(*r, "hola");
+        assert_eq!(s, "hello");
+        assert_eq!(*r, "hello");
     }
 }

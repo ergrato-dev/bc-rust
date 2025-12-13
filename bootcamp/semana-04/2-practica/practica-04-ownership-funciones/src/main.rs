@@ -1,35 +1,35 @@
-// Práctica 04: Ownership en Funciones
+// Practice 04: Ownership in Functions
 // ====================================
 
 fn main() {
-    println!("=== Práctica 04: Ownership en Funciones ===\n");
+    println!("=== Practice 04: Ownership in Functions ===\n");
     
-    ejercicio2();
-    ejercicio3();
-    ejercicio4();
+    exercise2();
+    exercise3();
+    exercise4();
 }
 
 // ============================================
-// Ejercicio 2: Implementar Funciones
+// Exercise 2: Implement Functions
 // ============================================
 
-// a) Contar caracteres - solo necesita leer
-fn contar_caracteres(s: &str) -> usize {
+// a) Count characters - only needs to read
+fn count_characters(s: &str) -> usize {
     s.chars().count()
 }
 
-// b) Convertir a mayúsculas in-place
-fn a_mayusculas(s: &mut String) {
+// b) Convert to uppercase in-place
+fn to_uppercase(s: &mut String) {
     *s = s.to_uppercase();
 }
 
-// c) Crear saludo - retorna nuevo String
-fn crear_saludo(nombre: &str) -> String {
-    format!("¡Hola, {}!", nombre)
+// c) Create greeting - returns new String
+fn create_greeting(name: &str) -> String {
+    format!("Hello, {}!", name)
 }
 
-// d) Tomar primer elemento - consume el vector
-fn tomar_primero<T>(mut vec: Vec<T>) -> Option<T> {
+// d) Take first element - consumes the vector
+fn take_first<T>(mut vec: Vec<T>) -> Option<T> {
     if vec.is_empty() {
         None
     } else {
@@ -37,96 +37,96 @@ fn tomar_primero<T>(mut vec: Vec<T>) -> Option<T> {
     }
 }
 
-fn ejercicio2() {
-    println!("--- Ejercicio 2: Implementar Funciones ---");
+fn exercise2() {
+    println!("--- Exercise 2: Implement Functions ---");
     
-    // a) Contar caracteres
-    let texto = String::from("Rust 🦀");
-    let chars = contar_caracteres(&texto);
-    println!("  '{}' tiene {} caracteres", texto, chars);
+    // a) Count characters
+    let text = String::from("Rust 🦀");
+    let chars = count_characters(&text);
+    println!("  '{}' has {} characters", text, chars);
     
-    // b) A mayúsculas
-    let mut mensaje = String::from("hola mundo");
-    a_mayusculas(&mut mensaje);
-    println!("  Mayúsculas: {}", mensaje);
+    // b) To uppercase
+    let mut message = String::from("hello world");
+    to_uppercase(&mut message);
+    println!("  Uppercase: {}", message);
     
-    // c) Crear saludo
-    let saludo = crear_saludo("Ferris");
-    println!("  {}", saludo);
+    // c) Create greeting
+    let greeting = create_greeting("Ferris");
+    println!("  {}", greeting);
     
-    // d) Tomar primero
-    let numeros = vec![10, 20, 30];
-    if let Some(primero) = tomar_primero(numeros) {
-        println!("  Primer elemento: {}", primero);
+    // d) Take first
+    let numbers = vec![10, 20, 30];
+    if let Some(first) = take_first(numbers) {
+        println!("  First element: {}", first);
     }
-    // numeros ya no es válido aquí (fue consumido)
+    // numbers is no longer valid here (was consumed)
     
     println!();
 }
 
 // ============================================
-// Ejercicio 3: Refactorizar (sin clones innecesarios)
+// Exercise 3: Refactor (without unnecessary clones)
 // ============================================
 
-// ANTES (con clones innecesarios):
-// fn procesar_datos(datos: Vec<i32>) -> i32 {
-//     let copia = datos.clone();
-//     let suma: i32 = copia.iter().sum();
-//     let max = copia.iter().max().unwrap_or(&0);
-//     suma + max
+// BEFORE (with unnecessary clones):
+// fn process_data(data: Vec<i32>) -> i32 {
+//     let copy = data.clone();
+//     let sum: i32 = copy.iter().sum();
+//     let max = copy.iter().max().unwrap_or(&0);
+//     sum + max
 // }
 
-// DESPUÉS (usando referencia):
-fn procesar_datos(datos: &[i32]) -> i32 {
-    let suma: i32 = datos.iter().sum();
-    let max = *datos.iter().max().unwrap_or(&0);
-    suma + max
+// AFTER (using reference):
+fn process_data(data: &[i32]) -> i32 {
+    let sum: i32 = data.iter().sum();
+    let max = *data.iter().max().unwrap_or(&0);
+    sum + max
 }
 
-fn ejercicio3() {
-    println!("--- Ejercicio 3: Refactorizar ---");
+fn exercise3() {
+    println!("--- Exercise 3: Refactor ---");
     
-    let mis_datos = vec![1, 2, 3, 4, 5];
+    let my_data = vec![1, 2, 3, 4, 5];
     
-    // Ahora solo pasamos referencia, sin clonar
-    let resultado = procesar_datos(&mis_datos);
+    // Now we only pass reference, no cloning
+    let result = process_data(&my_data);
     
-    println!("  Datos: {:?}", mis_datos);  // ✅ sigue válido
-    println!("  Resultado: {} (suma + max)", resultado);
+    println!("  Data: {:?}", my_data);  // ✅ still valid
+    println!("  Result: {} (sum + max)", result);
     println!();
 }
 
 // ============================================
-// Ejercicio 4: API de Struct
+// Exercise 4: Struct API
 // ============================================
 
-struct Inventario {
+struct Inventory {
     items: Vec<String>,
 }
 
-impl Inventario {
-    // Constructor - no necesita self
+impl Inventory {
+    // Constructor - doesn't need self
     fn new() -> Self {
-        Inventario { items: Vec::new() }
+        Inventory { items: Vec::new() }
     }
     
-    // Agregar - necesita modificar → &mut self
-    fn agregar(&mut self, item: &str) {
+    // Add - needs to modify → &mut self
+    fn add(&mut self, item: &str) {
         self.items.push(item.to_string());
     }
     
-    // Listar - solo lectura → &self
-    fn listar(&self) -> &[String] {
+    // List - read only → &self
+    fn list(&self) -> &[String] {
         &self.items
     }
     
-    // Contiene - solo lectura → &self
-    fn contiene(&self, item: &str) -> bool {
+    // Contains - read only → &self
+    fn contains(&self, item: &str) -> bool {
         self.items.iter().any(|i| i == item)
     }
     
-    // Quitar - necesita modificar → &mut self
-    fn quitar(&mut self, item: &str) -> Option<String> {
+    // Remove - needs to modify → &mut self
+    fn remove(&mut self, item: &str) -> Option<String> {
         if let Some(pos) = self.items.iter().position(|i| i == item) {
             Some(self.items.remove(pos))
         } else {
@@ -134,35 +134,35 @@ impl Inventario {
         }
     }
     
-    // Cantidad - solo lectura → &self
-    fn cantidad(&self) -> usize {
+    // Count - read only → &self
+    fn count(&self) -> usize {
         self.items.len()
     }
 }
 
-fn ejercicio4() {
-    println!("--- Ejercicio 4: API de Struct ---");
+fn exercise4() {
+    println!("--- Exercise 4: Struct API ---");
     
-    let mut inv = Inventario::new();
+    let mut inv = Inventory::new();
     
-    // Agregar items
-    inv.agregar("Espada");
-    inv.agregar("Escudo");
-    inv.agregar("Poción");
+    // Add items
+    inv.add("Sword");
+    inv.add("Shield");
+    inv.add("Potion");
     
-    println!("  Items: {:?}", inv.listar());
-    println!("  Cantidad: {}", inv.cantidad());
+    println!("  Items: {:?}", inv.list());
+    println!("  Count: {}", inv.count());
     
-    // Buscar
-    println!("  ¿Tiene Espada? {}", inv.contiene("Espada"));
-    println!("  ¿Tiene Arco? {}", inv.contiene("Arco"));
+    // Search
+    println!("  Has Sword? {}", inv.contains("Sword"));
+    println!("  Has Bow? {}", inv.contains("Bow"));
     
-    // Quitar
-    if let Some(item) = inv.quitar("Escudo") {
-        println!("  Quitado: {}", item);
+    // Remove
+    if let Some(item) = inv.remove("Shield") {
+        println!("  Removed: {}", item);
     }
     
-    println!("  Items finales: {:?}", inv.listar());
+    println!("  Final items: {:?}", inv.list());
     println!();
 }
 
@@ -171,52 +171,50 @@ mod tests {
     use super::*;
     
     #[test]
-    fn test_contar_caracteres() {
-        assert_eq!(contar_caracteres("hola"), 4);
-        assert_eq!(contar_caracteres("🦀"), 1);
+    fn test_count_characters() {
+        assert_eq!(count_characters("hello"), 5);
+        assert_eq!(count_characters("🦀"), 1);
     }
     
     #[test]
-    fn test_a_mayusculas() {
+    fn test_to_uppercase() {
         let mut s = String::from("rust");
-        a_mayusculas(&mut s);
+        to_uppercase(&mut s);
         assert_eq!(s, "RUST");
     }
     
     #[test]
-    fn test_crear_saludo() {
-        let saludo = crear_saludo("Mundo");
-        assert_eq!(saludo, "¡Hola, Mundo!");
+    fn test_create_greeting() {
+        let greeting = create_greeting("World");
+        assert_eq!(greeting, "Hello, World!");
     }
     
     #[test]
-    fn test_tomar_primero() {
+    fn test_take_first() {
         let vec = vec![1, 2, 3];
-        assert_eq!(tomar_primero(vec), Some(1));
+        assert_eq!(take_first(vec), Some(1));
         
-        let vacio: Vec<i32> = vec![];
-        assert_eq!(tomar_primero(vacio), None);
+        let empty: Vec<i32> = vec![];
+        assert_eq!(take_first(empty), None);
     }
     
     #[test]
-    fn test_inventario() {
-        let mut inv = Inventario::new();
-        
-        inv.agregar("Item1");
-        assert!(inv.contiene("Item1"));
-        assert_eq!(inv.cantidad(), 1);
-        
-        let quitado = inv.quitar("Item1");
-        assert_eq!(quitado, Some(String::from("Item1")));
-        assert_eq!(inv.cantidad(), 0);
+    fn test_process_data() {
+        let data = vec![1, 2, 3, 4, 5];
+        assert_eq!(process_data(&data), 20); // 15 + 5
     }
     
     #[test]
-    fn test_procesar_datos_no_consume() {
-        let datos = vec![1, 2, 3, 4, 5];
-        let _ = procesar_datos(&datos);
+    fn test_inventory_add_remove() {
+        let mut inv = Inventory::new();
+        inv.add("Item1");
+        inv.add("Item2");
         
-        // datos sigue siendo válido
-        assert_eq!(datos.len(), 5);
+        assert_eq!(inv.count(), 2);
+        assert!(inv.contains("Item1"));
+        
+        inv.remove("Item1");
+        assert_eq!(inv.count(), 1);
+        assert!(!inv.contains("Item1"));
     }
 }

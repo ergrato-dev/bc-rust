@@ -1,113 +1,113 @@
-// Práctica 03: Borrow Checker
+// Practice 03: Borrow Checker
 // ============================
-// Aprende a resolver errores del borrow checker
+// Learn to resolve borrow checker errors
 
 fn main() {
-    println!("=== Práctica 03: Borrow Checker ===\n");
+    println!("=== Practice 03: Borrow Checker ===\n");
     
-    ejercicio1_solucion_a();
-    ejercicio1_solucion_b();
-    ejercicio2();
-    ejercicio3();
-    ejercicio4();
+    exercise1_solution_a();
+    exercise1_solution_b();
+    exercise2();
+    exercise3();
+    exercise4();
 }
 
-// Ejercicio 1 - Solución A: Reorganizar código
-fn ejercicio1_solucion_a() {
-    println!("--- Ejercicio 1A: Reorganizar ---");
+// Exercise 1 - Solution A: Reorganize code
+fn exercise1_solution_a() {
+    println!("--- Exercise 1A: Reorganize ---");
     
-    let mut numeros = vec![1, 2, 3, 4, 5];
+    let mut numbers = vec![1, 2, 3, 4, 5];
     
-    // TODO: Reorganiza para que funcione
-    // Pista: usa primero ANTES de modificar
+    // TODO: Reorganize to make it work
+    // Hint: use first BEFORE modifying
     
-    let primero = &numeros[0];
-    println!("  Primero: {}", primero);
-    // numeros.push(6); // <- ¿Dónde debería ir?
+    let first = &numbers[0];
+    println!("  First: {}", first);
+    // numbers.push(6); // <- Where should this go?
     
-    println!("  Vector: {:?}", numeros);
+    println!("  Vector: {:?}", numbers);
     println!();
 }
 
-// Ejercicio 1 - Solución B: Clonar el valor
-fn ejercicio1_solucion_b() {
-    println!("--- Ejercicio 1B: Clonar ---");
+// Exercise 1 - Solution B: Clone the value
+fn exercise1_solution_b() {
+    println!("--- Exercise 1B: Clone ---");
     
-    let mut numeros = vec![1, 2, 3, 4, 5];
+    let mut numbers = vec![1, 2, 3, 4, 5];
     
-    // TODO: Clona el valor para no depender de la referencia
-    let primero = numeros[0]; // <- i32 es Copy, ¡no necesita clone!
+    // TODO: Clone the value to not depend on the reference
+    let first = numbers[0]; // <- i32 is Copy, doesn't need clone!
     
-    numeros.push(6);
+    numbers.push(6);
     
-    println!("  Primero (copiado): {}", primero);
-    println!("  Vector: {:?}", numeros);
+    println!("  First (copied): {}", first);
+    println!("  Vector: {:?}", numbers);
     println!();
 }
 
-// Ejercicio 2: Préstamos en Conflicto
-fn ejercicio2() {
-    println!("--- Ejercicio 2: Préstamos en Conflicto ---");
+// Exercise 2: Conflicting Borrows
+fn exercise2() {
+    println!("--- Exercise 2: Conflicting Borrows ---");
     
-    let mut texto = String::from("Hola");
+    let mut text = String::from("Hello");
     
-    // TODO: Reorganiza este código para que compile
-    // El objetivo es imprimir el texto original Y luego modificarlo
+    // TODO: Reorganize this code to compile
+    // The goal is to print the original text AND then modify it
     
-    // Versión con error:
-    // let r1 = &texto;
-    // let r2 = &texto;
-    // let r3 = &mut texto;  // ERROR: conflicto
+    // Version with error:
+    // let r1 = &text;
+    // let r2 = &text;
+    // let r3 = &mut text;  // ERROR: conflict
     // println!("{}, {}", r1, r2);
-    // r3.push_str(" mundo");
+    // r3.push_str(" world");
     
-    // Versión corregida:
+    // Corrected version:
     {
-        let r1 = &texto;
-        let r2 = &texto;
-        println!("  Refs inmutables: {}, {}", r1, r2);
-    } // r1 y r2 terminan aquí
+        let r1 = &text;
+        let r2 = &text;
+        println!("  Immutable refs: {}, {}", r1, r2);
+    } // r1 and r2 end here
     
     {
-        let r3 = &mut texto;
-        r3.push_str(" mundo");
-        println!("  Ref mutable: {}", r3);
+        let r3 = &mut text;
+        r3.push_str(" world");
+        println!("  Mutable ref: {}", r3);
     }
     
     println!();
 }
 
-// Ejercicio 3: Retornar ownership en lugar de referencia
-// Esta función NO puede retornar &String a una variable local
-fn crear_mensaje() -> String {
-    let s = String::from("Hola desde la función");
-    s  // Retornar ownership, no referencia
+// Exercise 3: Return ownership instead of reference
+// This function CANNOT return &String to a local variable
+fn create_message() -> String {
+    let s = String::from("Hello from the function");
+    s  // Return ownership, not reference
 }
 
-fn ejercicio3() {
-    println!("--- Ejercicio 3: Retornar Ownership ---");
+fn exercise3() {
+    println!("--- Exercise 3: Return Ownership ---");
     
-    let mensaje = crear_mensaje();
-    println!("  Mensaje: {}", mensaje);
+    let message = create_message();
+    println!("  Message: {}", message);
     println!();
 }
 
-// Ejercicio 4: Análisis de Lifetimes (NLL)
-fn ejercicio4() {
-    println!("--- Ejercicio 4: Non-Lexical Lifetimes ---");
+// Exercise 4: Lifetime Analysis (NLL)
+fn exercise4() {
+    println!("--- Exercise 4: Non-Lexical Lifetimes ---");
     
-    let mut s = String::from("hola");
+    let mut s = String::from("hello");
     
-    let r1 = &s;           // Préstamo inmutable inicia
-    println!("  r1: {}", r1);  // Último uso de r1 → préstamo TERMINA aquí
+    let r1 = &s;           // Immutable borrow starts
+    println!("  r1: {}", r1);  // Last use of r1 → borrow ENDS here
     
-    let r2 = &s;           // Nuevo préstamo inmutable
-    let r3 = &s;           // Otro préstamo inmutable
-    println!("  r2: {}, r3: {}", r2, r3);  // Último uso de r2 y r3
+    let r2 = &s;           // New immutable borrow
+    let r3 = &s;           // Another immutable borrow
+    println!("  r2: {}, r3: {}", r2, r3);  // Last use of r2 and r3
     
-    // Aquí r1, r2, r3 ya no existen (NLL)
+    // Here r1, r2, r3 no longer exist (NLL)
     
-    let r4 = &mut s;       // ✅ OK: no hay refs inmutables activas
+    let r4 = &mut s;       // ✅ OK: no active immutable refs
     r4.push_str("!");
     println!("  r4: {}", r4);
     
@@ -120,20 +120,20 @@ mod tests {
     use super::*;
     
     #[test]
-    fn test_crear_mensaje() {
-        let msg = crear_mensaje();
-        assert_eq!(msg, "Hola desde la función");
+    fn test_create_message() {
+        let msg = create_message();
+        assert_eq!(msg, "Hello from the function");
     }
     
     #[test]
-    fn test_nll_permite_secuencial() {
+    fn test_nll_allows_sequential() {
         let mut s = String::from("test");
         
         let r1 = &s;
-        let _ = r1.len(); // Usar r1
-        // r1 ya no se usa
+        let _ = r1.len(); // Use r1
+        // r1 is no longer used
         
-        let r2 = &mut s; // OK gracias a NLL
+        let r2 = &mut s; // OK thanks to NLL
         r2.push('!');
         
         assert_eq!(s, "test!");

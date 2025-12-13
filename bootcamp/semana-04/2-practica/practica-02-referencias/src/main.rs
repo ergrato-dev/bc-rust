@@ -1,92 +1,92 @@
-// Práctica 02: Referencias
+// Practice 02: References
 // =========================
-// Completa los ejercicios siguiendo las instrucciones en README.md
+// Complete the exercises following the instructions in README.md
 
 fn main() {
-    println!("=== Práctica 02: Referencias ===\n");
+    println!("=== Practice 02: References ===\n");
     
-    ejercicio1();
-    ejercicio2();
-    ejercicio3();
-    ejercicio4();
+    exercise1();
+    exercise2();
+    exercise3();
+    exercise4();
 }
 
-// Ejercicio 1: Referencia Inmutable
-// TODO: Cambia el parámetro para recibir una referencia
-fn longitud(s: String) -> usize {
+// Exercise 1: Immutable Reference
+// TODO: Change the parameter to receive a reference
+fn length(s: String) -> usize {
     s.len()
 }
 
-fn ejercicio1() {
-    println!("--- Ejercicio 1: Referencia Inmutable ---");
+fn exercise1() {
+    println!("--- Exercise 1: Immutable Reference ---");
     
-    let texto = String::from("Rust es genial");
+    let text = String::from("Rust is awesome");
     
-    // TODO: Llama a longitud() sin mover texto
-    let len = longitud(texto.clone()); // <- Modifica esta línea
+    // TODO: Call length() without moving text
+    let len = length(text.clone()); // <- Modify this line
     
-    // Descomenta cuando funcione:
-    // println!("'{}' tiene {} caracteres", texto, len);
-    println!("Longitud: {}", len);
+    // Uncomment when it works:
+    // println!("'{}' has {} characters", text, len);
+    println!("Length: {}", len);
     println!();
 }
 
-// Ejercicio 2: Referencia Mutable
-// TODO: Cambia el parámetro para recibir una referencia mutable
-fn agregar_signo(s: String) -> String {
-    // TODO: Modificar para usar &mut String
-    let mut resultado = s;
-    resultado.push('!');
-    resultado
+// Exercise 2: Mutable Reference
+// TODO: Change the parameter to receive a mutable reference
+fn add_exclamation(s: String) -> String {
+    // TODO: Modify to use &mut String
+    let mut result = s;
+    result.push('!');
+    result
 }
 
-fn ejercicio2() {
-    println!("--- Ejercicio 2: Referencia Mutable ---");
+fn exercise2() {
+    println!("--- Exercise 2: Mutable Reference ---");
     
-    let mut saludo = String::from("Hola");
+    let mut greeting = String::from("Hello");
     
-    // TODO: Modifica para usar referencia mutable
-    saludo = agregar_signo(saludo);
+    // TODO: Modify to use mutable reference
+    greeting = add_exclamation(greeting);
     
-    println!("Saludo: {}", saludo);
+    println!("Greeting: {}", greeting);
     println!();
 }
 
-// Ejercicio 3: Analiza qué bloques compilan
-fn ejercicio3() {
-    println!("--- Ejercicio 3: Múltiples Referencias ---");
+// Exercise 3: Analyze which blocks compile
+fn exercise3() {
+    println!("--- Exercise 3: Multiple References ---");
     
-    // Bloque A: ¿Compila?
+    // Block A: Does it compile?
     {
-        let s = String::from("hola");
+        let s = String::from("hello");
         let r1 = &s;
         let r2 = &s;
-        println!("  Bloque A: {} {}", r1, r2);
+        println!("  Block A: {} {}", r1, r2);
     }
     
-    // Bloque B: ¿Compila? (Descomenta para probar)
+    // Block B: Does it compile? (Uncomment to test)
     // {
-    //     let mut s = String::from("hola");
+    //     let mut s = String::from("hello");
     //     let r1 = &mut s;
     //     let r2 = &mut s;
-    //     println!("  Bloque B: {} {}", r1, r2);
+    //     println!("  Block B: {} {}", r1, r2);
     // }
     
-    // Bloque C: ¿Compila? (Descomenta para probar)
+    // Block C: Does it compile? (Uncomment to test)
     // {
-    //     let mut s = String::from("hola");
+    //     let mut s = String::from("hello");
     //     let r1 = &s;
     //     let r2 = &mut s;
-    //     println!("  Bloque C: {}", r1);
+    //     println!("  Block C: {}", r1);
     // }
     
     println!();
 }
 
-// Ejercicio 4: Comparar strings
-// TODO: Esta función tiene un problema con lifetimes
-// Por ahora, retorna String en lugar de &String
-fn mas_larga(s1: &String, s2: &String) -> String {
+// Exercise 4: Compare strings
+// TODO: This function has a lifetime problem
+// For now, return String instead of &String
+fn longest(s1: &String, s2: &String) -> String {
     if s1.len() >= s2.len() {
         s1.clone()
     } else {
@@ -94,17 +94,17 @@ fn mas_larga(s1: &String, s2: &String) -> String {
     }
 }
 
-fn ejercicio4() {
-    println!("--- Ejercicio 4: Comparar Strings ---");
+fn exercise4() {
+    println!("--- Exercise 4: Compare Strings ---");
     
-    let corta = String::from("Rust");
-    let larga = String::from("Programación");
+    let short = String::from("Rust");
+    let long = String::from("Programming");
     
-    let resultado = mas_larga(&corta, &larga);
+    let result = longest(&short, &long);
     
-    println!("  Corta: '{}' ({} chars)", corta, corta.len());
-    println!("  Larga: '{}' ({} chars)", larga, larga.len());
-    println!("  Más larga: '{}'", resultado);
+    println!("  Short: '{}' ({} chars)", short, short.len());
+    println!("  Long: '{}' ({} chars)", long, long.len());
+    println!("  Longest: '{}'", result);
     println!();
 }
 
@@ -113,24 +113,24 @@ mod tests {
     use super::*;
     
     #[test]
-    fn test_longitud_con_referencia() {
-        let s = String::from("hola");
-        // Si longitud usa &String, esto debe compilar:
-        // let len = longitud(&s);
-        // assert_eq!(len, 4);
-        // assert_eq!(s, "hola"); // s sigue válido
+    fn test_length_with_reference() {
+        let s = String::from("hello");
+        // If length uses &String, this should compile:
+        // let len = length(&s);
+        // assert_eq!(len, 5);
+        // assert_eq!(s, "hello"); // s still valid
     }
     
     #[test]
-    fn test_agregar_signo() {
+    fn test_add_exclamation() {
         let mut s = String::from("test");
-        // Si agregar_signo usa &mut String:
-        // agregar_signo(&mut s);
+        // If add_exclamation uses &mut String:
+        // add_exclamation(&mut s);
         // assert_eq!(s, "test!");
     }
     
     #[test]
-    fn test_multiples_refs_inmutables() {
+    fn test_multiple_immutable_refs() {
         let s = String::from("rust");
         let r1 = &s;
         let r2 = &s;
