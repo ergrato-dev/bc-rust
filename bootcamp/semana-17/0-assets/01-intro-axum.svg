@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .text-small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 12px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 12px; fill: #569cd6; }
+    .string { font-family: 'Fira Code', monospace; font-size: 12px; fill: #ce9178; }
+    .function { font-family: 'Fira Code', monospace; font-size: 12px; fill: #dcdcaa; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+    .accent { fill: #CE422B; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .box-highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" class="title">🚀 Introducción a Axum</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">Framework web async para Rust</text>
+  
+  <!-- Stack diagram -->
+  <g transform="translate(50, 90)">
+    <text x="150" y="0" text-anchor="middle" class="text" fill="#CE422B">Stack de Axum</text>
+    
+    <!-- Tu Código -->
+    <rect x="20" y="20" width="260" height="50" rx="5" class="box-highlight"/>
+    <text x="150" y="50" text-anchor="middle" class="text">Tu Código</text>
+    <text x="150" y="65" text-anchor="middle" class="text-small">(Handlers, Extractores)</text>
+    
+    <!-- Axum -->
+    <rect x="20" y="80" width="260" height="50" rx="5" class="box"/>
+    <text x="150" y="110" text-anchor="middle" class="type">AXUM</text>
+    <text x="150" y="125" text-anchor="middle" class="text-small">(Router, State, Middleware)</text>
+    
+    <!-- Tower -->
+    <rect x="20" y="140" width="260" height="50" rx="5" class="box"/>
+    <text x="150" y="170" text-anchor="middle" class="text">Tower</text>
+    <text x="150" y="185" text-anchor="middle" class="text-small">(Service, Layer)</text>
+    
+    <!-- Tokio -->
+    <rect x="20" y="200" width="260" height="50" rx="5" class="box"/>
+    <text x="150" y="230" text-anchor="middle" class="function">Tokio</text>
+    <text x="150" y="245" text-anchor="middle" class="text-small">(Runtime Async)</text>
+    
+    <!-- Arrows -->
+    <path d="M 150 70 L 150 80" class="arrow"/>
+    <path d="M 150 130 L 150 140" class="arrow"/>
+    <path d="M 150 190 L 150 200" class="arrow"/>
+  </g>
+  
+  <!-- Code example -->
+  <g transform="translate(380, 90)">
+    <text x="190" y="0" text-anchor="middle" class="text" fill="#CE422B">Servidor Mínimo</text>
+    
+    <rect x="0" y="15" width="380" height="245" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="keyword">use</text>
+    <text x="45" y="40" class="text">axum::{routing::get, Router};</text>
+    
+    <text x="15" y="70" class="keyword">async fn</text>
+    <text x="75" y="70" class="function">hello</text>
+    <text x="105" y="70" class="text">() -> &amp;'</text>
+    <text x="155" y="70" class="keyword">static</text>
+    <text x="195" y="70" class="type">str</text>
+    <text x="215" y="70" class="text">{</text>
+    <text x="25" y="90" class="string">"¡Hola, Axum!"</text>
+    <text x="15" y="110" class="text">}</text>
+    
+    <text x="15" y="140" class="text">#[tokio::main]</text>
+    <text x="15" y="160" class="keyword">async fn</text>
+    <text x="75" y="160" class="function">main</text>
+    <text x="105" y="160" class="text">() {</text>
+    
+    <text x="25" y="180" class="keyword">let</text>
+    <text x="50" y="180" class="text">app =</text>
+    <text x="90" y="180" class="type">Router</text>
+    <text x="135" y="180" class="text">::new()</text>
+    <text x="35" y="200" class="text">.route(</text>
+    <text x="85" y="200" class="string">"/"</text>
+    <text x="100" y="200" class="text">, get(hello));</text>
+    
+    <text x="25" y="230" class="text">axum::serve(listener, app).await;</text>
+    <text x="15" y="250" class="text">}</text>
+  </g>
+  
+  <!-- Features boxes -->
+  <g transform="translate(50, 370)">
+    <rect x="0" y="0" width="170" height="70" rx="5" class="box"/>
+    <text x="85" y="25" text-anchor="middle" class="text">🚀 Alto Rendimiento</text>
+    <text x="85" y="45" text-anchor="middle" class="text-small">Runtime Tokio async</text>
+    <text x="85" y="60" text-anchor="middle" class="text-small">Zero-cost abstractions</text>
+  </g>
+  
+  <g transform="translate(240, 370)">
+    <rect x="0" y="0" width="170" height="70" rx="5" class="box"/>
+    <text x="85" y="25" text-anchor="middle" class="text">🔒 Type-Safe</text>
+    <text x="85" y="45" text-anchor="middle" class="text-small">Errores en compilación</text>
+    <text x="85" y="60" text-anchor="middle" class="text-small">Extractores tipados</text>
+  </g>
+  
+  <g transform="translate(430, 370)">
+    <rect x="0" y="0" width="170" height="70" rx="5" class="box"/>
+    <text x="85" y="25" text-anchor="middle" class="text">🧩 Modular</text>
+    <text x="85" y="45" text-anchor="middle" class="text-small">Ecosistema Tower</text>
+    <text x="85" y="60" text-anchor="middle" class="text-small">Middleware reutilizable</text>
+  </g>
+  
+  <g transform="translate(620, 370)">
+    <rect x="0" y="0" width="170" height="70" rx="5" class="box"/>
+    <text x="85" y="25" text-anchor="middle" class="text">📦 Ergonómico</text>
+    <text x="85" y="45" text-anchor="middle" class="text-small">API intuitiva</text>
+    <text x="85" y="60" text-anchor="middle" class="text-small">Poco boilerplate</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="480" text-anchor="middle" class="text-small">Semana 17 - Bootcamp Rust: Zero to Hero</text>
+</svg>

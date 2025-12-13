@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .text-small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .type { font-family: 'Fira Code', monospace; font-size: 12px; fill: #4ec9b0; }
+    .function { font-family: 'Fira Code', monospace; font-size: 12px; fill: #dcdcaa; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .box-highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .layer { fill: #2d2d2d; stroke: #4ec9b0; stroke-width: 2; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .arrow-down { stroke: #4ec9b0; stroke-width: 2; fill: none; marker-end: url(#arrowhead-down); }
+    .arrow-up { stroke: #dcdcaa; stroke-width: 2; fill: none; marker-end: url(#arrowhead-up); }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+    <marker id="arrowhead-down" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4ec9b0"/>
+    </marker>
+    <marker id="arrowhead-up" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dcdcaa"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" class="title">🔄 Estado y Capas</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">Compartir datos y middleware en Axum</text>
+  
+  <!-- State diagram -->
+  <g transform="translate(30, 85)">
+    <text x="155" y="0" text-anchor="middle" class="text" fill="#CE422B">Estado Compartido (State)</text>
+    
+    <rect x="0" y="15" width="310" height="180" rx="5" class="box"/>
+    
+    <!-- AppState struct -->
+    <text x="15" y="40" class="keyword">struct</text>
+    <text x="60" y="40" class="type">AppState</text>
+    <text x="125" y="40" class="code">{</text>
+    
+    <text x="25" y="62" class="code">db:</text>
+    <text x="50" y="62" class="type">SqlitePool</text>
+    
+    <text x="25" y="82" class="code">cache:</text>
+    <text x="70" y="82" class="type">Arc&lt;RwLock&lt;T&gt;&gt;</text>
+    
+    <text x="25" y="102" class="code">config:</text>
+    <text x="75" y="102" class="type">Arc&lt;Config&gt;</text>
+    
+    <text x="15" y="122" class="code">}</text>
+    
+    <!-- Usage -->
+    <rect x="15" y="135" width="280" height="50" rx="3" fill="#2d2d2d"/>
+    <text x="25" y="155" class="code">Router::new()</text>
+    <text x="25" y="175" class="code">  .with_state(state)</text>
+  </g>
+  
+  <!-- Layers diagram -->
+  <g transform="translate(380, 85)">
+    <text x="195" y="0" text-anchor="middle" class="text" fill="#CE422B">Capas (Layers / Middleware)</text>
+    
+    <rect x="0" y="15" width="390" height="180" rx="5" class="box"/>
+    
+    <!-- Request flow -->
+    <text x="30" y="45" class="text">Request</text>
+    <path d="M 85 40 L 115 40" class="arrow-down"/>
+    
+    <!-- Layer 1 -->
+    <rect x="115" y="25" width="200" height="35" rx="5" class="layer"/>
+    <text x="215" y="48" text-anchor="middle" class="function">TraceLayer</text>
+    <text x="330" y="48" class="text-small">Logging</text>
+    
+    <path d="M 215 60 L 215 75" class="arrow-down"/>
+    
+    <!-- Layer 2 -->
+    <rect x="115" y="75" width="200" height="35" rx="5" class="layer"/>
+    <text x="215" y="98" text-anchor="middle" class="function">CorsLayer</text>
+    <text x="330" y="98" class="text-small">CORS</text>
+    
+    <path d="M 215 110 L 215 125" class="arrow-down"/>
+    
+    <!-- Handler -->
+    <rect x="140" y="125" width="150" height="35" rx="5" class="box-highlight"/>
+    <text x="215" y="148" text-anchor="middle" class="type">Handler</text>
+    
+    <!-- Response flow (right side) -->
+    <path d="M 290 142 L 320 142 L 320 92 L 340 92" class="arrow-up"/>
+    <path d="M 320 92 L 320 42 L 340 42" class="arrow-up"/>
+    
+    <text x="350" y="148" class="text">Response</text>
+  </g>
+  
+  <!-- State usage -->
+  <g transform="translate(30, 290)">
+    <text x="155" y="0" text-anchor="middle" class="text" fill="#CE422B">Usar State en Handler</text>
+    
+    <rect x="0" y="15" width="310" height="130" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="keyword">async fn</text>
+    <text x="75" y="40" class="function">listar</text>
+    <text x="105" y="40" class="code">(</text>
+    
+    <text x="25" y="60" class="type">State</text>
+    <text x="60" y="60" class="code">(pool):</text>
+    <text x="105" y="60" class="type">State&lt;SqlitePool&gt;</text>
+    
+    <text x="15" y="80" class="code">) -> Json&lt;Vec&lt;User&gt;&gt; {</text>
+    
+    <text x="25" y="105" class="code">let users = sqlx::query(...)</text>
+    <text x="35" y="125" class="code">.fetch_all(&amp;pool).await;</text>
+  </g>
+  
+  <!-- Layer code -->
+  <g transform="translate(380, 290)">
+    <text x="195" y="0" text-anchor="middle" class="text" fill="#CE422B">Configurar Layers</text>
+    
+    <rect x="0" y="15" width="390" height="130" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="code">Router::new()</text>
+    <text x="15" y="60" class="code">  .route("/users", get(listar))</text>
+    <text x="15" y="85" class="code">  .layer(</text>
+    <text x="60" y="85" class="type">TraceLayer</text>
+    <text x="130" y="85" class="code">::new_for_http())</text>
+    <text x="15" y="105" class="code">  .layer(</text>
+    <text x="60" y="105" class="type">CorsLayer</text>
+    <text x="125" y="105" class="code">::permissive())</text>
+    <text x="15" y="125" class="code">  .with_state(pool)</text>
+  </g>
+  
+  <!-- Common layers -->
+  <g transform="translate(100, 440)">
+    <rect x="0" y="0" width="140" height="35" rx="5" class="box"/>
+    <text x="70" y="22" text-anchor="middle" class="function">TraceLayer</text>
+    
+    <rect x="160" y="0" width="140" height="35" rx="5" class="box"/>
+    <text x="230" y="22" text-anchor="middle" class="function">CorsLayer</text>
+    
+    <rect x="320" y="0" width="140" height="35" rx="5" class="box"/>
+    <text x="390" y="22" text-anchor="middle" class="function">AuthLayer</text>
+    
+    <rect x="480" y="0" width="140" height="35" rx="5" class="box"/>
+    <text x="550" y="22" text-anchor="middle" class="function">from_fn()</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="490" text-anchor="middle" class="text-small">Semana 17 - Bootcamp Rust: Zero to Hero</text>
+</svg>

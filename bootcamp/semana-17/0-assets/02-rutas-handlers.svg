@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .text-small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .string { font-family: 'Fira Code', monospace; font-size: 11px; fill: #ce9178; }
+    .function { font-family: 'Fira Code', monospace; font-size: 11px; fill: #dcdcaa; }
+    .type { font-family: 'Fira Code', monospace; font-size: 11px; fill: #4ec9b0; }
+    .method-get { fill: #61dafb; }
+    .method-post { fill: #98c379; }
+    .method-put { fill: #e5c07b; }
+    .method-delete { fill: #e06c75; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .box-highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" class="title">🛤️ Rutas y Handlers</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">Mapeo de URLs a funciones</text>
+  
+  <!-- Router diagram -->
+  <g transform="translate(30, 85)">
+    <text x="175" y="0" text-anchor="middle" class="text" fill="#CE422B">Sistema de Rutas</text>
+    
+    <!-- Router box -->
+    <rect x="0" y="15" width="350" height="180" rx="5" class="box"/>
+    <text x="175" y="40" text-anchor="middle" class="type">Router</text>
+    
+    <!-- Routes -->
+    <rect x="15" y="55" width="320" height="30" rx="3" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="25" y="75" class="method-get">GET</text>
+    <text x="55" y="75" class="string">/</text>
+    <text x="120" y="75" class="text">→</text>
+    <text x="140" y="75" class="function">raiz()</text>
+    
+    <rect x="15" y="95" width="320" height="30" rx="3" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="25" y="115" class="method-get">GET</text>
+    <text x="55" y="115" class="string">/users</text>
+    <text x="120" y="115" class="text">→</text>
+    <text x="140" y="115" class="function">listar_usuarios()</text>
+    
+    <rect x="15" y="135" width="320" height="30" rx="3" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="25" y="155" class="method-post">POST</text>
+    <text x="60" y="155" class="string">/users</text>
+    <text x="120" y="155" class="text">→</text>
+    <text x="140" y="155" class="function">crear_usuario()</text>
+    
+    <rect x="15" y="175" width="155" height="30" rx="3" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="25" y="195" class="method-get">GET</text>
+    <text x="55" y="195" class="string">/users/:id</text>
+    
+    <rect x="180" y="175" width="155" height="30" rx="3" fill="#2d2d2d" stroke="#CE422B"/>
+    <text x="190" y="195" class="method-delete">DEL</text>
+    <text x="220" y="195" class="string">/users/:id</text>
+  </g>
+  
+  <!-- HTTP Methods -->
+  <g transform="translate(420, 85)">
+    <text x="175" y="0" text-anchor="middle" class="text" fill="#CE422B">Métodos HTTP</text>
+    
+    <rect x="0" y="15" width="350" height="180" rx="5" class="box"/>
+    
+    <rect x="15" y="30" width="70" height="25" rx="3" class="method-get"/>
+    <text x="50" y="48" text-anchor="middle" fill="#1e1e1e" class="text">GET</text>
+    <text x="100" y="48" class="text-small">Obtener recursos</text>
+    
+    <rect x="15" y="65" width="70" height="25" rx="3" class="method-post"/>
+    <text x="50" y="83" text-anchor="middle" fill="#1e1e1e" class="text">POST</text>
+    <text x="100" y="83" class="text-small">Crear nuevo recurso</text>
+    
+    <rect x="15" y="100" width="70" height="25" rx="3" class="method-put"/>
+    <text x="50" y="118" text-anchor="middle" fill="#1e1e1e" class="text">PUT</text>
+    <text x="100" y="118" class="text-small">Actualizar completo</text>
+    
+    <rect x="15" y="135" width="70" height="25" rx="3" fill="#c586c0"/>
+    <text x="50" y="153" text-anchor="middle" fill="#1e1e1e" class="text">PATCH</text>
+    <text x="100" y="153" class="text-small">Actualizar parcial</text>
+    
+    <rect x="15" y="170" width="70" height="25" rx="3" class="method-delete"/>
+    <text x="50" y="188" text-anchor="middle" fill="#1e1e1e" class="text">DELETE</text>
+    <text x="100" y="188" class="text-small">Eliminar recurso</text>
+  </g>
+  
+  <!-- Handler anatomy -->
+  <g transform="translate(30, 290)">
+    <text x="175" y="0" text-anchor="middle" class="text" fill="#CE422B">Anatomía de un Handler</text>
+    
+    <rect x="0" y="15" width="350" height="120" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="keyword">async fn</text>
+    <text x="75" y="40" class="function">obtener_usuario</text>
+    <text x="175" y="40" class="code">(</text>
+    
+    <text x="25" y="60" class="type">Path</text>
+    <text x="55" y="60" class="code">(id):</text>
+    <text x="90" y="60" class="type">Path&lt;u64&gt;</text>
+    <text x="160" y="60" class="text-small">← Extractor</text>
+    
+    <text x="15" y="80" class="code">) -></text>
+    <text x="45" y="80" class="type">Json&lt;Usuario&gt;</text>
+    <text x="135" y="80" class="text-small">← Respuesta</text>
+    
+    <text x="15" y="100" class="code">{</text>
+    <text x="25" y="115" class="code">// Lógica de negocio</text>
+    <text x="15" y="130" class="code">}</text>
+  </g>
+  
+  <!-- Response types -->
+  <g transform="translate(420, 290)">
+    <text x="175" y="0" text-anchor="middle" class="text" fill="#CE422B">Tipos de Respuesta</text>
+    
+    <rect x="0" y="15" width="350" height="120" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="type">&amp;'static str</text>
+    <text x="130" y="40" class="text-small">→ Texto estático</text>
+    
+    <text x="15" y="60" class="type">String</text>
+    <text x="130" y="60" class="text-small">→ Texto dinámico</text>
+    
+    <text x="15" y="80" class="type">Json&lt;T&gt;</text>
+    <text x="130" y="80" class="text-small">→ Respuesta JSON</text>
+    
+    <text x="15" y="100" class="type">StatusCode</text>
+    <text x="130" y="100" class="text-small">→ Solo código HTTP</text>
+    
+    <text x="15" y="120" class="type">(StatusCode, Json&lt;T&gt;)</text>
+    <text x="185" y="120" class="text-small">→ Código + Body</text>
+  </g>
+  
+  <!-- Flow -->
+  <g transform="translate(100, 430)">
+    <rect x="0" y="0" width="100" height="35" rx="5" class="box"/>
+    <text x="50" y="22" text-anchor="middle" class="text">Request</text>
+    
+    <path d="M 100 17 L 145 17" class="arrow"/>
+    
+    <rect x="145" y="0" width="100" height="35" rx="5" class="box-highlight"/>
+    <text x="195" y="22" text-anchor="middle" class="type">Router</text>
+    
+    <path d="M 245 17 L 290 17" class="arrow"/>
+    
+    <rect x="290" y="0" width="100" height="35" rx="5" class="box"/>
+    <text x="340" y="22" text-anchor="middle" class="function">Handler</text>
+    
+    <path d="M 390 17 L 435 17" class="arrow"/>
+    
+    <rect x="435" y="0" width="100" height="35" rx="5" class="box"/>
+    <text x="485" y="22" text-anchor="middle" class="text">Response</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="485" text-anchor="middle" class="text-small">Semana 17 - Bootcamp Rust: Zero to Hero</text>
+</svg>

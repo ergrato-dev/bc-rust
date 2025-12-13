@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+    .text { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+    .text-small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .type { font-family: 'Fira Code', monospace; font-size: 11px; fill: #4ec9b0; }
+    .function { font-family: 'Fira Code', monospace; font-size: 11px; fill: #dcdcaa; }
+    .string { font-family: 'Fira Code', monospace; font-size: 11px; fill: #ce9178; }
+    .folder { font-family: 'Fira Code', monospace; font-size: 12px; fill: #dcdcaa; }
+    .file { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .box { fill: #252526; stroke: #3c3c3c; stroke-width: 1; }
+    .box-highlight { fill: #2d2d2d; stroke: #CE422B; stroke-width: 2; }
+    .arrow { stroke: #808080; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .db { fill: #569cd6; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" class="title">🏗️ Proyecto Completo: API REST + SQLite</text>
+  <text x="400" y="60" text-anchor="middle" class="subtitle">Arquitectura profesional de una API</text>
+  
+  <!-- Project structure -->
+  <g transform="translate(30, 85)">
+    <text x="130" y="0" text-anchor="middle" class="text" fill="#CE422B">Estructura del Proyecto</text>
+    
+    <rect x="0" y="15" width="260" height="310" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="folder">📁 proyecto-api-tareas/</text>
+    <text x="30" y="60" class="file">├── Cargo.toml</text>
+    <text x="30" y="78" class="folder">├── 📁 src/</text>
+    <text x="45" y="96" class="file">│   ├── main.rs</text>
+    <text x="45" y="114" class="file">│   ├── lib.rs</text>
+    <text x="45" y="132" class="file">│   ├── db.rs</text>
+    <text x="130" y="132" class="text-small">← SQLite</text>
+    <text x="45" y="150" class="file">│   ├── error.rs</text>
+    <text x="45" y="168" class="folder">│   ├── 📁 models/</text>
+    <text x="60" y="186" class="file">│   │   └── tarea.rs</text>
+    <text x="45" y="204" class="folder">│   ├── 📁 handlers/</text>
+    <text x="60" y="222" class="file">│   │   └── tareas.rs</text>
+    <text x="45" y="240" class="folder">│   └── 📁 routes/</text>
+    <text x="60" y="258" class="file">│       └── tareas.rs</text>
+    <text x="30" y="280" class="folder">├── 📁 migrations/</text>
+    <text x="45" y="298" class="file">│   └── 001_create.sql</text>
+    <text x="30" y="318" class="folder">└── 📁 tests/</text>
+  </g>
+  
+  <!-- Architecture diagram -->
+  <g transform="translate(320, 85)">
+    <text x="225" y="0" text-anchor="middle" class="text" fill="#CE422B">Arquitectura</text>
+    
+    <rect x="0" y="15" width="450" height="310" rx="5" class="box"/>
+    
+    <!-- Client -->
+    <rect x="20" y="35" width="100" height="40" rx="5" fill="#2d2d2d" stroke="#808080"/>
+    <text x="70" y="60" text-anchor="middle" class="text">Cliente</text>
+    
+    <path d="M 120 55 L 150 55" class="arrow"/>
+    
+    <!-- Router -->
+    <rect x="150" y="35" width="120" height="40" rx="5" class="box-highlight"/>
+    <text x="210" y="55" text-anchor="middle" class="type">Router</text>
+    <text x="210" y="70" text-anchor="middle" class="text-small">+ Middleware</text>
+    
+    <path d="M 210 75 L 210 100" class="arrow"/>
+    
+    <!-- Handlers -->
+    <rect x="150" y="100" width="120" height="40" rx="5" fill="#2d2d2d" stroke="#dcdcaa"/>
+    <text x="210" y="125" text-anchor="middle" class="function">Handlers</text>
+    
+    <path d="M 210 140 L 210 165" class="arrow"/>
+    
+    <!-- Models -->
+    <rect x="150" y="165" width="120" height="40" rx="5" fill="#2d2d2d" stroke="#4ec9b0"/>
+    <text x="210" y="190" text-anchor="middle" class="type">Models</text>
+    
+    <path d="M 210 205 L 210 230" class="arrow"/>
+    
+    <!-- SQLite -->
+    <rect x="150" y="230" width="120" height="50" rx="5" fill="#2d2d2d" stroke="#569cd6" stroke-width="2"/>
+    <text x="210" y="255" text-anchor="middle" class="db">🗄️ SQLite</text>
+    <text x="210" y="272" text-anchor="middle" class="text-small">tareas.db</text>
+    
+    <!-- Endpoints -->
+    <rect x="300" y="35" width="130" height="160" rx="5" fill="#2d2d2d"/>
+    <text x="365" y="55" text-anchor="middle" class="text-small">Endpoints</text>
+    
+    <text x="310" y="80" class="type">GET</text>
+    <text x="345" y="80" class="string">/tareas</text>
+    
+    <text x="310" y="100" class="function">POST</text>
+    <text x="350" y="100" class="string">/tareas</text>
+    
+    <text x="310" y="120" class="type">GET</text>
+    <text x="345" y="120" class="string">/tareas/:id</text>
+    
+    <text x="310" y="140" class="db">PUT</text>
+    <text x="345" y="140" class="string">/tareas/:id</text>
+    
+    <text x="310" y="160" fill="#CE422B" class="code">DEL</text>
+    <text x="345" y="160" class="string">/tareas/:id</text>
+    
+    <text x="310" y="185" class="type">GET</text>
+    <text x="345" y="185" class="string">?completada=</text>
+  </g>
+  
+  <!-- Dependencies -->
+  <g transform="translate(30, 420)">
+    <text x="130" y="0" text-anchor="middle" class="text" fill="#CE422B">Dependencias Clave</text>
+    
+    <rect x="0" y="15" width="260" height="100" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="type">axum</text>
+    <text x="65" y="40" class="text-small">Framework web</text>
+    
+    <text x="15" y="60" class="type">sqlx</text>
+    <text x="55" y="60" class="text-small">SQLite async</text>
+    
+    <text x="15" y="80" class="type">tokio</text>
+    <text x="60" y="80" class="text-small">Runtime async</text>
+    
+    <text x="15" y="100" class="type">serde</text>
+    <text x="55" y="100" class="text-small">JSON serialization</text>
+    
+    <text x="140" y="40" class="type">tower-http</text>
+    <text x="210" y="40" class="text-small">Middleware</text>
+    
+    <text x="140" y="60" class="type">tracing</text>
+    <text x="195" y="60" class="text-small">Logging</text>
+    
+    <text x="140" y="80" class="type">thiserror</text>
+    <text x="205" y="80" class="text-small">Errores</text>
+  </g>
+  
+  <!-- Commands -->
+  <g transform="translate(320, 420)">
+    <text x="225" y="0" text-anchor="middle" class="text" fill="#CE422B">Comandos</text>
+    
+    <rect x="0" y="15" width="450" height="100" rx="5" class="box"/>
+    
+    <text x="15" y="40" class="text-small"># Ejecutar servidor</text>
+    <text x="15" y="58" class="string">docker compose run --rm -p 3000:3000 rust-dev cargo run</text>
+    
+    <text x="15" y="85" class="text-small"># Probar con curl</text>
+    <text x="15" y="103" class="string">curl -X POST localhost:3000/tareas -d '{"titulo":"..."}'</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="540" text-anchor="middle" class="text-small">Semana 17 - Bootcamp Rust: Zero to Hero 🦀</text>
+</svg>
