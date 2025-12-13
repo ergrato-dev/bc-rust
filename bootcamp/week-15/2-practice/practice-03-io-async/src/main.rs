@@ -12,25 +12,25 @@ use tokio::net::{TcpListener, TcpStream};
 // =============================================================================
 
 /// Lee un archivo y retorna su contenido como String.
-pub async fn leer_archivo(path: &str) -> io::Result<String> {
+pub async fn read_file(path: &str) -> io::Result<String> {
     // TODO: Implementar usando tokio::fs::read_to_string
-    todo!("Implementar leer_archivo")
+    todo!("Implementar read_file")
 }
 
 /// Escribe contenido a un archivo.
-pub async fn escribir_archivo(path: &str, contenido: &str) -> io::Result<()> {
+pub async fn write_file(path: &str, content: &str) -> io::Result<()> {
     // TODO: Implementar usando tokio::fs::write
-    todo!("Implementar escribir_archivo")
+    todo!("Implementar write_file")
 }
 
 /// Copia un archivo de origen a destino.
 /// Retorna el número de bytes copiados.
-pub async fn copiar_archivo(origen: &str, destino: &str) -> io::Result<u64> {
+pub async fn copy_file(source: &str, destination: &str) -> io::Result<u64> {
     // TODO: Implementar
     // 1. Abrir archivo origen para lectura
     // 2. Crear archivo destino para escritura
     // 3. Usar tokio::io::copy para copiar contenido
-    todo!("Implementar copiar_archivo")
+    todo!("Implementar copy_file")
 }
 
 // =============================================================================
@@ -38,23 +38,23 @@ pub async fn copiar_archivo(origen: &str, destino: &str) -> io::Result<u64> {
 // =============================================================================
 
 /// Cuenta el número de líneas en un archivo.
-pub async fn contar_lineas(path: &str) -> io::Result<usize> {
+pub async fn count_lines(path: &str) -> io::Result<usize> {
     // TODO: Implementar
     // 1. Abrir archivo
     // 2. Crear BufReader
     // 3. Usar .lines() para iterar
     // 4. Contar líneas
-    todo!("Implementar contar_lineas")
+    todo!("Implementar count_lines")
 }
 
 /// Retorna las líneas que contienen el patrón dado.
-pub async fn filtrar_lineas(path: &str, patron: &str) -> io::Result<Vec<String>> {
+pub async fn filter_lines(path: &str, pattern: &str) -> io::Result<Vec<String>> {
     // TODO: Implementar
     // 1. Abrir archivo con BufReader
     // 2. Iterar líneas
     // 3. Filtrar las que contienen el patrón
     // 4. Retornar vector de líneas
-    todo!("Implementar filtrar_lineas")
+    todo!("Implementar filter_lines")
 }
 
 // =============================================================================
@@ -62,7 +62,7 @@ pub async fn filtrar_lineas(path: &str, patron: &str) -> io::Result<Vec<String>>
 // =============================================================================
 
 /// Maneja una conexión individual (echo).
-async fn manejar_conexion(mut socket: TcpStream, addr: std::net::SocketAddr) {
+async fn handle_connection(mut socket: TcpStream, addr: std::net::SocketAddr) {
     println!("Nueva conexión desde: {}", addr);
 
     let mut buffer = [0u8; 1024];
@@ -91,12 +91,12 @@ async fn manejar_conexion(mut socket: TcpStream, addr: std::net::SocketAddr) {
 /// Servidor echo que devuelve lo que recibe.
 ///
 /// El servidor corre indefinidamente hasta que se cancele.
-pub async fn servidor_echo(addr: &str) -> io::Result<()> {
+pub async fn echo_server(addr: &str) -> io::Result<()> {
     // TODO: Implementar
     // 1. Crear TcpListener con bind
     // 2. Loop infinito con accept
-    // 3. Por cada conexión, spawn una task con manejar_conexion
-    todo!("Implementar servidor_echo")
+    // 3. Por cada conexión, spawn una task con handle_connection
+    todo!("Implementar echo_server")
 }
 
 // =============================================================================
@@ -104,13 +104,13 @@ pub async fn servidor_echo(addr: &str) -> io::Result<()> {
 // =============================================================================
 
 /// Cliente echo que envía un mensaje y espera la respuesta.
-pub async fn cliente_echo(addr: &str, mensaje: &str) -> io::Result<String> {
+pub async fn echo_client(addr: &str, message: &str) -> io::Result<String> {
     // TODO: Implementar
     // 1. Conectar con TcpStream::connect
     // 2. Escribir el mensaje
     // 3. Leer la respuesta
     // 4. Convertir a String y retornar
-    todo!("Implementar cliente_echo")
+    todo!("Implementar echo_client")
 }
 
 // =============================================================================
@@ -126,27 +126,27 @@ async fn main() -> io::Result<()> {
 
     // Crear archivo de prueba
     let test_path = "/tmp/test_async.txt";
-    let contenido = "Línea 1\nLínea 2 con Rust\nLínea 3\nRust es genial";
+    let content = "Línea 1\nLínea 2 con Rust\nLínea 3\nRust es genial";
 
-    escribir_archivo(test_path, contenido).await?;
+    write_file(test_path, content).await?;
     println!("Archivo creado: {}", test_path);
 
-    let leido = leer_archivo(test_path).await?;
-    println!("Contenido leído:\n{}", leido);
+    let read_content = read_file(test_path).await?;
+    println!("Contenido leído:\n{}", read_content);
 
-    let copia_path = "/tmp/test_async_copia.txt";
-    let bytes = copiar_archivo(test_path, copia_path).await?;
-    println!("Copiados {} bytes a {}", bytes, copia_path);
+    let copy_path = "/tmp/test_async_copia.txt";
+    let bytes = copy_file(test_path, copy_path).await?;
+    println!("Copiados {} bytes a {}", bytes, copy_path);
     println!();
 
     // Ejercicio 2: Lectura por líneas
     println!("--- Ejercicio 2: Lectura por Líneas ---");
 
-    let num_lineas = contar_lineas(test_path).await?;
-    println!("Número de líneas: {}", num_lineas);
+    let num_lines = count_lines(test_path).await?;
+    println!("Número de líneas: {}", num_lines);
 
-    let lineas_rust = filtrar_lineas(test_path, "Rust").await?;
-    println!("Líneas con 'Rust': {:?}", lineas_rust);
+    let rust_lines = filter_lines(test_path, "Rust").await?;
+    println!("Líneas con 'Rust': {:?}", rust_lines);
     println!();
 
     // Ejercicios 3 y 4: Servidor y Cliente
@@ -162,15 +162,15 @@ async fn main() -> io::Result<()> {
 
     // Iniciar servidor en background
     let server_handle = tokio::spawn(async move {
-        servidor_echo(server_addr).await.unwrap();
+        echo_server(server_addr).await.unwrap();
     });
 
     // Dar tiempo al servidor para iniciar
     tokio::time::sleep(std::time::Duration::from_millis(100)).await;
 
     // Probar cliente
-    let respuesta = cliente_echo(server_addr, "Hola Tokio!").await?;
-    println!("Respuesta del servidor: {}", respuesta);
+    let response = echo_client(server_addr, "Hola Tokio!").await?;
+    println!("Respuesta del servidor: {}", response);
 
     // El servidor corre indefinidamente, abortamos
     server_handle.abort();
@@ -178,7 +178,7 @@ async fn main() -> io::Result<()> {
 
     // Limpiar archivos de prueba
     fs::remove_file(test_path).await.ok();
-    fs::remove_file(copia_path).await.ok();
+    fs::remove_file(copy_path).await.ok();
 
     Ok(())
 }
@@ -193,55 +193,55 @@ mod tests {
     use std::time::Duration;
 
     #[tokio::test]
-    async fn test_escribir_y_leer() {
+    async fn test_write_and_read() {
         let path = "/tmp/test_rw.txt";
-        let contenido = "Test contenido";
+        let content = "Test contenido";
 
-        escribir_archivo(path, contenido).await.unwrap();
-        let leido = leer_archivo(path).await.unwrap();
+        write_file(path, content).await.unwrap();
+        let read_content = read_file(path).await.unwrap();
 
-        assert_eq!(leido, contenido);
+        assert_eq!(read_content, content);
 
         fs::remove_file(path).await.ok();
     }
 
     #[tokio::test]
-    async fn test_copiar_archivo() {
-        let origen = "/tmp/test_origen.txt";
-        let destino = "/tmp/test_destino.txt";
-        let contenido = "Contenido para copiar";
+    async fn test_copy_file() {
+        let source = "/tmp/test_source.txt";
+        let destination = "/tmp/test_destination.txt";
+        let content = "Contenido para copiar";
 
-        escribir_archivo(origen, contenido).await.unwrap();
-        let bytes = copiar_archivo(origen, destino).await.unwrap();
+        write_file(source, content).await.unwrap();
+        let bytes = copy_file(source, destination).await.unwrap();
 
-        assert_eq!(bytes, contenido.len() as u64);
+        assert_eq!(bytes, content.len() as u64);
 
-        let leido = leer_archivo(destino).await.unwrap();
-        assert_eq!(leido, contenido);
+        let read_content = read_file(destination).await.unwrap();
+        assert_eq!(read_content, content);
 
-        fs::remove_file(origen).await.ok();
-        fs::remove_file(destino).await.ok();
+        fs::remove_file(source).await.ok();
+        fs::remove_file(destination).await.ok();
     }
 
     #[tokio::test]
-    async fn test_contar_lineas() {
-        let path = "/tmp/test_lineas.txt";
-        escribir_archivo(path, "L1\nL2\nL3\nL4\nL5").await.unwrap();
+    async fn test_count_lines() {
+        let path = "/tmp/test_lines.txt";
+        write_file(path, "L1\nL2\nL3\nL4\nL5").await.unwrap();
 
-        let count = contar_lineas(path).await.unwrap();
+        let count = count_lines(path).await.unwrap();
         assert_eq!(count, 5);
 
         fs::remove_file(path).await.ok();
     }
 
     #[tokio::test]
-    async fn test_filtrar_lineas() {
-        let path = "/tmp/test_filtro.txt";
-        escribir_archivo(path, "Rust rocks\nPython ok\nRust rules\nGo fast")
+    async fn test_filter_lines() {
+        let path = "/tmp/test_filter.txt";
+        write_file(path, "Rust rocks\nPython ok\nRust rules\nGo fast")
             .await
             .unwrap();
 
-        let rust_lines = filtrar_lineas(path, "Rust").await.unwrap();
+        let rust_lines = filter_lines(path, "Rust").await.unwrap();
         assert_eq!(rust_lines.len(), 2);
         assert!(rust_lines[0].contains("Rust"));
         assert!(rust_lines[1].contains("Rust"));
@@ -250,20 +250,20 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_servidor_cliente_echo() {
+    async fn test_server_client_echo() {
         let addr = "127.0.0.1:18080"; // Puerto diferente para test
 
         // Iniciar servidor
         let server_handle = tokio::spawn(async move {
-            servidor_echo(addr).await.ok();
+            echo_server(addr).await.ok();
         });
 
         // Dar tiempo al servidor
         tokio::time::sleep(Duration::from_millis(100)).await;
 
         // Probar cliente
-        let respuesta = cliente_echo(addr, "Test mensaje").await.unwrap();
-        assert_eq!(respuesta, "Test mensaje");
+        let response = echo_client(addr, "Test mensaje").await.unwrap();
+        assert_eq!(response, "Test mensaje");
 
         // Limpiar
         server_handle.abort();

@@ -351,7 +351,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_extract_links_absolutos() {
+    fn test_extract_links_absolute() {
         let html = r#"
             <html>
                 <body>
@@ -370,7 +370,7 @@ mod tests {
     }
 
     #[test]
-    fn test_extract_links_relativos() {
+    fn test_extract_links_relative() {
         let html = r#"
             <html>
                 <body>
@@ -388,7 +388,7 @@ mod tests {
     }
 
     #[test]
-    fn test_extract_links_filtra_otros_dominios() {
+    fn test_extract_links_filters_other_domains() {
         let html = r#"
             <html>
                 <body>

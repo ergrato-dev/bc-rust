@@ -1487,14 +1487,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "practica-01-async-basico"
-version = "0.1.0"
-dependencies = [
- "tokio",
- "tokio-test",
-]
-
-[[package]]
 name = "practica-01-funciones-genericas"
 version = "0.1.0"
 
@@ -1537,28 +1529,12 @@ name = "practica-02-structs-genericos"
 version = "0.1.0"
 
 [[package]]
-name = "practica-02-tokio"
-version = "0.1.0"
-dependencies = [
- "tokio",
- "tokio-test",
-]
-
-[[package]]
 name = "practica-03-doctests"
 version = "0.1.0"
 
 [[package]]
 name = "practica-03-hashmaps"
 version = "0.1.0"
-
-[[package]]
-name = "practica-03-io-async"
-version = "0.1.0"
-dependencies = [
- "tempfile",
- "tokio",
-]
 
 [[package]]
 name = "practica-03-trait-bounds"
@@ -1571,13 +1547,6 @@ dependencies = [
  "axum",
  "serde",
  "serde_json",
- "tokio",
-]
-
-[[package]]
-name = "practica-04-channels"
-version = "0.1.0"
-dependencies = [
  "tokio",
 ]
 
@@ -1629,6 +1598,14 @@ name = "practica-visibilidad"
 version = "0.1.0"
 
 [[package]]
+name = "practice-01-async-basic"
+version = "0.1.0"
+dependencies = [
+ "tokio",
+ "tokio-test",
+]
+
+[[package]]
 name = "practice-01-box"
 version = "0.1.0"
 
@@ -1669,12 +1646,28 @@ name = "practice-02-rc-arc"
 version = "0.1.0"
 
 [[package]]
+name = "practice-02-tokio"
+version = "0.1.0"
+dependencies = [
+ "tokio",
+ "tokio-test",
+]
+
+[[package]]
 name = "practice-03-elision"
 version = "0.1.0"
 
 [[package]]
 name = "practice-03-fn-traits"
 version = "0.1.0"
+
+[[package]]
+name = "practice-03-io-async"
+version = "0.1.0"
+dependencies = [
+ "tempfile",
+ "tokio",
+]
 
 [[package]]
 name = "practice-03-mutex"
@@ -1687,6 +1680,13 @@ version = "0.1.0"
 [[package]]
 name = "practice-03-traits-derivables"
 version = "0.1.0"
+
+[[package]]
+name = "practice-04-channels"
+version = "0.1.0"
+dependencies = [
+ "tokio",
+]
 
 [[package]]
 name = "practice-04-iterators-advanced"
@@ -1726,6 +1726,18 @@ dependencies = [
 [[package]]
 name = "project-cache"
 version = "0.1.0"
+
+[[package]]
+name = "project-crawler"
+version = "0.1.0"
+dependencies = [
+ "reqwest",
+ "scraper",
+ "thiserror",
+ "tokio",
+ "url",
+ "wiremock",
+]
 
 [[package]]
 name = "project-formas"
@@ -1768,18 +1780,6 @@ version = "0.1.0"
 [[package]]
 name = "proyecto-contenedor"
 version = "0.1.0"
-
-[[package]]
-name = "proyecto-crawler"
-version = "0.1.0"
-dependencies = [
- "reqwest",
- "scraper",
- "thiserror",
- "tokio",
- "url",
- "wiremock",
-]
 
 [[package]]
 name = "proyecto-geometria"

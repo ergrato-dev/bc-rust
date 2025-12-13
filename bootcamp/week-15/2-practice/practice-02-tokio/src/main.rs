@@ -188,15 +188,15 @@ mod tests {
     use std::time::Instant;
 
     #[tokio::test]
-    async fn test_contador_intervalo_tiempo() {
-        let inicio = Instant::now();
-        contador_intervalo(2).await;
-        let duracion = inicio.elapsed();
+    async fn test_interval_counter_time() {
+        let start = Instant::now();
+        interval_counter(2).await;
+        let duration = start.elapsed();
 
         // Debe tomar al menos 2 segundos
-        assert!(duracion >= Duration::from_secs(2));
+        assert!(duration >= Duration::from_secs(2));
         // Pero no más de 2.5 segundos
-        assert!(duracion < Duration::from_millis(2500));
+        assert!(duration < Duration::from_millis(2500));
     }
 
     #[tokio::test]

@@ -39,23 +39,23 @@ pub struct Request {
 }
 
 /// Servidor que procesa requests y envía responses.
-pub async fn servidor(mut rx: mpsc::Receiver<Request>) {
+pub async fn server(mut rx: mpsc::Receiver<Request>) {
     // TODO: Implementar
     // Loop mientras haya requests:
     // 1. Recibir request
     // 2. Procesar (por ejemplo: data.to_uppercase())
     // 3. Enviar respuesta por respond_to
-    todo!("Implementar servidor")
+    todo!("Implementar server")
 }
 
 /// Cliente que envía un request y espera la respuesta.
-pub async fn cliente(tx: mpsc::Sender<Request>, data: String) -> String {
+pub async fn client(tx: mpsc::Sender<Request>, data: String) -> String {
     // TODO: Implementar
     // 1. Crear channel oneshot
     // 2. Crear Request con data y sender
     // 3. Enviar request
     // 4. Esperar y retornar respuesta
-    todo!("Implementar cliente")
+    todo!("Implementar client")
 }
 
 // =============================================================================
@@ -64,12 +64,12 @@ pub async fn cliente(tx: mpsc::Sender<Request>, data: String) -> String {
 
 /// Sistema de notificaciones con múltiples suscriptores.
 ///
-/// - Crea `num_suscriptores` suscriptores
+/// - Crea `num_subscribers` suscriptores
 /// - Publica cada mensaje a todos
 /// - Retorna los mensajes recibidos por cada suscriptor
-pub async fn sistema_notificaciones(
-    num_suscriptores: usize,
-    mensajes: Vec<String>,
+pub async fn notification_system(
+    num_subscribers: usize,
+    messages: Vec<String>,
 ) -> Vec<Vec<String>> {
     // TODO: Implementar
     // 1. Crear broadcast channel
@@ -77,7 +77,7 @@ pub async fn sistema_notificaciones(
     // 3. Cada suscriptor guarda mensajes recibidos
     // 4. Publicar todos los mensajes
     // 5. Esperar y retornar mensajes de cada suscriptor
-    todo!("Implementar sistema_notificaciones")
+    todo!("Implementar notification_system")
 }
 
 // =============================================================================
@@ -105,7 +105,7 @@ impl Default for Config {
 /// - Observa cambios en la configuración
 /// - Imprime cuando detecta un cambio
 /// - Termina cuando recibe señal de shutdown
-pub async fn worker_con_config(
+pub async fn worker_with_config(
     mut config_rx: watch::Receiver<Config>,
     mut shutdown: oneshot::Receiver<()>,
 ) -> Vec<Config> {
@@ -114,7 +114,7 @@ pub async fn worker_con_config(
     // 2. Loop con select!:
     //    - Si config cambia (config_rx.changed()), guardar nueva config
     //    - Si shutdown, retornar configs
-    todo!("Implementar worker_con_config")
+    todo!("Implementar worker_with_config")
 }
 
 // =============================================================================
@@ -128,9 +128,9 @@ async fn main() {
     // Ejercicio 1: Work Queue
     println!("--- Ejercicio 1: Work Queue ---");
     let items = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let resultados = work_queue(items.clone(), 3).await;
+    let results = work_queue(items.clone(), 3).await;
     println!("Items originales: {:?}", items);
-    println!("Resultados: {:?}", resultados);
+    println!("Resultados: {:?}", results);
     println!();
 
     // Ejercicio 2: Request/Response
@@ -138,11 +138,11 @@ async fn main() {
     let (tx, rx) = mpsc::channel::<Request>(10);
 
     // Iniciar servidor
-    let server_handle = tokio::spawn(servidor(rx));
+    let server_handle = tokio::spawn(server(rx));
 
     // Enviar requests
-    let resp1 = cliente(tx.clone(), "hola".to_string()).await;
-    let resp2 = cliente(tx.clone(), "rust".to_string()).await;
+    let resp1 = client(tx.clone(), "hola".to_string()).await;
+    let resp2 = client(tx.clone(), "rust".to_string()).await;
 
     println!("Respuesta 1: {}", resp1);
     println!("Respuesta 2: {}", resp2);
@@ -153,14 +153,14 @@ async fn main() {
 
     // Ejercicio 3: Broadcast
     println!("--- Ejercicio 3: Broadcast ---");
-    let mensajes = vec![
+    let messages = vec![
         "Mensaje 1".to_string(),
         "Mensaje 2".to_string(),
         "Mensaje 3".to_string(),
     ];
 
-    let recibidos = sistema_notificaciones(3, mensajes).await;
-    for (i, msgs) in recibidos.iter().enumerate() {
+    let received = notification_system(3, messages).await;
+    for (i, msgs) in received.iter().enumerate() {
         println!("Suscriptor {}: {:?}", i, msgs);
     }
     println!();
@@ -171,7 +171,7 @@ async fn main() {
     let (shutdown_tx, shutdown_rx) = oneshot::channel();
 
     // Iniciar worker
-    let worker_handle = tokio::spawn(worker_con_config(config_rx, shutdown_rx));
+    let worker_handle = tokio::spawn(worker_with_config(config_rx, shutdown_rx));
 
     // Cambiar configuración
     sleep(Duration::from_millis(50)).await;
@@ -193,9 +193,9 @@ async fn main() {
     sleep(Duration::from_millis(50)).await;
     shutdown_tx.send(()).ok();
 
-    let configs_vistas = worker_handle.await.unwrap();
+    let configs_seen = worker_handle.await.unwrap();
     println!("Configuraciones vistas:");
-    for cfg in configs_vistas {
+    for cfg in configs_seen {
         println!("  {:?}", cfg);
     }
 }
@@ -209,53 +209,53 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    async fn test_work_queue_procesa_todos() {
+    async fn test_work_queue_processes_all() {
         let items = vec![1, 2, 3, 4, 5];
-        let mut resultados = work_queue(items.clone(), 2).await;
-        resultados.sort();
+        let mut results = work_queue(items.clone(), 2).await;
+        results.sort();
 
         // Cada item multiplicado por 2
-        assert_eq!(resultados, vec![2, 4, 6, 8, 10]);
+        assert_eq!(results, vec![2, 4, 6, 8, 10]);
     }
 
     #[tokio::test]
-    async fn test_work_queue_multiples_workers() {
+    async fn test_work_queue_multiple_workers() {
         let items: Vec<i32> = (1..=100).collect();
-        let resultados = work_queue(items.clone(), 5).await;
+        let results = work_queue(items.clone(), 5).await;
 
-        assert_eq!(resultados.len(), 100);
+        assert_eq!(results.len(), 100);
     }
 
     #[tokio::test]
     async fn test_request_response() {
         let (tx, rx) = mpsc::channel::<Request>(10);
 
-        tokio::spawn(servidor(rx));
+        tokio::spawn(server(rx));
 
-        let resp = cliente(tx.clone(), "test".to_string()).await;
+        let resp = client(tx.clone(), "test".to_string()).await;
         assert_eq!(resp, "TEST");
 
-        let resp2 = cliente(tx, "hello".to_string()).await;
+        let resp2 = client(tx, "hello".to_string()).await;
         assert_eq!(resp2, "HELLO");
     }
 
     #[tokio::test]
-    async fn test_broadcast_todos_reciben() {
-        let mensajes = vec!["A".to_string(), "B".to_string()];
-        let recibidos = sistema_notificaciones(3, mensajes.clone()).await;
+    async fn test_broadcast_all_receive() {
+        let messages = vec!["A".to_string(), "B".to_string()];
+        let received = notification_system(3, messages.clone()).await;
 
-        assert_eq!(recibidos.len(), 3);
-        for msgs in recibidos {
-            assert_eq!(msgs, mensajes);
+        assert_eq!(received.len(), 3);
+        for msgs in received {
+            assert_eq!(msgs, messages);
         }
     }
 
     #[tokio::test]
-    async fn test_watch_detecta_cambios() {
+    async fn test_watch_detects_changes() {
         let (tx, rx) = watch::channel(Config::default());
         let (shutdown_tx, shutdown_rx) = oneshot::channel();
 
-        let handle = tokio::spawn(worker_con_config(rx, shutdown_rx));
+        let handle = tokio::spawn(worker_with_config(rx, shutdown_rx));
 
         // Cambiar config
         sleep(Duration::from_millis(10)).await;
