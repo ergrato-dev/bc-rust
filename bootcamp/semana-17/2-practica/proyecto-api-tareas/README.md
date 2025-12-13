@@ -1,72 +1,72 @@
-# 📝 Proyecto API de Tareas
+# 📝 Task API Project
 
-Proyecto final del bootcamp: API REST completa con SQLite para gestión de tareas.
+Bootcamp final project: Complete REST API with SQLite for task management.
 
-## 🎯 Objetivos
+## 🎯 Objectives
 
-- Construir una API REST funcional
-- Persistencia con SQLite
-- Validación de datos
-- Manejo de errores robusto
-- Tests de integración
-- **Documentación OpenAPI con Swagger UI**
+- Build a functional REST API
+- SQLite persistence
+- Data validation
+- Robust error handling
+- Integration tests
+- **OpenAPI documentation with Swagger UI**
 
 ---
 
-## 📚 Documentación API
+## 📚 API Documentation
 
-La API incluye documentación interactiva con **Swagger UI**:
+The API includes interactive documentation with **Swagger UI**:
 
 - **Swagger UI**: http://localhost:3000/swagger-ui
 - **OpenAPI JSON**: http://localhost:3000/api-docs/openapi.json
 
-### Características
+### Features
 
-- Documentación auto-generada con `utoipa`
-- Interfaz interactiva para probar endpoints
-- Schemas de request/response documentados
-- Ejemplos incluidos en cada endpoint
+- Auto-generated documentation with `utoipa`
+- Interactive interface to test endpoints
+- Documented request/response schemas
+- Examples included for each endpoint
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 proyecto-api-tareas/
 ├── Cargo.toml
 ├── src/
-│   ├── main.rs        # Punto de entrada + OpenAPI
-│   ├── lib.rs         # Exports de módulos
-│   ├── db.rs          # Pool SQLite
-│   ├── error.rs       # Tipos de error
+│   ├── main.rs        # Entry point + OpenAPI
+│   ├── lib.rs         # Module exports
+│   ├── db.rs          # SQLite Pool
+│   ├── error.rs       # Error types
 │   ├── models.rs      # Structs + ToSchema
 │   ├── handlers.rs    # Handlers + utoipa::path
-│   └── routes.rs      # Definición de rutas
+│   └── routes.rs      # Route definitions
 └── tests/
-    └── api_tests.rs   # Tests de integración
+    └── api_tests.rs   # Integration tests
 ```
 
 ---
 
 ## 📊 Endpoints
 
-| Método | Ruta                   | Descripción           |
-| ------ | ---------------------- | --------------------- |
-| GET    | /tareas                | Listar todas          |
-| POST   | /tareas                | Crear nueva tarea     |
-| GET    | /tareas/:id            | Obtener por ID        |
-| PUT    | /tareas/:id            | Actualizar tarea      |
-| DELETE | /tareas/:id            | Eliminar tarea        |
-| GET    | /tareas/estadisticas   | Estadísticas          |
-| GET    | /swagger-ui            | 📚 Documentación      |
+| Method | Route          | Description          |
+| ------ | -------------- | -------------------- |
+| GET    | /tasks         | List all             |
+| POST   | /tasks         | Create new task      |
+| GET    | /tasks/:id     | Get by ID            |
+| PUT    | /tasks/:id     | Update task          |
+| DELETE | /tasks/:id     | Delete task          |
+| GET    | /tasks/stats   | Statistics           |
+| GET    | /swagger-ui    | 📚 Documentation     |
 
-### 🔍 Filtros (Query Parameters)
+### 🔍 Filters (Query Parameters)
 
-| Parámetro   | Tipo   | Descripción               |
-| ----------- | ------ | ------------------------- |
-| completada  | bool   | Filtrar por estado        |
-| limite      | int    | Máximo de resultados      |
-| offset      | int    | Saltar N resultados       |
+| Parameter  | Type   | Description             |
+| ---------- | ------ | ----------------------- |
+| completed  | bool   | Filter by status        |
+| limit      | int    | Maximum results         |
+| offset     | int    | Skip N results          |
 
 ---
 
@@ -92,82 +92,82 @@ El servidor iniciará en `http://localhost:3000`.
 
 ## 📝 Ejemplos de Uso
 
-### Crear una tarea
+### Create a task
 
 ```bash
-curl -X POST http://localhost:3000/tareas \
+curl -X POST http://localhost:3000/tasks \
   -H "Content-Type: application/json" \
   -d '{
-    "titulo": "Aprender Rust",
-    "descripcion": "Completar el bootcamp"
+    "title": "Learn Rust",
+    "description": "Complete the bootcamp"
   }'
 ```
 
-**Respuesta (201 Created):**
+**Response (201 Created):**
 ```json
 {
   "id": 1,
-  "titulo": "Aprender Rust",
-  "descripcion": "Completar el bootcamp",
-  "completada": false,
-  "fecha_creacion": "2025-01-15T10:30:00Z",
-  "fecha_actualizacion": null
+  "title": "Learn Rust",
+  "description": "Complete the bootcamp",
+  "completed": false,
+  "created_at": "2025-01-15T10:30:00Z",
+  "updated_at": null
 }
 ```
 
-### Listar todas las tareas
+### List all tasks
 
 ```bash
-curl http://localhost:3000/tareas
+curl http://localhost:3000/tasks
 ```
 
-### Listar solo pendientes
+### List only pending
 
 ```bash
-curl "http://localhost:3000/tareas?completada=false"
+curl "http://localhost:3000/tasks?completed=false"
 ```
 
-### Listar con paginación
+### List with pagination
 
 ```bash
-curl "http://localhost:3000/tareas?limite=10&offset=0"
+curl "http://localhost:3000/tasks?limit=10&offset=0"
 ```
 
-### Obtener tarea por ID
+### Get task by ID
 
 ```bash
-curl http://localhost:3000/tareas/1
+curl http://localhost:3000/tasks/1
 ```
 
-### Actualizar una tarea
+### Update a task
 
 ```bash
-curl -X PUT http://localhost:3000/tareas/1 \
+curl -X PUT http://localhost:3000/tasks/1 \
   -H "Content-Type: application/json" \
   -d '{
-    "titulo": "Aprender Rust Avanzado",
-    "completada": true
+    "title": "Learn Advanced Rust",
+    "completed": true
   }'
 ```
 
-### Eliminar una tarea
+### Delete a task
 
 ```bash
-curl -X DELETE http://localhost:3000/tareas/1
+curl -X DELETE http://localhost:3000/tasks/1
 ```
 
-### Ver estadísticas
+### View statistics
 
 ```bash
-curl http://localhost:3000/tareas/estadisticas
+curl http://localhost:3000/tasks/stats
 ```
 
-**Respuesta:**
+**Response:**
 ```json
 {
   "total": 10,
-  "completadas": 3,
-  "pendientes": 7
+  "completed": 3,
+  "pending": 7
 }
 ```
 
@@ -175,10 +175,10 @@ curl http://localhost:3000/tareas/estadisticas
 
 ## ✅ Tests
 
-### Ejecutar todos los tests
+### Run all tests
 
 ```bash
-# Con Docker Compose
+# With Docker Compose
 docker compose run --rm rust-dev \
     cargo test -p proyecto-api-tareas
 
@@ -186,13 +186,13 @@ docker compose run --rm rust-dev \
 cargo test -p proyecto-api-tareas
 ```
 
-### Ejecutar un test específico
+### Run specific test
 
 ```bash
-cargo test -p proyecto-api-tareas test_crear_tarea_exitoso
+cargo test -p proyecto-api-tareas test_create_task_success
 ```
 
-### Ver output de tests
+### Show test output
 
 ```bash
 cargo test -p proyecto-api-tareas -- --nocapture
@@ -200,11 +200,11 @@ cargo test -p proyecto-api-tareas -- --nocapture
 
 ---
 
-## 🗄️ Base de Datos
+## 🗄️ Database
 
-El proyecto usa SQLite con archivo `tareas.db` creado automáticamente.
+The project uses SQLite with file `tasks.db` created automatically.
 
-### Esquema
+### Schema
 
 ```sql
 CREATE TABLE IF NOT EXISTS tareas (
@@ -212,108 +212,108 @@ CREATE TABLE IF NOT EXISTS tareas (
     titulo TEXT NOT NULL,
     descripcion TEXT,
     completada BOOLEAN NOT NULL DEFAULT FALSE,
-    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-    fecha_actualizacion DATETIME
+    creada_en DATETIME DEFAULT CURRENT_TIMESTAMP,
+    actualizada_en DATETIME
 );
 ```
 
-### Ubicación
+### Location
 
-- **Docker**: `/workspace/tareas.db`
-- **Local**: Directorio de ejecución
+- **Docker**: `/workspace/tasks.db`
+- **Local**: Execution directory
 
 ---
 
-## 🔧 Dependencias
+## 🔧 Dependencies
 
-| Crate               | Versión | Propósito                |
+| Crate               | Version | Purpose                  |
 | ------------------- | ------- | ------------------------ |
 | axum                | 0.8     | Web framework            |
-| tokio               | 1       | Runtime async            |
-| sqlx                | 0.8     | Base de datos SQLite     |
-| serde               | 1       | Serialización JSON       |
+| tokio               | 1       | Async runtime            |
+| sqlx                | 0.8     | SQLite database          |
+| serde               | 1       | JSON serialization       |
 | tower-http          | 0.6     | Middleware (CORS, trace) |
 | tracing             | 0.1     | Logging                  |
-| thiserror           | 2       | Errores tipados          |
+| thiserror           | 2       | Typed errors             |
 | **utoipa**          | **5**   | **OpenAPI/Swagger**      |
 | **utoipa-swagger-ui** | **9** | **Swagger UI**           |
 
 ---
 
-## 📁 Estructura de Código
+## 📁 Code Structure
 
-### `db.rs` - Conexión a Base de Datos
+### `db.rs` - Database Connection
 
 ```rust
-pub async fn crear_pool() -> Result<SqlitePool, sqlx::Error> {
-    // Crea pool de conexiones y tabla si no existe
+pub async fn create_pool() -> Result<SqlitePool, sqlx::Error> {
+    // Creates connection pool and table if not exists
 }
 ```
 
-### `models.rs` - Estructuras de Datos
+### `models.rs` - Data Structures
 
 ```rust
-pub struct Tarea { ... }           // Entidad principal
-pub struct CrearTarea { ... }       // DTO para crear
-pub struct ActualizarTarea { ... }  // DTO para actualizar
-pub struct FiltroTareas { ... }     // Query parameters
-pub struct EstadisticasTareas { ... } // Respuesta stats
+pub struct Task { ... }           // Main entity
+pub struct CreateTask { ... }      // DTO for creation
+pub struct UpdateTask { ... }      // DTO for update
+pub struct TaskFilters { ... }     // Query parameters
+pub struct TaskStats { ... }       // Stats response
 ```
 
-### `handlers.rs` - Lógica de Negocio
+### `handlers.rs` - Business Logic
 
 ```rust
-pub async fn listar(...) -> Result<Json<Vec<Tarea>>, ApiError>
-pub async fn crear(...) -> Result<(StatusCode, Json<Tarea>), ApiError>
-pub async fn obtener(...) -> Result<Json<Tarea>, ApiError>
-pub async fn actualizar(...) -> Result<Json<Tarea>, ApiError>
-pub async fn eliminar(...) -> Result<StatusCode, ApiError>
-pub async fn estadisticas(...) -> Result<Json<EstadisticasTareas>, ApiError>
+pub async fn list_tasks(...) -> Result<Json<Vec<Task>>, ApiError>
+pub async fn create_task(...) -> Result<(StatusCode, Json<Task>), ApiError>
+pub async fn get_task(...) -> Result<Json<Task>, ApiError>
+pub async fn update_task(...) -> Result<Json<Task>, ApiError>
+pub async fn delete_task(...) -> Result<StatusCode, ApiError>
+pub async fn get_stats(...) -> Result<Json<TaskStats>, ApiError>
 ```
 
-### `error.rs` - Manejo de Errores
+### `error.rs` - Error Handling
 
 ```rust
 pub enum ApiError {
     NotFound(String),
-    Validacion(String),
+    Validation(String),
     Database(String),
-    Interno(String),
+    Internal(String),
 }
 ```
 
 ---
 
-## 🎓 Conceptos Aplicados
+## 🎓 Applied Concepts
 
-| Semana | Concepto                 | Aplicación                      |
-| ------ | ------------------------ | ------------------------------- |
-| 2      | Ownership                | Pool compartido con Arc         |
-| 5      | Error Handling           | Result, thiserror, ApiError     |
-| 8      | Traits                   | FromRow, Serialize, Deserialize |
-| 9      | Generics                 | Json<T>, State<T>               |
-| 11     | Closures                 | Handlers async                  |
-| 13     | Concurrencia             | Tokio tasks                     |
-| 14     | Async/Await              | Todo el proyecto                |
-| 15     | Testing                  | Integration tests               |
-
----
-
-## 📋 Rúbrica de Evaluación
-
-Ver [RUBRICA_EVALUACION.md](../../RUBRICA_EVALUACION.md) para los criterios de evaluación del proyecto.
+| Week | Concept                  | Application                     |
+| ---- | ------------------------ | ------------------------------- |
+| 2    | Ownership                | Pool shared with Arc            |
+| 5    | Error Handling           | Result, thiserror, ApiError     |
+| 8    | Traits                   | FromRow, Serialize, Deserialize |
+| 9    | Generics                 | Json<T>, State<T>               |
+| 11   | Closures                 | Async handlers                  |
+| 13   | Concurrency              | Tokio tasks                     |
+| 14   | Async/Await              | Entire project                  |
+| 15   | Testing                  | Integration tests               |
 
 ---
 
-## 🚀 Extensiones Sugeridas
+## 📋 Evaluation Rubric
 
-1. **Autenticación**: JWT con headers
-2. **Categorías**: Relación many-to-many
-3. **Prioridades**: Enum con ordenamiento
-4. **Fechas límite**: Campo deadline
-5. **Búsqueda**: Full-text search
-6. **Export**: Generar CSV/JSON
+See [RUBRICA_EVALUACION.md](../../RUBRICA_EVALUACION.md) for project evaluation criteria.
 
 ---
 
-**¡Felicitaciones por completar el bootcamp! 🦀🎉**
+## 🚀 Suggested Extensions
+
+1. **Authentication**: JWT with headers
+2. **Categories**: Many-to-many relationship
+3. **Priorities**: Enum with ordering
+4. **Deadlines**: Deadline field
+5. **Search**: Full-text search
+6. **Export**: Generate CSV/JSON
+
+---
+
+**Congratulations on completing the bootcamp! 🦀🎉**

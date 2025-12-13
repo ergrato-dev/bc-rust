@@ -4,7 +4,7 @@
 
 use axum::{
     body::Body,
-    http::{Request, StatusCode},
+    http::\{Request, StatusCode},
     Router,
 };
 use proyecto_api_tareas::{db, models::Task, routes};
@@ -148,124 +148,124 @@ async fn test_list_tasks_empty() {
 
 #[tokio::test]
 async fn test_create_and_get_task() {
-    let app = crear_app().await;
+    let app = create_app().await;
 
-    // Crear tarea
+    // Create task
     let (status, body) = request(
         app.clone(),
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Tarea para obtener"
+            "title": "Task to get"
         })),
     )
     .await;
 
     assert_eq!(status, StatusCode::CREATED);
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    let id = tarea.id;
+    let task: Task = serde_json::from_str(&body).unwrap();
+    let id = task.id;
 
-    // Obtener tarea
-    let (status, body) = request(app, "GET", &format!("/tareas/{}", id), None).await;
+    // Get task
+    let (status, body) = request(app, "GET", &format!("/tasks/{}", id), None).await;
 
     assert_eq!(status, StatusCode::OK);
-    let tarea_obtenida: Tarea = serde_json::from_str(&body).unwrap();
-    assert_eq!(tarea_obtenida.id, id);
-    assert_eq!(tarea_obtenida.titulo, "Tarea para obtener");
+    let retrieved_task: Task = serde_json::from_str(&body).unwrap();
+    assert_eq!(retrieved_task.id, id);
+    assert_eq!(retrieved_task.title, "Task to get");
 }
 
 #[tokio::test]
-async fn test_obtener_tarea_no_existe() {
-    let app = crear_app().await;
+async fn test_get_task_not_found() {
+    let app = create_app().await;
 
-    let (status, _body) = request(app, "GET", "/tareas/999999", None).await;
+    let (status, _body) = request(app, "GET", "/tasks/999999", None).await;
 
     assert_eq!(status, StatusCode::NOT_FOUND);
 }
 
 // ============================================================
-// Tests de Actualización
+// Update Tests
 // ============================================================
 
 #[tokio::test]
-async fn test_actualizar_tarea_titulo() {
-    let app = crear_app().await;
+async fn test_update_task_title() {
+    let app = create_app().await;
 
-    // Crear tarea
+    // Create task
     let (_, body) = request(
         app.clone(),
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Título original"
+            "title": "Original title"
         })),
     )
     .await;
 
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    let id = tarea.id;
+    let task: Task = serde_json::from_str(&body).unwrap();
+    let id = task.id;
 
-    // Actualizar título
+    // Update title
     let (status, body) = request(
         app,
         "PUT",
-        &format!("/tareas/{}", id),
+        &format!("/tasks/{}", id),
         Some(json!({
-            "titulo": "Título actualizado"
+            "title": "Updated title"
         })),
     )
     .await;
 
     assert_eq!(status, StatusCode::OK);
-    let tarea_actualizada: Tarea = serde_json::from_str(&body).unwrap();
-    assert_eq!(tarea_actualizada.titulo, "Título actualizado");
+    let updated_task: Task = serde_json::from_str(&body).unwrap();
+    assert_eq!(updated_task.title, "Updated title");
 }
 
 #[tokio::test]
-async fn test_actualizar_tarea_completar() {
-    let app = crear_app().await;
+async fn test_update_task_complete() {
+    let app = create_app().await;
 
-    // Crear tarea
+    // Create task
     let (_, body) = request(
         app.clone(),
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Tarea a completar"
+            "title": "Task to complete"
         })),
     )
     .await;
 
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    let id = tarea.id;
-    assert!(!tarea.completada);
+    let task: Task = serde_json::from_str(&body).unwrap();
+    let id = task.id;
+    assert!(!task.completed);
 
-    // Marcar como completada
+    // Mark as completed
     let (status, body) = request(
         app,
         "PUT",
-        &format!("/tareas/{}", id),
+        &format!("/tasks/{}", id),
         Some(json!({
-            "completada": true
+            "completed": true
         })),
     )
     .await;
 
     assert_eq!(status, StatusCode::OK);
-    let tarea_actualizada: Tarea = serde_json::from_str(&body).unwrap();
-    assert!(tarea_actualizada.completada);
+    let updated_task: Task = serde_json::from_str(&body).unwrap();
+    assert!(updated_task.completed);
 }
 
 #[tokio::test]
-async fn test_actualizar_tarea_no_existe() {
-    let app = crear_app().await;
+async fn test_update_task_not_found() {
+    let app = create_app().await;
 
     let (status, _body) = request(
         app,
         "PUT",
-        "/tareas/999999",
+        "/tasks/999999",
         Some(json!({
-            "titulo": "Nuevo título"
+            "title": "New title"
         })),
     )
     .await;
@@ -274,131 +274,131 @@ async fn test_actualizar_tarea_no_existe() {
 }
 
 // ============================================================
-// Tests de Eliminación
+// Delete Tests
 // ============================================================
 
 #[tokio::test]
-async fn test_eliminar_tarea() {
-    let app = crear_app().await;
+async fn test_delete_task() {
+    let app = create_app().await;
 
-    // Crear tarea
+    // Create task
     let (_, body) = request(
         app.clone(),
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Tarea a eliminar"
+            "title": "Task to delete"
         })),
     )
     .await;
 
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    let id = tarea.id;
+    let task: Task = serde_json::from_str(&body).unwrap();
+    let id = task.id;
 
-    // Eliminar tarea
-    let (status, _body) = request(app.clone(), "DELETE", &format!("/tareas/{}", id), None).await;
+    // Delete task
+    let (status, _body) = request(app.clone(), "DELETE", &format!("/tasks/{}", id), None).await;
 
     assert_eq!(status, StatusCode::NO_CONTENT);
 
-    // Verificar que no existe
-    let (status, _body) = request(app, "GET", &format!("/tareas/{}", id), None).await;
+    // Verify it no longer exists
+    let (status, _body) = request(app, "GET", &format!("/tasks/{}", id), None).await;
     assert_eq!(status, StatusCode::NOT_FOUND);
 }
 
 #[tokio::test]
-async fn test_eliminar_tarea_no_existe() {
-    let app = crear_app().await;
+async fn test_delete_task_not_found() {
+    let app = create_app().await;
 
-    let (status, _body) = request(app, "DELETE", "/tareas/999999", None).await;
+    let (status, _body) = request(app, "DELETE", "/tasks/999999", None).await;
 
     assert_eq!(status, StatusCode::NOT_FOUND);
 }
 
 // ============================================================
-// Tests de Filtros
+// Filter Tests
 // ============================================================
 
 #[tokio::test]
-async fn test_filtrar_tareas_completadas() {
-    let app = crear_app().await;
+async fn test_filter_completed_tasks() {
+    let app = create_app().await;
 
-    // Crear tarea completada
+    // Create task
     let (_, body) = request(
         app.clone(),
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Tarea completada para filtro"
+            "title": "Completed task for filter"
         })),
     )
     .await;
 
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    let id = tarea.id;
+    let task: Task = serde_json::from_str(&body).unwrap();
+    let id = task.id;
 
-    // Marcar como completada
+    // Mark as completed
     let _ = request(
         app.clone(),
         "PUT",
-        &format!("/tareas/{}", id),
+        &format!("/tasks/{}", id),
         Some(json!({
-            "completada": true
+            "completed": true
         })),
     )
     .await;
 
-    // Filtrar completadas
-    let (status, body) = request(app, "GET", "/tareas?completada=true", None).await;
+    // Filter completed
+    let (status, body) = request(app, "GET", "/tasks?completed=true", None).await;
 
     assert_eq!(status, StatusCode::OK);
-    let tareas: Vec<Tarea> = serde_json::from_str(&body).unwrap();
+    let tasks: Vec<Task> = serde_json::from_str(&body).unwrap();
 
-    // Todas deben estar completadas
-    for tarea in &tareas {
-        assert!(tarea.completada);
+    // All must be completed
+    for task in &tasks {
+        assert!(task.completed);
     }
 }
 
 #[tokio::test]
-async fn test_filtrar_tareas_limite() {
-    let app = crear_app().await;
+async fn test_filter_tasks_limit() {
+    let app = create_app().await;
 
-    // Crear varias tareas
+    // Create several tasks
     for i in 0..5 {
         let _ = request(
             app.clone(),
             "POST",
-            "/tareas",
+            "/tasks",
             Some(json!({
-                "titulo": format!("Tarea limite {}", i)
+                "title": format!("Limit task {}", i)
             })),
         )
         .await;
     }
 
-    // Filtrar con límite
-    let (status, body) = request(app, "GET", "/tareas?limite=3", None).await;
+    // Filter with limit
+    let (status, body) = request(app, "GET", "/tasks?limit=3", None).await;
 
     assert_eq!(status, StatusCode::OK);
-    let tareas: Vec<Tarea> = serde_json::from_str(&body).unwrap();
+    let tasks: Vec<Task> = serde_json::from_str(&body).unwrap();
 
-    assert!(tareas.len() <= 3);
+    assert!(tasks.len() <= 3);
 }
 
 // ============================================================
-// Tests de Estadísticas
+// Statistics Tests
 // ============================================================
 
 #[tokio::test]
-async fn test_estadisticas() {
-    let app = crear_app().await;
+async fn test_statistics() {
+    let app = create_app().await;
 
-    let (status, body) = request(app, "GET", "/tareas/estadisticas", None).await;
+    let (status, body) = request(app, "GET", "/tasks/stats", None).await;
 
     assert_eq!(status, StatusCode::OK);
 
     let stats: serde_json::Value = serde_json::from_str(&body).unwrap();
     assert!(stats.get("total").is_some());
-    assert!(stats.get("completadas").is_some());
-    assert!(stats.get("pendientes").is_some());
+    assert!(stats.get("completed").is_some());
+    assert!(stats.get("pending").is_some());
 }
