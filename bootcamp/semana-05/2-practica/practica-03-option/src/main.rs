@@ -1,219 +1,219 @@
-// Práctica 03: Option y Métodos
-// Semana 05 - Enums y Pattern Matching
+// Practice 03: Option and Methods
+// Week 05 - Enums and Pattern Matching
 
 // ============================================
-// Ejercicio 1: Búsqueda con Option
+// Exercise 1: Search with Option
 // ============================================
 
 #[derive(Debug, Clone)]
-struct Usuario {
+struct User {
     id: u32,
-    nombre: String,
-    activo: bool,
+    name: String,
+    active: bool,
 }
 
-// TODO: Busca un usuario por ID
-// Retorna Some(&Usuario) si existe, None si no
-fn buscar_usuario(usuarios: &[Usuario], id: u32) -> Option<&Usuario> {
-    todo!("Implementar búsqueda")
+// TODO: Find a user by ID
+// Returns Some(&User) if exists, None if not
+fn find_user(users: &[User], id: u32) -> Option<&User> {
+    todo!("Implement search")
 }
 
-// TODO: Busca un usuario activo por ID
-fn buscar_usuario_activo(usuarios: &[Usuario], id: u32) -> Option<&Usuario> {
-    todo!("Usar buscar_usuario y filtrar por activo")
-}
-
-// ============================================
-// Ejercicio 2: Métodos de Option
-// ============================================
-
-// TODO: Obtiene el nombre del usuario o "Anónimo"
-fn obtener_nombre(usuarios: &[Usuario], id: u32) -> String {
-    todo!("Usar map y unwrap_or")
-}
-
-// TODO: Obtiene el nombre en mayúsculas si existe
-fn obtener_nombre_mayusculas(usuarios: &[Usuario], id: u32) -> Option<String> {
-    todo!("Usar map para transformar")
-}
-
-// TODO: Busca un usuario y luego busca su amigo
-fn buscar_amigo(usuarios: &[Usuario], id: u32, amigos: &[(u32, u32)]) -> Option<&Usuario> {
-    // amigos es una lista de (usuario_id, amigo_id)
-    todo!("Usar and_then para encadenar búsquedas")
+// TODO: Find an active user by ID
+fn find_active_user(users: &[User], id: u32) -> Option<&User> {
+    todo!("Use find_user and filter by active")
 }
 
 // ============================================
-// Ejercicio 3: Option en Structs
+// Exercise 2: Option Methods
+// ============================================
+
+// TODO: Get the user name or "Anonymous"
+fn get_name(users: &[User], id: u32) -> String {
+    todo!("Use map and unwrap_or")
+}
+
+// TODO: Get the name in uppercase if exists
+fn get_name_uppercase(users: &[User], id: u32) -> Option<String> {
+    todo!("Use map to transform")
+}
+
+// TODO: Find a user and then find their friend
+fn find_friend(users: &[User], id: u32, friends: &[(u32, u32)]) -> Option<&User> {
+    // friends is a list of (user_id, friend_id)
+    todo!("Use and_then to chain searches")
+}
+
+// ============================================
+// Exercise 3: Option in Structs
 // ============================================
 
 #[derive(Debug)]
-struct Perfil {
-    nombre: String,
+struct Profile {
+    name: String,
     email: Option<String>,
-    telefono: Option<String>,
-    edad: Option<u8>,
+    phone: Option<String>,
+    age: Option<u8>,
 }
 
-impl Perfil {
-    fn nuevo(nombre: &str) -> Self {
-        Perfil {
-            nombre: nombre.to_string(),
+impl Profile {
+    fn new(name: &str) -> Self {
+        Profile {
+            name: name.to_string(),
             email: None,
-            telefono: None,
-            edad: None,
+            phone: None,
+            age: None,
         }
     }
 
-    // TODO: Setter que retorna Self para encadenar
-    fn con_email(mut self, email: &str) -> Self {
-        todo!("Establecer email y retornar self")
+    // TODO: Setter that returns Self for chaining
+    fn with_email(mut self, email: &str) -> Self {
+        todo!("Set email and return self")
     }
 
-    fn con_telefono(mut self, telefono: &str) -> Self {
-        todo!("Establecer telefono y retornar self")
+    fn with_phone(mut self, phone: &str) -> Self {
+        todo!("Set phone and return self")
     }
 
-    fn con_edad(mut self, edad: u8) -> Self {
-        todo!("Establecer edad y retornar self")
+    fn with_age(mut self, age: u8) -> Self {
+        todo!("Set age and return self")
     }
 
-    // TODO: Obtener email o un valor por defecto
-    fn email_o_default(&self) -> &str {
-        todo!("Usar as_ref y unwrap_or")
+    // TODO: Get email or a default value
+    fn email_or_default(&self) -> &str {
+        todo!("Use as_ref and unwrap_or")
     }
 
-    // TODO: Verificar si el perfil está completo
-    fn esta_completo(&self) -> bool {
-        todo!("Verificar que todos los Option son Some")
+    // TODO: Check if the profile is complete
+    fn is_complete(&self) -> bool {
+        todo!("Check that all Options are Some")
     }
 
-    // TODO: Obtener información de contacto
-    fn info_contacto(&self) -> String {
-        todo!("Combinar email y telefono disponibles")
+    // TODO: Get contact information
+    fn contact_info(&self) -> String {
+        todo!("Combine available email and phone")
     }
 }
 
 // ============================================
-// Ejercicio 4: Encadenamiento con ?
+// Exercise 4: Chaining with ?
 // ============================================
 
-// TODO: Obtener el primer carácter del email
-fn primer_caracter_email(perfil: &Perfil) -> Option<char> {
-    todo!("Usar ? para propagar None")
+// TODO: Get the first character of the email
+fn first_email_char(profile: &Profile) -> Option<char> {
+    todo!("Use ? to propagate None")
 }
 
 fn main() {
-    let usuarios = vec![
-        Usuario { id: 1, nombre: "Ana".to_string(), activo: true },
-        Usuario { id: 2, nombre: "Bob".to_string(), activo: false },
-        Usuario { id: 3, nombre: "Carlos".to_string(), activo: true },
+    let users = vec![
+        User { id: 1, name: "Ana".to_string(), active: true },
+        User { id: 2, name: "Bob".to_string(), active: false },
+        User { id: 3, name: "Carlos".to_string(), active: true },
     ];
 
-    // Búsqueda básica
-    if let Some(u) = buscar_usuario(&usuarios, 1) {
-        println!("Encontrado: {:?}", u);
+    // Basic search
+    if let Some(u) = find_user(&users, 1) {
+        println!("Found: {:?}", u);
     }
 
-    // Nombre con fallback
-    println!("Usuario 1: {}", obtener_nombre(&usuarios, 1));
-    println!("Usuario 99: {}", obtener_nombre(&usuarios, 99));
+    // Name with fallback
+    println!("User 1: {}", get_name(&users, 1));
+    println!("User 99: {}", get_name(&users, 99));
 
-    // Perfil con builder pattern
-    let perfil = Perfil::nuevo("Diana")
-        .con_email("diana@email.com")
-        .con_edad(28);
+    // Profile with builder pattern
+    let profile = Profile::new("Diana")
+        .with_email("diana@email.com")
+        .with_age(28);
 
-    println!("Email: {}", perfil.email_o_default());
-    println!("Completo: {}", perfil.esta_completo());
+    println!("Email: {}", profile.email_or_default());
+    println!("Complete: {}", profile.is_complete());
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    fn crear_usuarios() -> Vec<Usuario> {
+    fn create_users() -> Vec<User> {
         vec![
-            Usuario { id: 1, nombre: "Ana".to_string(), activo: true },
-            Usuario { id: 2, nombre: "Bob".to_string(), activo: false },
-            Usuario { id: 3, nombre: "Carlos".to_string(), activo: true },
+            User { id: 1, name: "Ana".to_string(), active: true },
+            User { id: 2, name: "Bob".to_string(), active: false },
+            User { id: 3, name: "Carlos".to_string(), active: true },
         ]
     }
 
     #[test]
-    fn test_buscar_usuario_existente() {
-        let usuarios = crear_usuarios();
-        let resultado = buscar_usuario(&usuarios, 1);
-        assert!(resultado.is_some());
-        assert_eq!(resultado.unwrap().nombre, "Ana");
+    fn test_find_user_existing() {
+        let users = create_users();
+        let result = find_user(&users, 1);
+        assert!(result.is_some());
+        assert_eq!(result.unwrap().name, "Ana");
     }
 
     #[test]
-    fn test_buscar_usuario_no_existente() {
-        let usuarios = crear_usuarios();
-        assert!(buscar_usuario(&usuarios, 99).is_none());
+    fn test_find_user_not_existing() {
+        let users = create_users();
+        assert!(find_user(&users, 99).is_none());
     }
 
     #[test]
-    fn test_buscar_usuario_activo() {
-        let usuarios = crear_usuarios();
-        assert!(buscar_usuario_activo(&usuarios, 1).is_some());
-        assert!(buscar_usuario_activo(&usuarios, 2).is_none()); // Bob no está activo
+    fn test_find_active_user() {
+        let users = create_users();
+        assert!(find_active_user(&users, 1).is_some());
+        assert!(find_active_user(&users, 2).is_none()); // Bob is not active
     }
 
     #[test]
-    fn test_obtener_nombre_existente() {
-        let usuarios = crear_usuarios();
-        assert_eq!(obtener_nombre(&usuarios, 1), "Ana");
+    fn test_get_name_existing() {
+        let users = create_users();
+        assert_eq!(get_name(&users, 1), "Ana");
     }
 
     #[test]
-    fn test_obtener_nombre_no_existente() {
-        let usuarios = crear_usuarios();
-        assert_eq!(obtener_nombre(&usuarios, 99), "Anónimo");
+    fn test_get_name_not_existing() {
+        let users = create_users();
+        assert_eq!(get_name(&users, 99), "Anonymous");
     }
 
     #[test]
-    fn test_obtener_nombre_mayusculas() {
-        let usuarios = crear_usuarios();
-        assert_eq!(obtener_nombre_mayusculas(&usuarios, 1), Some("ANA".to_string()));
-        assert!(obtener_nombre_mayusculas(&usuarios, 99).is_none());
+    fn test_get_name_uppercase() {
+        let users = create_users();
+        assert_eq!(get_name_uppercase(&users, 1), Some("ANA".to_string()));
+        assert!(get_name_uppercase(&users, 99).is_none());
     }
 
     #[test]
-    fn test_perfil_builder() {
-        let perfil = Perfil::nuevo("Test")
-            .con_email("test@test.com")
-            .con_telefono("123456");
+    fn test_profile_builder() {
+        let profile = Profile::new("Test")
+            .with_email("test@test.com")
+            .with_phone("123456");
         
-        assert_eq!(perfil.email, Some("test@test.com".to_string()));
-        assert_eq!(perfil.telefono, Some("123456".to_string()));
+        assert_eq!(profile.email, Some("test@test.com".to_string()));
+        assert_eq!(profile.phone, Some("123456".to_string()));
     }
 
     #[test]
-    fn test_perfil_email_default() {
-        let perfil = Perfil::nuevo("Test");
-        assert_eq!(perfil.email_o_default(), "sin email");
+    fn test_profile_email_default() {
+        let profile = Profile::new("Test");
+        assert_eq!(profile.email_or_default(), "no email");
     }
 
     #[test]
-    fn test_perfil_completo() {
-        let incompleto = Perfil::nuevo("Test").con_email("a@b.com");
-        let completo = Perfil::nuevo("Test")
-            .con_email("a@b.com")
-            .con_telefono("123")
-            .con_edad(25);
+    fn test_profile_complete() {
+        let incomplete = Profile::new("Test").with_email("a@b.com");
+        let complete = Profile::new("Test")
+            .with_email("a@b.com")
+            .with_phone("123")
+            .with_age(25);
         
-        assert!(!incompleto.esta_completo());
-        assert!(completo.esta_completo());
+        assert!(!incomplete.is_complete());
+        assert!(complete.is_complete());
     }
 
     #[test]
-    fn test_primer_caracter_email() {
-        let con_email = Perfil::nuevo("Test").con_email("abc@test.com");
-        let sin_email = Perfil::nuevo("Test");
+    fn test_first_email_char() {
+        let with_email = Profile::new("Test").with_email("abc@test.com");
+        let without_email = Profile::new("Test");
         
-        assert_eq!(primer_caracter_email(&con_email), Some('a'));
-        assert!(primer_caracter_email(&sin_email).is_none());
+        assert_eq!(first_email_char(&with_email), Some('a'));
+        assert!(first_email_char(&without_email).is_none());
     }
 }

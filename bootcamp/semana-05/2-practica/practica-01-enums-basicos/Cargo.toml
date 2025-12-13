@@ -2,5 +2,8 @@
 name = "practica-01-enums-basicos"
 version = "0.1.0"
 edition = "2024"
+description = "Practice 01: Basic Enums - Weekday enum with methods"
+
+[workspace]
 
 [dependencies]

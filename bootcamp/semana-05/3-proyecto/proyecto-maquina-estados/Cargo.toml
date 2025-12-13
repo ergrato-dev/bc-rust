@@ -2,5 +2,8 @@
 name = "proyecto-maquina-estados"
 version = "0.1.0"
 edition = "2024"
+description = "Project: State Machine - Order management system with status transitions"
+
+[workspace]
 
 [dependencies]
