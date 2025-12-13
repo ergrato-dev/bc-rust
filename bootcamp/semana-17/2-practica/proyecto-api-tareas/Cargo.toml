@@ -1,0 +1,27 @@
+[package]
+name = "proyecto-api-tareas"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Framework web
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+
+# Serialización
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Base de datos SQLite
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite"] }
+
+# Middleware y utilidades
+tower-http = { version = "0.6", features = ["trace", "cors"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Manejo de errores
+thiserror = "2"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
