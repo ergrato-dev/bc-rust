@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .type { font-family: 'Fira Code', monospace; font-size: 11px; fill: #4ec9b0; }
+    .box { fill: #2d2d2d; stroke: #454545; }
+    .box-mpsc { fill: #1e3a5f; stroke: #3b82f6; }
+    .box-oneshot { fill: #1e3f2e; stroke: #22c55e; }
+    .box-broadcast { fill: #3f1e5f; stroke: #a855f7; }
+    .box-watch { fill: #3f2e1e; stroke: #f59e0b; }
+    .arrow { stroke: #808080; fill: none; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">Patrones Async: Channels y Sincronizacion</text>
+  
+  <!-- MPSC Channel -->
+  <g transform="translate(50, 55)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">mpsc - Multiple Producer, Single Consumer</text>
+    
+    <rect x="0" y="15" width="360" height="130" class="box-mpsc" rx="8"/>
+    
+    <!-- Producers -->
+    <rect x="20" y="35" width="60" height="30" class="box" rx="3"/>
+    <text x="50" y="55" text-anchor="middle" class="small">Prod 1</text>
+    
+    <rect x="20" y="75" width="60" height="30" class="box" rx="3"/>
+    <text x="50" y="95" text-anchor="middle" class="small">Prod 2</text>
+    
+    <rect x="20" y="115" width="60" height="30" class="box" rx="3"/>
+    <text x="50" y="135" text-anchor="middle" class="small">Prod N</text>
+    
+    <!-- Channel -->
+    <rect x="130" y="55" width="100" height="50" fill="#252526" stroke="#3b82f6" rx="5"/>
+    <text x="180" y="75" text-anchor="middle" class="type">Channel</text>
+    <text x="180" y="92" text-anchor="middle" class="small">buffer: N</text>
+    
+    <!-- Consumer -->
+    <rect x="280" y="55" width="60" height="50" class="box" rx="3"/>
+    <text x="310" y="85" text-anchor="middle" class="small">Consumer</text>
+    
+    <!-- Arrows -->
+    <path d="M80,50 L130,70" class="arrow"/>
+    <path d="M80,90 L130,80" class="arrow"/>
+    <path d="M80,130 L130,90" class="arrow"/>
+    <path d="M230,80 L280,80" class="arrow"/>
+  </g>
+  
+  <!-- Oneshot Channel -->
+  <g transform="translate(450, 55)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">oneshot - Un solo mensaje</text>
+    
+    <rect x="0" y="15" width="360" height="130" class="box-oneshot" rx="8"/>
+    
+    <rect x="30" y="55" width="80" height="50" class="box" rx="3"/>
+    <text x="70" y="75" text-anchor="middle" class="small">Sender</text>
+    <text x="70" y="92" text-anchor="middle" class="code">tx.send()</text>
+    
+    <rect x="160" y="55" width="60" height="50" fill="#252526" stroke="#22c55e" rx="5"/>
+    <text x="190" y="85" text-anchor="middle" class="small">1 msg</text>
+    
+    <rect x="270" y="55" width="80" height="50" class="box" rx="3"/>
+    <text x="310" y="75" text-anchor="middle" class="small">Receiver</text>
+    <text x="310" y="92" text-anchor="middle" class="code">rx.await</text>
+    
+    <path d="M110,80 L160,80" class="arrow"/>
+    <path d="M220,80 L270,80" class="arrow"/>
+    
+    <text x="180" y="125" text-anchor="middle" class="small">Ideal para request-response</text>
+  </g>
+  
+  <!-- Broadcast Channel -->
+  <g transform="translate(50, 210)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">broadcast - Multiples receptores</text>
+    
+    <rect x="0" y="15" width="360" height="130" class="box-broadcast" rx="8"/>
+    
+    <rect x="30" y="55" width="70" height="50" class="box" rx="3"/>
+    <text x="65" y="85" text-anchor="middle" class="small">Sender</text>
+    
+    <rect x="150" y="35" width="60" height="30" fill="#252526" stroke="#a855f7" rx="5"/>
+    <text x="180" y="55" text-anchor="middle" class="small">Sub 1</text>
+    
+    <rect x="150" y="75" width="60" height="30" fill="#252526" stroke="#a855f7" rx="5"/>
+    <text x="180" y="95" text-anchor="middle" class="small">Sub 2</text>
+    
+    <rect x="150" y="115" width="60" height="30" fill="#252526" stroke="#a855f7" rx="5"/>
+    <text x="180" y="135" text-anchor="middle" class="small">Sub N</text>
+    
+    <rect x="260" y="35" width="80" height="30" class="box" rx="3"/>
+    <text x="300" y="55" text-anchor="middle" class="small">Recv 1</text>
+    
+    <rect x="260" y="75" width="80" height="30" class="box" rx="3"/>
+    <text x="300" y="95" text-anchor="middle" class="small">Recv 2</text>
+    
+    <rect x="260" y="115" width="80" height="30" class="box" rx="3"/>
+    <text x="300" y="135" text-anchor="middle" class="small">Recv N</text>
+    
+    <path d="M100,80 L150,50" class="arrow"/>
+    <path d="M100,80 L150,90" class="arrow"/>
+    <path d="M100,80 L150,130" class="arrow"/>
+    <path d="M210,50 L260,50" class="arrow"/>
+    <path d="M210,90 L260,90" class="arrow"/>
+    <path d="M210,130 L260,130" class="arrow"/>
+  </g>
+  
+  <!-- Watch Channel -->
+  <g transform="translate(450, 210)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">watch - Ultimo valor (config)</text>
+    
+    <rect x="0" y="15" width="360" height="130" class="box-watch" rx="8"/>
+    
+    <rect x="30" y="55" width="80" height="50" class="box" rx="3"/>
+    <text x="70" y="75" text-anchor="middle" class="small">Sender</text>
+    <text x="70" y="92" text-anchor="middle" class="code">tx.send()</text>
+    
+    <rect x="150" y="55" width="70" height="50" fill="#252526" stroke="#f59e0b" rx="5"/>
+    <text x="185" y="75" text-anchor="middle" class="small">Latest</text>
+    <text x="185" y="92" text-anchor="middle" class="small">Value</text>
+    
+    <rect x="260" y="35" width="80" height="30" class="box" rx="3"/>
+    <text x="300" y="55" text-anchor="middle" class="small">Watcher 1</text>
+    
+    <rect x="260" y="75" width="80" height="30" class="box" rx="3"/>
+    <text x="300" y="95" text-anchor="middle" class="small">Watcher 2</text>
+    
+    <rect x="260" y="115" width="80" height="30" class="box" rx="3"/>
+    <text x="300" y="135" text-anchor="middle" class="small">Watcher N</text>
+    
+    <path d="M110,80 L150,80" class="arrow"/>
+    <path d="M220,70 L260,50" class="arrow"/>
+    <path d="M220,80 L260,90" class="arrow"/>
+    <path d="M220,90 L260,130" class="arrow"/>
+  </g>
+  
+  <!-- Semaphore -->
+  <g transform="translate(50, 365)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">Semaphore - Rate Limiting</text>
+    
+    <rect x="0" y="15" width="360" height="100" class="box" rx="8"/>
+    
+    <rect x="20" y="35" width="40" height="25" class="box" rx="3"/>
+    <text x="40" y="52" text-anchor="middle" class="small">T1</text>
+    
+    <rect x="70" y="35" width="40" height="25" class="box" rx="3"/>
+    <text x="90" y="52" text-anchor="middle" class="small">T2</text>
+    
+    <rect x="120" y="35" width="40" height="25" class="box" rx="3"/>
+    <text x="140" y="52" text-anchor="middle" class="small">T3</text>
+    
+    <rect x="170" y="35" width="40" height="25" fill="#7f1d1d" stroke="#ef4444" rx="3"/>
+    <text x="190" y="52" text-anchor="middle" class="small">T4</text>
+    
+    <rect x="220" y="35" width="40" height="25" fill="#7f1d1d" stroke="#ef4444" rx="3"/>
+    <text x="240" y="52" text-anchor="middle" class="small">T5</text>
+    
+    <rect x="270" y="35" width="70" height="40" fill="#252526" stroke="#CE422B" rx="5"/>
+    <text x="305" y="52" text-anchor="middle" class="small">Semaphore</text>
+    <text x="305" y="67" text-anchor="middle" class="small">permits: 3</text>
+    
+    <text x="180" y="100" text-anchor="middle" class="small">T1, T2, T3 ejecutan. T4, T5 esperan permiso.</text>
+  </g>
+  
+  <!-- Graceful Shutdown -->
+  <g transform="translate(450, 365)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">Graceful Shutdown</text>
+    
+    <rect x="0" y="15" width="360" height="100" class="box" rx="8"/>
+    
+    <rect x="20" y="35" width="80" height="60" class="box" rx="5"/>
+    <text x="60" y="55" text-anchor="middle" class="small">Main</text>
+    <text x="60" y="70" text-anchor="middle" class="code">ctrl_c()</text>
+    <text x="60" y="85" text-anchor="middle" class="small">.await</text>
+    
+    <rect x="140" y="35" width="80" height="60" fill="#252526" stroke="#CE422B" rx="5"/>
+    <text x="180" y="55" text-anchor="middle" class="small">Cancellation</text>
+    <text x="180" y="70" text-anchor="middle" class="small">Token</text>
+    <text x="180" y="85" text-anchor="middle" class="code">.cancel()</text>
+    
+    <rect x="260" y="35" width="80" height="60" class="box" rx="5"/>
+    <text x="300" y="55" text-anchor="middle" class="small">Workers</text>
+    <text x="300" y="70" text-anchor="middle" class="code">select!</text>
+    <text x="300" y="85" text-anchor="middle" class="small">cancelled()</text>
+    
+    <path d="M100,65 L140,65" class="arrow"/>
+    <path d="M220,65 L260,65" class="arrow"/>
+  </g>
+  
+  <!-- Summary Table -->
+  <g transform="translate(50, 490)">
+    <rect x="0" y="0" width="800" height="75" fill="#252526" stroke="#3c3c3c" rx="5"/>
+    
+    <text x="100" y="20" text-anchor="middle" class="label">Channel</text>
+    <text x="300" y="20" text-anchor="middle" class="label">Productores</text>
+    <text x="500" y="20" text-anchor="middle" class="label">Consumidores</text>
+    <text x="700" y="20" text-anchor="middle" class="label">Uso</text>
+    
+    <line x1="200" y1="5" x2="200" y2="70" stroke="#3c3c3c"/>
+    <line x1="400" y1="5" x2="400" y2="70" stroke="#3c3c3c"/>
+    <line x1="600" y1="5" x2="600" y2="70" stroke="#3c3c3c"/>
+    <line x1="5" y1="28" x2="795" y2="28" stroke="#3c3c3c"/>
+    
+    <text x="100" y="42" text-anchor="middle" class="code">mpsc</text>
+    <text x="300" y="42" text-anchor="middle" class="small">Multiples</text>
+    <text x="500" y="42" text-anchor="middle" class="small">Uno</text>
+    <text x="700" y="42" text-anchor="middle" class="small">Work queue</text>
+    
+    <text x="100" y="55" text-anchor="middle" class="code">oneshot</text>
+    <text x="300" y="55" text-anchor="middle" class="small">Uno</text>
+    <text x="500" y="55" text-anchor="middle" class="small">Uno</text>
+    <text x="700" y="55" text-anchor="middle" class="small">Request/Response</text>
+    
+    <text x="100" y="68" text-anchor="middle" class="code">broadcast</text>
+    <text x="300" y="68" text-anchor="middle" class="small">Uno</text>
+    <text x="500" y="68" text-anchor="middle" class="small">Multiples</text>
+    <text x="700" y="68" text-anchor="middle" class="small">Pub/Sub</text>
+  </g>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+</svg>

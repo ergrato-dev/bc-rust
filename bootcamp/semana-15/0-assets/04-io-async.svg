@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .type { font-family: 'Fira Code', monospace; font-size: 11px; fill: #4ec9b0; }
+    .string { font-family: 'Fira Code', monospace; font-size: 11px; fill: #ce9178; }
+    .box { fill: #2d2d2d; stroke: #454545; }
+    .box-fs { fill: #1e3a5f; stroke: #3b82f6; }
+    .box-net { fill: #1e3f2e; stroke: #22c55e; }
+    .box-stream { fill: #3f1e5f; stroke: #a855f7; }
+    .arrow { stroke: #808080; fill: none; stroke-width: 2; marker-end: url(#arrowhead); }
+    .bidirectional { stroke: #22c55e; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">I/O Asincrono con Tokio</text>
+  
+  <!-- File System Section -->
+  <g transform="translate(50, 55)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">tokio::fs - Sistema de Archivos</text>
+    
+    <rect x="0" y="15" width="360" height="160" class="box-fs" rx="8"/>
+    
+    <!-- Read operations -->
+    <g transform="translate(15, 35)">
+      <text x="0" y="0" class="label">Lectura:</text>
+      <rect x="0" y="10" width="150" height="25" class="box" rx="3"/>
+      <text x="10" y="27" class="code">read_to_string()</text>
+      
+      <rect x="0" y="45" width="150" height="25" class="box" rx="3"/>
+      <text x="10" y="62" class="code">read()</text>
+      
+      <rect x="0" y="80" width="150" height="25" class="box" rx="3"/>
+      <text x="10" y="97" class="code">File::open()</text>
+    </g>
+    
+    <!-- Write operations -->
+    <g transform="translate(190, 35)">
+      <text x="0" y="0" class="label">Escritura:</text>
+      <rect x="0" y="10" width="150" height="25" class="box" rx="3"/>
+      <text x="10" y="27" class="code">write()</text>
+      
+      <rect x="0" y="45" width="150" height="25" class="box" rx="3"/>
+      <text x="10" y="62" class="code">write_all()</text>
+      
+      <rect x="0" y="80" width="150" height="25" class="box" rx="3"/>
+      <text x="10" y="97" class="code">File::create()</text>
+    </g>
+    
+    <text x="180" y="155" text-anchor="middle" class="small">Nota: usa spawn_blocking internamente</text>
+  </g>
+  
+  <!-- Networking Section -->
+  <g transform="translate(450, 55)">
+    <text x="200" y="0" text-anchor="middle" class="subtitle">tokio::net - Networking</text>
+    
+    <rect x="0" y="15" width="400" height="160" class="box-net" rx="8"/>
+    
+    <!-- TCP -->
+    <g transform="translate(15, 35)">
+      <text x="0" y="0" class="label">TCP:</text>
+      
+      <rect x="0" y="10" width="110" height="45" class="box" rx="3"/>
+      <text x="55" y="27" text-anchor="middle" class="type">TcpListener</text>
+      <text x="55" y="42" text-anchor="middle" class="small">.bind()</text>
+      <text x="55" y="52" text-anchor="middle" class="small">.accept()</text>
+      
+      <rect x="130" y="10" width="110" height="45" class="box" rx="3"/>
+      <text x="185" y="27" text-anchor="middle" class="type">TcpStream</text>
+      <text x="185" y="42" text-anchor="middle" class="small">.connect()</text>
+      <text x="185" y="52" text-anchor="middle" class="small">.split()</text>
+    </g>
+    
+    <!-- UDP -->
+    <g transform="translate(15, 100)">
+      <text x="0" y="0" class="label">UDP:</text>
+      
+      <rect x="0" y="10" width="230" height="35" class="box" rx="3"/>
+      <text x="115" y="27" text-anchor="middle" class="type">UdpSocket</text>
+      <text x="115" y="42" text-anchor="middle" class="small">.bind() .send_to() .recv_from()</text>
+    </g>
+    
+    <!-- Unix -->
+    <g transform="translate(270, 35)">
+      <text x="0" y="0" class="label">Unix:</text>
+      
+      <rect x="0" y="10" width="110" height="100" class="box" rx="3"/>
+      <text x="55" y="30" text-anchor="middle" class="type">UnixListener</text>
+      <text x="55" y="50" text-anchor="middle" class="type">UnixStream</text>
+      <text x="55" y="70" text-anchor="middle" class="type">UnixDatagram</text>
+      <text x="55" y="90" text-anchor="middle" class="small">(Solo Unix)</text>
+    </g>
+  </g>
+  
+  <!-- Traits Section -->
+  <g transform="translate(50, 240)">
+    <text x="200" y="0" text-anchor="middle" class="subtitle">Traits de I/O Async</text>
+    
+    <rect x="0" y="15" width="400" height="100" class="box" rx="8"/>
+    
+    <!-- AsyncRead -->
+    <g transform="translate(15, 30)">
+      <rect x="0" y="0" width="170" height="70" fill="#252526" stroke="#3b82f6" rx="5"/>
+      <text x="85" y="20" text-anchor="middle" class="type">AsyncRead</text>
+      <text x="10" y="40" class="code">.read()</text>
+      <text x="10" y="55" class="code">.read_to_end()</text>
+      <text x="10" y="70" class="code">.read_exact()</text>
+    </g>
+    
+    <!-- AsyncWrite -->
+    <g transform="translate(210, 30)">
+      <rect x="0" y="0" width="170" height="70" fill="#252526" stroke="#22c55e" rx="5"/>
+      <text x="85" y="20" text-anchor="middle" class="type">AsyncWrite</text>
+      <text x="10" y="40" class="code">.write()</text>
+      <text x="10" y="55" class="code">.write_all()</text>
+      <text x="10" y="70" class="code">.flush()</text>
+    </g>
+  </g>
+  
+  <!-- Buffering Section -->
+  <g transform="translate(490, 240)">
+    <text x="180" y="0" text-anchor="middle" class="subtitle">Buffering</text>
+    
+    <rect x="0" y="15" width="360" height="100" class="box" rx="8"/>
+    
+    <g transform="translate(15, 30)">
+      <rect x="0" y="0" width="150" height="70" class="box" rx="5"/>
+      <text x="75" y="20" text-anchor="middle" class="type">BufReader</text>
+      <text x="75" y="40" text-anchor="middle" class="small">Lectura eficiente</text>
+      <text x="75" y="55" text-anchor="middle" class="code">.lines()</text>
+      <text x="75" y="70" text-anchor="middle" class="code">.read_line()</text>
+    </g>
+    
+    <g transform="translate(190, 30)">
+      <rect x="0" y="0" width="150" height="70" class="box" rx="5"/>
+      <text x="75" y="20" text-anchor="middle" class="type">BufWriter</text>
+      <text x="75" y="40" text-anchor="middle" class="small">Escritura eficiente</text>
+      <text x="75" y="55" text-anchor="middle" class="small">Agrupa writes</text>
+      <text x="75" y="70" text-anchor="middle" class="code">.flush()</text>
+    </g>
+  </g>
+  
+  <!-- TCP Server/Client Diagram -->
+  <g transform="translate(50, 370)">
+    <text x="400" y="0" text-anchor="middle" class="subtitle">Flujo TCP Server-Client</text>
+    
+    <!-- Server -->
+    <rect x="50" y="25" width="150" height="100" class="box-net" rx="8"/>
+    <text x="125" y="50" text-anchor="middle" class="label">Server</text>
+    <text x="125" y="70" text-anchor="middle" class="code">TcpListener</text>
+    <text x="125" y="90" text-anchor="middle" class="small">.bind()</text>
+    <text x="125" y="105" text-anchor="middle" class="small">.accept() loop</text>
+    
+    <!-- Client -->
+    <rect x="600" y="25" width="150" height="100" class="box-net" rx="8"/>
+    <text x="675" y="50" text-anchor="middle" class="label">Client</text>
+    <text x="675" y="70" text-anchor="middle" class="code">TcpStream</text>
+    <text x="675" y="90" text-anchor="middle" class="small">.connect()</text>
+    <text x="675" y="105" text-anchor="middle" class="small">read/write</text>
+    
+    <!-- Handler -->
+    <rect x="300" y="25" width="200" height="100" class="box" rx="8"/>
+    <text x="400" y="50" text-anchor="middle" class="label">Handler (por conexion)</text>
+    <text x="400" y="70" text-anchor="middle" class="code">tokio::spawn()</text>
+    <text x="400" y="90" text-anchor="middle" class="small">split() -&gt; reader + writer</text>
+    <text x="400" y="105" text-anchor="middle" class="small">Procesa requests</text>
+    
+    <!-- Arrows -->
+    <path d="M200,75 L300,75" class="arrow"/>
+    <text x="250" y="68" text-anchor="middle" class="small">spawn</text>
+    
+    <path d="M500,60 L600,60" class="arrow bidirectional"/>
+    <path d="M600,90 L500,90" class="arrow bidirectional"/>
+    <text x="550" y="55" text-anchor="middle" class="small">read</text>
+    <text x="550" y="105" text-anchor="middle" class="small">write</text>
+  </g>
+  
+  <!-- Timeout info -->
+  <g transform="translate(50, 490)">
+    <rect x="0" y="0" width="800" height="25" fill="#252526" stroke="#3c3c3c" rx="3"/>
+    <text x="400" y="17" text-anchor="middle" class="code">tokio::time::timeout(Duration, future).await // Limita tiempo de cualquier operacion I/O</text>
+  </g>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .accent { fill: #CE422B; }
+    .box-sync { fill: #2d2d2d; stroke: #454545; }
+    .box-thread { fill: #1e3a5f; stroke: #3b82f6; }
+    .box-async { fill: #1e3f2e; stroke: #22c55e; }
+    .arrow { stroke: #808080; fill: none; stroke-width: 2; }
+    .blocked { fill: #7f1d1d; stroke: #ef4444; }
+    .ready { fill: #14532d; stroke: #22c55e; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">Modelos de Ejecucion: Sincrono vs Threads vs Async</text>
+  
+  <!-- Sync Model -->
+  <g transform="translate(50, 60)">
+    <text x="100" y="0" text-anchor="middle" class="subtitle">SINCRONO</text>
+    <text x="100" y="15" text-anchor="middle" class="small">(1 thread, bloqueante)</text>
+    
+    <rect x="0" y="30" width="200" height="350" class="box-sync" rx="5"/>
+    
+    <!-- Thread -->
+    <rect x="80" y="50" width="40" height="25" class="ready" rx="3"/>
+    <text x="100" y="67" text-anchor="middle" class="label">Task 1</text>
+    
+    <rect x="80" y="85" width="40" height="60" class="blocked" rx="3"/>
+    <text x="100" y="115" text-anchor="middle" class="small">WAIT</text>
+    
+    <rect x="80" y="155" width="40" height="25" class="ready" rx="3"/>
+    <text x="100" y="172" text-anchor="middle" class="label">Task 2</text>
+    
+    <rect x="80" y="190" width="40" height="60" class="blocked" rx="3"/>
+    <text x="100" y="220" text-anchor="middle" class="small">WAIT</text>
+    
+    <rect x="80" y="260" width="40" height="25" class="ready" rx="3"/>
+    <text x="100" y="277" text-anchor="middle" class="label">Task 3</text>
+    
+    <rect x="80" y="295" width="40" height="60" class="blocked" rx="3"/>
+    <text x="100" y="325" text-anchor="middle" class="small">WAIT</text>
+    
+    <!-- Time arrow -->
+    <line x1="15" y1="45" x2="15" y2="370" class="arrow" marker-end="url(#arrowhead)"/>
+    <text x="20" y="210" class="small" transform="rotate(-90, 20, 210)">Tiempo</text>
+  </g>
+  
+  <!-- Multi-thread Model -->
+  <g transform="translate(300, 60)">
+    <text x="150" y="0" text-anchor="middle" class="subtitle">MULTI-THREAD</text>
+    <text x="150" y="15" text-anchor="middle" class="small">(N threads, paralelo)</text>
+    
+    <rect x="0" y="30" width="300" height="350" class="box-thread" rx="5"/>
+    
+    <!-- Thread 1 -->
+    <rect x="30" y="50" width="40" height="25" class="ready" rx="3"/>
+    <text x="50" y="67" text-anchor="middle" class="label">T1</text>
+    <rect x="30" y="85" width="40" height="60" class="blocked" rx="3"/>
+    <text x="50" y="115" text-anchor="middle" class="small">WAIT</text>
+    <rect x="30" y="155" width="40" height="25" class="ready" rx="3"/>
+    
+    <!-- Thread 2 -->
+    <rect x="130" y="50" width="40" height="25" class="ready" rx="3"/>
+    <text x="150" y="67" text-anchor="middle" class="label">T2</text>
+    <rect x="130" y="85" width="40" height="60" class="blocked" rx="3"/>
+    <text x="150" y="115" text-anchor="middle" class="small">WAIT</text>
+    <rect x="130" y="155" width="40" height="25" class="ready" rx="3"/>
+    
+    <!-- Thread 3 -->
+    <rect x="230" y="50" width="40" height="25" class="ready" rx="3"/>
+    <text x="250" y="67" text-anchor="middle" class="label">T3</text>
+    <rect x="230" y="85" width="40" height="60" class="blocked" rx="3"/>
+    <text x="250" y="115" text-anchor="middle" class="small">WAIT</text>
+    <rect x="230" y="155" width="40" height="25" class="ready" rx="3"/>
+    
+    <text x="150" y="220" text-anchor="middle" class="small">Cada thread tiene su propio stack</text>
+    <text x="150" y="235" text-anchor="middle" class="small">~8KB por thread</text>
+    <text x="150" y="260" text-anchor="middle" class="small">10,000 threads = 80MB</text>
+    
+    <!-- Time arrow -->
+    <line x1="15" y1="45" x2="15" y2="370" class="arrow" marker-end="url(#arrowhead)"/>
+  </g>
+  
+  <!-- Async Model -->
+  <g transform="translate(650, 60)">
+    <text x="100" y="0" text-anchor="middle" class="subtitle">ASYNC</text>
+    <text x="100" y="15" text-anchor="middle" class="small">(1 thread, no bloqueante)</text>
+    
+    <rect x="0" y="30" width="200" height="350" class="box-async" rx="5"/>
+    
+    <!-- Single Thread executing tasks -->
+    <rect x="80" y="50" width="40" height="20" class="ready" rx="3"/>
+    <text x="100" y="64" text-anchor="middle" class="small">T1</text>
+    
+    <rect x="80" y="75" width="40" height="20" class="ready" rx="3"/>
+    <text x="100" y="89" text-anchor="middle" class="small">T2</text>
+    
+    <rect x="80" y="100" width="40" height="20" class="ready" rx="3"/>
+    <text x="100" y="114" text-anchor="middle" class="small">T3</text>
+    
+    <rect x="80" y="125" width="40" height="20" class="ready" rx="3"/>
+    <text x="100" y="139" text-anchor="middle" class="small">T1</text>
+    
+    <rect x="80" y="150" width="40" height="20" class="ready" rx="3"/>
+    <text x="100" y="164" text-anchor="middle" class="small">T2</text>
+    
+    <rect x="80" y="175" width="40" height="20" class="ready" rx="3"/>
+    <text x="100" y="189" text-anchor="middle" class="small">T3</text>
+    
+    <text x="100" y="220" text-anchor="middle" class="small">Un thread cambia</text>
+    <text x="100" y="235" text-anchor="middle" class="small">entre tasks sin esperar</text>
+    <text x="100" y="260" text-anchor="middle" class="small">10,000 tasks = ~1MB</text>
+    
+    <!-- Time arrow -->
+    <line x1="15" y1="45" x2="15" y2="370" class="arrow" marker-end="url(#arrowhead)"/>
+  </g>
+  
+  <!-- Comparison Table -->
+  <g transform="translate(50, 440)">
+    <rect x="0" y="0" width="800" height="45" fill="#252526" stroke="#3c3c3c" rx="5"/>
+    
+    <text x="100" y="18" text-anchor="middle" class="label">Modelo</text>
+    <text x="280" y="18" text-anchor="middle" class="label">Mejor para</text>
+    <text x="480" y="18" text-anchor="middle" class="label">Memoria</text>
+    <text x="680" y="18" text-anchor="middle" class="label">Complejidad</text>
+    
+    <line x1="180" y1="5" x2="180" y2="40" stroke="#3c3c3c"/>
+    <line x1="380" y1="5" x2="380" y2="40" stroke="#3c3c3c"/>
+    <line x1="580" y1="5" x2="580" y2="40" stroke="#3c3c3c"/>
+    
+    <text x="100" y="36" text-anchor="middle" class="small">Sync / Threads / Async</text>
+    <text x="280" y="36" text-anchor="middle" class="small">Scripts / CPU / I/O</text>
+    <text x="480" y="36" text-anchor="middle" class="small">Baja / Alta / Baja</text>
+    <text x="680" y="36" text-anchor="middle" class="small">Simple / Media / Alta</text>
+  </g>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+</svg>

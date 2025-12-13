@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .function { font-family: 'Fira Code', monospace; font-size: 11px; fill: #dcdcaa; }
+    .macro { font-family: 'Fira Code', monospace; font-size: 11px; fill: #4ec9b0; }
+    .accent { fill: #CE422B; }
+    .box { fill: #2d2d2d; stroke: #454545; }
+    .box-runtime { fill: #1e3a5f; stroke: #3b82f6; }
+    .box-executor { fill: #3f1e5f; stroke: #a855f7; }
+    .box-reactor { fill: #1e3f2e; stroke: #22c55e; }
+    .box-task { fill: #3c3c3c; stroke: #808080; }
+    .arrow { stroke: #808080; fill: none; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">Arquitectura del Runtime Tokio</text>
+  
+  <!-- Main Runtime Box -->
+  <rect x="50" y="50" width="800" height="340" class="box-runtime" rx="10"/>
+  <text x="450" y="75" text-anchor="middle" class="subtitle">Tokio Runtime</text>
+  
+  <!-- Executor -->
+  <g transform="translate(70, 90)">
+    <rect x="0" y="0" width="350" height="280" class="box-executor" rx="8"/>
+    <text x="175" y="25" text-anchor="middle" class="label">EXECUTOR (Multi-thread)</text>
+    
+    <!-- Worker Threads -->
+    <g transform="translate(15, 40)">
+      <rect x="0" y="0" width="70" height="220" class="box" rx="5"/>
+      <text x="35" y="20" text-anchor="middle" class="small">Worker 0</text>
+      
+      <!-- Tasks in Worker 0 -->
+      <rect x="10" y="35" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="55" text-anchor="middle" class="small">Task</text>
+      
+      <rect x="10" y="75" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="95" text-anchor="middle" class="small">Task</text>
+      
+      <rect x="10" y="115" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="135" text-anchor="middle" class="small">Task</text>
+    </g>
+    
+    <g transform="translate(95, 40)">
+      <rect x="0" y="0" width="70" height="220" class="box" rx="5"/>
+      <text x="35" y="20" text-anchor="middle" class="small">Worker 1</text>
+      
+      <rect x="10" y="35" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="55" text-anchor="middle" class="small">Task</text>
+      
+      <rect x="10" y="75" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="95" text-anchor="middle" class="small">Task</text>
+    </g>
+    
+    <g transform="translate(175, 40)">
+      <rect x="0" y="0" width="70" height="220" class="box" rx="5"/>
+      <text x="35" y="20" text-anchor="middle" class="small">Worker 2</text>
+      
+      <rect x="10" y="35" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="55" text-anchor="middle" class="small">Task</text>
+    </g>
+    
+    <g transform="translate(255, 40)">
+      <rect x="0" y="0" width="70" height="220" class="box" rx="5"/>
+      <text x="35" y="20" text-anchor="middle" class="small">Worker 3</text>
+      
+      <rect x="10" y="35" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="55" text-anchor="middle" class="small">Task</text>
+      
+      <rect x="10" y="75" width="50" height="30" class="box-task" rx="3"/>
+      <text x="35" y="95" text-anchor="middle" class="small">Task</text>
+    </g>
+    
+    <text x="175" y="275" text-anchor="middle" class="small">Work-stealing entre workers</text>
+  </g>
+  
+  <!-- Reactor -->
+  <g transform="translate(450, 90)">
+    <rect x="0" y="0" width="180" height="130" class="box-reactor" rx="8"/>
+    <text x="90" y="25" text-anchor="middle" class="label">REACTOR</text>
+    
+    <text x="15" y="50" class="small">epoll (Linux)</text>
+    <text x="15" y="65" class="small">kqueue (macOS)</text>
+    <text x="15" y="80" class="small">IOCP (Windows)</text>
+    
+    <rect x="15" y="95" width="150" height="25" fill="#1e1e1e" stroke="#22c55e" rx="3"/>
+    <text x="90" y="112" text-anchor="middle" class="small">Event Loop</text>
+  </g>
+  
+  <!-- Timer -->
+  <g transform="translate(450, 235)">
+    <rect x="0" y="0" width="180" height="60" class="box" rx="8"/>
+    <text x="90" y="25" text-anchor="middle" class="label">TIMER</text>
+    <text x="90" y="45" text-anchor="middle" class="small">tokio::time</text>
+  </g>
+  
+  <!-- Blocking Pool -->
+  <g transform="translate(660, 90)">
+    <rect x="0" y="0" width="170" height="130" class="box" rx="8"/>
+    <text x="85" y="25" text-anchor="middle" class="label">BLOCKING POOL</text>
+    
+    <text x="85" y="50" text-anchor="middle" class="small">Para operaciones</text>
+    <text x="85" y="65" text-anchor="middle" class="small">bloqueantes (sync)</text>
+    
+    <rect x="15" y="80" width="140" height="35" fill="#252526" stroke="#454545" rx="3"/>
+    <text x="85" y="100" text-anchor="middle" class="code">spawn_blocking()</text>
+  </g>
+  
+  <!-- Spawn -->
+  <g transform="translate(660, 235)">
+    <rect x="0" y="0" width="170" height="60" class="box" rx="8"/>
+    <text x="85" y="25" text-anchor="middle" class="label">SPAWN</text>
+    <text x="85" y="45" text-anchor="middle" class="code">tokio::spawn()</text>
+  </g>
+  
+  <!-- API Section -->
+  <g transform="translate(50, 410)">
+    <text x="400" y="0" text-anchor="middle" class="subtitle">API Principal</text>
+    
+    <rect x="0" y="15" width="160" height="70" class="box" rx="5"/>
+    <text x="80" y="40" text-anchor="middle" class="macro">#[tokio::main]</text>
+    <text x="80" y="60" text-anchor="middle" class="small">Inicializa runtime</text>
+    <text x="80" y="75" text-anchor="middle" class="small">en main()</text>
+    
+    <rect x="180" y="15" width="160" height="70" class="box" rx="5"/>
+    <text x="260" y="40" text-anchor="middle" class="function">tokio::spawn()</text>
+    <text x="260" y="60" text-anchor="middle" class="small">Crea nueva task</text>
+    <text x="260" y="75" text-anchor="middle" class="small">concurrente</text>
+    
+    <rect x="360" y="15" width="160" height="70" class="box" rx="5"/>
+    <text x="440" y="40" text-anchor="middle" class="macro">tokio::join!()</text>
+    <text x="440" y="60" text-anchor="middle" class="small">Ejecuta futures</text>
+    <text x="440" y="75" text-anchor="middle" class="small">en paralelo</text>
+    
+    <rect x="540" y="15" width="160" height="70" class="box" rx="5"/>
+    <text x="620" y="40" text-anchor="middle" class="macro">tokio::select!()</text>
+    <text x="620" y="60" text-anchor="middle" class="small">Carrera de</text>
+    <text x="620" y="75" text-anchor="middle" class="small">futures</text>
+    
+    <rect x="720" y="15" width="130" height="70" class="box" rx="5"/>
+    <text x="785" y="40" text-anchor="middle" class="function">timeout()</text>
+    <text x="785" y="60" text-anchor="middle" class="small">Limite de</text>
+    <text x="785" y="75" text-anchor="middle" class="small">tiempo</text>
+  </g>
+  
+  <!-- Features -->
+  <g transform="translate(50, 500)">
+    <text x="0" y="0" class="small">Features: rt (runtime) | rt-multi-thread | macros | time | io-util | fs | net | sync | full</text>
+  </g>
+  
+  <!-- Connection arrows -->
+  <path d="M420,200 L450,160" class="arrow" fill="none"/>
+  <path d="M420,250 L450,265" class="arrow" fill="none"/>
+  
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+  </defs>
+</svg>

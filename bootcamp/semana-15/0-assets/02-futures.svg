@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { font-family: 'Fira Code', monospace; font-size: 11px; fill: #569cd6; }
+    .type { font-family: 'Fira Code', monospace; font-size: 11px; fill: #4ec9b0; }
+    .string { font-family: 'Fira Code', monospace; font-size: 11px; fill: #ce9178; }
+    .accent { fill: #CE422B; }
+    .box { fill: #2d2d2d; stroke: #454545; }
+    .box-trait { fill: #1e3a5f; stroke: #3b82f6; }
+    .box-ready { fill: #14532d; stroke: #22c55e; }
+    .box-pending { fill: #713f12; stroke: #f59e0b; }
+    .arrow { stroke: #808080; fill: none; stroke-width: 2; marker-end: url(#arrowhead); }
+    .arrow-ready { stroke: #22c55e; }
+    .arrow-pending { stroke: #f59e0b; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" class="title">El Trait Future y el Sistema de Polling</text>
+  
+  <!-- Future Trait Definition -->
+  <g transform="translate(50, 55)">
+    <text x="0" y="0" class="subtitle">Definicion del Trait Future</text>
+    
+    <rect x="0" y="10" width="320" height="130" class="box-trait" rx="5"/>
+    
+    <text x="15" y="35" class="keyword">pub trait</text>
+    <text x="85" y="35" class="type">Future</text>
+    <text x="130" y="35" class="code">{</text>
+    
+    <text x="25" y="55" class="keyword">type</text>
+    <text x="60" y="55" class="type">Output</text>
+    <text x="105" y="55" class="code">;</text>
+    
+    <text x="25" y="80" class="keyword">fn</text>
+    <text x="45" y="80" class="code">poll(</text>
+    
+    <text x="35" y="100" class="keyword">self</text>
+    <text x="60" y="100" class="code">:</text>
+    <text x="68" y="100" class="type">Pin</text>
+    <text x="88" y="100" class="code">&lt;&amp;</text>
+    <text x="104" y="100" class="keyword">mut</text>
+    <text x="130" y="100" class="type">Self</text>
+    <text x="155" y="100" class="code">&gt;,</text>
+    
+    <text x="35" y="115" class="code">cx: &amp;</text>
+    <text x="70" y="115" class="keyword">mut</text>
+    <text x="96" y="115" class="type">Context</text>
+    
+    <text x="25" y="130" class="code">) -&gt;</text>
+    <text x="60" y="130" class="type">Poll</text>
+    <text x="85" y="130" class="code">&lt;</text>
+    <text x="92" y="130" class="type">Self::Output</text>
+    <text x="168" y="130" class="code">&gt;;</text>
+  </g>
+  
+  <!-- Poll Enum -->
+  <g transform="translate(400, 55)">
+    <text x="0" y="0" class="subtitle">Enum Poll</text>
+    
+    <rect x="0" y="10" width="200" height="80" class="box" rx="5"/>
+    
+    <text x="15" y="35" class="keyword">enum</text>
+    <text x="50" y="35" class="type">Poll</text>
+    <text x="75" y="35" class="code">&lt;T&gt; {</text>
+    
+    <text x="25" y="55" class="code" fill="#22c55e">Ready</text>
+    <text x="68" y="55" class="code">(T),</text>
+    
+    <text x="25" y="75" class="code" fill="#f59e0b">Pending</text>
+    <text x="80" y="75" class="code">,</text>
+  </g>
+  
+  <!-- Ready Box -->
+  <g transform="translate(630, 55)">
+    <rect x="0" y="10" width="220" height="60" class="box-ready" rx="5"/>
+    <text x="15" y="35" class="label">Ready(T)</text>
+    <text x="15" y="52" class="small">El future completo.</text>
+    <text x="15" y="64" class="small">Retorna el valor final.</text>
+  </g>
+  
+  <!-- Pending Box -->
+  <g transform="translate(630, 120)">
+    <rect x="0" y="10" width="220" height="60" class="box-pending" rx="5"/>
+    <text x="15" y="35" class="label">Pending</text>
+    <text x="15" y="52" class="small">El future no esta listo.</text>
+    <text x="15" y="64" class="small">Vuelve a intentar despues.</text>
+  </g>
+  
+  <!-- Polling Diagram -->
+  <g transform="translate(50, 210)">
+    <text x="400" y="0" text-anchor="middle" class="subtitle">Ciclo de Polling</text>
+    
+    <!-- Executor -->
+    <rect x="0" y="30" width="120" height="80" class="box" rx="5"/>
+    <text x="60" y="55" text-anchor="middle" class="label">Executor</text>
+    <text x="60" y="75" text-anchor="middle" class="small">(Runtime)</text>
+    
+    <!-- Future -->
+    <rect x="280" y="30" width="120" height="80" class="box" rx="5"/>
+    <text x="340" y="55" text-anchor="middle" class="label">Future</text>
+    <text x="340" y="75" text-anchor="middle" class="small">(Tu codigo async)</text>
+    
+    <!-- Reactor/IO -->
+    <rect x="560" y="30" width="120" height="80" class="box" rx="5"/>
+    <text x="620" y="55" text-anchor="middle" class="label">Reactor</text>
+    <text x="620" y="75" text-anchor="middle" class="small">(I/O Events)</text>
+    
+    <!-- Waker -->
+    <rect x="280" y="150" width="120" height="50" fill="#3c3c3c" stroke="#CE422B" rx="5"/>
+    <text x="340" y="180" text-anchor="middle" class="label" fill="#CE422B">Waker</text>
+    
+    <!-- Arrows -->
+    <path d="M120,50 L280,50" class="arrow"/>
+    <text x="200" y="45" text-anchor="middle" class="small">1. poll()</text>
+    
+    <path d="M280,80 L120,80" class="arrow arrow-pending"/>
+    <text x="200" y="95" text-anchor="middle" class="small" fill="#f59e0b">2. Pending</text>
+    
+    <path d="M400,70 L560,70" class="arrow"/>
+    <text x="480" y="65" text-anchor="middle" class="small">3. Registra</text>
+    <text x="480" y="78" text-anchor="middle" class="small">waker</text>
+    
+    <path d="M560,100 Q560,175 400,175" class="arrow" fill="none" stroke="#CE422B"/>
+    <text x="500" y="145" text-anchor="middle" class="small" fill="#CE422B">4. wake()</text>
+    
+    <path d="M280,175 L120,120" class="arrow" fill="none" stroke="#CE422B"/>
+    <text x="180" y="165" text-anchor="middle" class="small" fill="#CE422B">5. Notifica</text>
+    
+    <path d="M120,70 Q60,120 60,130 Q60,140 120,140 L280,140" class="arrow arrow-ready" fill="none" marker-end="url(#arrowhead-ready)"/>
+    <text x="200" y="135" text-anchor="middle" class="small" fill="#22c55e">6. poll() -&gt; Ready</text>
+  </g>
+  
+  <!-- State Machine -->
+  <g transform="translate(50, 400)">
+    <text x="400" y="0" text-anchor="middle" class="subtitle">async fn como State Machine</text>
+    
+    <!-- States -->
+    <rect x="50" y="25" width="100" height="50" class="box" rx="25"/>
+    <text x="100" y="55" text-anchor="middle" class="label">State 0</text>
+    
+    <rect x="250" y="25" width="100" height="50" class="box" rx="25"/>
+    <text x="300" y="55" text-anchor="middle" class="label">State 1</text>
+    
+    <rect x="450" y="25" width="100" height="50" class="box" rx="25"/>
+    <text x="500" y="55" text-anchor="middle" class="label">State 2</text>
+    
+    <rect x="650" y="25" width="100" height="50" class="box-ready" rx="25"/>
+    <text x="700" y="55" text-anchor="middle" class="label">Done</text>
+    
+    <!-- Transitions -->
+    <path d="M150,50 L250,50" class="arrow"/>
+    <text x="200" y="45" text-anchor="middle" class="small">.await</text>
+    
+    <path d="M350,50 L450,50" class="arrow"/>
+    <text x="400" y="45" text-anchor="middle" class="small">.await</text>
+    
+    <path d="M550,50 L650,50" class="arrow arrow-ready"/>
+    <text x="600" y="45" text-anchor="middle" class="small" fill="#22c55e">Ready</text>
+    
+    <!-- Code example -->
+    <rect x="50" y="95" width="700" height="45" fill="#252526" stroke="#3c3c3c" rx="3"/>
+    <text x="65" y="115" class="keyword">async fn</text>
+    <text x="115" y="115" class="code">ejemplo() { </text>
+    <text x="185" y="115" class="code">paso1().</text>
+    <text x="240" y="115" class="keyword">await</text>
+    <text x="270" y="115" class="code">;</text>
+    <text x="285" y="115" class="code">paso2().</text>
+    <text x="340" y="115" class="keyword">await</text>
+    <text x="370" y="115" class="code">;</text>
+    <text x="385" y="115" class="code">resultado }</text>
+    
+    <text x="130" y="130" class="small">State 0</text>
+    <text x="330" y="130" class="small">State 1</text>
+    <text x="470" y="130" class="small">State 2</text>
+  </g>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#808080"/>
+    </marker>
+    <marker id="arrowhead-ready" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#22c55e"/>
+    </marker>
+  </defs>
+</svg>
