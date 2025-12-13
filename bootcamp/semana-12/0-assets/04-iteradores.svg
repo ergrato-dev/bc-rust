@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', sans-serif; font-size: 24px; font-weight: bold; fill: #d4d4d4; }
+      .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 16px; fill: #808080; }
+      .label { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #d4d4d4; }
+      .small { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #808080; }
+      .code { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+      .keyword { fill: #569cd6; }
+      .function { fill: #dcdcaa; }
+      .string { fill: #ce9178; }
+      .number { fill: #b5cea8; }
+      .comment { fill: #6a9955; }
+      .type { fill: #4ec9b0; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" class="title">🔄 El Trait Iterator</text>
+  <text x="400" y="58" text-anchor="middle" class="subtitle">Secuencias perezosas de valores</text>
+  
+  <!-- Iterator Trait Definition -->
+  <rect x="250" y="75" width="300" height="80" rx="8" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="400" y="97" text-anchor="middle" class="label" style="fill:#CE422B;">Trait Iterator</text>
+  
+  <text x="270" y="120" class="code">
+    <tspan class="keyword">trait</tspan>
+    <tspan class="type"> Iterator</tspan>
+    <tspan> {</tspan>
+  </text>
+  <text x="290" y="137" class="code">
+    <tspan class="keyword">type</tspan>
+    <tspan class="type"> Item</tspan>
+    <tspan>;</tspan>
+  </text>
+  <text x="290" y="154" class="code">
+    <tspan class="keyword">fn</tspan>
+    <tspan class="function"> next</tspan>
+    <tspan>(&amp;</tspan>
+    <tspan class="keyword">mut self</tspan>
+    <tspan>) -> </tspan>
+    <tspan class="type">Option</tspan>
+    <tspan>&lt;</tspan>
+    <tspan class="type">Self::Item</tspan>
+    <tspan>&gt;;</tspan>
+  </text>
+  
+  <!-- Three iteration methods -->
+  <text x="400" y="185" text-anchor="middle" class="label" style="fill:#808080;">Tres métodos de iteración</text>
+  
+  <!-- iter() -->
+  <rect x="30" y="200" width="240" height="130" rx="8" fill="#252526" stroke="#4ec9b0"/>
+  <text x="150" y="225" text-anchor="middle" class="label" style="fill:#4ec9b0;">iter() → &amp;T</text>
+  <text x="150" y="245" text-anchor="middle" class="small">Referencias inmutables</text>
+  
+  <text x="45" y="275" class="code">
+    <tspan class="keyword">let</tspan>
+    <tspan> vec = </tspan>
+    <tspan class="keyword">vec!</tspan>
+    <tspan>[</tspan>
+    <tspan class="number">1</tspan>
+    <tspan>, </tspan>
+    <tspan class="number">2</tspan>
+    <tspan>, </tspan>
+    <tspan class="number">3</tspan>
+    <tspan>];</tspan>
+  </text>
+  <text x="45" y="295" class="code">
+    <tspan class="keyword">for</tspan>
+    <tspan> item </tspan>
+    <tspan class="keyword">in</tspan>
+    <tspan> vec.</tspan>
+    <tspan class="function">iter</tspan>
+    <tspan>() {</tspan>
+  </text>
+  <text x="60" y="312" class="code">
+    <tspan class="comment">// item: &amp;i32</tspan>
+  </text>
+  <text x="45" y="327" class="code">}</text>
+  
+  <!-- iter_mut() -->
+  <rect x="280" y="200" width="240" height="130" rx="8" fill="#252526" stroke="#dcdcaa"/>
+  <text x="400" y="225" text-anchor="middle" class="label" style="fill:#dcdcaa;">iter_mut() → &amp;mut T</text>
+  <text x="400" y="245" text-anchor="middle" class="small">Referencias mutables</text>
+  
+  <text x="295" y="275" class="code">
+    <tspan class="keyword">let mut</tspan>
+    <tspan> vec = </tspan>
+    <tspan class="keyword">vec!</tspan>
+    <tspan>[</tspan>
+    <tspan class="number">1</tspan>
+    <tspan>, </tspan>
+    <tspan class="number">2</tspan>
+    <tspan>];</tspan>
+  </text>
+  <text x="295" y="295" class="code">
+    <tspan class="keyword">for</tspan>
+    <tspan> item </tspan>
+    <tspan class="keyword">in</tspan>
+    <tspan> vec.</tspan>
+    <tspan class="function">iter_mut</tspan>
+    <tspan>() {</tspan>
+  </text>
+  <text x="310" y="312" class="code">*item *= <tspan class="number">2</tspan>;</text>
+  <text x="295" y="327" class="code">}</text>
+  
+  <!-- into_iter() -->
+  <rect x="530" y="200" width="240" height="130" rx="8" fill="#252526" stroke="#CE422B"/>
+  <text x="650" y="225" text-anchor="middle" class="label" style="fill:#CE422B;">into_iter() → T</text>
+  <text x="650" y="245" text-anchor="middle" class="small">Ownership (consume)</text>
+  
+  <text x="545" y="275" class="code">
+    <tspan class="keyword">let</tspan>
+    <tspan> vec = </tspan>
+    <tspan class="keyword">vec!</tspan>
+    <tspan>[</tspan>
+    <tspan class="number">1</tspan>
+    <tspan>, </tspan>
+    <tspan class="number">2</tspan>
+    <tspan>, </tspan>
+    <tspan class="number">3</tspan>
+    <tspan>];</tspan>
+  </text>
+  <text x="545" y="295" class="code">
+    <tspan class="keyword">for</tspan>
+    <tspan> item </tspan>
+    <tspan class="keyword">in</tspan>
+    <tspan> vec {</tspan>
+    <tspan class="comment"> // into_iter</tspan>
+  </text>
+  <text x="560" y="312" class="code">
+    <tspan class="comment">// item: i32</tspan>
+  </text>
+  <text x="545" y="327" class="code">}</text>
+  
+  <!-- Adapters vs Consumers -->
+  <rect x="30" y="350" width="355" height="180" rx="8" fill="#252526" stroke="#569cd6"/>
+  <text x="207" y="375" text-anchor="middle" class="label" style="fill:#569cd6;">Adaptadores (lazy)</text>
+  
+  <text x="50" y="400" class="code">
+    <tspan class="comment">// Transforman iteradores → iteradores</tspan>
+  </text>
+  
+  <text x="50" y="425" class="code">
+    <tspan class="function">map</tspan>
+    <tspan>(|x| x * 2)</tspan>
+    <tspan class="comment">    // Transforma</tspan>
+  </text>
+  <text x="50" y="445" class="code">
+    <tspan class="function">filter</tspan>
+    <tspan>(|x| x &gt; 0)</tspan>
+    <tspan class="comment">  // Filtra</tspan>
+  </text>
+  <text x="50" y="465" class="code">
+    <tspan class="function">take</tspan>
+    <tspan>(5)</tspan>
+    <tspan class="comment">           // Primeros N</tspan>
+  </text>
+  <text x="50" y="485" class="code">
+    <tspan class="function">skip</tspan>
+    <tspan>(3)</tspan>
+    <tspan class="comment">           // Saltar N</tspan>
+  </text>
+  <text x="50" y="505" class="code">
+    <tspan class="function">enumerate</tspan>
+    <tspan>()</tspan>
+    <tspan class="comment">       // + índices</tspan>
+  </text>
+  <text x="50" y="525" class="code">
+    <tspan class="function">zip</tspan>
+    <tspan>(otro)</tspan>
+    <tspan class="comment">         // Combinar</tspan>
+  </text>
+  
+  <rect x="415" y="350" width="355" height="180" rx="8" fill="#252526" stroke="#4ec9b0"/>
+  <text x="592" y="375" text-anchor="middle" class="label" style="fill:#4ec9b0;">Consumidores (eager)</text>
+  
+  <text x="435" y="400" class="code">
+    <tspan class="comment">// Ejecutan y producen resultado</tspan>
+  </text>
+  
+  <text x="435" y="425" class="code">
+    <tspan class="function">collect</tspan>
+    <tspan>()</tspan>
+    <tspan class="comment">        // → Vec, HashMap...</tspan>
+  </text>
+  <text x="435" y="445" class="code">
+    <tspan class="function">sum</tspan>
+    <tspan>()</tspan>
+    <tspan class="comment">            // → suma total</tspan>
+  </text>
+  <text x="435" y="465" class="code">
+    <tspan class="function">count</tspan>
+    <tspan>()</tspan>
+    <tspan class="comment">          // → cantidad</tspan>
+  </text>
+  <text x="435" y="485" class="code">
+    <tspan class="function">fold</tspan>
+    <tspan>(init, f)</tspan>
+    <tspan class="comment">    // → reducción</tspan>
+  </text>
+  <text x="435" y="505" class="code">
+    <tspan class="function">find</tspan>
+    <tspan>(|x| ...)</tspan>
+    <tspan class="comment">    // → Option&lt;T&gt;</tspan>
+  </text>
+  <text x="435" y="525" class="code">
+    <tspan class="function">for_each</tspan>
+    <tspan>(|x| ...)</tspan>
+    <tspan class="comment"> // side effects</tspan>
+  </text>
+</svg>

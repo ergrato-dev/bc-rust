@@ -1,0 +1,7 @@
+[package]
+name = "practica-01-closures-basicos"
+version = "0.1.0"
+edition = "2024"
+description = "Práctica de closures básicos"
+
+[dependencies]
