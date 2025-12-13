@@ -1,4 +1,4 @@
-//! Manejo de errores de la API
+//! API Error Handling
 
 use axum::{
     http::StatusCode,
@@ -8,45 +8,45 @@ use axum::{
 use serde_json::json;
 use thiserror::Error;
 
-/// Errores de la API
+/// API Errors
 #[derive(Error, Debug)]
 pub enum ApiError {
-    #[error("No encontrado: {0}")]
+    #[error("Not found: {0}")]
     NotFound(String),
 
-    #[error("Error de validación: {0}")]
-    Validacion(String),
+    #[error("Validation error: {0}")]
+    Validation(String),
 
-    #[error("Error de base de datos")]
+    #[error("Database error")]
     Database(#[from] sqlx::Error),
 
-    #[error("Error interno: {0}")]
-    Interno(String),
+    #[error("Internal error: {0}")]
+    Internal(String),
 }
 
 impl IntoResponse for ApiError {
     fn into_response(self) -> Response {
-        let (status, mensaje) = match &self {
+        let (status, message) = match &self {
             ApiError::NotFound(msg) => (StatusCode::NOT_FOUND, msg.clone()),
-            ApiError::Validacion(msg) => (StatusCode::BAD_REQUEST, msg.clone()),
+            ApiError::Validation(msg) => (StatusCode::BAD_REQUEST, msg.clone()),
             ApiError::Database(e) => {
-                tracing::error!("Error de base de datos: {:?}", e);
+                tracing::error!("Database error: {:?}", e);
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Error de base de datos".to_string(),
+                    "Database error".to_string(),
                 )
             }
-            ApiError::Interno(msg) => (StatusCode::INTERNAL_SERVER_ERROR, msg.clone()),
+            ApiError::Internal(msg) => (StatusCode::INTERNAL_SERVER_ERROR, msg.clone()),
         };
 
         let body = json!({
-            "error": mensaje,
-            "codigo": status.as_u16()
+            "error": message,
+            "code": status.as_u16()
         });
 
         (status, Json(body)).into_response()
     }
 }
 
-/// Tipo Result para handlers
+/// Result type for handlers
 pub type Result<T> = std::result::Result<T, ApiError>;

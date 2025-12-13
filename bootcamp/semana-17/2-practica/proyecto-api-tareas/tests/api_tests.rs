@@ -1,28 +1,28 @@
-//! Tests de integración para la API de Tareas
+//! Integration tests for Task API
 //!
-//! Ejecutar con: `cargo test`
+//! Run with: `cargo test`
 
 use axum::{
     body::Body,
     http::{Request, StatusCode},
     Router,
 };
-use proyecto_api_tareas::{db, models::Tarea, routes};
+use proyecto_api_tareas::{db, models::Task, routes};
 use serde_json::json;
 use tower::ServiceExt;
 use tower_http::trace::TraceLayer;
 
-/// Helper para crear la aplicación de test
-async fn crear_app() -> Router {
-    let pool = db::crear_pool().await.expect("Error creando pool");
+/// Helper to create test application
+async fn create_app() -> Router {
+    let pool = db::create_pool().await.expect("Error creating pool");
 
     Router::new()
-        .merge(routes::crear_rutas())
+        .merge(routes::create_routes())
         .layer(TraceLayer::new_for_http())
         .with_state(pool)
 }
 
-/// Helper para hacer requests
+/// Helper to make requests
 async fn request(app: Router, method: &str, uri: &str, body: Option<serde_json::Value>) -> (StatusCode, String) {
     let body = match body {
         Some(json) => Body::from(serde_json::to_string(&json).unwrap()),
@@ -47,64 +47,64 @@ async fn request(app: Router, method: &str, uri: &str, body: Option<serde_json::
 }
 
 // ============================================================
-// Tests de Creación
+// Creation Tests
 // ============================================================
 
 #[tokio::test]
-async fn test_crear_tarea_exitoso() {
-    let app = crear_app().await;
+async fn test_create_task_success() {
+    let app = create_app().await;
 
     let (status, body) = request(
         app,
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Mi primera tarea",
-            "descripcion": "Descripción de prueba"
+            "title": "My first task",
+            "description": "Test description"
         })),
     )
     .await;
 
     assert_eq!(status, StatusCode::CREATED);
 
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    assert_eq!(tarea.titulo, "Mi primera tarea");
-    assert_eq!(tarea.descripcion, Some("Descripción de prueba".to_string()));
-    assert!(!tarea.completada);
-    assert!(tarea.id > 0);
+    let task: Task = serde_json::from_str(&body).unwrap();
+    assert_eq!(task.title, "My first task");
+    assert_eq!(task.description, Some("Test description".to_string()));
+    assert!(!task.completed);
+    assert!(task.id > 0);
 }
 
 #[tokio::test]
-async fn test_crear_tarea_sin_descripcion() {
-    let app = crear_app().await;
+async fn test_create_task_without_description() {
+    let app = create_app().await;
 
     let (status, body) = request(
         app,
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "Tarea sin descripción"
+            "title": "Task without description"
         })),
     )
     .await;
 
     assert_eq!(status, StatusCode::CREATED);
 
-    let tarea: Tarea = serde_json::from_str(&body).unwrap();
-    assert_eq!(tarea.titulo, "Tarea sin descripción");
-    assert!(tarea.descripcion.is_none());
+    let task: Task = serde_json::from_str(&body).unwrap();
+    assert_eq!(task.title, "Task without description");
+    assert!(task.description.is_none());
 }
 
 #[tokio::test]
-async fn test_crear_tarea_titulo_vacio() {
-    let app = crear_app().await;
+async fn test_create_task_empty_title() {
+    let app = create_app().await;
 
     let (status, _body) = request(
         app,
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": ""
+            "title": ""
         })),
     )
     .await;
@@ -113,15 +113,15 @@ async fn test_crear_tarea_titulo_vacio() {
 }
 
 #[tokio::test]
-async fn test_crear_tarea_titulo_solo_espacios() {
-    let app = crear_app().await;
+async fn test_create_task_whitespace_only_title() {
+    let app = create_app().await;
 
     let (status, _body) = request(
         app,
         "POST",
-        "/tareas",
+        "/tasks",
         Some(json!({
-            "titulo": "   "
+            "title": "   "
         })),
     )
     .await;
@@ -130,24 +130,24 @@ async fn test_crear_tarea_titulo_solo_espacios() {
 }
 
 // ============================================================
-// Tests de Lectura
+// Read Tests
 // ============================================================
 
 #[tokio::test]
-async fn test_listar_tareas_vacio() {
-    let app = crear_app().await;
+async fn test_list_tasks_empty() {
+    let app = create_app().await;
 
-    let (status, body) = request(app, "GET", "/tareas", None).await;
+    let (status, body) = request(app, "GET", "/tasks", None).await;
 
     assert_eq!(status, StatusCode::OK);
 
-    let tareas: Vec<Tarea> = serde_json::from_str(&body).unwrap();
-    // Puede estar vacío o tener tareas de tests anteriores
-    assert!(tareas.len() >= 0);
+    let tasks: Vec<Task> = serde_json::from_str(&body).unwrap();
+    // May be empty or have tasks from previous tests
+    assert!(tasks.len() >= 0);
 }
 
 #[tokio::test]
-async fn test_crear_y_obtener_tarea() {
+async fn test_create_and_get_task() {
     let app = crear_app().await;
 
     // Crear tarea

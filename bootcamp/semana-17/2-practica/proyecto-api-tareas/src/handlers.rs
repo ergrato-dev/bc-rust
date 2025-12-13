@@ -1,4 +1,4 @@
-//! Handlers de la API de Tareas
+//! Task API Handlers
 
 use axum::{
     extract::{Path, Query, State},
@@ -8,259 +8,259 @@ use axum::{
 use sqlx::SqlitePool;
 
 use crate::error::{ApiError, Result};
-use crate::models::{ActualizarTarea, CrearTarea, EstadisticasTareas, FiltroTareas, Tarea};
+use crate::models::{CreateTask, Task, TaskFilters, TaskStats, UpdateTask};
 
-/// Listar todas las tareas
+/// List all tasks
 ///
-/// Obtiene una lista de tareas con soporte para filtros y paginación.
+/// Gets a list of tasks with support for filters and pagination.
 #[utoipa::path(
     get,
-    path = "/tareas",
+    path = "/tasks",
     params(
-        ("completada" = Option<bool>, Query, description = "Filtrar por estado de completitud"),
-        ("limite" = Option<i64>, Query, description = "Límite de resultados (default: 100)"),
-        ("offset" = Option<i64>, Query, description = "Offset para paginación (default: 0)")
+        ("completed" = Option<bool>, Query, description = "Filter by completion status"),
+        ("limit" = Option<i64>, Query, description = "Result limit (default: 100)"),
+        ("offset" = Option<i64>, Query, description = "Offset for pagination (default: 0)")
     ),
     responses(
-        (status = 200, description = "Lista de tareas", body = Vec<Tarea>),
-        (status = 500, description = "Error interno", body = crate::models::ErrorResponse)
+        (status = 200, description = "List of tasks", body = Vec<Task>),
+        (status = 500, description = "Internal error", body = crate::models::ErrorResponse)
     ),
-    tag = "Tareas"
+    tag = "Tasks"
 )]
-pub async fn listar(
+pub async fn list_tasks(
     State(pool): State<SqlitePool>,
-    Query(filtro): Query<FiltroTareas>,
-) -> Result<Json<Vec<Tarea>>> {
-    let limite = filtro.limite.unwrap_or(100);
-    let offset = filtro.offset.unwrap_or(0);
+    Query(filters): Query<TaskFilters>,
+) -> Result<Json<Vec<Task>>> {
+    let limit = filters.limit.unwrap_or(100);
+    let offset = filters.offset.unwrap_or(0);
 
-    let tareas = match filtro.completada {
-        Some(completada) => {
-            sqlx::query_as::<_, Tarea>(
-                "SELECT * FROM tareas WHERE completada = ? ORDER BY id DESC LIMIT ? OFFSET ?",
+    let tasks = match filters.completed {
+        Some(completed) => {
+            sqlx::query_as::<_, Task>(
+                "SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE completada = ? ORDER BY id DESC LIMIT ? OFFSET ?",
             )
-            .bind(completada)
-            .bind(limite)
+            .bind(completed)
+            .bind(limit)
             .bind(offset)
             .fetch_all(&pool)
             .await?
         }
         None => {
-            sqlx::query_as::<_, Tarea>(
-                "SELECT * FROM tareas ORDER BY id DESC LIMIT ? OFFSET ?",
+            sqlx::query_as::<_, Task>(
+                "SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas ORDER BY id DESC LIMIT ? OFFSET ?",
             )
-            .bind(limite)
+            .bind(limit)
             .bind(offset)
             .fetch_all(&pool)
             .await?
         }
     };
 
-    Ok(Json(tareas))
+    Ok(Json(tasks))
 }
 
-/// Obtener una tarea por ID
+/// Get a task by ID
 ///
-/// Retorna los detalles de una tarea específica.
+/// Returns details of a specific task.
 #[utoipa::path(
     get,
-    path = "/tareas/{id}",
+    path = "/tasks/{id}",
     params(
-        ("id" = i64, Path, description = "ID de la tarea")
+        ("id" = i64, Path, description = "Task ID")
     ),
     responses(
-        (status = 200, description = "Tarea encontrada", body = Tarea),
-        (status = 404, description = "Tarea no encontrada", body = crate::models::ErrorResponse)
+        (status = 200, description = "Task found", body = Task),
+        (status = 404, description = "Task not found", body = crate::models::ErrorResponse)
     ),
-    tag = "Tareas"
+    tag = "Tasks"
 )]
-pub async fn obtener(
+pub async fn get_task(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
-) -> Result<Json<Tarea>> {
-    let tarea = sqlx::query_as::<_, Tarea>("SELECT * FROM tareas WHERE id = ?")
+) -> Result<Json<Task>> {
+    let task = sqlx::query_as::<_, Task>("SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE id = ?")
         .bind(id)
         .fetch_optional(&pool)
         .await?
-        .ok_or_else(|| ApiError::NotFound(format!("Tarea {} no encontrada", id)))?;
+        .ok_or_else(|| ApiError::NotFound(format!("Task {} not found", id)))?;
 
-    Ok(Json(tarea))
+    Ok(Json(task))
 }
 
-/// Crear una nueva tarea
+/// Create a new task
 ///
-/// Crea una tarea con el título proporcionado.
+/// Creates a task with the provided title.
 #[utoipa::path(
     post,
-    path = "/tareas",
-    request_body = CrearTarea,
+    path = "/tasks",
+    request_body = CreateTask,
     responses(
-        (status = 201, description = "Tarea creada exitosamente", body = Tarea),
-        (status = 400, description = "Error de validación", body = crate::models::ErrorResponse)
+        (status = 201, description = "Task created successfully", body = Task),
+        (status = 400, description = "Validation error", body = crate::models::ErrorResponse)
     ),
-    tag = "Tareas"
+    tag = "Tasks"
 )]
-pub async fn crear(
+pub async fn create_task(
     State(pool): State<SqlitePool>,
-    Json(datos): Json<CrearTarea>,
-) -> Result<(StatusCode, Json<Tarea>)> {
-    // Validación
-    if datos.titulo.trim().is_empty() {
-        return Err(ApiError::Validacion("El título es requerido".into()));
+    Json(data): Json<CreateTask>,
+) -> Result<(StatusCode, Json<Task>)> {
+    // Validation
+    if data.title.trim().is_empty() {
+        return Err(ApiError::Validation("Title is required".into()));
     }
 
-    if datos.titulo.len() > 200 {
-        return Err(ApiError::Validacion(
-            "El título no puede exceder 200 caracteres".into(),
+    if data.title.len() > 200 {
+        return Err(ApiError::Validation(
+            "Title cannot exceed 200 characters".into(),
         ));
     }
 
-    let resultado = sqlx::query("INSERT INTO tareas (titulo, descripcion) VALUES (?, ?)")
-        .bind(&datos.titulo)
-        .bind(&datos.descripcion)
+    let result = sqlx::query("INSERT INTO tareas (titulo, descripcion) VALUES (?, ?)")
+        .bind(&data.title)
+        .bind(&data.description)
         .execute(&pool)
         .await?;
 
-    let id = resultado.last_insert_rowid();
+    let id = result.last_insert_rowid();
 
-    let tarea = sqlx::query_as::<_, Tarea>("SELECT * FROM tareas WHERE id = ?")
+    let task = sqlx::query_as::<_, Task>("SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE id = ?")
         .bind(id)
         .fetch_one(&pool)
         .await?;
 
-    Ok((StatusCode::CREATED, Json(tarea)))
+    Ok((StatusCode::CREATED, Json(task)))
 }
 
-/// Actualizar una tarea existente
+/// Update an existing task
 ///
-/// Actualiza uno o más campos de una tarea.
+/// Updates one or more fields of a task.
 #[utoipa::path(
     put,
-    path = "/tareas/{id}",
+    path = "/tasks/{id}",
     params(
-        ("id" = i64, Path, description = "ID de la tarea a actualizar")
+        ("id" = i64, Path, description = "ID of the task to update")
     ),
-    request_body = ActualizarTarea,
+    request_body = UpdateTask,
     responses(
-        (status = 200, description = "Tarea actualizada", body = Tarea),
-        (status = 400, description = "Error de validación", body = crate::models::ErrorResponse),
-        (status = 404, description = "Tarea no encontrada", body = crate::models::ErrorResponse)
+        (status = 200, description = "Task updated", body = Task),
+        (status = 400, description = "Validation error", body = crate::models::ErrorResponse),
+        (status = 404, description = "Task not found", body = crate::models::ErrorResponse)
     ),
-    tag = "Tareas"
+    tag = "Tasks"
 )]
-pub async fn actualizar(
+pub async fn update_task(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
-    Json(datos): Json<ActualizarTarea>,
-) -> Result<Json<Tarea>> {
-    // Verificar que existe
-    let existe = sqlx::query("SELECT id FROM tareas WHERE id = ?")
+    Json(data): Json<UpdateTask>,
+) -> Result<Json<Task>> {
+    // Verify it exists
+    let exists = sqlx::query("SELECT id FROM tareas WHERE id = ?")
         .bind(id)
         .fetch_optional(&pool)
         .await?;
 
-    if existe.is_none() {
-        return Err(ApiError::NotFound(format!("Tarea {} no encontrada", id)));
+    if exists.is_none() {
+        return Err(ApiError::NotFound(format!("Task {} not found", id)));
     }
 
-    // Actualizar campos proporcionados
-    if let Some(titulo) = &datos.titulo {
-        if titulo.trim().is_empty() {
-            return Err(ApiError::Validacion("El título no puede estar vacío".into()));
+    // Update provided fields
+    if let Some(title) = &data.title {
+        if title.trim().is_empty() {
+            return Err(ApiError::Validation("Title cannot be empty".into()));
         }
         sqlx::query(
             "UPDATE tareas SET titulo = ?, actualizada_en = CURRENT_TIMESTAMP WHERE id = ?",
         )
-        .bind(titulo)
+        .bind(title)
         .bind(id)
         .execute(&pool)
         .await?;
     }
 
-    if let Some(descripcion) = &datos.descripcion {
+    if let Some(description) = &data.description {
         sqlx::query(
             "UPDATE tareas SET descripcion = ?, actualizada_en = CURRENT_TIMESTAMP WHERE id = ?",
         )
-        .bind(descripcion)
+        .bind(description)
         .bind(id)
         .execute(&pool)
         .await?;
     }
 
-    if let Some(completada) = datos.completada {
+    if let Some(completed) = data.completed {
         sqlx::query(
             "UPDATE tareas SET completada = ?, actualizada_en = CURRENT_TIMESTAMP WHERE id = ?",
         )
-        .bind(completada)
+        .bind(completed)
         .bind(id)
         .execute(&pool)
         .await?;
     }
 
-    // Obtener tarea actualizada
-    let tarea = sqlx::query_as::<_, Tarea>("SELECT * FROM tareas WHERE id = ?")
+    // Get updated task
+    let task = sqlx::query_as::<_, Task>("SELECT id, titulo AS title, descripcion AS description, completada AS completed, creada_en AS created_at, actualizada_en AS updated_at FROM tareas WHERE id = ?")
         .bind(id)
         .fetch_one(&pool)
         .await?;
 
-    Ok(Json(tarea))
+    Ok(Json(task))
 }
 
-/// Eliminar una tarea
+/// Delete a task
 ///
-/// Elimina permanentemente una tarea de la base de datos.
+/// Permanently removes a task from the database.
 #[utoipa::path(
     delete,
-    path = "/tareas/{id}",
+    path = "/tasks/{id}",
     params(
-        ("id" = i64, Path, description = "ID de la tarea a eliminar")
+        ("id" = i64, Path, description = "ID of the task to delete")
     ),
     responses(
-        (status = 204, description = "Tarea eliminada exitosamente"),
-        (status = 404, description = "Tarea no encontrada", body = crate::models::ErrorResponse)
+        (status = 204, description = "Task deleted successfully"),
+        (status = 404, description = "Task not found", body = crate::models::ErrorResponse)
     ),
-    tag = "Tareas"
+    tag = "Tasks"
 )]
-pub async fn eliminar(
+pub async fn delete_task(
     State(pool): State<SqlitePool>,
     Path(id): Path<i64>,
 ) -> Result<StatusCode> {
-    let resultado = sqlx::query("DELETE FROM tareas WHERE id = ?")
+    let result = sqlx::query("DELETE FROM tareas WHERE id = ?")
         .bind(id)
         .execute(&pool)
         .await?;
 
-    if resultado.rows_affected() == 0 {
-        return Err(ApiError::NotFound(format!("Tarea {} no encontrada", id)));
+    if result.rows_affected() == 0 {
+        return Err(ApiError::NotFound(format!("Task {} not found", id)));
     }
 
     Ok(StatusCode::NO_CONTENT)
 }
 
-/// Obtener estadísticas de tareas
+/// Get task statistics
 ///
-/// Retorna el conteo total, completadas y pendientes.
+/// Returns total count, completed and pending tasks.
 #[utoipa::path(
     get,
-    path = "/tareas/estadisticas",
+    path = "/tasks/stats",
     responses(
-        (status = 200, description = "Estadísticas de tareas", body = EstadisticasTareas)
+        (status = 200, description = "Task statistics", body = TaskStats)
     ),
-    tag = "Estadísticas"
+    tag = "Statistics"
 )]
-pub async fn estadisticas(State(pool): State<SqlitePool>) -> Result<Json<EstadisticasTareas>> {
+pub async fn get_stats(State(pool): State<SqlitePool>) -> Result<Json<TaskStats>> {
     let total: (i64,) = sqlx::query_as("SELECT COUNT(*) FROM tareas")
         .fetch_one(&pool)
         .await?;
 
-    let completadas: (i64,) =
+    let completed_count: (i64,) =
         sqlx::query_as("SELECT COUNT(*) FROM tareas WHERE completada = TRUE")
             .fetch_one(&pool)
             .await?;
 
-    Ok(Json(EstadisticasTareas {
+    Ok(Json(TaskStats {
         total: total.0,
-        completadas: completadas.0,
-        pendientes: total.0 - completadas.0,
+        completed: completed_count.0,
+        pending: total.0 - completed_count.0,
     }))
 }

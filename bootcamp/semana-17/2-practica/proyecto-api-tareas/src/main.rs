@@ -1,28 +1,28 @@
-//! API de Tareas - Proyecto Final del Bootcamp Rust
+//! Task API - Rust Bootcamp Final Project
 //!
-//! API REST completa con SQLite para gestión de tareas.
+//! Complete REST API with SQLite for task management.
 //!
 //! ## Endpoints
 //!
-//! | Método | Ruta | Descripción |
+//! | Method | Route | Description |
 //! |--------|------|-------------|
-//! | GET | /tareas | Listar todas las tareas |
-//! | POST | /tareas | Crear nueva tarea |
-//! | GET | /tareas/:id | Obtener tarea por ID |
-//! | PUT | /tareas/:id | Actualizar tarea |
-//! | DELETE | /tareas/:id | Eliminar tarea |
-//! | GET | /tareas/estadisticas | Estadísticas |
+//! | GET | /tasks | List all tasks |
+//! | POST | /tasks | Create new task |
+//! | GET | /tasks/:id | Get task by ID |
+//! | PUT | /tasks/:id | Update task |
+//! | DELETE | /tasks/:id | Delete task |
+//! | GET | /tasks/stats | Statistics |
 //!
-//! ## Documentación
+//! ## Documentation
 //!
-//! Swagger UI disponible en: `http://localhost:3000/swagger-ui`
+//! Swagger UI available at: `http://localhost:3000/swagger-ui`
 //!
-//! ## Filtros
+//! ## Filters
 //!
-//! - `?completada=true` - Solo tareas completadas
-//! - `?completada=false` - Solo tareas pendientes
-//! - `?limite=10` - Limitar resultados
-//! - `?offset=0` - Paginación
+//! - `?completed=true` - Only completed tasks
+//! - `?completed=false` - Only pending tasks
+//! - `?limit=10` - Limit results
+//! - `?offset=0` - Pagination
 
 use axum::Router;
 use tower_http::{cors::CorsLayer, trace::TraceLayer};
@@ -31,37 +31,37 @@ use utoipa_swagger_ui::SwaggerUi;
 
 use proyecto_api_tareas::{db, handlers, models, routes};
 
-/// Documentación OpenAPI de la API de Tareas
+/// Task API OpenAPI Documentation
 #[derive(OpenApi)]
 #[openapi(
     paths(
-        handlers::listar,
-        handlers::obtener,
-        handlers::crear,
-        handlers::actualizar,
-        handlers::eliminar,
-        handlers::estadisticas,
+        handlers::list_tasks,
+        handlers::get_task,
+        handlers::create_task,
+        handlers::update_task,
+        handlers::delete_task,
+        handlers::get_stats,
     ),
     components(
         schemas(
-            models::Tarea,
-            models::CrearTarea,
-            models::ActualizarTarea,
-            models::FiltroTareas,
-            models::EstadisticasTareas,
+            models::Task,
+            models::CreateTask,
+            models::UpdateTask,
+            models::TaskFilters,
+            models::TaskStats,
             models::ErrorResponse,
         )
     ),
     tags(
-        (name = "Tareas", description = "Endpoints de gestión de tareas"),
-        (name = "Estadísticas", description = "Endpoints de estadísticas")
+        (name = "Tasks", description = "Task management endpoints"),
+        (name = "Statistics", description = "Statistics endpoints")
     ),
     info(
-        title = "API de Tareas",
+        title = "Task API",
         version = "1.0.0",
-        description = "API REST para gestión de tareas - Proyecto Final del Bootcamp Rust",
+        description = "REST API for task management - Rust Bootcamp Final Project",
         contact(
-            name = "Bootcamp Rust",
+            name = "Rust Bootcamp",
             url = "https://github.com/ergrato-dev/bc-rust"
         ),
         license(
@@ -74,46 +74,46 @@ struct ApiDoc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Inicializar logging
+    // Initialize logging
     tracing_subscriber::fmt()
         .with_target(false)
         .compact()
         .init();
 
-    tracing::info!("🚀 Iniciando API de Tareas...");
+    tracing::info!("🚀 Starting Task API...");
 
-    // Crear pool de conexiones SQLite
-    let pool = db::crear_pool().await?;
-    tracing::info!("✅ Conexión a SQLite establecida");
+    // Create SQLite connection pool
+    let pool = db::create_pool().await?;
+    tracing::info!("✅ SQLite connection established");
 
-    // Construir aplicación
+    // Build application
     let app = Router::new()
-        .merge(routes::crear_rutas())
+        .merge(routes::create_routes())
         .merge(SwaggerUi::new("/swagger-ui").url("/api-docs/openapi.json", ApiDoc::openapi()))
         .layer(CorsLayer::permissive())
         .layer(TraceLayer::new_for_http())
         .with_state(pool);
 
-    // Iniciar servidor
+    // Start server
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
 
-    tracing::info!("🌐 Servidor escuchando en http://localhost:3000");
+    tracing::info!("🌐 Server listening on http://localhost:3000");
     tracing::info!("");
     tracing::info!("📚 Swagger UI: http://localhost:3000/swagger-ui");
     tracing::info!("📄 OpenAPI JSON: http://localhost:3000/api-docs/openapi.json");
     tracing::info!("");
-    tracing::info!("📝 Endpoints disponibles:");
-    tracing::info!("   GET    /tareas              - Listar tareas");
-    tracing::info!("   POST   /tareas              - Crear tarea");
-    tracing::info!("   GET    /tareas/:id          - Obtener tarea");
-    tracing::info!("   PUT    /tareas/:id          - Actualizar tarea");
-    tracing::info!("   DELETE /tareas/:id          - Eliminar tarea");
-    tracing::info!("   GET    /tareas/estadisticas - Estadísticas");
+    tracing::info!("📝 Available endpoints:");
+    tracing::info!("   GET    /tasks         - List tasks");
+    tracing::info!("   POST   /tasks         - Create task");
+    tracing::info!("   GET    /tasks/:id     - Get task");
+    tracing::info!("   PUT    /tasks/:id     - Update task");
+    tracing::info!("   DELETE /tasks/:id     - Delete task");
+    tracing::info!("   GET    /tasks/stats   - Statistics");
     tracing::info!("");
-    tracing::info!("🔍 Filtros: ?completada=true|false&limite=N&offset=N");
+    tracing::info!("🔍 Filters: ?completed=true|false&limit=N&offset=N");
     tracing::info!("");
-    tracing::info!("💡 Prueba:");
-    tracing::info!(r#"   curl -X POST localhost:3000/tareas -H "Content-Type: application/json" -d '{{"titulo":"Mi tarea"}}'"#);
+    tracing::info!("💡 Try:");
+    tracing::info!(r#"   curl -X POST localhost:3000/tasks -H "Content-Type: application/json" -d '{{"title":"My task"}}'"#);
 
     axum::serve(listener, app).await?;
 

@@ -1,19 +1,19 @@
-//! Definición de rutas de la API
+//! API Routes Definition
 
 use axum::{routing::get, Router};
 use sqlx::SqlitePool;
 
 use crate::handlers;
 
-/// Crear router de la API
-pub fn crear_rutas() -> Router<SqlitePool> {
+/// Create API router
+pub fn create_routes() -> Router<SqlitePool> {
     Router::new()
-        .route("/tareas", get(handlers::listar).post(handlers::crear))
-        .route("/tareas/estadisticas", get(handlers::estadisticas))
+        .route("/tasks", get(handlers::list_tasks).post(handlers::create_task))
+        .route("/tasks/stats", get(handlers::get_stats))
         .route(
-            "/tareas/{id}",
-            get(handlers::obtener)
-                .put(handlers::actualizar)
-                .delete(handlers::eliminar),
+            "/tasks/{id}",
+            get(handlers::get_task)
+                .put(handlers::update_task)
+                .delete(handlers::delete_task),
         )
 }

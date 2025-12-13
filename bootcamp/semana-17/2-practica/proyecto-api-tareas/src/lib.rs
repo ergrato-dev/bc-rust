@@ -1,6 +1,6 @@
-//! API de Tareas - Proyecto Final del Bootcamp
+//! Task API - Bootcamp Final Project
 //!
-//! API REST completa con SQLite para gestión de tareas.
+//! Complete REST API with SQLite for task management.
 
 pub mod db;
 pub mod error;
