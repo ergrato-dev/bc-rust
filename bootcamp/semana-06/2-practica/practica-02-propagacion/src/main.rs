@@ -1,124 +1,124 @@
-// Práctica 02: Propagación de Errores
+// Practice 02: Error Propagation
 // ====================================
-// Aprende a usar el operador ? para propagar errores de forma elegante.
+// Learn to use the ? operator for elegant error propagation.
 //
-// OBJETIVO:
-// - Usar el operador ? para propagar errores
-// - Entender la conversión automática con From
-// - Encadenar múltiples operaciones que pueden fallar
+// OBJECTIVE:
+// - Use the ? operator to propagate errors
+// - Understand automatic conversion with From
+// - Chain multiple operations that can fail
 //
-// INSTRUCCIONES:
-// 1. Completa cada función usando el operador ?
-// 2. Ejecuta el programa para verificar tu solución
-// 3. Los tests deben pasar: cargo test
+// INSTRUCTIONS:
+// 1. Complete each function using the ? operator
+// 2. Run the program to verify your solution
+// 3. Tests must pass: cargo test
 
 use std::fs;
 use std::io;
 use std::path::Path;
 
 fn main() {
-    println!("=== Práctica: Propagación de Errores ===\n");
+    println!("=== Practice: Error Propagation ===\n");
 
-    // Ejercicio 1: Leer y parsear
-    println!("1. Leer archivo y sumar líneas:");
-    match sumar_lineas_archivo("numeros.txt") {
-        Ok(suma) => println!("   Suma: {}", suma),
+    // Exercise 1: Read and parse
+    println!("1. Read file and sum lines:");
+    match sum_file_lines("numbers.txt") {
+        Ok(sum) => println!("   Sum: {}", sum),
         Err(e) => println!("   Error: {}", e),
     }
 
-    // Crear archivo de prueba
-    let _ = fs::write("test_numeros.txt", "10\n20\n30\n");
-    match sumar_lineas_archivo("test_numeros.txt") {
-        Ok(suma) => println!("   Suma de test_numeros.txt: {}", suma),
+    // Create test file
+    let _ = fs::write("test_numbers.txt", "10\n20\n30\n");
+    match sum_file_lines("test_numbers.txt") {
+        Ok(sum) => println!("   Sum of test_numbers.txt: {}", sum),
         Err(e) => println!("   Error: {}", e),
     }
-    let _ = fs::remove_file("test_numeros.txt");
+    let _ = fs::remove_file("test_numbers.txt");
 
-    // Ejercicio 2: Validación encadenada
-    println!("\n2. Validar usuario:");
-    println!("   'Ana' (25) → {:?}", validar_usuario("Ana", 25));
-    println!("   '' (25) → {:?}", validar_usuario("", 25));
-    println!("   'Bob' (200) → {:?}", validar_usuario("Bob", 200));
+    // Exercise 2: Chained validation
+    println!("\n2. Validate user:");
+    println!("   'Ana' (25) → {:?}", validate_user("Ana", 25));
+    println!("   '' (25) → {:?}", validate_user("", 25));
+    println!("   'Bob' (200) → {:?}", validate_user("Bob", 200));
 
-    // Ejercicio 3: Procesar configuración
-    println!("\n3. Procesar config:");
-    let _ = fs::write("config.txt", "puerto=8080\nhost=localhost\n");
-    match obtener_puerto("config.txt") {
-        Ok(puerto) => println!("   Puerto: {}", puerto),
+    // Exercise 3: Process configuration
+    println!("\n3. Process config:");
+    let _ = fs::write("config.txt", "port=8080\nhost=localhost\n");
+    match get_port("config.txt") {
+        Ok(port) => println!("   Port: {}", port),
         Err(e) => println!("   Error: {}", e),
     }
     let _ = fs::remove_file("config.txt");
 }
 
 // ============================================================================
-// EJERCICIO 1: Leer archivo y sumar números
+// EXERCISE 1: Read file and sum numbers
 // ============================================================================
-// Lee un archivo con números (uno por línea) y retorna su suma.
-// Usa el operador ? para propagar errores.
+// Read a file with numbers (one per line) and return their sum.
+// Use the ? operator to propagate errors.
 
-fn sumar_lineas_archivo(ruta: &str) -> Result<i64, String> {
-    // TODO: Implementar usando ?
-    // 1. Leer el archivo con fs::read_to_string(ruta)
-    //    - Convertir el error: .map_err(|e| format!("Error leyendo: {}", e))?
-    // 2. Para cada línea, parsear a i64 y sumar
-    //    - Puedes usar un for loop o .lines().map().sum()
-    // 3. Retornar Ok(suma)
+fn sum_file_lines(path: &str) -> Result<i64, String> {
+    // TODO: Implement using ?
+    // 1. Read the file with fs::read_to_string(path)
+    //    - Convert the error: .map_err(|e| format!("Read error: {}", e))?
+    // 2. For each line, parse to i64 and sum
+    //    - You can use a for loop or .lines().map().sum()
+    // 3. Return Ok(sum)
     //
-    // PISTA: Para el parseo de cada línea:
-    //   linea.trim().parse::<i64>().map_err(|_| format!("Línea inválida: {}", linea))?
-    todo!("Implementar sumar_lineas_archivo")
+    // HINT: For parsing each line:
+    //   line.trim().parse::<i64>().map_err(|_| format!("Invalid line: {}", line))?
+    todo!("Implement sum_file_lines")
 }
 
 // ============================================================================
-// EJERCICIO 2: Validación encadenada
+// EXERCISE 2: Chained validation
 // ============================================================================
-// Valida nombre y edad, propagando el primer error encontrado.
+// Validate name and age, propagating the first error found.
 
 #[derive(Debug, PartialEq)]
-struct Usuario {
-    nombre: String,
-    edad: u8,
+struct User {
+    name: String,
+    age: u8,
 }
 
-fn validar_usuario(nombre: &str, edad: i32) -> Result<Usuario, String> {
-    // TODO: Implementar usando ?
-    // 1. Validar nombre con validar_nombre(nombre)?
-    // 2. Validar edad con validar_edad(edad)?
-    // 3. Retornar Ok(Usuario { nombre, edad })
-    todo!("Implementar validar_usuario")
+fn validate_user(name: &str, age: i32) -> Result<User, String> {
+    // TODO: Implement using ?
+    // 1. Validate name with validate_name(name)?
+    // 2. Validate age with validate_age(age)?
+    // 3. Return Ok(User { name, age })
+    todo!("Implement validate_user")
 }
 
-fn validar_nombre(nombre: &str) -> Result<String, String> {
-    // TODO: Implementar
-    // - Si está vacío, Err("El nombre no puede estar vacío")
-    // - Si tiene menos de 2 caracteres, Err("Nombre muy corto")
-    // - Si no, Ok(nombre.to_string())
-    todo!("Implementar validar_nombre")
+fn validate_name(name: &str) -> Result<String, String> {
+    // TODO: Implement
+    // - If empty, Err("Name cannot be empty")
+    // - If less than 2 characters, Err("Name too short")
+    // - Otherwise, Ok(name.to_string())
+    todo!("Implement validate_name")
 }
 
-fn validar_edad(edad: i32) -> Result<u8, String> {
-    // TODO: Implementar
-    // - Si es negativa, Err("La edad no puede ser negativa")
-    // - Si es > 150, Err("Edad fuera de rango")
-    // - Si no, Ok(edad as u8)
-    todo!("Implementar validar_edad")
+fn validate_age(age: i32) -> Result<u8, String> {
+    // TODO: Implement
+    // - If negative, Err("Age cannot be negative")
+    // - If > 150, Err("Age out of range")
+    // - Otherwise, Ok(age as u8)
+    todo!("Implement validate_age")
 }
 
 // ============================================================================
-// EJERCICIO 3: Procesar configuración
+// EXERCISE 3: Process configuration
 // ============================================================================
-// Lee un archivo de config y extrae el puerto.
-// Formato: clave=valor (una por línea)
+// Read a config file and extract the port.
+// Format: key=value (one per line)
 
-fn obtener_puerto(ruta: &str) -> Result<u16, String> {
-    // TODO: Implementar usando ?
-    // 1. Leer archivo
-    // 2. Buscar línea que empiece con "puerto="
-    // 3. Extraer el valor después del =
-    // 4. Parsear a u16
+fn get_port(path: &str) -> Result<u16, String> {
+    // TODO: Implement using ?
+    // 1. Read file
+    // 2. Find line that starts with "port="
+    // 3. Extract the value after =
+    // 4. Parse to u16
     //
-    // PISTA: Usa .lines().find(|l| l.starts_with("puerto="))
-    todo!("Implementar obtener_puerto")
+    // HINT: Use .lines().find(|l| l.starts_with("port="))
+    todo!("Implement get_port")
 }
 
 // ============================================================================
@@ -129,60 +129,60 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_sumar_lineas_ok() {
-        fs::write("test_suma.txt", "1\n2\n3\n4\n5").unwrap();
-        assert_eq!(sumar_lineas_archivo("test_suma.txt"), Ok(15));
-        fs::remove_file("test_suma.txt").unwrap();
+    fn test_sum_lines_ok() {
+        fs::write("test_sum.txt", "1\n2\n3\n4\n5").unwrap();
+        assert_eq!(sum_file_lines("test_sum.txt"), Ok(15));
+        fs::remove_file("test_sum.txt").unwrap();
     }
 
     #[test]
-    fn test_sumar_lineas_archivo_no_existe() {
-        assert!(sumar_lineas_archivo("no_existe.txt").is_err());
+    fn test_sum_lines_file_not_found() {
+        assert!(sum_file_lines("does_not_exist.txt").is_err());
     }
 
     #[test]
-    fn test_sumar_lineas_formato_invalido() {
+    fn test_sum_lines_invalid_format() {
         fs::write("test_invalid.txt", "1\nabc\n3").unwrap();
-        assert!(sumar_lineas_archivo("test_invalid.txt").is_err());
+        assert!(sum_file_lines("test_invalid.txt").is_err());
         fs::remove_file("test_invalid.txt").unwrap();
     }
 
     #[test]
-    fn test_validar_usuario_ok() {
-        let result = validar_usuario("Ana", 25);
+    fn test_validate_user_ok() {
+        let result = validate_user("Ana", 25);
         assert!(result.is_ok());
-        let usuario = result.unwrap();
-        assert_eq!(usuario.nombre, "Ana");
-        assert_eq!(usuario.edad, 25);
+        let user = result.unwrap();
+        assert_eq!(user.name, "Ana");
+        assert_eq!(user.age, 25);
     }
 
     #[test]
-    fn test_validar_usuario_nombre_vacio() {
-        assert!(validar_usuario("", 25).is_err());
+    fn test_validate_user_empty_name() {
+        assert!(validate_user("", 25).is_err());
     }
 
     #[test]
-    fn test_validar_usuario_edad_invalida() {
-        assert!(validar_usuario("Ana", -5).is_err());
-        assert!(validar_usuario("Ana", 200).is_err());
+    fn test_validate_user_invalid_age() {
+        assert!(validate_user("Ana", -5).is_err());
+        assert!(validate_user("Ana", 200).is_err());
     }
 
     #[test]
-    fn test_obtener_puerto_ok() {
-        fs::write("test_config.txt", "host=localhost\npuerto=3000\n").unwrap();
-        assert_eq!(obtener_puerto("test_config.txt"), Ok(3000));
+    fn test_get_port_ok() {
+        fs::write("test_config.txt", "host=localhost\nport=3000\n").unwrap();
+        assert_eq!(get_port("test_config.txt"), Ok(3000));
         fs::remove_file("test_config.txt").unwrap();
     }
 
     #[test]
-    fn test_obtener_puerto_no_existe() {
-        assert!(obtener_puerto("no_existe.txt").is_err());
+    fn test_get_port_not_found() {
+        assert!(get_port("does_not_exist.txt").is_err());
     }
 
     #[test]
-    fn test_obtener_puerto_sin_puerto() {
+    fn test_get_port_no_port() {
         fs::write("test_no_port.txt", "host=localhost\n").unwrap();
-        assert!(obtener_puerto("test_no_port.txt").is_err());
+        assert!(get_port("test_no_port.txt").is_err());
         fs::remove_file("test_no_port.txt").unwrap();
     }
 }

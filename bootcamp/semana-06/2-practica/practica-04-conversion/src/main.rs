@@ -1,15 +1,15 @@
-// Práctica 04: Conversión de Errores
+// Practice 04: Error Conversion
 // ===================================
-// Aprende a convertir entre diferentes tipos de error y usar Box<dyn Error>.
+// Learn to convert between different error types and use Box<dyn Error>.
 //
-// OBJETIVO:
-// - Convertir errores con map_err
-// - Usar Box<dyn Error> para errores heterogéneos
-// - Agregar contexto a los errores
+// OBJECTIVE:
+// - Convert errors with map_err
+// - Use Box<dyn Error> for heterogeneous errors
+// - Add context to errors
 //
-// INSTRUCCIONES:
-// 1. Completa las funciones de conversión
-// 2. Practica diferentes estrategias de manejo
+// INSTRUCTIONS:
+// 1. Complete conversion functions
+// 2. Practice different handling strategies
 
 use std::error::Error;
 use std::fmt;
@@ -18,42 +18,42 @@ use std::io;
 use std::num::ParseIntError;
 
 fn main() {
-    println!("=== Práctica: Conversión de Errores ===\n");
+    println!("=== Practice: Error Conversion ===\n");
 
-    // Ejercicio 1: map_err básico
-    println!("1. Conversión con map_err:");
-    println!("   parsear_puerto('8080') → {:?}", parsear_puerto("8080"));
-    println!("   parsear_puerto('abc') → {:?}", parsear_puerto("abc"));
+    // Exercise 1: Basic map_err
+    println!("1. Conversion with map_err:");
+    println!("   parse_port('8080') → {:?}", parse_port("8080"));
+    println!("   parse_port('abc') → {:?}", parse_port("abc"));
 
-    // Ejercicio 2: Box<dyn Error>
+    // Exercise 2: Box<dyn Error>
     println!("\n2. Box<dyn Error>:");
-    let _ = fs::write("datos.txt", "42\n");
-    match leer_y_parsear("datos.txt") {
-        Ok(n) => println!("   Número: {}", n),
+    let _ = fs::write("data.txt", "42\n");
+    match read_and_parse("data.txt") {
+        Ok(n) => println!("   Number: {}", n),
         Err(e) => println!("   Error: {}", e),
     }
-    let _ = fs::remove_file("datos.txt");
+    let _ = fs::remove_file("data.txt");
 
-    match leer_y_parsear("no_existe.txt") {
-        Ok(n) => println!("   Número: {}", n),
+    match read_and_parse("does_not_exist.txt") {
+        Ok(n) => println!("   Number: {}", n),
         Err(e) => println!("   Error: {}", e),
     }
 
-    // Ejercicio 3: Agregar contexto
-    println!("\n3. Con contexto:");
+    // Exercise 3: Add context
+    println!("\n3. With context:");
     let _ = fs::write("config.txt", "100\n");
-    match leer_con_contexto("config.txt") {
-        Ok(n) => println!("   Valor: {}", n),
+    match read_with_context("config.txt") {
+        Ok(n) => println!("   Value: {}", n),
         Err(e) => println!("   Error: {}", e),
     }
     let _ = fs::remove_file("config.txt");
 
-    // Ejercicio 4: Result con múltiples errores
-    println!("\n4. Procesar múltiples archivos:");
+    // Exercise 4: Result with multiple errors
+    println!("\n4. Process multiple files:");
     let _ = fs::write("a.txt", "10\n");
     let _ = fs::write("b.txt", "20\n");
-    match sumar_archivos(&["a.txt", "b.txt", "c.txt"]) {
-        Ok(suma) => println!("   Suma: {}", suma),
+    match sum_files(&["a.txt", "b.txt", "c.txt"]) {
+        Ok(sum) => println!("   Sum: {}", sum),
         Err(e) => println!("   Error: {}", e),
     }
     let _ = fs::remove_file("a.txt");
@@ -61,112 +61,112 @@ fn main() {
 }
 
 // ============================================================================
-// EJERCICIO 1: Conversión con map_err
+// EXERCISE 1: Conversion with map_err
 // ============================================================================
-// Convierte ParseIntError a un String descriptivo.
+// Convert ParseIntError to a descriptive String.
 
-fn parsear_puerto(s: &str) -> Result<u16, String> {
-    // TODO: Implementar
-    // Parsear s a u16 y convertir el error a un mensaje descriptivo
-    // Ejemplo de mensaje: "Puerto inválido 'abc': invalid digit found in string"
+fn parse_port(s: &str) -> Result<u16, String> {
+    // TODO: Implement
+    // Parse s to u16 and convert the error to a descriptive message
+    // Example message: "Invalid port 'abc': invalid digit found in string"
     //
-    // PISTA: Usa .map_err(|e| format!("Puerto inválido '{}': {}", s, e))
-    todo!("Implementar parsear_puerto")
+    // HINT: Use .map_err(|e| format!("Invalid port '{}': {}", s, e))
+    todo!("Implement parse_port")
 }
 
 // ============================================================================
-// EJERCICIO 2: Box<dyn Error>
+// EXERCISE 2: Box<dyn Error>
 // ============================================================================
-// Usa Box<dyn Error> para manejar diferentes tipos de error.
+// Use Box<dyn Error> to handle different error types.
 
-fn leer_y_parsear(ruta: &str) -> Result<i32, Box<dyn Error>> {
-    // TODO: Implementar
-    // 1. Leer archivo con fs::read_to_string(ruta)?
-    // 2. Parsear contenido a i32 con contenido.trim().parse()?
-    // 3. Retornar Ok(numero)
+fn read_and_parse(path: &str) -> Result<i32, Box<dyn Error>> {
+    // TODO: Implement
+    // 1. Read file with fs::read_to_string(path)?
+    // 2. Parse content to i32 with content.trim().parse()?
+    // 3. Return Ok(number)
     //
-    // Nota: El ? convierte automáticamente a Box<dyn Error>
-    todo!("Implementar leer_y_parsear")
+    // Note: The ? converts automatically to Box<dyn Error>
+    todo!("Implement read_and_parse")
 }
 
 // ============================================================================
-// EJERCICIO 3: Agregar contexto
+// EXERCISE 3: Add context
 // ============================================================================
-// Envuelve errores con contexto adicional.
+// Wrap errors with additional context.
 
 #[derive(Debug)]
-struct ErrorConContexto {
-    contexto: String,
-    causa: Box<dyn Error>,
+struct ErrorWithContext {
+    context: String,
+    cause: Box<dyn Error>,
 }
 
-impl fmt::Display for ErrorConContexto {
+impl fmt::Display for ErrorWithContext {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}: {}", self.contexto, self.causa)
+        write!(f, "{}: {}", self.context, self.cause)
     }
 }
 
-impl Error for ErrorConContexto {
+impl Error for ErrorWithContext {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
-        Some(self.causa.as_ref())
+        Some(self.cause.as_ref())
     }
 }
 
-// Trait extension para agregar contexto
-trait ConContexto<T> {
-    fn contexto(self, msg: &str) -> Result<T, ErrorConContexto>;
+// Trait extension to add context
+trait WithContext<T> {
+    fn context(self, msg: &str) -> Result<T, ErrorWithContext>;
 }
 
-impl<T, E: Error + 'static> ConContexto<T> for Result<T, E> {
-    fn contexto(self, msg: &str) -> Result<T, ErrorConContexto> {
-        self.map_err(|e| ErrorConContexto {
-            contexto: msg.to_string(),
-            causa: Box::new(e),
+impl<T, E: Error + 'static> WithContext<T> for Result<T, E> {
+    fn context(self, msg: &str) -> Result<T, ErrorWithContext> {
+        self.map_err(|e| ErrorWithContext {
+            context: msg.to_string(),
+            cause: Box::new(e),
         })
     }
 }
 
-fn leer_con_contexto(ruta: &str) -> Result<i32, ErrorConContexto> {
-    // TODO: Implementar usando el trait ConContexto
-    // 1. Leer archivo y agregar contexto "Leyendo archivo"
-    // 2. Parsear y agregar contexto "Parseando número"
+fn read_with_context(path: &str) -> Result<i32, ErrorWithContext> {
+    // TODO: Implement using the WithContext trait
+    // 1. Read file and add context "Reading file"
+    // 2. Parse and add context "Parsing number"
     //
-    // PISTA: 
-    //   fs::read_to_string(ruta).contexto("Leyendo archivo")?
-    todo!("Implementar leer_con_contexto")
+    // HINT: 
+    //   fs::read_to_string(path).context("Reading file")?
+    todo!("Implement read_with_context")
 }
 
 // ============================================================================
-// EJERCICIO 4: Colección de Results
+// EXERCISE 4: Collection of Results
 // ============================================================================
-// Procesa múltiples archivos y retorna el primer error o la suma.
+// Process multiple files and return the first error or the sum.
 
-fn sumar_archivos(rutas: &[&str]) -> Result<i64, String> {
-    // TODO: Implementar
-    // Para cada ruta en rutas:
-    //   1. Leer el archivo
-    //   2. Parsear a i64
-    //   3. Sumar al total
-    // Si cualquier operación falla, retornar el error con contexto
+fn sum_files(paths: &[&str]) -> Result<i64, String> {
+    // TODO: Implement
+    // For each path in paths:
+    //   1. Read the file
+    //   2. Parse to i64
+    //   3. Add to total
+    // If any operation fails, return the error with context
     //
-    // PISTA: Puedes usar un for loop con ? o .map().collect()
-    todo!("Implementar sumar_archivos")
+    // HINT: You can use a for loop with ? or .map().collect()
+    todo!("Implement sum_files")
 }
 
 // ============================================================================
 // BONUS: Collect Results
 // ============================================================================
-// Recolecta todos los resultados o retorna el primer error.
+// Collect all results or return the first error.
 
-fn parsear_todos(strings: &[&str]) -> Result<Vec<i32>, String> {
-    // TODO: Implementar
-    // Parsear cada string a i32
-    // Retornar Vec<i32> si todos son válidos
-    // Retornar error si alguno falla
+fn parse_all(strings: &[&str]) -> Result<Vec<i32>, String> {
+    // TODO: Implement
+    // Parse each string to i32
+    // Return Vec<i32> if all are valid
+    // Return error if any fails
     //
-    // PISTA: Usa .map(|s| s.parse()).collect()
-    // collect() puede recolectar Result<Vec<T>, E>
-    todo!("Implementar parsear_todos")
+    // HINT: Use .map(|s| s.parse()).collect()
+    // collect() can collect Result<Vec<T>, E>
+    todo!("Implement parse_all")
 }
 
 // ============================================================================
@@ -177,67 +177,65 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_parsear_puerto_ok() {
-        assert_eq!(parsear_puerto("8080"), Ok(8080));
-        assert_eq!(parsear_puerto("443"), Ok(443));
+    fn test_parse_port_ok() {
+        assert_eq!(parse_port("8080"), Ok(8080));
+        assert_eq!(parse_port("443"), Ok(443));
     }
 
     #[test]
-    fn test_parsear_puerto_error() {
-        let result = parsear_puerto("abc");
+    fn test_parse_port_error() {
+        let result = parse_port("abc");
         assert!(result.is_err());
         assert!(result.unwrap_err().contains("abc"));
     }
 
     #[test]
-    fn test_leer_y_parsear_ok() {
+    fn test_read_and_parse_ok() {
         fs::write("test_num.txt", "123\n").unwrap();
-        assert_eq!(leer_y_parsear("test_num.txt").unwrap(), 123);
+        assert_eq!(read_and_parse("test_num.txt").unwrap(), 123);
         fs::remove_file("test_num.txt").unwrap();
     }
 
     #[test]
-    fn test_leer_y_parsear_io_error() {
-        assert!(leer_y_parsear("no_existe_xyz.txt").is_err());
+    fn test_read_and_parse_io_error() {
+        assert!(read_and_parse("does_not_exist_xyz.txt").is_err());
     }
 
     #[test]
-    fn test_leer_y_parsear_parse_error() {
-        fs::write("test_bad.txt", "not a number\n").unwrap();
-        assert!(leer_y_parsear("test_bad.txt").is_err());
+    fn test_read_and_parse_parse_error() {
+        fs::write("test_bad.txt", "abc\n").unwrap();
+        assert!(read_and_parse("test_bad.txt").is_err());
         fs::remove_file("test_bad.txt").unwrap();
     }
 
     #[test]
-    fn test_leer_con_contexto() {
+    fn test_read_with_context() {
         fs::write("test_ctx.txt", "42\n").unwrap();
-        assert_eq!(leer_con_contexto("test_ctx.txt").unwrap(), 42);
+        assert_eq!(read_with_context("test_ctx.txt").unwrap(), 42);
         fs::remove_file("test_ctx.txt").unwrap();
     }
 
     #[test]
-    fn test_sumar_archivos_ok() {
+    fn test_sum_files_ok() {
         fs::write("sum_a.txt", "10\n").unwrap();
         fs::write("sum_b.txt", "20\n").unwrap();
-        assert_eq!(sumar_archivos(&["sum_a.txt", "sum_b.txt"]).unwrap(), 30);
+        assert_eq!(sum_files(&["sum_a.txt", "sum_b.txt"]), Ok(30));
         fs::remove_file("sum_a.txt").unwrap();
         fs::remove_file("sum_b.txt").unwrap();
     }
 
     #[test]
-    fn test_sumar_archivos_error() {
-        fs::write("sum_ok.txt", "10\n").unwrap();
-        assert!(sumar_archivos(&["sum_ok.txt", "no_existe.txt"]).is_err());
-        fs::remove_file("sum_ok.txt").unwrap();
+    fn test_sum_files_missing() {
+        assert!(sum_files(&["does_not_exist_xyz.txt"]).is_err());
     }
 
     #[test]
-    fn test_parsear_todos_ok() {
-        assert_eq!(parsear_todos(&["1", "2", "3"]).unwrap(), vec![1, 2, 3]);
+    fn test_parse_all_ok() {
+        assert_eq!(parse_all(&["1", "2", "3"]), Ok(vec![1, 2, 3]));
     }
 
     #[test]
-    fn test_parsear_todos_error() {
-        assert!(parsear_todos(&["1", "abc", "3"]).is_err());
+    fn test_parse_all_error() {
+        assert!(parse_all(&["1", "abc", "3"]).is_err());
     }
 }
