@@ -45,7 +45,8 @@ fn main() {
 
 fn crear_duplicador() -> impl Fn(i32) -> i32 {
     // TODO: Retorna un closure que multiplique x por 2
-    todo!("Implementa crear_duplicador")
+    // ↓ Cambia esto por: |x| x * 2
+    |x| x
 }
 
 // ============================================================
@@ -58,7 +59,8 @@ fn crear_duplicador() -> impl Fn(i32) -> i32 {
 
 fn crear_sumador() -> impl Fn(i32, i32) -> i32 {
     // TODO: Retorna un closure que sume dos números
-    todo!("Implementa crear_sumador")
+    // ↓ Cambia esto por: |a, b| a + b
+    |a, _b| a
 }
 
 /// Aplica una operación a dos números
@@ -81,7 +83,8 @@ where
 
 fn crear_transformador() -> impl Fn(i32) -> i32 {
     // TODO: Retorna closure que transforma según la regla
-    todo!("Implementa crear_transformador")
+    // ↓ Cambia esto por: |x| if x % 2 == 0 { x * 2 } else { x + 1 }
+    |x| x
 }
 
 /// Procesa una lista aplicando una función a cada elemento
@@ -102,7 +105,8 @@ where
 
 fn crear_filtro_pares() -> impl Fn(&&i32) -> bool {
     // TODO: Retorna closure que retorne true si es par
-    todo!("Implementa crear_filtro_pares")
+    // ↓ Cambia esto por: |x| *x % 2 == 0
+    |_x| true
 }
 
 // ============================================================
@@ -117,7 +121,9 @@ fn crear_filtro_pares() -> impl Fn(&&i32) -> bool {
 fn crear_multiplicador(factor: i32) -> impl Fn(i32) -> i32 {
     // TODO: Retorna closure que multiplique por 'factor'
     // Pista: Necesitas usar 'move'
-    todo!("Implementa crear_multiplicador")
+    // ↓ Cambia esto por: move |x| x * factor
+    let _ = factor;
+    move |x| x
 }
 
 // ============================================================
