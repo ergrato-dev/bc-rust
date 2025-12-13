@@ -14,14 +14,14 @@ fn main() {
 // PARTE 1: Pipeline de Números
 fn demo_numeros() {
     println!("--- Demo 1: Pipeline de Números ---");
-    let numeros = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let resultado = procesar_numeros(&numeros);
-    println!("  Entrada: {:?}", numeros);
-    println!("  Procesado: {:?}\n", resultado);
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let result = procesar_numeros(&numbers);
+    println!("  Entrada: {:?}", numbers);
+    println!("  Procesado: {:?}\n", result);
 }
 
-fn procesar_numeros(numeros: &[i32]) -> Vec<i32> {
-    numeros
+fn procesar_numeros(numbers: &[i32]) -> Vec<i32> {
+    numbers
         .iter()
         .filter(|&x| x % 2 == 0)  // pares
         .map(|x| x * 2)            // duplicar
@@ -32,30 +32,30 @@ fn procesar_numeros(numeros: &[i32]) -> Vec<i32> {
 // PARTE 2: Pipeline de Strings
 fn demo_strings() {
     println!("--- Demo 2: Pipeline de Strings ---");
-    let textos = vec!["  HOLA  ", "mundo", "", "  RUST  ", "   ", "programación"];
-    let resultado = limpiar_textos(&textos);
-    println!("  Entrada: {:?}", textos);
-    println!("  Limpio: {:?}\n", resultado);
+    let texts = vec!["  HOLA  ", "mundo", "", "  RUST  ", "   ", "programación"];
+    let result = limpiar_textos(&texts);
+    println!("  Entrada: {:?}", texts);
+    println!("  Limpio: {:?}\n", result);
 }
 
-fn limpiar_textos(textos: &[&str]) -> Vec<String> {
-    let mut resultado: Vec<String> = textos
+fn limpiar_textos(texts: &[&str]) -> Vec<String> {
+    let mut result: Vec<String> = texts
         .iter()
         .map(|s| s.trim())                    // quitar espacios
         .filter(|s| !s.is_empty())            // filtrar vacíos
         .map(|s| s.to_lowercase())            // minúsculas
         .collect();
     
-    resultado.sort_by_key(|s| s.len());       // ordenar por longitud
-    resultado
+    result.sort_by_key(|s| s.len());       // ordenar por longitud
+    result
 }
 
 // PARTE 3: Pipeline con Estadísticas
 fn demo_estadisticas() {
     println!("--- Demo 3: Pipeline con Estadísticas ---");
-    let datos = vec![10, 25, 30, 45, 50, 15, 80, 35];
-    let stats = calcular_estadisticas(&datos);
-    println!("  Datos: {:?}", datos);
+    let data = vec![10, 25, 30, 45, 50, 15, 80, 35];
+    let stats = calcular_estadisticas(&data);
+    println!("  Datos: {:?}", data);
     println!("  Estadísticas: {:?}\n", stats);
 }
 
@@ -68,16 +68,16 @@ struct Estadisticas {
     maximo: i32,
 }
 
-fn calcular_estadisticas(datos: &[i32]) -> Option<Estadisticas> {
-    if datos.is_empty() {
+fn calcular_estadisticas(data: &[i32]) -> Option<Estadisticas> {
+    if data.is_empty() {
         return None;
     }
 
-    let cantidad = datos.len();
-    let suma: i32 = datos.iter().sum();
+    let cantidad = data.len();
+    let suma: i32 = data.iter().sum();
     let promedio = suma as f64 / cantidad as f64;
-    let minimo = *datos.iter().min()?;
-    let maximo = *datos.iter().max()?;
+    let minimo = *data.iter().min()?;
+    let maximo = *data.iter().max()?;
 
     Some(Estadisticas {
         cantidad,
@@ -94,37 +94,37 @@ fn demo_pipeline_personalizado() {
     
     let mut pipeline: Pipeline<i32> = Pipeline::new();
     pipeline
-        .agregar_etapa(Box::new(|x| x * 2))
-        .agregar_etapa(Box::new(|x| x + 1))
-        .agregar_etapa(Box::new(|x| x * x));
+        .add_stage(Box::new(|x| x * 2))
+        .add_stage(Box::new(|x| x + 1))
+        .add_stage(Box::new(|x| x * x));
     
-    let datos = vec![1, 2, 3, 4, 5];
-    let resultado = pipeline.ejecutar(&datos);
+    let data = vec![1, 2, 3, 4, 5];
+    let result = pipeline.execute(&data);
     
-    println!("  Entrada: {:?}", datos);
-    println!("  Pipeline (x*2+1)²: {:?}\n", resultado);
+    println!("  Entrada: {:?}", data);
+    println!("  Pipeline (x*2+1)²: {:?}\n", result);
 }
 
 struct Pipeline<T> {
-    etapas: Vec<Box<dyn Fn(T) -> T>>,
+    stages: Vec<Box<dyn Fn(T) -> T>>,
 }
 
 impl<T: Copy> Pipeline<T> {
     fn new() -> Self {
-        Pipeline { etapas: Vec::new() }
+        Pipeline { stages: Vec::new() }
     }
 
-    fn agregar_etapa(&mut self, etapa: Box<dyn Fn(T) -> T>) -> &mut Self {
-        self.etapas.push(etapa);
+    fn add_stage(&mut self, stage: Box<dyn Fn(T) -> T>) -> &mut Self {
+        self.stages.push(stage);
         self
     }
 
-    fn ejecutar(&self, datos: &[T]) -> Vec<T> {
-        datos
+    fn execute(&self, data: &[T]) -> Vec<T> {
+        data
             .iter()
-            .map(|&valor| {
+            .map(|&value| {
                 // Aplica todas las etapas secuencialmente
-                self.etapas.iter().fold(valor, |acc, etapa| etapa(acc))
+                self.stages.iter().fold(value, |acc, stage| stage(acc))
             })
             .collect()
     }
@@ -136,15 +136,15 @@ mod tests {
 
     #[test]
     fn test_procesar_numeros() {
-        let resultado = procesar_numeros(&[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        assert_eq!(resultado, vec![14, 18, 22, 26, 30]);
+        let result = procesar_numeros(&[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        assert_eq!(result, vec![14, 18, 22, 26, 30]);
     }
 
     #[test]
     fn test_limpiar_textos() {
-        let textos = vec!["  ABC  ", "xy", "", "  Z  "];
-        let resultado = limpiar_textos(&textos);
-        assert_eq!(resultado, vec!["z", "xy", "abc"]);
+        let texts = vec!["  ABC  ", "xy", "", "  Z  "];
+        let result = limpiar_textos(&texts);
+        assert_eq!(result, vec!["z", "xy", "abc"]);
     }
 
     #[test]
@@ -166,8 +166,8 @@ mod tests {
     fn test_pipeline() {
         let mut pipeline: Pipeline<i32> = Pipeline::new();
         pipeline
-            .agregar_etapa(Box::new(|x| x + 1))
-            .agregar_etapa(Box::new(|x| x * 2));
-        assert_eq!(pipeline.ejecutar(&[1, 2, 3]), vec![4, 6, 8]);
+            .add_stage(Box::new(|x| x + 1))
+            .add_stage(Box::new(|x| x * 2));
+        assert_eq!(pipeline.execute(&[1, 2, 3]), vec![4, 6, 8]);
     }
 }
