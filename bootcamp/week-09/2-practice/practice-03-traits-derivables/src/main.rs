@@ -11,38 +11,38 @@ use std::collections::{HashMap, HashSet};
 // Usa derive para Debug y Clone
 
 #[derive(Debug, Clone)]
-struct Producto {
+struct Product {
     id: u32,
-    nombre: String,
-    precio: f64,
+    name: String,
+    price: f64,
     stock: u32,
 }
 
-impl Producto {
-    fn new(id: u32, nombre: &str, precio: f64, stock: u32) -> Self {
-        Producto {
+impl Product {
+    fn new(id: u32, name: &str, price: f64, stock: u32) -> Self {
+        Product {
             id,
-            nombre: nombre.to_string(),
-            precio,
+            name: name.to_string(),
+            price,
             stock,
         }
     }
 }
 
 #[derive(Debug, Clone, Copy)]
-struct Punto2D {
+struct Point2D {
     x: f64,
     y: f64,
 }
 
-impl Punto2D {
+impl Point2D {
     fn new(x: f64, y: f64) -> Self {
-        Punto2D { x, y }
+        Point2D { x, y }
     }
     
-    fn distancia(&self, otro: &Punto2D) -> f64 {
-        let dx = self.x - otro.x;
-        let dy = self.y - otro.y;
+    fn distance(&self, other: &Point2D) -> f64 {
+        let dx = self.x - other.x;
+        let dy = self.y - other.y;
         (dx * dx + dy * dy).sqrt()
     }
 }
@@ -54,33 +54,33 @@ impl Punto2D {
 // Deriva igualdad para comparar estructuras
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-struct Usuario {
+struct User {
     id: u32,
     email: String,
-    activo: bool,
+    active: bool,
 }
 
-impl Usuario {
+impl User {
     fn new(id: u32, email: &str) -> Self {
-        Usuario {
+        User {
             id,
             email: email.to_string(),
-            activo: true,
+            active: true,
         }
     }
 }
 
 #[derive(Debug, Clone, PartialEq)]
-struct Coordenada {
-    latitud: f64,
-    longitud: f64,
+struct Coordinate {
+    latitude: f64,
+    longitude: f64,
 }
 
-impl Coordenada {
+impl Coordinate {
     fn new(lat: f64, lon: f64) -> Self {
-        Coordenada {
-            latitud: lat,
-            longitud: lon,
+        Coordinate {
+            latitude: lat,
+            longitude: lon,
         }
     }
 }
@@ -92,16 +92,16 @@ impl Coordenada {
 // Deriva ordenamiento para ordenar colecciones
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-struct Estudiante {
-    nota: u32,      // Primero ordena por nota
-    nombre: String, // Luego por nombre
+struct Student {
+    grade: u32,      // Primero ordena por nota
+    name: String, // Luego por nombre
 }
 
-impl Estudiante {
-    fn new(nombre: &str, nota: u32) -> Self {
-        Estudiante {
-            nota,
-            nombre: nombre.to_string(),
+impl Student {
+    fn new(name: &str, grade: u32) -> Self {
+        Student {
+            grade,
+            name: name.to_string(),
         }
     }
 }
@@ -119,14 +119,14 @@ impl Version {
     }
     
     fn from_str(s: &str) -> Option<Self> {
-        let partes: Vec<&str> = s.split('.').collect();
-        if partes.len() != 3 {
+        let parts: Vec<&str> = s.split('.').collect();
+        if parts.len() != 3 {
             return None;
         }
         Some(Version {
-            major: partes[0].parse().ok()?,
-            minor: partes[1].parse().ok()?,
-            patch: partes[2].parse().ok()?,
+            major: parts[0].parse().ok()?,
+            minor: parts[1].parse().ok()?,
+            patch: parts[2].parse().ok()?,
         })
     }
 }

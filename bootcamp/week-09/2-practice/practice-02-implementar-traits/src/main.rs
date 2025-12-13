@@ -158,34 +158,34 @@ impl Worker for Employee {
 
 use std::fmt::Display;
 
-// Imprimible requiere que el tipo implemente Display
-trait Imprimible: Display {
-    fn imprimir(&self) {
+// Printable requiere que el tipo implemente Display
+trait Printable: Display {
+    fn print(&self) {
         println!("{}", self);
     }
     
-    fn imprimir_decorado(&self) {
+    fn print_decorated(&self) {
         println!("*** {} ***", self);
     }
 }
 
-struct Mensaje {
-    contenido: String,
-    prioridad: u8,
+struct Message {
+    content: String,
+    priority: u8,
 }
 
-impl Display for Mensaje {
+impl Display for Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let icono = match self.prioridad {
+        let icon = match self.priority {
             0..=3 => "📝",
             4..=6 => "⚠️",
             _ => "🚨",
         };
-        write!(f, "{} {}", icono, self.contenido)
+        write!(f, "{} {}", icon, self.content)
     }
 }
 
-impl Imprimible for Mensaje {}
+impl Printable for Message {}
 
 // ============================================
 // EJERCICIO 4: Métodos Asociados (Constructores)
@@ -193,84 +193,84 @@ impl Imprimible for Mensaje {}
 //
 // Define traits con métodos asociados (sin self)
 
-trait Creador {
-    fn crear() -> Self;
-    fn crear_con_nombre(nombre: &str) -> Self;
+trait Creator {
+    fn create() -> Self;
+    fn create_with_name(name: &str) -> Self;
 }
 
-trait Reseteable {
+trait Resettable {
     fn reset(&mut self);
 }
 
 #[derive(Debug)]
-struct Contador {
-    nombre: String,
-    valor: i32,
+struct Counter {
+    name: String,
+    value: i32,
 }
 
-impl Creador for Contador {
-    fn crear() -> Self {
-        Contador {
-            nombre: String::from("default"),
-            valor: 0,
+impl Creator for Counter {
+    fn create() -> Self {
+        Counter {
+            name: String::from("default"),
+            value: 0,
         }
     }
     
-    fn crear_con_nombre(nombre: &str) -> Self {
-        Contador {
-            nombre: nombre.to_string(),
-            valor: 0,
+    fn create_with_name(name: &str) -> Self {
+        Counter {
+            name: name.to_string(),
+            value: 0,
         }
     }
 }
 
-impl Reseteable for Contador {
+impl Resettable for Counter {
     fn reset(&mut self) {
-        self.valor = 0;
+        self.value = 0;
     }
 }
 
-impl Contador {
-    fn incrementar(&mut self) {
-        self.valor += 1;
+impl Counter {
+    fn increment(&mut self) {
+        self.value += 1;
     }
     
-    fn valor(&self) -> i32 {
-        self.valor
+    fn value(&self) -> i32 {
+        self.value
     }
 }
 
 #[derive(Debug)]
-struct Punto {
+struct Point {
     x: f64,
     y: f64,
 }
 
-impl Creador for Punto {
-    fn crear() -> Self {
-        Punto { x: 0.0, y: 0.0 }
+impl Creator for Point {
+    fn create() -> Self {
+        Point { x: 0.0, y: 0.0 }
     }
     
-    fn crear_con_nombre(_nombre: &str) -> Self {
+    fn create_with_name(_name: &str) -> Self {
         // Los puntos no tienen nombre, pero debemos implementar el método
-        Punto { x: 0.0, y: 0.0 }
+        Point { x: 0.0, y: 0.0 }
     }
 }
 
-impl Reseteable for Punto {
+impl Resettable for Point {
     fn reset(&mut self) {
         self.x = 0.0;
         self.y = 0.0;
     }
 }
 
-impl Punto {
-    fn mover(&mut self, dx: f64, dy: f64) {
+impl Point {
+    fn move_by(&mut self, dx: f64, dy: f64) {
         self.x += dx;
         self.y += dy;
     }
     
-    fn distancia_origen(&self) -> f64 {
+    fn distance_to_origin(&self) -> f64 {
         (self.x * self.x + self.y * self.y).sqrt()
     }
 }
@@ -280,58 +280,58 @@ fn main() {
     
     // Ejercicio 1: Animal
     println!("--- Ejercicio 1: Animal ---");
-    let perro = Perro { 
-        nombre: String::from("Max"), 
-        raza: String::from("Labrador") 
+    let dog = Dog { 
+        name: String::from("Max"), 
+        breed: String::from("Labrador") 
     };
-    let gato = Gato { 
-        nombre: String::from("Michi"), 
+    let cat = Cat { 
+        name: String::from("Michi"), 
         color: String::from("naranja") 
     };
-    let pajaro = Pajaro { 
-        nombre: String::from("Piolín"), 
-        puede_volar: true 
+    let bird = Bird { 
+        name: String::from("Piolín"), 
+        can_fly: true 
     };
     
-    println!("{}", perro.presentarse());
-    println!("{}", gato.presentarse());
-    println!("{}", pajaro.presentarse());
+    println!("{}", dog.introduce());
+    println!("{}", cat.introduce());
+    println!("{}", bird.introduce());
     
     // Ejercicio 2: Múltiples Traits
     println!("\n--- Ejercicio 2: Múltiples Traits ---");
-    let empleado = Empleado {
-        nombre: String::from("Ana"),
-        apellido: String::from("García"),
-        edad: 30,
-        puesto: String::from("Desarrolladora Rust"),
-        salario: 5000.0,
+    let employee = Employee {
+        first_name: String::from("Ana"),
+        last_name: String::from("García"),
+        age: 30,
+        position: String::from("Desarrolladora Rust"),
+        salary: 5000.0,
     };
     
-    println!("Nombre: {}", empleado.nombre_completo());
-    println!("Edad: {} (mayor de edad: {})", empleado.edad(), empleado.es_mayor_de_edad());
-    println!("Presentación: {}", empleado.presentacion());
-    println!("Salario anual: ${:.2}", empleado.salario_anual());
+    println!("Nombre: {}", employee.full_name());
+    println!("Edad: {} (mayor de edad: {})", employee.age(), employee.is_adult());
+    println!("Presentación: {}", employee.introduction());
+    println!("Salario anual: ${:.2}", employee.annual_salary());
     
     // Ejercicio 3: Supertraits
     println!("\n--- Ejercicio 3: Supertraits ---");
-    let msg_bajo = Mensaje { contenido: String::from("Todo bien"), prioridad: 2 };
-    let msg_alto = Mensaje { contenido: String::from("URGENTE"), prioridad: 9 };
+    let msg_low = Message { content: String::from("Todo bien"), priority: 2 };
+    let msg_high = Message { content: String::from("URGENTE"), priority: 9 };
     
-    msg_bajo.imprimir();
-    msg_alto.imprimir_decorado();
+    msg_low.print();
+    msg_high.print_decorated();
     
     // Ejercicio 4: Métodos Asociados
     println!("\n--- Ejercicio 4: Métodos Asociados ---");
-    let mut contador = Contador::crear_con_nombre("mi_contador");
-    contador.incrementar();
-    contador.incrementar();
-    println!("Contador: {:?}, valor: {}", contador, contador.valor());
-    contador.reset();
-    println!("Después de reset: {}", contador.valor());
+    let mut counter = Counter::create_with_name("my_counter");
+    counter.increment();
+    counter.increment();
+    println!("Counter: {:?}, value: {}", counter, counter.value());
+    counter.reset();
+    println!("Después de reset: {}", counter.value());
     
-    let mut punto = Punto::crear();
-    punto.mover(3.0, 4.0);
-    println!("Punto: {:?}, distancia al origen: {}", punto, punto.distancia_origen());
+    let mut point = Point::create();
+    point.move_by(3.0, 4.0);
+    println!("Point: {:?}, distancia al origen: {}", point, point.distance_to_origin());
 }
 
 #[cfg(test)]
@@ -340,202 +340,202 @@ mod tests {
     
     // Tests Ejercicio 1: Animal
     #[test]
-    fn test_perro_sonido() {
-        let perro = Perro { nombre: String::from("Rex"), raza: String::from("Pastor") };
-        assert_eq!(perro.sonido(), "Guau guau");
+    fn test_dog_sound() {
+        let dog = Dog { name: String::from("Rex"), breed: String::from("Pastor") };
+        assert_eq!(dog.sound(), "Guau guau");
     }
     
     #[test]
-    fn test_perro_nombre() {
-        let perro = Perro { nombre: String::from("Rex"), raza: String::from("Pastor") };
-        assert_eq!(perro.nombre(), "Rex");
+    fn test_dog_name() {
+        let dog = Dog { name: String::from("Rex"), breed: String::from("Pastor") };
+        assert_eq!(dog.name(), "Rex");
     }
     
     #[test]
-    fn test_perro_moverse() {
-        let perro = Perro { nombre: String::from("Rex"), raza: String::from("Bulldog") };
-        assert!(perro.moverse().contains("Bulldog"));
+    fn test_dog_move_around() {
+        let dog = Dog { name: String::from("Rex"), breed: String::from("Bulldog") };
+        assert!(dog.move_around().contains("Bulldog"));
     }
     
     #[test]
-    fn test_gato_sonido() {
-        let gato = Gato { nombre: String::from("Felix"), color: String::from("negro") };
-        assert_eq!(gato.sonido(), "Miau");
+    fn test_cat_sound() {
+        let cat = Cat { name: String::from("Felix"), color: String::from("negro") };
+        assert_eq!(cat.sound(), "Miau");
     }
     
     #[test]
-    fn test_gato_moverse() {
-        let gato = Gato { nombre: String::from("Felix"), color: String::from("blanco") };
-        assert!(gato.moverse().contains("blanco"));
+    fn test_cat_move_around() {
+        let cat = Cat { name: String::from("Felix"), color: String::from("blanco") };
+        assert!(cat.move_around().contains("blanco"));
     }
     
     #[test]
-    fn test_pajaro_vuela() {
-        let pajaro = Pajaro { nombre: String::from("Tweety"), puede_volar: true };
-        assert!(pajaro.moverse().contains("volando"));
+    fn test_bird_flies() {
+        let bird = Bird { name: String::from("Tweety"), can_fly: true };
+        assert!(bird.move_around().contains("volando"));
     }
     
     #[test]
-    fn test_pajaro_no_vuela() {
-        let pajaro = Pajaro { nombre: String::from("Pingu"), puede_volar: false };
-        assert!(pajaro.moverse().contains("caminando"));
+    fn test_bird_no_fly() {
+        let bird = Bird { name: String::from("Pingu"), can_fly: false };
+        assert!(bird.move_around().contains("caminando"));
     }
     
     #[test]
-    fn test_animal_presentarse() {
-        let perro = Perro { nombre: String::from("Buddy"), raza: String::from("Golden") };
-        let presentacion = perro.presentarse();
-        assert!(presentacion.contains("Buddy"));
-        assert!(presentacion.contains("Guau"));
+    fn test_animal_introduce() {
+        let dog = Dog { name: String::from("Buddy"), breed: String::from("Golden") };
+        let intro = dog.introduce();
+        assert!(intro.contains("Buddy"));
+        assert!(intro.contains("Guau"));
     }
     
     // Tests Ejercicio 2: Múltiples Traits
     #[test]
-    fn test_empleado_nombre_completo() {
-        let emp = Empleado {
-            nombre: String::from("Juan"),
-            apellido: String::from("Pérez"),
-            edad: 25,
-            puesto: String::from("Dev"),
-            salario: 3000.0,
+    fn test_employee_full_name() {
+        let emp = Employee {
+            first_name: String::from("Juan"),
+            last_name: String::from("Pérez"),
+            age: 25,
+            position: String::from("Dev"),
+            salary: 3000.0,
         };
-        assert_eq!(emp.nombre_completo(), "Juan Pérez");
+        assert_eq!(emp.full_name(), "Juan Pérez");
     }
     
     #[test]
-    fn test_empleado_edad() {
-        let emp = Empleado {
-            nombre: String::from("Test"),
-            apellido: String::from("User"),
-            edad: 17,
-            puesto: String::from("Intern"),
-            salario: 1000.0,
+    fn test_employee_age() {
+        let emp = Employee {
+            first_name: String::from("Test"),
+            last_name: String::from("User"),
+            age: 17,
+            position: String::from("Intern"),
+            salary: 1000.0,
         };
-        assert_eq!(emp.edad(), 17);
-        assert!(!emp.es_mayor_de_edad());
+        assert_eq!(emp.age(), 17);
+        assert!(!emp.is_adult());
     }
     
     #[test]
-    fn test_empleado_mayor_edad() {
-        let emp = Empleado {
-            nombre: String::from("Adult"),
-            apellido: String::from("Person"),
-            edad: 25,
-            puesto: String::from("Manager"),
-            salario: 5000.0,
+    fn test_employee_is_adult() {
+        let emp = Employee {
+            first_name: String::from("Adult"),
+            last_name: String::from("Person"),
+            age: 25,
+            position: String::from("Manager"),
+            salary: 5000.0,
         };
-        assert!(emp.es_mayor_de_edad());
+        assert!(emp.is_adult());
     }
     
     #[test]
-    fn test_empleado_salario_anual() {
-        let emp = Empleado {
-            nombre: String::from("Test"),
-            apellido: String::from("User"),
-            edad: 30,
-            puesto: String::from("Dev"),
-            salario: 1000.0,
+    fn test_employee_annual_salary() {
+        let emp = Employee {
+            first_name: String::from("Test"),
+            last_name: String::from("User"),
+            age: 30,
+            position: String::from("Dev"),
+            salary: 1000.0,
         };
-        assert_eq!(emp.salario_anual(), 12000.0);
+        assert_eq!(emp.annual_salary(), 12000.0);
     }
     
     #[test]
-    fn test_empleado_presentacion() {
-        let emp = Empleado {
-            nombre: String::from("María"),
-            apellido: String::from("López"),
-            edad: 28,
-            puesto: String::from("Designer"),
-            salario: 4000.0,
+    fn test_employee_introduction() {
+        let emp = Employee {
+            first_name: String::from("María"),
+            last_name: String::from("López"),
+            age: 28,
+            position: String::from("Designer"),
+            salary: 4000.0,
         };
-        let pres = emp.presentacion();
-        assert!(pres.contains("María López"));
-        assert!(pres.contains("28"));
-        assert!(pres.contains("Designer"));
+        let intro = emp.introduction();
+        assert!(intro.contains("María López"));
+        assert!(intro.contains("28"));
+        assert!(intro.contains("Designer"));
     }
     
     // Tests Ejercicio 3: Supertraits
     #[test]
-    fn test_mensaje_display() {
-        let msg = Mensaje { contenido: String::from("Hola"), prioridad: 1 };
-        let texto = format!("{}", msg);
-        assert!(texto.contains("Hola"));
-        assert!(texto.contains("📝"));
+    fn test_message_display() {
+        let msg = Message { content: String::from("Hola"), priority: 1 };
+        let text = format!("{}", msg);
+        assert!(text.contains("Hola"));
+        assert!(text.contains("📝"));
     }
     
     #[test]
-    fn test_mensaje_prioridad_media() {
-        let msg = Mensaje { contenido: String::from("Aviso"), prioridad: 5 };
-        let texto = format!("{}", msg);
-        assert!(texto.contains("⚠️"));
+    fn test_message_medium_priority() {
+        let msg = Message { content: String::from("Aviso"), priority: 5 };
+        let text = format!("{}", msg);
+        assert!(text.contains("⚠️"));
     }
     
     #[test]
-    fn test_mensaje_prioridad_alta() {
-        let msg = Mensaje { contenido: String::from("Alerta"), prioridad: 8 };
-        let texto = format!("{}", msg);
-        assert!(texto.contains("🚨"));
+    fn test_message_high_priority() {
+        let msg = Message { content: String::from("Alerta"), priority: 8 };
+        let text = format!("{}", msg);
+        assert!(text.contains("🚨"));
     }
     
     // Tests Ejercicio 4: Métodos Asociados
     #[test]
-    fn test_contador_crear() {
-        let contador = Contador::crear();
-        assert_eq!(contador.valor(), 0);
-        assert_eq!(contador.nombre, "default");
+    fn test_counter_create() {
+        let counter = Counter::create();
+        assert_eq!(counter.value(), 0);
+        assert_eq!(counter.name, "default");
     }
     
     #[test]
-    fn test_contador_crear_con_nombre() {
-        let contador = Contador::crear_con_nombre("test");
-        assert_eq!(contador.nombre, "test");
+    fn test_counter_create_with_name() {
+        let counter = Counter::create_with_name("test");
+        assert_eq!(counter.name, "test");
     }
     
     #[test]
-    fn test_contador_incrementar() {
-        let mut contador = Contador::crear();
-        contador.incrementar();
-        contador.incrementar();
-        assert_eq!(contador.valor(), 2);
+    fn test_counter_increment() {
+        let mut counter = Counter::create();
+        counter.increment();
+        counter.increment();
+        assert_eq!(counter.value(), 2);
     }
     
     #[test]
-    fn test_contador_reset() {
-        let mut contador = Contador::crear();
-        contador.incrementar();
-        contador.incrementar();
-        contador.reset();
-        assert_eq!(contador.valor(), 0);
+    fn test_counter_reset() {
+        let mut counter = Counter::create();
+        counter.increment();
+        counter.increment();
+        counter.reset();
+        assert_eq!(counter.value(), 0);
     }
     
     #[test]
-    fn test_punto_crear() {
-        let punto = Punto::crear();
-        assert_eq!(punto.x, 0.0);
-        assert_eq!(punto.y, 0.0);
+    fn test_point_create() {
+        let point = Point::create();
+        assert_eq!(point.x, 0.0);
+        assert_eq!(point.y, 0.0);
     }
     
     #[test]
-    fn test_punto_mover() {
-        let mut punto = Punto::crear();
-        punto.mover(3.0, 4.0);
-        assert_eq!(punto.x, 3.0);
-        assert_eq!(punto.y, 4.0);
+    fn test_point_move_by() {
+        let mut point = Point::create();
+        point.move_by(3.0, 4.0);
+        assert_eq!(point.x, 3.0);
+        assert_eq!(point.y, 4.0);
     }
     
     #[test]
-    fn test_punto_distancia() {
-        let mut punto = Punto::crear();
-        punto.mover(3.0, 4.0);
-        assert!((punto.distancia_origen() - 5.0).abs() < 0.001);
+    fn test_point_distance() {
+        let mut point = Point::create();
+        point.move_by(3.0, 4.0);
+        assert!((point.distance_to_origin() - 5.0).abs() < 0.001);
     }
     
     #[test]
-    fn test_punto_reset() {
-        let mut punto = Punto::crear();
-        punto.mover(10.0, 20.0);
-        punto.reset();
-        assert_eq!(punto.x, 0.0);
-        assert_eq!(punto.y, 0.0);
+    fn test_point_reset() {
+        let mut point = Point::create();
+        point.move_by(10.0, 20.0);
+        point.reset();
+        assert_eq!(point.x, 0.0);
+        assert_eq!(point.y, 0.0);
     }
 }
