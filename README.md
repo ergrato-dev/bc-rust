@@ -9,6 +9,8 @@
 > 🎓 Bootcamp intensivo de **17 semanas (68 horas)** para dominar Rust desde cero hasta un nivel avanzado.  
 > 🐳 Entorno containerizado con Docker para desarrollo consistente.
 
+**🇬🇧 [English Version](README.en.md)**
+
 ---
 
 ## 📋 Descripción
