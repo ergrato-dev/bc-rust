@@ -1,0 +1,7 @@
+[package]
+name = "proyecto-pipeline"
+version = "0.1.0"
+edition = "2024"
+description = "Proyecto: Pipeline de procesamiento de datos con closures e iteradores"
+
+[dependencies]

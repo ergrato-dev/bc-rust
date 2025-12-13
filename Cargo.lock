@@ -159,6 +159,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "practica-01-closures-basicos"
+version = "0.1.0"
+
+[[package]]
 name = "practica-01-definir-traits"
 version = "0.1.0"
 
@@ -172,6 +176,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practica-01-vectores"
+version = "0.1.0"
+
+[[package]]
+name = "practica-02-captura"
 version = "0.1.0"
 
 [[package]]
@@ -195,6 +203,10 @@ name = "practica-03-elision"
 version = "0.1.0"
 
 [[package]]
+name = "practica-03-fn-traits"
+version = "0.1.0"
+
+[[package]]
 name = "practica-03-hashmaps"
 version = "0.1.0"
 
@@ -212,6 +224,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practica-04-iteradores"
+version = "0.1.0"
+
+[[package]]
+name = "practica-04-iteradores-avanzados"
 version = "0.1.0"
 
 [[package]]
@@ -271,6 +287,10 @@ version = "0.1.0"
 
 [[package]]
 name = "proyecto-parser"
+version = "0.1.0"
+
+[[package]]
+name = "proyecto-pipeline"
 version = "0.1.0"
 
 [[package]]

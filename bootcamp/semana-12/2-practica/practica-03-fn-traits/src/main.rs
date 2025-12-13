@@ -152,11 +152,11 @@ mod tests {
     #[test]
     fn test_aplicar_fn_mut_veces() {
         let mut n = 0;
-        let mut gen = || {
+        let mut generador = || {
             n += 10;
             n
         };
-        let resultados = aplicar_fn_mut_veces(&mut gen, 3);
+        let resultados = aplicar_fn_mut_veces(&mut generador, 3);
         assert_eq!(resultados, vec![10, 20, 30]);
     }
 

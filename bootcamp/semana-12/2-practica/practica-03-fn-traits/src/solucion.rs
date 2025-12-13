@@ -88,8 +88,8 @@ mod tests {
 
         // Test FnMut
         let mut n = 0;
-        let mut gen = || { n += 1; n };
-        assert_eq!(aplicar_fn_mut_veces(&mut gen, 3), vec![1, 2, 3]);
+        let mut generador = || { n += 1; n };
+        assert_eq!(aplicar_fn_mut_veces(&mut generador, 3), vec![1, 2, 3]);
 
         // Test FnOnce
         let v = vec![1, 2, 3];

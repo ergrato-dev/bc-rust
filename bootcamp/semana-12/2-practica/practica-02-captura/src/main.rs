@@ -94,7 +94,7 @@ fn ejercicio_3_move() {
     
     // TODO: Crea un closure con 'move' que tome ownership de 'datos'
     // y retorne la suma de sus elementos
-    let calcular_suma = todo!("Implementa closure con move");
+    let calcular_suma: fn() -> i32 = || todo!("Implementa closure con move");
     
     let suma = calcular_suma();
     println!("Ejercicio 3 - Suma: {}", suma);
@@ -147,7 +147,7 @@ fn ejercicio_5_move_copy() {
     let numero = 42; // i32 implementa Copy
     
     // TODO: Crea un closure con move que use 'numero'
-    let mostrar = todo!("Implementa closure con move para tipo Copy");
+    let mostrar: fn() = || todo!("Implementa closure con move para tipo Copy");
     
     mostrar();
     

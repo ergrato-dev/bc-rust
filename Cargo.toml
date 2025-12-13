@@ -39,6 +39,13 @@ members = [
     "bootcamp/semana-11/2-practica/practica-03-elision",
     "bootcamp/semana-11/2-practica/practica-04-lifetimes-avanzados",
     "bootcamp/semana-11/3-proyecto/proyecto-parser",
+    
+    # Semana 12 - Closures e Iteradores
+    "bootcamp/semana-12/2-practica/practica-01-closures-basicos",
+    "bootcamp/semana-12/2-practica/practica-02-captura",
+    "bootcamp/semana-12/2-practica/practica-03-fn-traits",
+    "bootcamp/semana-12/2-practica/practica-04-iteradores",
+    "bootcamp/semana-12/3-proyecto/proyecto-pipeline",
 ]
 
 [workspace.package]
