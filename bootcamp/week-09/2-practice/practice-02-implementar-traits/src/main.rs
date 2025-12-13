@@ -6,77 +6,77 @@
 // EJERCICIO 1: Trait Animal
 // ============================================
 //
-// Implementa el trait Animal para Perro, Gato y Pajaro
+// Implementa el trait Animal para Dog, Cat y Bird
 // Cada uno debe tener su propio sonido y forma de moverse
 
 trait Animal {
-    fn nombre(&self) -> &str;
-    fn sonido(&self) -> &str;
-    fn moverse(&self) -> String;
+    fn name(&self) -> &str;
+    fn sound(&self) -> &str;
+    fn move_around(&self) -> String;
     
-    fn presentarse(&self) -> String {
+    fn introduce(&self) -> String {
         format!("Soy {}, hago '{}' y me muevo {}", 
-            self.nombre(), 
-            self.sonido(),
-            self.moverse()
+            self.name(), 
+            self.sound(),
+            self.move_around()
         )
     }
 }
 
-struct Perro {
-    nombre: String,
-    raza: String,
+struct Dog {
+    name: String,
+    breed: String,
 }
 
-impl Animal for Perro {
-    fn nombre(&self) -> &str {
-        &self.nombre
+impl Animal for Dog {
+    fn name(&self) -> &str {
+        &self.name
     }
     
-    fn sonido(&self) -> &str {
+    fn sound(&self) -> &str {
         "Guau guau"
     }
     
-    fn moverse(&self) -> String {
-        format!("corriendo con mis 4 patas de {}", self.raza)
+    fn move_around(&self) -> String {
+        format!("corriendo con mis 4 patas de {}", self.breed)
     }
 }
 
-struct Gato {
-    nombre: String,
+struct Cat {
+    name: String,
     color: String,
 }
 
-impl Animal for Gato {
-    fn nombre(&self) -> &str {
-        &self.nombre
+impl Animal for Cat {
+    fn name(&self) -> &str {
+        &self.name
     }
     
-    fn sonido(&self) -> &str {
+    fn sound(&self) -> &str {
         "Miau"
     }
     
-    fn moverse(&self) -> String {
+    fn move_around(&self) -> String {
         format!("sigilosamente como un gato {}", self.color)
     }
 }
 
-struct Pajaro {
-    nombre: String,
-    puede_volar: bool,
+struct Bird {
+    name: String,
+    can_fly: bool,
 }
 
-impl Animal for Pajaro {
-    fn nombre(&self) -> &str {
-        &self.nombre
+impl Animal for Bird {
+    fn name(&self) -> &str {
+        &self.name
     }
     
-    fn sonido(&self) -> &str {
+    fn sound(&self) -> &str {
         "Pío pío"
     }
     
-    fn moverse(&self) -> String {
-        if self.puede_volar {
+    fn move_around(&self) -> String {
+        if self.can_fly {
             "volando por el cielo".to_string()
         } else {
             "caminando en el suelo".to_string()
@@ -88,65 +88,65 @@ impl Animal for Pajaro {
 // EJERCICIO 2: Múltiples Traits
 // ============================================
 //
-// Implementa varios traits para Empleado
+// Implementa varios traits para Employee
 
-trait Nombrable {
-    fn nombre_completo(&self) -> String;
+trait Nameable {
+    fn full_name(&self) -> String;
 }
 
-trait ConEdad {
-    fn edad(&self) -> u32;
-    fn es_mayor_de_edad(&self) -> bool {
-        self.edad() >= 18
+trait WithAge {
+    fn age(&self) -> u32;
+    fn is_adult(&self) -> bool {
+        self.age() >= 18
     }
 }
 
 trait Presentable {
-    fn presentacion(&self) -> String;
+    fn introduction(&self) -> String;
 }
 
-struct Empleado {
-    nombre: String,
-    apellido: String,
-    edad: u32,
-    puesto: String,
-    salario: f64,
+struct Employee {
+    first_name: String,
+    last_name: String,
+    age: u32,
+    position: String,
+    salary: f64,
 }
 
-impl Nombrable for Empleado {
-    fn nombre_completo(&self) -> String {
-        format!("{} {}", self.nombre, self.apellido)
+impl Nameable for Employee {
+    fn full_name(&self) -> String {
+        format!("{} {}", self.first_name, self.last_name)
     }
 }
 
-impl ConEdad for Empleado {
-    fn edad(&self) -> u32 {
-        self.edad
+impl WithAge for Employee {
+    fn age(&self) -> u32 {
+        self.age
     }
 }
 
-impl Presentable for Empleado {
-    fn presentacion(&self) -> String {
+impl Presentable for Employee {
+    fn introduction(&self) -> String {
         format!(
             "Hola, soy {} ({} años), trabajo como {}",
-            self.nombre_completo(),
-            self.edad(),
-            self.puesto
+            self.full_name(),
+            self.age(),
+            self.position
         )
     }
 }
 
-// Trait propio del Empleado
-trait Trabajador {
-    fn salario_mensual(&self) -> f64;
-    fn salario_anual(&self) -> f64 {
-        self.salario_mensual() * 12.0
+// Trait propio del Employee
+trait Worker {
+    fn monthly_salary(&self) -> f64;
+    fn annual_salary(&self) -> f64 {
+        self.monthly_salary() * 12.0
     }
 }
 
-impl Trabajador for Empleado {
-    fn salario_mensual(&self) -> f64 {
-        self.salario
+impl Worker for Employee {
+    fn monthly_salary(&self) -> f64 {
+        self.salary
     }
 }
 
