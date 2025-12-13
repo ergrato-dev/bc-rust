@@ -1,5 +1,7 @@
 # I/O Asíncrono
 
+![I/O Async](../0-assets/04-io-async.svg)
+
 ## 🎯 Objetivos
 
 - Usar I/O de archivos async con Tokio

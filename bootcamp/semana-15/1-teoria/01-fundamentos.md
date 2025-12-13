@@ -1,5 +1,7 @@
 # Fundamentos de Programación Asíncrona
 
+![Modelo Async](../0-assets/01-modelo-async.svg)
+
 ## 🎯 Objetivos
 
 - Entender qué es la programación asíncrona

@@ -43,8 +43,8 @@ Este bootcamp está diseñado para llevar a los estudiantes desde los fundamento
 | **11** | [Closures e Iteradores](bootcamp/semana-11)    | 🟡    | 4 horas  |
 | **12** | [Smart Pointers](bootcamp/semana-12)           | 🔴    | 4 horas  |
 | **13** | [Concurrencia](bootcamp/semana-13)             | 🔴    | 4 horas  |
-| **14** | [Async/Await](bootcamp/semana-14)              | 🔴    | 4 horas  |
-| **15** | [Testing y Documentación](bootcamp/semana-15)  | 🟢    | 4 horas  |
+| **14** | [Concurrencia Avanzada](bootcamp/semana-14)    | 🔴    | 4 horas  |
+| **15** | [Async/Await](bootcamp/semana-15)              | 🔴    | 4 horas  |
 
 **Total**: 64 horas de formación intensiva
 
@@ -146,7 +146,37 @@ semana-XX/
 
 ---
 
-## 🛠️ Comandos Útiles
+## � Estadísticas del Proyecto
+
+<table>
+<tr>
+<td align="center"><b>✅ Compila</b></td>
+<td align="center"><b>📝 Tests</b></td>
+<td align="center"><b>📁 Ejercicios</b></td>
+<td align="center"><b>🎯 Proyectos</b></td>
+</tr>
+<tr>
+<td align="center"><code>cargo check</code><br/>✔️ Pasa</td>
+<td align="center"><b>812+</b><br/>tests unitarios</td>
+<td align="center"><b>65</b><br/>prácticas</td>
+<td align="center"><b>14</b><br/>proyectos semanales</td>
+</tr>
+</table>
+
+```bash
+# Verificar compilación
+docker compose run --rm rust-dev cargo check --workspace
+
+# Ejecutar tests
+docker compose run --rm rust-dev cargo test --workspace
+
+# Linting
+docker compose run --rm rust-dev cargo clippy --workspace
+```
+
+---
+
+## �🛠️ Comandos Útiles
 
 ### Docker
 

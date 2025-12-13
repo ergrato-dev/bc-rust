@@ -1,5 +1,7 @@
 # Patrones de Programación Asíncrona
 
+![Patrones Async](../0-assets/05-patrones.svg)
+
 ## 🎯 Objetivos
 
 - Aplicar patrones comunes en código async

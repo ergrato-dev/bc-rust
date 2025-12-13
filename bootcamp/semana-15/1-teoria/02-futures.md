@@ -1,5 +1,7 @@
 # Futures y el trait Future
 
+![Trait Future](../0-assets/02-futures.svg)
+
 ## 🎯 Objetivos
 
 - Entender el trait Future en profundidad

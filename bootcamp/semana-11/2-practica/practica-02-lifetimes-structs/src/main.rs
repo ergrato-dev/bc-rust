@@ -52,14 +52,14 @@ fn main() {
 // TODO: Agrega el lifetime parameter al struct y al campo
 // ============================================================
 
-struct Excerpt {
+struct Excerpt<'a> {
     // TODO: Agrega 'a al struct y al campo part
-    part: &str,
+    part: &'a str,
 }
 
-impl Excerpt {
+impl<'a> Excerpt<'a> {
     // TODO: Agrega lifetime a impl y a los métodos si es necesario
-    fn new(part: &str) -> Excerpt {
+    fn new(part: &'a str) -> Excerpt<'a> {
         Excerpt { part }
     }
 
@@ -80,15 +80,15 @@ impl Excerpt {
 // TODO: Anota los lifetimes. ¿Usas uno o dos lifetimes?
 // ============================================================
 
-struct Config {
+struct Config<'a> {
     // TODO: Agrega lifetimes
-    key: &str,
-    value: &str,
+    key: &'a str,
+    value: &'a str,
 }
 
-impl Config {
+impl<'a> Config<'a> {
     // TODO: Implementa con los lifetimes correctos
-    fn new(key: &str, value: &str) -> Config {
+    fn new(key: &'a str, value: &'a str) -> Config<'a> {
         Config { key, value }
     }
 
@@ -110,15 +110,15 @@ impl Config {
 // TODO: Agrega el lifetime y completa la implementación
 // ============================================================
 
-struct LineIterator {
+struct LineIterator<'a> {
     // TODO: Agrega lifetime
-    content: &str,
+    content: &'a str,
     position: usize,
 }
 
-impl LineIterator {
+impl<'a> LineIterator<'a> {
     // TODO: Agrega lifetime al impl
-    fn new(content: &str) -> LineIterator {
+    fn new(content: &'a str) -> LineIterator<'a> {
         LineIterator {
             content,
             position: 0,
@@ -153,15 +153,15 @@ impl LineIterator {
 // TODO: Implementa el struct con lifetimes y métodos
 // ============================================================
 
-struct Split {
+struct Split<'a> {
     // TODO: Agrega lifetime y campos
-    left: &str,
-    right: &str,
+    left: &'a str,
+    right: &'a str,
 }
 
-impl Split {
+impl<'a> Split<'a> {
     // TODO: Implementa at_char que divide por un carácter
-    fn at_char(s: &str, c: char) -> Split {
+    fn at_char(s: &'a str, c: char) -> Split<'a> {
         match s.find(c) {
             Some(pos) => Split {
                 left: &s[..pos],
@@ -188,15 +188,15 @@ impl Split {
 // TODO: Solo category es referencia, title es owned
 // ============================================================
 
-struct Article {
+struct Article<'a> {
     // TODO: Agrega lifetime solo para category
     title: String,    // owned
-    category: &str,   // referencia
+    category: &'a str,   // referencia
 }
 
-impl Article {
+impl<'a> Article<'a> {
     // TODO: Implementa con el lifetime correcto
-    fn new(title: String, category: &str) -> Article {
+    fn new(title: String, category: &'a str) -> Article<'a> {
         Article { title, category }
     }
 

@@ -1,5 +1,7 @@
 # Runtime Tokio
 
+![Tokio Runtime](../0-assets/03-tokio.svg)
+
 ## 🎯 Objetivos
 
 - Configurar y usar el runtime Tokio
