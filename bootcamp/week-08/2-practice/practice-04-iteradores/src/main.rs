@@ -273,7 +273,7 @@ fn demo_consumidores() {
     let numeros = vec![1, 2, 3, 4, 5];
 
     // Collect a vector
-    let cuadrados: Vec<i32> = a_vector(numeros.iter().map(|n| n * n));
+    let cuadrados: Vec<i32> = to_vector(numeros.iter().map(|n| n * n));
     println!("Cuadrados: {:?}", cuadrados);
 
     // Collect a HashMap
@@ -281,44 +281,44 @@ fn demo_consumidores() {
         ("uno".to_string(), 1),
         ("dos".to_string(), 2),
     ];
-    let mapa = a_hashmap(pares.into_iter());
+    let mapa = to_hashmap(pares.into_iter());
     println!("HashMap: {:?}", mapa);
 
     // Fold
-    println!("Suma con fold: {}", suma_con_fold(&numeros));
-    println!("Producto con fold: {}", producto_con_fold(&numeros));
+    println!("Suma con fold: {}", sum_with_fold(&numeros));
+    println!("Producto con fold: {}", product_with_fold(&numeros));
 
     // Concatenar
     let palabras = vec!["Rust", "es", "genial"];
-    println!("Concatenado: {}", concatenar_con_separador(&palabras, " "));
+    println!("Concatenado: {}", join_with_separator(&palabras, " "));
 
     // Reduce
     let vals = vec![5, 2, 9, 1, 7];
-    if let Some(max) = maximo_con_reduce(&vals) {
+    if let Some(max) = maximum_with_reduce(&vals) {
         println!("Máximo con reduce: {}", max);
     }
 
     // Find
-    if let Some(par) = primer_par(&numeros) {
+    if let Some(par) = first_even(&numeros) {
         println!("Primer par: {}", par);
     }
 
     // Position
-    if let Some(pos) = posicion_mayor_que(&numeros, 3) {
+    if let Some(pos) = position_greater_than(&numeros, 3) {
         println!("Posición del primer > 3: {}", pos);
     }
 
     // Any y All
     let mixtos = vec![1, -2, 3, -4];
     let positivos = vec![1, 2, 3, 4];
-    println!("Mixtos tiene negativos: {}", alguno_negativo(&mixtos));
-    println!("Positivos todos > 0: {}", todos_positivos(&positivos));
+    println!("Mixtos tiene negativos: {}", any_negative(&mixtos));
+    println!("Positivos todos > 0: {}", all_positive(&positivos));
 
     // Count
-    println!("Cantidad de pares en {:?}: {}", numeros, contar_pares(&numeros));
+    println!("Cantidad de pares en {:?}: {}", numeros, count_evens(&numeros));
 
     // Partition
-    let (pares, impares) = particionar_por_paridad(&numeros);
+    let (pares, impares) = partition_by_parity(&numeros);
     println!("Pares: {:?}, Impares: {:?}", pares, impares);
 
     println!();
@@ -641,61 +641,61 @@ mod tests {
 
     // Tests Ejercicio 3
     #[test]
-    fn test_suma_con_fold() {
-        assert_eq!(suma_con_fold(&[1, 2, 3, 4]), 10);
+    fn test_sum_with_fold() {
+        assert_eq!(sum_with_fold(&[1, 2, 3, 4]), 10);
     }
 
     #[test]
-    fn test_producto_con_fold() {
-        assert_eq!(producto_con_fold(&[1, 2, 3, 4]), 24);
+    fn test_product_with_fold() {
+        assert_eq!(product_with_fold(&[1, 2, 3, 4]), 24);
     }
 
     #[test]
-    fn test_concatenar_con_separador() {
+    fn test_join_with_separator() {
         assert_eq!(
-            concatenar_con_separador(&["a", "b", "c"], "-"),
+            join_with_separator(&["a", "b", "c"], "-"),
             "a-b-c"
         );
     }
 
     #[test]
-    fn test_maximo_con_reduce() {
-        assert_eq!(maximo_con_reduce(&[3, 7, 2, 9, 1]), Some(9));
-        assert_eq!(maximo_con_reduce(&[]), None);
+    fn test_maximum_with_reduce() {
+        assert_eq!(maximum_with_reduce(&[3, 7, 2, 9, 1]), Some(9));
+        assert_eq!(maximum_with_reduce(&[]), None);
     }
 
     #[test]
-    fn test_primer_par() {
-        assert_eq!(primer_par(&[1, 3, 4, 5]), Some(4));
-        assert_eq!(primer_par(&[1, 3, 5]), None);
+    fn test_first_even() {
+        assert_eq!(first_even(&[1, 3, 4, 5]), Some(4));
+        assert_eq!(first_even(&[1, 3, 5]), None);
     }
 
     #[test]
-    fn test_posicion_mayor_que() {
-        assert_eq!(posicion_mayor_que(&[1, 2, 5, 3], 4), Some(2));
-        assert_eq!(posicion_mayor_que(&[1, 2, 3], 10), None);
+    fn test_position_greater_than() {
+        assert_eq!(position_greater_than(&[1, 2, 5, 3], 4), Some(2));
+        assert_eq!(position_greater_than(&[1, 2, 3], 10), None);
     }
 
     #[test]
-    fn test_alguno_negativo() {
-        assert!(alguno_negativo(&[1, -2, 3]));
-        assert!(!alguno_negativo(&[1, 2, 3]));
+    fn test_any_negative() {
+        assert!(any_negative(&[1, -2, 3]));
+        assert!(!any_negative(&[1, 2, 3]));
     }
 
     #[test]
-    fn test_todos_positivos() {
-        assert!(todos_positivos(&[1, 2, 3]));
-        assert!(!todos_positivos(&[1, -2, 3]));
+    fn test_all_positive() {
+        assert!(all_positive(&[1, 2, 3]));
+        assert!(!all_positive(&[1, -2, 3]));
     }
 
     #[test]
-    fn test_contar_pares() {
-        assert_eq!(contar_pares(&[1, 2, 3, 4, 5, 6]), 3);
+    fn test_count_evens() {
+        assert_eq!(count_evens(&[1, 2, 3, 4, 5, 6]), 3);
     }
 
     #[test]
-    fn test_particionar_por_paridad() {
-        let (pares, impares) = particionar_por_paridad(&[1, 2, 3, 4]);
+    fn test_partition_by_parity() {
+        let (pares, impares) = partition_by_parity(&[1, 2, 3, 4]);
         assert_eq!(pares, vec![2, 4]);
         assert_eq!(impares, vec![1, 3]);
     }
