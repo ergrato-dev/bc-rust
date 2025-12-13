@@ -11,6 +11,13 @@ members = [
     "bootcamp/semana-07/2-practica/practica-03-estructura-archivos",
     "bootcamp/semana-07/2-practica/practica-04-crates-externos",
     "bootcamp/semana-07/3-proyecto/proyecto-geometria",
+    
+    # Semana 08 - Colecciones
+    "bootcamp/semana-08/2-practica/practica-01-vectores",
+    "bootcamp/semana-08/2-practica/practica-02-strings",
+    "bootcamp/semana-08/2-practica/practica-03-hashmaps",
+    "bootcamp/semana-08/2-practica/practica-04-iteradores",
+    "bootcamp/semana-08/3-proyecto/proyecto-inventario",
 ]
 
 [workspace.package]
