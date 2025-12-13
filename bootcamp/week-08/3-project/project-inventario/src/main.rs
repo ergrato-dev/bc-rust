@@ -1,130 +1,130 @@
-//! # Sistema de Gestión de Inventario
+//! # Inventory Management System
 //!
-//! Demostración del uso de colecciones en Rust.
+//! Demonstration of using collections in Rust.
 
-use proyecto_inventario::{Inventario, GeneradorReportes};
+use proyecto_inventario::{Inventory, ReportGenerator};
 
 fn main() {
-    println!("🦀 Sistema de Gestión de Inventario\n");
+    println!("🦀 Inventory Management System\n");
     println!("{}", "═".repeat(50));
 
-    // Crear inventario
-    let mut inventario = crear_inventario_demo();
+    // Create inventory
+    let mut inventory = create_demo_inventory();
 
-    // Mostrar estado inicial
-    let reportes = GeneradorReportes::new(&inventario);
-    println!("{}", reportes.reporte_resumen());
+    // Show initial state
+    let reports = ReportGenerator::new(&inventory);
+    println!("{}", reports.summary_report());
 
-    // Realizar algunas operaciones
-    println!("\n📦 OPERACIONES DE INVENTARIO");
+    // Perform some operations
+    println!("\n📦 INVENTORY OPERATIONS");
     println!("{}", "─".repeat(50));
 
-    // Entrada de stock
-    println!("\n➕ Entrada de stock: 20 laptops");
-    inventario.entrada_stock(1, 20, "Pedido #1234");
+    // Stock entry
+    println!("\n➕ Stock entry: 20 laptops");
+    inventory.stock_entry(1, 20, "Order #1234");
 
-    // Salida de stock
-    println!("➖ Salida de stock: 5 laptops (venta)");
-    inventario.salida_stock(1, 5, "Venta cliente ABC");
+    // Stock exit
+    println!("➖ Stock exit: 5 laptops (sale)");
+    inventory.stock_exit(1, 5, "Customer ABC sale");
 
-    println!("➖ Salida de stock: 10 mouses (venta)");
-    inventario.salida_stock(2, 10, "Venta mayorista");
+    println!("➖ Stock exit: 10 mice (sale)");
+    inventory.stock_exit(2, 10, "Wholesale sale");
 
-    // Búsquedas
-    println!("\n🔍 BÚSQUEDAS");
+    // Searches
+    println!("\n🔍 SEARCHES");
     println!("{}", "─".repeat(50));
 
-    println!("\nBuscar 'lap':");
-    for p in inventario.buscar_por_nombre("lap") {
+    println!("\nSearch 'lap':");
+    for p in inventory.search_by_name("lap") {
         println!("   {}", p);
     }
 
-    println!("\nCategoría 'Electrónica':");
-    for p in inventario.buscar_por_categoria("Electrónica") {
+    println!("\nCategory 'Electronics':");
+    for p in inventory.search_by_category("Electronics") {
         println!("   {}", p);
     }
 
-    // Agregar nuevo producto
-    println!("\n➕ Agregando nuevo producto...");
-    let nuevo_id = inventario.agregar_producto(
-        "Webcam HD",
-        "Cámara 1080p con micrófono",
+    // Add new product
+    println!("\n➕ Adding new product...");
+    let new_id = inventory.add_product(
+        "HD Webcam",
+        "1080p camera with microphone",
         79.99,
-        "Electrónica",
+        "Electronics",
         25,
     );
-    println!("   Producto agregado con ID: {}", nuevo_id);
+    println!("   Product added with ID: {}", new_id);
 
-    // Reporte completo
-    let reportes = GeneradorReportes::new(&inventario);
-    println!("{}", reportes.reporte_completo());
+    // Full report
+    let reports = ReportGenerator::new(&inventory);
+    println!("{}", reports.full_report());
 
-    println!("\n✅ Demo completada");
+    println!("\n✅ Demo completed");
 }
 
-fn crear_inventario_demo() -> Inventario {
-    let mut inv = Inventario::new();
+fn create_demo_inventory() -> Inventory {
+    let mut inv = Inventory::new();
 
-    // Electrónica
-    inv.agregar_producto(
+    // Electronics
+    inv.add_product(
         "Laptop Pro",
-        "Laptop 15\" i7 16GB RAM",
+        "15\" i7 16GB RAM Laptop",
         1299.99,
-        "Electrónica",
+        "Electronics",
         10,
     );
-    inv.agregar_producto(
-        "Mouse Gamer",
-        "Mouse RGB 16000 DPI",
+    inv.add_product(
+        "Gaming Mouse",
+        "RGB 16000 DPI Mouse",
         49.99,
-        "Electrónica",
+        "Electronics",
         50,
     );
-    inv.agregar_producto(
-        "Teclado Mecánico",
-        "Teclado Cherry MX Blue",
+    inv.add_product(
+        "Mechanical Keyboard",
+        "Cherry MX Blue Keyboard",
         129.99,
-        "Electrónica",
-        3, // Stock bajo
+        "Electronics",
+        3, // Low stock
     );
-    inv.agregar_producto(
-        "Monitor 27\"",
-        "Monitor 4K IPS",
+    inv.add_product(
+        "27\" Monitor",
+        "4K IPS Monitor",
         399.99,
-        "Electrónica",
+        "Electronics",
         8,
     );
 
-    // Muebles
-    inv.agregar_producto(
-        "Silla Ergonómica",
-        "Silla con soporte lumbar",
+    // Furniture
+    inv.add_product(
+        "Ergonomic Chair",
+        "Chair with lumbar support",
         299.99,
-        "Muebles",
+        "Furniture",
         5,
     );
-    inv.agregar_producto(
-        "Escritorio Ajustable",
-        "Escritorio standing desk",
+    inv.add_product(
+        "Adjustable Desk",
+        "Standing desk",
         449.99,
-        "Muebles",
-        2, // Stock bajo
+        "Furniture",
+        2, // Low stock
     );
 
-    // Oficina
-    inv.agregar_producto(
-        "Cuaderno A4",
-        "Pack de 5 cuadernos",
+    // Office
+    inv.add_product(
+        "A4 Notebook",
+        "Pack of 5 notebooks",
         9.99,
-        "Oficina",
+        "Office",
         100,
     );
-    inv.agregar_producto(
-        "Bolígrafos",
-        "Pack de 20 bolígrafos",
+    inv.add_product(
+        "Pens",
+        "Pack of 20 pens",
         7.99,
-        "Oficina",
-        0, // Sin stock!
+        "Office",
+        0, // Out of stock!
     );
 
     inv

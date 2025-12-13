@@ -1,17 +1,17 @@
-//! # Proyecto: Sistema de Gestión de Inventario
+//! # Project: Inventory Management System
 //!
-//! Este proyecto demuestra el uso de colecciones en Rust:
-//! - `Vec<T>` para listas de productos y transacciones
-//! - `String` para nombres, descripciones y categorías
-//! - `HashMap<K, V>` para índices y búsquedas rápidas
-//! - Iteradores para procesamiento de datos
+//! This project demonstrates the use of collections in Rust:
+//! - `Vec<T>` for lists of products and transactions
+//! - `String` for names, descriptions and categories
+//! - `HashMap<K, V>` for indexes and fast lookups
+//! - Iterators for data processing
 
-mod producto;
-mod transaccion;
-mod inventario;
-mod reportes;
+mod product;
+mod transaction;
+mod inventory;
+mod reports;
 
-pub use producto::Producto;
-pub use transaccion::{Transaccion, TipoTransaccion};
-pub use inventario::Inventario;
-pub use reportes::GeneradorReportes;
+pub use product::Product;
+pub use transaction::{Transaction, TransactionType};
+pub use inventory::Inventory;
+pub use reports::ReportGenerator;

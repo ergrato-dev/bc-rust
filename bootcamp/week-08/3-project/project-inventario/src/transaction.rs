@@ -1,83 +1,83 @@
-//! Módulo de transacciones de inventario
+//! Inventory transaction module
 
 use std::fmt;
 
-/// Tipo de transacción de inventario
+/// Inventory transaction type
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum TipoTransaccion {
-    Entrada,
-    Salida,
+pub enum TransactionType {
+    Entry,
+    Exit,
 }
 
-impl fmt::Display for TipoTransaccion {
+impl fmt::Display for TransactionType {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            TipoTransaccion::Entrada => write!(f, "Entrada"),
-            TipoTransaccion::Salida => write!(f, "Salida"),
+            TransactionType::Entry => write!(f, "Entry"),
+            TransactionType::Exit => write!(f, "Exit"),
         }
     }
 }
 
-/// Representa una transacción de inventario
+/// Represents an inventory transaction
 #[derive(Debug, Clone)]
-pub struct Transaccion {
+pub struct Transaction {
     pub id: u32,
-    pub producto_id: u32,
-    pub tipo: TipoTransaccion,
-    pub cantidad: u32,
-    pub fecha: String,
-    pub nota: Option<String>,
+    pub product_id: u32,
+    pub transaction_type: TransactionType,
+    pub quantity: u32,
+    pub date: String,
+    pub note: Option<String>,
 }
 
-impl Transaccion {
-    /// Crea una nueva transacción
+impl Transaction {
+    /// Creates a new transaction
     pub fn new(
         id: u32,
-        producto_id: u32,
-        tipo: TipoTransaccion,
-        cantidad: u32,
-        fecha: impl Into<String>,
+        product_id: u32,
+        transaction_type: TransactionType,
+        quantity: u32,
+        date: impl Into<String>,
     ) -> Self {
         Self {
             id,
-            producto_id,
-            tipo,
-            cantidad,
-            fecha: fecha.into(),
-            nota: None,
+            product_id,
+            transaction_type,
+            quantity,
+            date: date.into(),
+            note: None,
         }
     }
 
-    /// Agrega una nota a la transacción
-    pub fn con_nota(mut self, nota: impl Into<String>) -> Self {
-        self.nota = Some(nota.into());
+    /// Adds a note to the transaction
+    pub fn with_note(mut self, note: impl Into<String>) -> Self {
+        self.note = Some(note.into());
         self
     }
 
-    /// Crea una transacción de entrada
-    pub fn entrada(id: u32, producto_id: u32, cantidad: u32, fecha: impl Into<String>) -> Self {
-        Self::new(id, producto_id, TipoTransaccion::Entrada, cantidad, fecha)
+    /// Creates an entry transaction
+    pub fn entry(id: u32, product_id: u32, quantity: u32, date: impl Into<String>) -> Self {
+        Self::new(id, product_id, TransactionType::Entry, quantity, date)
     }
 
-    /// Crea una transacción de salida
-    pub fn salida(id: u32, producto_id: u32, cantidad: u32, fecha: impl Into<String>) -> Self {
-        Self::new(id, producto_id, TipoTransaccion::Salida, cantidad, fecha)
+    /// Creates an exit transaction
+    pub fn exit(id: u32, product_id: u32, quantity: u32, date: impl Into<String>) -> Self {
+        Self::new(id, product_id, TransactionType::Exit, quantity, date)
     }
 }
 
-impl fmt::Display for Transaccion {
+impl fmt::Display for Transaction {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let simbolo = match self.tipo {
-            TipoTransaccion::Entrada => "+",
-            TipoTransaccion::Salida => "-",
+        let symbol = match self.transaction_type {
+            TransactionType::Entry => "+",
+            TransactionType::Exit => "-",
         };
         write!(
             f,
-            "[{}] {} Producto #{}: {}{} unidades",
-            self.fecha, self.tipo, self.producto_id, simbolo, self.cantidad
+            "[{}] {} Product #{}: {}{} units",
+            self.date, self.transaction_type, self.product_id, symbol, self.quantity
         )?;
-        if let Some(nota) = &self.nota {
-            write!(f, " ({})", nota)?;
+        if let Some(note) = &self.note {
+            write!(f, " ({})", note)?;
         }
         Ok(())
     }
@@ -88,27 +88,27 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_nueva_transaccion() {
-        let t = Transaccion::new(1, 100, TipoTransaccion::Entrada, 50, "2025-01-15");
+    fn test_new_transaction() {
+        let t = Transaction::new(1, 100, TransactionType::Entry, 50, "2025-01-15");
         assert_eq!(t.id, 1);
-        assert_eq!(t.producto_id, 100);
-        assert_eq!(t.cantidad, 50);
-        assert!(t.nota.is_none());
+        assert_eq!(t.product_id, 100);
+        assert_eq!(t.quantity, 50);
+        assert!(t.note.is_none());
     }
 
     #[test]
-    fn test_transaccion_con_nota() {
-        let t = Transaccion::entrada(1, 100, 50, "2025-01-15")
-            .con_nota("Reposición mensual");
-        assert_eq!(t.nota, Some("Reposición mensual".to_string()));
+    fn test_transaction_with_note() {
+        let t = Transaction::entry(1, 100, 50, "2025-01-15")
+            .with_note("Monthly restocking");
+        assert_eq!(t.note, Some("Monthly restocking".to_string()));
     }
 
     #[test]
-    fn test_entrada_y_salida() {
-        let entrada = Transaccion::entrada(1, 100, 50, "2025-01-15");
-        let salida = Transaccion::salida(2, 100, 10, "2025-01-16");
+    fn test_entry_and_exit() {
+        let entry = Transaction::entry(1, 100, 50, "2025-01-15");
+        let exit = Transaction::exit(2, 100, 10, "2025-01-16");
         
-        assert_eq!(entrada.tipo, TipoTransaccion::Entrada);
-        assert_eq!(salida.tipo, TipoTransaccion::Salida);
+        assert_eq!(entry.transaction_type, TransactionType::Entry);
+        assert_eq!(exit.transaction_type, TransactionType::Exit);
     }
 }
