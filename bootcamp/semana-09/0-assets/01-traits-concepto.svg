@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .function { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .accent { fill: #CE422B; }
+    .box-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #ffffff; font-weight: bold; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">🎯 Concepto de Traits en Rust</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">Definiendo comportamiento compartido</text>
+  
+  <!-- Section 1: What is a Trait -->
+  <rect x="20" y="70" width="360" height="180" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="200" y="95" text-anchor="middle" class="box-title">¿Qué es un Trait?</text>
+  
+  <!-- Trait definition -->
+  <text x="35" y="120" class="code">
+    <tspan class="keyword">trait</tspan> <tspan class="type">Animal</tspan> {
+  </text>
+  <text x="35" y="138" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">hablar</tspan>(&amp;<tspan class="keyword">self</tspan>) -> <tspan class="type">String</tspan>;</text>
+  <text x="35" y="156" class="code">}</text>
+  
+  <text x="35" y="185" class="label">Un trait define:</text>
+  <text x="35" y="205" class="code">• Métodos que un tipo debe tener</text>
+  <text x="35" y="223" class="code">• Comportamiento compartido</text>
+  <text x="35" y="241" class="code">• "Contrato" entre tipos</text>
+  
+  <!-- Section 2: Analogy -->
+  <rect x="420" y="70" width="360" height="180" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="600" y="95" text-anchor="middle" class="box-title">🎭 Analogía: Interfaces/Contratos</text>
+  
+  <!-- Trait as interface -->
+  <rect x="440" y="115" width="150" height="50" rx="5" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="515" y="135" text-anchor="middle" class="type">trait Volador</text>
+  <text x="515" y="155" text-anchor="middle" class="code">fn volar()</text>
+  
+  <!-- Arrow down -->
+  <path d="M515 165 L515 185 L505 175 M515 185 L525 175" stroke="#CE422B" fill="none" stroke-width="2"/>
+  
+  <!-- Implementations -->
+  <rect x="440" y="195" width="70" height="40" rx="5" fill="#1e3a1e" stroke="#4ec9b0"/>
+  <text x="475" y="220" text-anchor="middle" class="label">Pajaro</text>
+  
+  <rect x="520" y="195" width="70" height="40" rx="5" fill="#1e3a1e" stroke="#4ec9b0"/>
+  <text x="555" y="220" text-anchor="middle" class="label">Avión</text>
+  
+  <rect x="600" y="195" width="70" height="40" rx="5" fill="#1e3a1e" stroke="#4ec9b0"/>
+  <text x="635" y="220" text-anchor="middle" class="label">Dron</text>
+  
+  <!-- Section 3: Implementation -->
+  <rect x="20" y="265" width="360" height="220" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="200" y="290" text-anchor="middle" class="box-title">Implementación de Traits</text>
+  
+  <text x="35" y="315" class="code">
+    <tspan class="keyword">struct</tspan> <tspan class="type">Perro</tspan> { nombre: <tspan class="type">String</tspan> }
+  </text>
+  <text x="35" y="340" class="code">
+    <tspan class="keyword">struct</tspan> <tspan class="type">Gato</tspan> { nombre: <tspan class="type">String</tspan> }
+  </text>
+  
+  <text x="35" y="370" class="code">
+    <tspan class="keyword">impl</tspan> <tspan class="type">Animal</tspan> <tspan class="keyword">for</tspan> <tspan class="type">Perro</tspan> {
+  </text>
+  <text x="35" y="388" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">hablar</tspan>(&amp;<tspan class="keyword">self</tspan>) -> <tspan class="type">String</tspan> {</text>
+  <text x="35" y="406" class="code">        <tspan class="string">"¡Guau!"</tspan>.to_string()</text>
+  <text x="35" y="424" class="code">    }</text>
+  <text x="35" y="442" class="code">}</text>
+  
+  <text x="35" y="470" class="code">
+    <tspan class="keyword">impl</tspan> <tspan class="type">Animal</tspan> <tspan class="keyword">for</tspan> <tspan class="type">Gato</tspan> { ... }
+  </text>
+  
+  <!-- Section 4: Why Traits -->
+  <rect x="420" y="265" width="360" height="220" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="600" y="290" text-anchor="middle" class="box-title">¿Por qué usar Traits?</text>
+  
+  <!-- Benefits -->
+  <rect x="440" y="310" width="320" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="450" y="332" class="label">✅ Polimorfismo sin herencia</text>
+  
+  <rect x="440" y="355" width="320" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="450" y="377" class="label">✅ Código genérico reutilizable</text>
+  
+  <rect x="440" y="400" width="320" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="450" y="422" class="label">✅ Abstracción segura en tiempo de compilación</text>
+  
+  <rect x="440" y="445" width="320" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="450" y="467" class="label">✅ Extensibilidad: añadir comportamiento a tipos</text>
+</svg>

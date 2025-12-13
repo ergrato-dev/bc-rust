@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .function { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .box-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #ffffff; font-weight: bold; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">🔧 Implementación de Traits</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">impl Trait for Type</text>
+  
+  <!-- Section 1: Basic Implementation -->
+  <rect x="20" y="70" width="370" height="200" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="205" y="95" text-anchor="middle" class="box-title">Sintaxis Básica</text>
+  
+  <text x="35" y="125" class="code"><tspan class="comment">// 1. Definir el trait</tspan></text>
+  <text x="35" y="145" class="code"><tspan class="keyword">trait</tspan> <tspan class="type">Saludable</tspan> {</text>
+  <text x="35" y="163" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">saludar</tspan>(&amp;<tspan class="keyword">self</tspan>) -> <tspan class="type">String</tspan>;</text>
+  <text x="35" y="181" class="code">}</text>
+  
+  <text x="35" y="210" class="code"><tspan class="comment">// 2. Implementar para un tipo</tspan></text>
+  <text x="35" y="230" class="code"><tspan class="keyword">impl</tspan> <tspan class="type">Saludable</tspan> <tspan class="keyword">for</tspan> <tspan class="type">Persona</tspan> {</text>
+  <text x="35" y="248" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">saludar</tspan>(&amp;<tspan class="keyword">self</tspan>) -> <tspan class="type">String</tspan> {</text>
+  <text x="35" y="266" class="code">        <tspan class="keyword">format!</tspan>(<tspan class="string">"Hola, soy {}"</tspan>, <tspan class="keyword">self</tspan>.nombre)</text>
+  
+  <!-- Section 2: Method Types -->
+  <rect x="410" y="70" width="370" height="200" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="95" text-anchor="middle" class="box-title">Tipos de Métodos</text>
+  
+  <!-- &self -->
+  <rect x="425" y="115" width="165" height="65" rx="5" fill="#2d2d2d" stroke="#569cd6"/>
+  <text x="507" y="135" text-anchor="middle" class="code"><tspan class="keyword">&amp;self</tspan></text>
+  <text x="507" y="155" text-anchor="middle" class="label">Solo lectura</text>
+  <text x="507" y="172" text-anchor="middle" class="comment">fn leer(&amp;self)</text>
+  
+  <!-- &mut self -->
+  <rect x="600" y="115" width="165" height="65" rx="5" fill="#2d2d2d" stroke="#dcdcaa"/>
+  <text x="682" y="135" text-anchor="middle" class="code"><tspan class="keyword">&amp;mut self</tspan></text>
+  <text x="682" y="155" text-anchor="middle" class="label">Modificar</text>
+  <text x="682" y="172" text-anchor="middle" class="comment">fn mutar(&amp;mut self)</text>
+  
+  <!-- self -->
+  <rect x="425" y="190" width="165" height="65" rx="5" fill="#2d2d2d" stroke="#CE422B"/>
+  <text x="507" y="210" text-anchor="middle" class="code"><tspan class="keyword">self</tspan></text>
+  <text x="507" y="230" text-anchor="middle" class="label">Consume valor</text>
+  <text x="507" y="247" text-anchor="middle" class="comment">fn consumir(self)</text>
+  
+  <!-- Associated -->
+  <rect x="600" y="190" width="165" height="65" rx="5" fill="#2d2d2d" stroke="#4ec9b0"/>
+  <text x="682" y="210" text-anchor="middle" class="label">Sin self</text>
+  <text x="682" y="230" text-anchor="middle" class="label">Asociado/Constructor</text>
+  <text x="682" y="247" text-anchor="middle" class="comment">fn new() -> Self</text>
+  
+  <!-- Section 3: Default Methods -->
+  <rect x="20" y="285" width="370" height="220" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="205" y="310" text-anchor="middle" class="box-title">Métodos Default</text>
+  
+  <text x="35" y="340" class="code"><tspan class="keyword">trait</tspan> <tspan class="type">Describible</tspan> {</text>
+  <text x="35" y="358" class="code">    <tspan class="comment">// Método requerido</tspan></text>
+  <text x="35" y="376" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">nombre</tspan>(&amp;<tspan class="keyword">self</tspan>) -> &amp;<tspan class="type">str</tspan>;</text>
+  <text x="35" y="400" class="code">    <tspan class="comment">// Método con default</tspan></text>
+  <text x="35" y="418" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">describir</tspan>(&amp;<tspan class="keyword">self</tspan>) -> <tspan class="type">String</tspan> {</text>
+  <text x="35" y="436" class="code">        <tspan class="keyword">format!</tspan>(<tspan class="string">"Soy {}"</tspan>, <tspan class="keyword">self</tspan>.nombre())</text>
+  <text x="35" y="454" class="code">    }</text>
+  <text x="35" y="472" class="code">}</text>
+  
+  <rect x="35" y="482" width="340" height="18" rx="3" fill="#1e3a1e"/>
+  <text x="45" y="495" class="label">✅ Los tipos pueden sobrescribir o usar el default</text>
+  
+  <!-- Section 4: Multiple Traits -->
+  <rect x="410" y="285" width="370" height="220" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="310" text-anchor="middle" class="box-title">Múltiples Traits</text>
+  
+  <!-- Type in center -->
+  <rect x="530" y="340" width="130" height="50" rx="8" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="595" y="370" text-anchor="middle" class="type">struct Empleado</text>
+  
+  <!-- Traits around -->
+  <rect x="430" y="410" width="100" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="480" y="432" text-anchor="middle" class="label">Nombrable</text>
+  
+  <rect x="545" y="410" width="100" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="595" y="432" text-anchor="middle" class="label">Saludable</text>
+  
+  <rect x="660" y="410" width="100" height="35" rx="5" fill="#1e2d1e" stroke="#4ec9b0"/>
+  <text x="710" y="432" text-anchor="middle" class="label">Imprimible</text>
+  
+  <!-- Arrows -->
+  <line x1="480" y1="410" x2="550" y2="390" stroke="#4ec9b0" stroke-width="1.5"/>
+  <line x1="595" y1="410" x2="595" y2="390" stroke="#4ec9b0" stroke-width="1.5"/>
+  <line x1="710" y1="410" x2="640" y2="390" stroke="#4ec9b0" stroke-width="1.5"/>
+  
+  <text x="595" y="475" text-anchor="middle" class="code">
+    <tspan class="keyword">impl</tspan> <tspan class="type">Trait1</tspan> <tspan class="keyword">for</tspan> <tspan class="type">T</tspan>
+  </text>
+  <text x="595" y="495" text-anchor="middle" class="code">
+    <tspan class="keyword">impl</tspan> <tspan class="type">Trait2</tspan> <tspan class="keyword">for</tspan> <tspan class="type">T</tspan>
+  </text>
+</svg>

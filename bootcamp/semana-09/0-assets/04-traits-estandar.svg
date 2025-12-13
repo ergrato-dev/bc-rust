@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .function { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .box-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #ffffff; font-weight: bold; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">📚 Traits de la Biblioteca Estándar</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">Traits importantes para implementar manualmente</text>
+  
+  <!-- Display -->
+  <rect x="20" y="70" width="370" height="140" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="205" y="95" text-anchor="middle" class="box-title">Display - Formato para usuarios</text>
+  
+  <text x="35" y="120" class="code"><tspan class="keyword">impl</tspan> <tspan class="type">fmt::Display</tspan> <tspan class="keyword">for</tspan> <tspan class="type">Temp</tspan> {</text>
+  <text x="35" y="140" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">fmt</tspan>(&amp;<tspan class="keyword">self</tspan>, f: &amp;<tspan class="keyword">mut</tspan> <tspan class="type">Formatter</tspan>)</text>
+  <text x="35" y="158" class="code">        -> <tspan class="type">fmt::Result</tspan> {</text>
+  <text x="35" y="176" class="code">        <tspan class="keyword">write!</tspan>(f, <tspan class="string">"{}°C"</tspan>, <tspan class="keyword">self</tspan>.0)</text>
+  <text x="35" y="194" class="code">    }</text>
+  <text x="35" y="206" class="code">}</text>
+  
+  <!-- Default -->
+  <rect x="410" y="70" width="370" height="140" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="95" text-anchor="middle" class="box-title">Default - Valores por defecto</text>
+  
+  <text x="425" y="120" class="code"><tspan class="keyword">impl</tspan> <tspan class="type">Default</tspan> <tspan class="keyword">for</tspan> <tspan class="type">Config</tspan> {</text>
+  <text x="425" y="140" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">default</tspan>() -> <tspan class="type">Self</tspan> {</text>
+  <text x="425" y="158" class="code">        <tspan class="type">Config</tspan> {</text>
+  <text x="425" y="176" class="code">            puerto: <tspan class="string">8080</tspan>,</text>
+  <text x="425" y="194" class="code">            debug: <tspan class="keyword">false</tspan>,</text>
+  <text x="425" y="206" class="code">        }</text>
+  
+  <!-- From/Into -->
+  <rect x="20" y="225" width="370" height="150" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="205" y="250" text-anchor="middle" class="box-title">From / Into - Conversiones</text>
+  
+  <text x="35" y="278" class="code"><tspan class="keyword">impl</tspan> <tspan class="type">From</tspan>&lt;<tspan class="type">Celsius</tspan>&gt; <tspan class="keyword">for</tspan> <tspan class="type">Fahrenheit</tspan> {</text>
+  <text x="35" y="298" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">from</tspan>(c: <tspan class="type">Celsius</tspan>) -> <tspan class="type">Self</tspan> {</text>
+  <text x="35" y="318" class="code">        <tspan class="type">Fahrenheit</tspan>(c.0 * 9.0/5.0 + 32.0)</text>
+  <text x="35" y="338" class="code">    }</text>
+  <text x="35" y="356" class="code">}</text>
+  
+  <text x="35" y="372" class="comment">// Into se obtiene gratis</text>
+  
+  <!-- TryFrom -->
+  <rect x="410" y="225" width="370" height="160" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="250" text-anchor="middle" class="box-title">TryFrom - Conversión falible</text>
+  
+  <text x="425" y="275" class="code"><tspan class="keyword">impl</tspan> <tspan class="type">TryFrom</tspan>&lt;<tspan class="type">i32</tspan>&gt; <tspan class="keyword">for</tspan> <tspan class="type">Porcentaje</tspan> {</text>
+  <text x="425" y="295" class="code">    <tspan class="keyword">type</tspan> <tspan class="type">Error</tspan> = <tspan class="type">String</tspan>;</text>
+  <text x="425" y="315" class="code">    <tspan class="keyword">fn</tspan> <tspan class="function">try_from</tspan>(v: <tspan class="type">i32</tspan>)</text>
+  <text x="425" y="335" class="code">        -> <tspan class="type">Result</tspan>&lt;<tspan class="type">Self</tspan>, <tspan class="type">Self::Error</tspan>&gt; {</text>
+  <text x="425" y="355" class="code">        <tspan class="keyword">if</tspan> v &lt; 0 || v &gt; 100 { <tspan class="type">Err</tspan>(...) }</text>
+  <text x="425" y="375" class="code">        <tspan class="keyword">else</tspan> { <tspan class="type">Ok</tspan>(<tspan class="type">Porcentaje</tspan>(v)) }</text>
+  
+  <!-- Summary Table -->
+  <rect x="20" y="400" width="760" height="145" rx="8" fill="#252526" stroke="#CE422B"/>
+  <text x="400" y="425" text-anchor="middle" class="box-title">📋 Resumen de Traits Estándar</text>
+  
+  <!-- Table headers -->
+  <text x="80" y="455" text-anchor="middle" class="label">Trait</text>
+  <text x="220" y="455" text-anchor="middle" class="label">Método</text>
+  <text x="400" y="455" text-anchor="middle" class="label">Propósito</text>
+  <text x="620" y="455" text-anchor="middle" class="label">Derivable</text>
+  
+  <line x1="30" y1="465" x2="770" y2="465" stroke="#3c3c3c" stroke-width="1"/>
+  
+  <!-- Table rows -->
+  <text x="80" y="485" text-anchor="middle" class="type">Display</text>
+  <text x="220" y="485" text-anchor="middle" class="code">fmt()</text>
+  <text x="400" y="485" text-anchor="middle" class="small">Formato {} para usuarios</text>
+  <text x="620" y="485" text-anchor="middle" class="label">❌</text>
+  
+  <text x="80" y="505" text-anchor="middle" class="type">Default</text>
+  <text x="220" y="505" text-anchor="middle" class="code">default()</text>
+  <text x="400" y="505" text-anchor="middle" class="small">Valor por defecto</text>
+  <text x="620" y="505" text-anchor="middle" class="label">✅</text>
+  
+  <text x="80" y="525" text-anchor="middle" class="type">From&lt;T&gt;</text>
+  <text x="220" y="525" text-anchor="middle" class="code">from()</text>
+  <text x="400" y="525" text-anchor="middle" class="small">Conversión infalible</text>
+  <text x="620" y="525" text-anchor="middle" class="label">❌</text>
+  
+  <text x="80" y="545" text-anchor="middle" class="type">TryFrom&lt;T&gt;</text>
+  <text x="220" y="545" text-anchor="middle" class="code">try_from()</text>
+  <text x="400" y="545" text-anchor="middle" class="small">Conversión que puede fallar</text>
+  <text x="620" y="545" text-anchor="middle" class="label">❌</text>
+</svg>

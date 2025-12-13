@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .macro { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .box-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #ffffff; font-weight: bold; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">🎁 Traits Derivables</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">#[derive()] - Implementación automática</text>
+  
+  <!-- Derive syntax -->
+  <rect x="250" y="65" width="300" height="35" rx="5" fill="#252526" stroke="#CE422B"/>
+  <text x="400" y="88" text-anchor="middle" class="code">
+    <tspan class="macro">#[derive(</tspan><tspan class="type">Debug, Clone, PartialEq</tspan><tspan class="macro">)]</tspan>
+  </text>
+  
+  <!-- Grid of derivable traits -->
+  <!-- Row 1 -->
+  <rect x="20" y="115" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="112" y="140" text-anchor="middle" class="box-title">Debug</text>
+  <text x="30" y="165" class="code"><tspan class="string">{:?}</tspan> formato</text>
+  <text x="30" y="185" class="small">Para depuración</text>
+  <text x="30" y="205" class="code">println!(<tspan class="string">"{:?}"</tspan>, x);</text>
+  
+  <rect x="215" y="115" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="307" y="140" text-anchor="middle" class="box-title">Clone</text>
+  <text x="225" y="165" class="code">.clone() método</text>
+  <text x="225" y="185" class="small">Copia profunda explícita</text>
+  <text x="225" y="205" class="code"><tspan class="keyword">let</tspan> b = a.clone();</text>
+  
+  <rect x="410" y="115" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="502" y="140" text-anchor="middle" class="box-title">Copy</text>
+  <text x="420" y="165" class="code">Copia implícita</text>
+  <text x="420" y="185" class="small">Requiere Clone</text>
+  <text x="420" y="205" class="code"><tspan class="keyword">let</tspan> b = a; <tspan class="comment">// copia</tspan></text>
+  
+  <rect x="605" y="115" width="175" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="692" y="140" text-anchor="middle" class="box-title">Default</text>
+  <text x="615" y="165" class="code">Valor por defecto</text>
+  <text x="615" y="185" class="small">T::default()</text>
+  <text x="615" y="205" class="code"><tspan class="type">Default</tspan>::default()</text>
+  
+  <!-- Row 2 -->
+  <rect x="20" y="225" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="112" y="250" text-anchor="middle" class="box-title">PartialEq</text>
+  <text x="30" y="275" class="code">== != operadores</text>
+  <text x="30" y="295" class="small">Comparación igualdad</text>
+  <text x="30" y="315" class="code">a == b</text>
+  
+  <rect x="215" y="225" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="307" y="250" text-anchor="middle" class="box-title">Eq</text>
+  <text x="225" y="275" class="code">Igualdad total</text>
+  <text x="225" y="295" class="small">Requiere PartialEq</text>
+  <text x="225" y="315" class="code">a == a <tspan class="comment">// siempre true</tspan></text>
+  
+  <rect x="410" y="225" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="502" y="250" text-anchor="middle" class="box-title">PartialOrd</text>
+  <text x="420" y="275" class="code">&lt; &gt; &lt;= &gt;= operadores</text>
+  <text x="420" y="295" class="small">Ordenamiento parcial</text>
+  <text x="420" y="315" class="code">a &lt; b</text>
+  
+  <rect x="605" y="225" width="175" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="692" y="250" text-anchor="middle" class="box-title">Ord</text>
+  <text x="615" y="275" class="code">Ordenamiento total</text>
+  <text x="615" y="295" class="small">Para .sort()</text>
+  <text x="615" y="315" class="code">vec.sort();</text>
+  
+  <!-- Row 3 -->
+  <rect x="215" y="335" width="185" height="100" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="307" y="360" text-anchor="middle" class="box-title">Hash</text>
+  <text x="225" y="385" class="code">Calcular hash</text>
+  <text x="225" y="405" class="small">Para HashMap keys</text>
+  <text x="225" y="425" class="code"><tspan class="type">HashMap</tspan>&lt;<tspan class="type">K</tspan>, <tspan class="type">V</tspan>&gt;</text>
+  
+  <!-- Common combinations -->
+  <rect x="420" y="335" width="360" height="115" rx="8" fill="#252526" stroke="#CE422B"/>
+  <text x="600" y="358" text-anchor="middle" class="box-title">🎯 Combinaciones Comunes</text>
+  
+  <text x="435" y="382" class="code"><tspan class="comment">// Tipo copiable simple</tspan></text>
+  <text x="435" y="402" class="code"><tspan class="macro">#[derive(</tspan><tspan class="type">Debug, Clone, Copy, PartialEq</tspan><tspan class="macro">)]</tspan></text>
+  
+  <text x="435" y="426" class="code"><tspan class="comment">// Para HashMap key</tspan></text>
+  <text x="435" y="446" class="code"><tspan class="macro">#[derive(</tspan><tspan class="type">Debug, Clone, PartialEq, Eq, Hash</tspan><tspan class="macro">)]</tspan></text>
+  
+  <!-- Copy restriction note -->
+  <rect x="20" y="450" width="185" height="85" rx="8" fill="#3d2020" stroke="#CE422B"/>
+  <text x="112" y="475" text-anchor="middle" class="box-title">⚠️ Copy Restricción</text>
+  <text x="30" y="500" class="small">Solo tipos "bit-copiables"</text>
+  <text x="30" y="518" class="small">❌ String, Vec, Box</text>
+  <text x="30" y="530" class="small">✅ i32, f64, bool, char</text>
+</svg>

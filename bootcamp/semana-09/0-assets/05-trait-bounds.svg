@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .small { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #808080; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .keyword { fill: #569cd6; }
+    .type { fill: #4ec9b0; }
+    .function { fill: #dcdcaa; }
+    .string { fill: #ce9178; }
+    .comment { fill: #6a9955; }
+    .box-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #ffffff; font-weight: bold; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">🎯 Trait Bounds</text>
+  <text x="400" y="50" text-anchor="middle" class="subtitle">Restricciones de tipo genérico</text>
+  
+  <!-- Basic Syntax -->
+  <rect x="20" y="70" width="370" height="130" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="205" y="95" text-anchor="middle" class="box-title">Sintaxis Básica</text>
+  
+  <text x="35" y="125" class="code"><tspan class="comment">// T debe implementar Display</tspan></text>
+  <text x="35" y="147" class="code"><tspan class="keyword">fn</tspan> <tspan class="function">imprimir</tspan>&lt;<tspan class="type">T</tspan>: <tspan class="type">Display</tspan>&gt;(item: <tspan class="type">T</tspan>) {</text>
+  <text x="35" y="169" class="code">    <tspan class="keyword">println!</tspan>(<tspan class="string">"{}"</tspan>, item);</text>
+  <text x="35" y="191" class="code">}</text>
+  
+  <!-- Multiple Bounds -->
+  <rect x="410" y="70" width="370" height="130" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="95" text-anchor="middle" class="box-title">Múltiples Bounds con +</text>
+  
+  <text x="425" y="125" class="code"><tspan class="comment">// T debe ser Display Y Debug</tspan></text>
+  <text x="425" y="147" class="code"><tspan class="keyword">fn</tspan> <tspan class="function">mostrar</tspan>&lt;<tspan class="type">T</tspan>: <tspan class="type">Display</tspan> + <tspan class="type">Debug</tspan>&gt;(x: <tspan class="type">T</tspan>) {</text>
+  <text x="425" y="169" class="code">    <tspan class="keyword">println!</tspan>(<tspan class="string">"{}"</tspan>, x);</text>
+  <text x="425" y="191" class="code">    <tspan class="keyword">println!</tspan>(<tspan class="string">"{:?}"</tspan>, x);</text>
+  
+  <!-- Where Clause -->
+  <rect x="20" y="215" width="370" height="140" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="205" y="240" text-anchor="middle" class="box-title">Where Clause (más legible)</text>
+  
+  <text x="35" y="270" class="code"><tspan class="keyword">fn</tspan> <tspan class="function">procesar</tspan>&lt;<tspan class="type">T</tspan>, <tspan class="type">U</tspan>&gt;(t: <tspan class="type">T</tspan>, u: <tspan class="type">U</tspan>)</text>
+  <text x="35" y="292" class="code"><tspan class="keyword">where</tspan></text>
+  <text x="35" y="314" class="code">    <tspan class="type">T</tspan>: <tspan class="type">Display</tspan> + <tspan class="type">Clone</tspan>,</text>
+  <text x="35" y="336" class="code">    <tspan class="type">U</tspan>: <tspan class="type">Debug</tspan> + <tspan class="type">Default</tspan>,</text>
+  <text x="35" y="352" class="code">{ ... }</text>
+  
+  <!-- impl Trait -->
+  <rect x="410" y="215" width="370" height="140" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="240" text-anchor="middle" class="box-title">impl Trait (syntax sugar)</text>
+  
+  <text x="425" y="270" class="code"><tspan class="comment">// Como parámetro</tspan></text>
+  <text x="425" y="292" class="code"><tspan class="keyword">fn</tspan> <tspan class="function">print</tspan>(x: <tspan class="keyword">impl</tspan> <tspan class="type">Display</tspan>) { ... }</text>
+  
+  <text x="425" y="322" class="code"><tspan class="comment">// Como retorno</tspan></text>
+  <text x="425" y="344" class="code"><tspan class="keyword">fn</tspan> <tspan class="function">crear</tspan>() -> <tspan class="keyword">impl</tspan> <tspan class="type">Iterator</tspan>&lt;Item=<tspan class="type">i32</tspan>&gt;</text>
+  <text x="425" y="358" class="code">{ (1..10).into_iter() }</text>
+  
+  <!-- Visual Diagram -->
+  <rect x="20" y="370" width="370" height="135" rx="8" fill="#252526" stroke="#CE422B"/>
+  <text x="205" y="395" text-anchor="middle" class="box-title">🔍 Visualización de Bounds</text>
+  
+  <!-- Generic T box -->
+  <rect x="50" y="420" width="60" height="35" rx="5" fill="#2d2d2d" stroke="#808080"/>
+  <text x="80" y="442" text-anchor="middle" class="type">T</text>
+  
+  <!-- Arrow -->
+  <text x="130" y="442" class="label">debe ser</text>
+  
+  <!-- Trait bounds -->
+  <rect x="200" y="410" width="80" height="25" rx="4" fill="#1e3a1e" stroke="#4ec9b0"/>
+  <text x="240" y="428" text-anchor="middle" class="small">Display</text>
+  
+  <text x="240" y="448" text-anchor="middle" class="label">+</text>
+  
+  <rect x="200" y="455" width="80" height="25" rx="4" fill="#1e3a1e" stroke="#4ec9b0"/>
+  <text x="240" y="473" text-anchor="middle" class="small">Clone</text>
+  
+  <!-- Result -->
+  <text x="300" y="442" class="label">→</text>
+  <rect x="320" y="420" width="55" height="35" rx="5" fill="#1e2d1e" stroke="#CE422B"/>
+  <text x="347" y="442" text-anchor="middle" class="label">✓ OK</text>
+  
+  <!-- Comparison Table -->
+  <rect x="410" y="370" width="370" height="135" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="595" y="395" text-anchor="middle" class="box-title">📊 Cuándo Usar Cada Forma</text>
+  
+  <text x="480" y="425" text-anchor="middle" class="label">Forma</text>
+  <text x="660" y="425" text-anchor="middle" class="label">Cuándo</text>
+  
+  <line x1="420" y1="435" x2="770" y2="435" stroke="#3c3c3c"/>
+  
+  <text x="480" y="455" text-anchor="middle" class="code">T: Bound</text>
+  <text x="660" y="455" text-anchor="middle" class="small">Bounds simples</text>
+  
+  <text x="480" y="477" text-anchor="middle" class="code">where</text>
+  <text x="660" y="477" text-anchor="middle" class="small">Múltiples params, legibilidad</text>
+  
+  <text x="480" y="499" text-anchor="middle" class="code">impl Trait</text>
+  <text x="660" y="499" text-anchor="middle" class="small">Código conciso, retornos</text>
+</svg>
