@@ -32,6 +32,13 @@ members = [
     "bootcamp/semana-10/2-practica/practica-03-trait-bounds",
     "bootcamp/semana-10/2-practica/practica-04-generics-avanzados",
     "bootcamp/semana-10/3-proyecto/proyecto-contenedor",
+    
+    # Semana 11 - Lifetimes
+    "bootcamp/semana-11/2-practica/practica-01-lifetimes-basicos",
+    "bootcamp/semana-11/2-practica/practica-02-lifetimes-structs",
+    "bootcamp/semana-11/2-practica/practica-03-elision",
+    "bootcamp/semana-11/2-practica/practica-04-lifetimes-avanzados",
+    "bootcamp/semana-11/3-proyecto/proyecto-parser",
 ]
 
 [workspace.package]

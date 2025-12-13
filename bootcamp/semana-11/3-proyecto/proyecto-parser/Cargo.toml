@@ -1,0 +1,10 @@
+[package]
+name = "proyecto-parser"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "proyecto-parser"
+path = "src/main.rs"
+
+[dependencies]
