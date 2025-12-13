@@ -198,6 +198,7 @@ struct Usuario;
 struct Producto;
 
 // ID genérico que "pertenece" a un tipo de entidad
+#[derive(Debug)]
 struct Id<T> {
     valor: u64,
     // TODO: Añade PhantomData<T> para "usar" el tipo T
