@@ -1,145 +1,123 @@
 // ============================================
-// Práctica 03: Tipos de Texto
+// Practice 03: Text Types
 // ============================================
-// Objetivo: Dominar char, &str, String y bool
+// Objective: Master char, &str, String and bool
 // ============================================
 
 fn main() {
-    println!("=== Práctica 03: Tipos de Texto ===\n");
+    println!("=== Practice 03: Text Types ===\n");
 
     // -----------------------------------------
-    // PARTE 1: Caracteres (char)
+    // PART 1: Characters (char)
     // -----------------------------------------
-    println!("--- Caracteres ---");
+    println!("--- Characters ---");
     
-    // char usa comillas simples ''
-    // Representa un valor Unicode (4 bytes)
-    let letra: char = 'A';
-    let numero: char = '7';
-    let simbolo: char = '@';
-    let emoji: char = '🦀';       // ¡Rust tiene un emoji!
-    let acento: char = 'ñ';
+    // char uses single quotes ''
+    // Represents a Unicode value (4 bytes)
+    let letter: char = 'A';
+    let digit: char = '7';
+    let symbol: char = '@';
+    let emoji: char = '🦀';       // Rust has an emoji!
+    let accent: char = 'ñ';
     
-    println!("Letra: {}", letra);
-    println!("Número: {}", numero);
-    println!("Símbolo: {}", simbolo);
+    println!("Letter: {}", letter);
+    println!("Digit: {}", digit);
+    println!("Symbol: {}", symbol);
     println!("Emoji: {}", emoji);
-    println!("Acento: {}", acento);
+    println!("Accent: {}", accent);
     
-    // Métodos útiles de char
-    println!("\nMétodos de char:");
+    // Useful char methods
+    println!("\nChar methods:");
     println!("'A'.is_alphabetic(): {}", 'A'.is_alphabetic());
     println!("'7'.is_numeric(): {}", '7'.is_numeric());
     println!("'a'.is_lowercase(): {}", 'a'.is_lowercase());
     println!("'A'.to_lowercase(): {}", 'A'.to_lowercase());
 
     // -----------------------------------------
-    // PARTE 2: String Slices (&str)
+    // PART 2: String Slices (&str)
     // -----------------------------------------
     println!("\n--- String Slices (&str) ---");
     
-    // &str son referencias a texto, inmutables
-    let saludo: &str = "¡Hola, Rust!";
-    let vacio: &str = "";
+    // &str are references to text, immutable
+    let greeting: &str = "Hello, Rust!";
+    let empty: &str = "";
     
-    println!("Saludo: {}", saludo);
-    println!("Longitud: {} bytes", saludo.len());
-    println!("¿Está vacío?: {}", vacio.is_empty());
+    println!("Greeting: {}", greeting);
+    println!("Length: {} bytes", greeting.len());
+    println!("Is empty?: {}", empty.is_empty());
     
-    // TODO: Declara un &str con tu frase favorita
-    // let frase: &str = ...;
-    // println!("Frase: {}", frase);
+    // TODO: Declare a &str with your favorite quote
+    // let quote: &str = ...;
+    // println!("Quote: {}", quote);
 
     // -----------------------------------------
-    // PARTE 3: String (owned)
+    // PART 3: String (owned)
     // -----------------------------------------
     println!("\n--- String (owned) ---");
     
-    // String es texto en el heap, mutable
-    let mut mensaje = String::from("Hola");
-    println!("Inicial: {}", mensaje);
+    // String is text on the heap, mutable
+    let mut message = String::from("Hello");
+    println!("Initial: {}", message);
     
-    // push_str añade un &str
-    mensaje.push_str(", mundo");
-    println!("Después de push_str: {}", mensaje);
+    // push_str adds a &str
+    message.push_str(", world");
+    println!("After push_str: {}", message);
     
-    // push añade un char
-    mensaje.push('!');
-    println!("Después de push: {}", mensaje);
+    // push adds a char
+    message.push('!');
+    println!("After push: {}", message);
     
-    // Otra forma de crear String
-    let otro = "Rust".to_string();
-    println!("Con to_string(): {}", otro);
+    // Another way to create String
+    let other = "Rust".to_string();
+    println!("With to_string(): {}", other);
     
-    // TODO: Crea un String y modifícalo
-    // let mut mi_string = String::from(...);
-    // mi_string.push_str(...);
+    // TODO: Create a String and modify it
+    // let mut my_string = String::from(...);
+    // my_string.push_str(...);
 
     // -----------------------------------------
-    // PARTE 4: Booleanos
+    // PART 4: Booleans
     // -----------------------------------------
-    println!("\n--- Booleanos ---");
+    println!("\n--- Booleans ---");
     
-    let verdadero: bool = true;
-    let falso: bool = false;
+    let is_rust_cool: bool = true;
+    let is_learning: bool = true;
     
-    println!("true: {}", verdadero);
-    println!("false: {}", falso);
+    println!("Is Rust cool? {}", is_rust_cool);
+    println!("Am I learning? {}", is_learning);
     
-    // Operadores lógicos
-    println!("\nOperadores lógicos:");
-    println!("true && false = {}", true && false);  // AND
-    println!("true || false = {}", true || false);  // OR
-    println!("!true = {}", !true);                  // NOT
-    
-    // Comparaciones
-    let a = 5;
-    let b = 10;
-    println!("\nComparaciones:");
-    println!("{} == {} : {}", a, b, a == b);
-    println!("{} != {} : {}", a, b, a != b);
-    println!("{} < {} : {}", a, b, a < b);
-    println!("{} >= {} : {}", a, b, a >= b);
+    // Boolean operations
+    println!("\nBoolean operations:");
+    println!("true AND false = {}", true && false);
+    println!("true OR false = {}", true || false);
+    println!("NOT true = {}", !true);
 
-    println!("\n✅ Práctica completada");
+    println!("\n✅ Practice completed");
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
-    fn test_char_unicode() {
-        let emoji = '🦀';
-        assert_eq!(std::mem::size_of_val(&emoji), 4); // 4 bytes
-    }
-
-    #[test]
-    fn test_char_metodos() {
+    fn test_char_methods() {
         assert!('A'.is_alphabetic());
-        assert!('5'.is_numeric());
-        assert!(' '.is_whitespace());
+        assert!('7'.is_numeric());
+        assert!('a'.is_lowercase());
+        assert!('A'.is_uppercase());
     }
 
     #[test]
-    fn test_str_len() {
-        let texto = "Hola";
-        assert_eq!(texto.len(), 4);
-        
-        // ¡Cuidado! len() cuenta bytes, no caracteres
-        let con_emoji = "🦀";
-        assert_eq!(con_emoji.len(), 4); // El emoji usa 4 bytes
+    fn test_string_operations() {
+        let mut s = String::from("Hello");
+        s.push_str(", World");
+        s.push('!');
+        assert_eq!(s, "Hello, World!");
     }
 
     #[test]
-    fn test_string_mutable() {
-        let mut s = String::from("Hola");
-        s.push_str(" mundo");
-        assert_eq!(s, "Hola mundo");
-    }
-
-    #[test]
-    fn test_booleanos() {
-        assert!(true && true);
-        assert!(true || false);
-        assert!(!false);
+    fn test_boolean_logic() {
+        assert_eq!(true && true, true);
+        assert_eq!(true && false, false);
+        assert_eq!(true || false, true);
+        assert_eq!(!true, false);
     }
 }

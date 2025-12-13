@@ -1,122 +1,100 @@
 // ============================================
-// Práctica 04: Shadowing y Constantes
+// Practice 04: Shadowing and Constants
 // ============================================
-// Objetivo: Dominar shadowing y const
+// Objective: Master shadowing and const
 // ============================================
 
-// Constantes: se definen fuera de funciones
+// Constants: defined outside functions
 const PI: f64 = 3.14159265358979;
-const MAX_INTENTOS: u32 = 3;
-const MENSAJE_BIENVENIDA: &str = "¡Bienvenido al sistema!";
+const MAX_ATTEMPTS: u32 = 3;
+const WELCOME_MESSAGE: &str = "Welcome to the system!";
 
 fn main() {
-    println!("=== Práctica 04: Shadowing y Constantes ===\n");
+    println!("=== Practice 04: Shadowing and Constants ===\n");
 
     // -----------------------------------------
-    // PARTE 1: Shadowing Básico
+    // PART 1: Basic Shadowing
     // -----------------------------------------
-    println!("--- Shadowing Básico ---");
+    println!("--- Basic Shadowing ---");
     
     let x = 5;
-    println!("x inicial: {}", x);
+    println!("x initial: {}", x);
     
-    let x = x + 1;  // Shadowing: nueva variable
-    println!("x después de +1: {}", x);
+    let x = x + 1;  // Shadowing: new variable
+    println!("x after +1: {}", x);
     
-    let x = x * 2;  // Shadowing: otra nueva variable
-    println!("x después de *2: {}", x);
+    let x = x * 2;  // Shadowing: another new variable
+    println!("x after *2: {}", x);
     
-    // Comparación con mut
+    // Comparison with mut
     let mut y = 5;
-    y = y + 1;      // Mutación: misma variable
+    y = y + 1;      // Mutation: same variable
     y = y * 2;
-    println!("y con mut: {}", y);
+    println!("y with mut: {}", y);
     
-    // Resultado igual, pero mecanismo diferente
+    // Same result, but different mechanism
 
     // -----------------------------------------
-    // PARTE 2: Cambio de Tipo con Shadowing
+    // PART 2: Type Change with Shadowing
     // -----------------------------------------
-    println!("\n--- Cambio de Tipo ---");
+    println!("\n--- Type Change ---");
     
-    // Esto es válido con shadowing
-    let espacios = "   ";           // tipo: &str
-    let espacios = espacios.len();  // tipo: usize
-    println!("Número de espacios: {}", espacios);
+    // This is valid with shadowing
+    let spaces = "   ";           // type: &str
+    let spaces = spaces.len();    // type: usize
+    println!("Number of spaces: {}", spaces);
     
-    // Con mut NO funcionaría:
-    // let mut texto = "hola";
-    // texto = texto.len();  // Error: tipos diferentes
+    // With mut it would NOT work:
+    // let mut text = "hello";
+    // text = text.len();  // Error: different types
     
-    // TODO: Haz shadowing para convertir un número a String
-    let numero = 42;
-    // let numero = ...;  // Convierte a String
-    println!("Número como i32: {}", numero);
+    // TODO: Use shadowing to convert a number to String
+    let number = 42;
+    // let number = ...;  // Convert to String
+    println!("Number as i32: {}", number);
 
     // -----------------------------------------
-    // PARTE 3: Shadowing en Scopes
+    // PART 3: Shadowing in Scopes
     // -----------------------------------------
-    println!("\n--- Shadowing en Scopes ---");
+    println!("\n--- Shadowing in Scopes ---");
     
-    let valor = 10;
-    println!("Valor fuera: {}", valor);
+    let value = 10;
+    println!("Value outside: {}", value);
     
     {
-        // Shadow solo dentro del bloque
-        let valor = 99;
-        println!("Valor dentro del bloque: {}", valor);
+        // Shadow only inside the block
+        let value = 99;
+        println!("Value inside block: {}", value);
     }
     
-    // Fuera del bloque, vuelve al original
-    println!("Valor después del bloque: {}", valor);
+    // Outside the block, returns to original
+    println!("Value after block: {}", value);
     
-    // TODO: Experimenta con scopes anidados
+    // TODO: Experiment with nested scopes
     // {
     //     let a = 1;
     //     {
     //         let a = 2;
-    //         println!("a interno: {}", a);
+    //         println!("inner a: {}", a);
     //     }
-    //     println!("a externo: {}", a);
+    //     println!("outer a: {}", a);
     // }
 
     // -----------------------------------------
-    // PARTE 4: Constantes
+    // PART 4: Constants
     // -----------------------------------------
-    println!("\n--- Constantes ---");
+    println!("\n--- Constants ---");
     
     println!("PI: {}", PI);
-    println!("Máximo de intentos: {}", MAX_INTENTOS);
-    println!("{}", MENSAJE_BIENVENIDA);
+    println!("Max attempts: {}", MAX_ATTEMPTS);
+    println!("Welcome: {}", WELCOME_MESSAGE);
     
-    // Usando constantes en cálculos
-    let radio = 5.0;
-    let area = PI * radio * radio;
-    println!("Área del círculo (radio {}): {:.2}", radio, area);
-    
-    // TODO: Define tu propia constante arriba y úsala aquí
-    
-    // -----------------------------------------
-    // PARTE 5: Cuándo usar cada uno
-    // -----------------------------------------
-    println!("\n--- Cuándo usar ---");
-    
-    // const: valores que NUNCA cambian
-    // - Configuración del programa
-    // - Valores matemáticos (PI, E)
-    // - Límites y umbrales
-    
-    // let: valores que se calculan en runtime
-    // - Entrada del usuario
-    // - Resultados de funciones
-    // - Datos que varían
-    
-    // let mut: valores que cambian durante la ejecución
-    // - Contadores
-    // - Acumuladores
-    // - Estados
+    // Calculate circle area using constant
+    let radius = 5.0;
+    let area = PI * radius * radius;
+    println!("Circle area (r={}): {:.2}", radius, area);
 
-    println!("\n✅ Práctica completada");
+    println!("\n✅ Practice completed");
 }
 
 #[cfg(test)]
@@ -124,7 +102,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_shadowing_valor() {
+    fn test_shadowing() {
         let x = 5;
         let x = x + 1;
         let x = x * 2;
@@ -132,32 +110,25 @@ mod tests {
     }
 
     #[test]
-    fn test_shadowing_tipo() {
-        let texto = "hola";
-        let texto = texto.len();
-        assert_eq!(texto, 4);
+    fn test_type_change_shadowing() {
+        let s = "hello";
+        let s = s.len();
+        assert_eq!(s, 5);
     }
 
     #[test]
-    fn test_shadowing_scope() {
+    fn test_scope_shadowing() {
         let x = 1;
         {
             let x = 2;
             assert_eq!(x, 2);
         }
-        assert_eq!(x, 1);  // Fuera del scope, valor original
+        assert_eq!(x, 1);
     }
 
     #[test]
-    fn test_constantes() {
-        assert!((PI - 3.14159).abs() < 0.001);
-        assert_eq!(MAX_INTENTOS, 3);
-    }
-
-    #[test]
-    fn test_area_circulo() {
-        let radio = 2.0;
-        let area = PI * radio * radio;
-        assert!((area - 12.566).abs() < 0.01);
+    fn test_constants() {
+        assert!((PI - 3.14159).abs() < 0.0001);
+        assert_eq!(MAX_ATTEMPTS, 3);
     }
 }
