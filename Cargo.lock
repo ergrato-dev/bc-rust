@@ -231,10 +231,6 @@ name = "practica-03-traits-derivables"
 version = "0.1.0"
 
 [[package]]
-name = "practica-04-combinaciones"
-version = "0.1.0"
-
-[[package]]
 name = "practica-04-generics-avanzados"
 version = "0.1.0"
 
@@ -252,6 +248,10 @@ version = "0.1.0"
 
 [[package]]
 name = "practica-04-trait-bounds"
+version = "0.1.0"
+
+[[package]]
+name = "practica-04-weak"
 version = "0.1.0"
 
 [[package]]
@@ -286,7 +286,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "proyecto-arbol"
+name = "proyecto-cache"
 version = "0.1.0"
 
 [[package]]

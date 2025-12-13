@@ -46,6 +46,13 @@ members = [
     "bootcamp/semana-12/2-practica/practica-03-fn-traits",
     "bootcamp/semana-12/2-practica/practica-04-iteradores",
     "bootcamp/semana-12/3-proyecto/proyecto-pipeline",
+    
+    # Semana 13 - Smart Pointers
+    "bootcamp/semana-13/2-practica/practica-01-box",
+    "bootcamp/semana-13/2-practica/practica-02-rc-arc",
+    "bootcamp/semana-13/2-practica/practica-03-refcell",
+    "bootcamp/semana-13/2-practica/practica-04-weak",
+    "bootcamp/semana-13/2-practica/proyecto-cache",
 ]
 
 [workspace.package]

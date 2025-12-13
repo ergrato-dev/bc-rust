@@ -92,17 +92,34 @@ where
 
     /// Inserta o actualiza un valor en el cache
     fn put(&self, key: K, value: V) {
-        // Si ya existe, actualizar y mover al frente
-        if self.mapa.borrow().contains_key(&key) {
-            // Remover el nodo viejo
+        // Si ya existe, remover el nodo viejo
+        let existia = {
+            let mapa = self.mapa.borrow();
+            mapa.contains_key(&key)
+        };
+        
+        if existia {
             if let Some(nodo_viejo) = self.mapa.borrow_mut().remove(&key) {
                 self.remover_nodo(&nodo_viejo);
             }
         }
         
-        // Verificar capacidad
-        if self.mapa.borrow().len() >= self.capacidad {
-            self.remover_lru();
+        // Verificar capacidad y remover LRU si es necesario
+        let necesita_evict = {
+            self.mapa.borrow().len() >= self.capacidad
+        };
+        
+        if necesita_evict {
+            // Obtener la key del tail para remover
+            let tail_key = {
+                self.tail.borrow().upgrade().map(|t| t.key.clone())
+            };
+            
+            if let Some(k) = tail_key {
+                if let Some(tail) = self.mapa.borrow_mut().remove(&k) {
+                    self.remover_nodo(&tail);
+                }
+            }
         }
         
         // Crear nuevo nodo
