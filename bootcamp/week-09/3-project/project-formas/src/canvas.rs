@@ -167,7 +167,7 @@ mod tests {
         let shapes: Vec<&dyn Shape> = vec![&c, &r, &s];
         let largest = shape_with_largest_area(&shapes).unwrap();
         
-        assert_eq!(largest.name(), "Rectángulo");
+        assert_eq!(largest.name(), "Rectangle");
     }
     
     #[test]

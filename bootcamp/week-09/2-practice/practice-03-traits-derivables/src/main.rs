@@ -360,14 +360,14 @@ mod tests {
     }
     
     #[test]
-    fn test_version_comparacion() {
+    fn test_version_comparison() {
         let v1 = Version::new(1, 0, 0);
         let v2 = Version::new(2, 0, 0);
         assert!(v1 < v2);
     }
     
     #[test]
-    fn test_version_comparacion_minor() {
+    fn test_version_comparison_minor() {
         let v1 = Version::new(1, 5, 0);
         let v2 = Version::new(1, 10, 0);
         assert!(v1 < v2);

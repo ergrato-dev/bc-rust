@@ -43,7 +43,7 @@ impl Default for Circle {
 
 impl fmt::Display for Circle {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Círculo(r={:.2})", self.radius)
+        write!(f, "Circle(r={:.2})", self.radius)
     }
 }
 
@@ -57,7 +57,7 @@ impl Shape for Circle {
     }
     
     fn name(&self) -> &str {
-        "Círculo"
+        "Circle"
     }
 }
 
@@ -152,7 +152,7 @@ impl Default for Rectangle {
 
 impl fmt::Display for Rectangle {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Rectángulo({}x{})", self.width, self.height)
+        write!(f, "Rectangle({}x{})", self.width, self.height)
     }
 }
 
@@ -166,7 +166,7 @@ impl Shape for Rectangle {
     }
     
     fn name(&self) -> &str {
-        "Rectángulo"
+        "Rectangle"
     }
 }
 
@@ -248,7 +248,7 @@ impl Default for Square {
 
 impl fmt::Display for Square {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Cuadrado(lado={})", self.side)
+        write!(f, "Square(side={})", self.side)
     }
 }
 
@@ -262,7 +262,7 @@ impl Shape for Square {
     }
     
     fn name(&self) -> &str {
-        "Cuadrado"
+        "Square"
     }
 }
 
@@ -398,7 +398,7 @@ impl Default for Triangle {
 
 impl fmt::Display for Triangle {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Triángulo({:.2}, {:.2}, {:.2})", 
+        write!(f, "Triangle({:.2}, {:.2}, {:.2})", 
             self.side_a, self.side_b, self.side_c)
     }
 }
@@ -415,7 +415,7 @@ impl Shape for Triangle {
     }
     
     fn name(&self) -> &str {
-        "Triángulo"
+        "Triangle"
     }
 }
 
@@ -528,7 +528,7 @@ mod tests {
     #[test]
     fn test_circle_display() {
         let c = Circle::new(3.0);
-        assert!(c.to_string().contains("Círculo"));
+        assert!(c.to_string().contains("Circle"));
     }
     
     #[test]
@@ -657,9 +657,9 @@ mod tests {
         let r = Rectangle::new(1.0, 1.0);
         let t = Triangle::equilateral(1.0);
         
-        assert_eq!(c.name(), "Círculo");
-        assert_eq!(r.name(), "Rectángulo");
-        assert_eq!(t.name(), "Triángulo");
+        assert_eq!(c.name(), "Circle");
+        assert_eq!(r.name(), "Rectangle");
+        assert_eq!(t.name(), "Triangle");
     }
     
     #[test]
