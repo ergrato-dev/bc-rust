@@ -2,9 +2,9 @@
 
 ## 📋 Información del Proyecto
 
-Este repositorio contiene el **Bootcamp de Rust: Zero to Hero**, un programa de formación intensivo de **16 semanas (64 horas totales)** diseñado para llevar a los estudiantes desde los fundamentos hasta un nivel avanzado en el lenguaje de programación Rust.
+Este repositorio contiene el **Bootcamp de Rust: Zero to Hero**, un programa de formación intensivo de **17 semanas (68 horas totales)** diseñado para llevar a los estudiantes desde los fundamentos hasta un nivel avanzado en el lenguaje de programación Rust.
 
-- **Duración**: 16 semanas
+- **Duración**: 17 semanas
 - **Dedicación**: 4 horas por semana
 - **Modalidad**: Presencial / Virtual
 - **Entorno**: Docker (contenedor Rust oficial)
@@ -54,7 +54,7 @@ El proyecto incluye configuración para VS Code Dev Containers en `.devcontainer
 
 ---
 
-## 📚 Estructura del Bootcamp (16 Semanas)
+## 📚 Estructura del Bootcamp (17 Semanas)
 
 ### Fase 1: Fundamentos (Semanas 0-3)
 
@@ -90,18 +90,19 @@ El proyecto incluye configuración para VS Code Dev Containers en `.devcontainer
 | **12** | Smart Pointers        | Box, Rc, Arc, RefCell, interior mutability |
 | **13** | Concurrencia          | Threads, channels, Mutex, Send/Sync        |
 
-### Fase 5: Integración (Semanas 14-15)
+### Fase 5: Integración (Semanas 14-16)
 
-| Semana | Tema           | Descripción                            |
-| ------ | -------------- | -------------------------------------- |
-| **14** | Async/Await    | Futures, tokio básico, async runtime   |
-| **15** | Testing y Docs | Unit tests, integration tests, rustdoc |
+| Semana | Tema            | Descripción                            |
+| ------ | --------------- | -------------------------------------- |
+| **14** | Async/Await     | Futures, tokio básico, async runtime   |
+| **15** | Testing y Docs  | Unit tests, integration tests, rustdoc |
+| **16** | API REST        | Axum, endpoints, SQLite, middleware    |
 
-### Fase 6: Proyecto Final (Semana 16)
+### Fase 6: Proyecto Final (Semana 17)
 
 | Semana | Tema           | Descripción                        |
 | ------ | -------------- | ---------------------------------- |
-| **16** | Proyecto Final | Aplicación CLI o API REST completa |
+| **17** | Proyecto Final | Aplicación CLI o API REST completa |
 
 ---
 

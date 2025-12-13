@@ -6,7 +6,7 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-> 🎓 Bootcamp intensivo de **16 semanas (64 horas)** para dominar Rust desde cero hasta un nivel avanzado.  
+> 🎓 Bootcamp intensivo de **17 semanas (68 horas)** para dominar Rust desde cero hasta un nivel avanzado.  
 > 🐳 Entorno containerizado con Docker para desarrollo consistente.
 
 ---
@@ -45,8 +45,10 @@ Este bootcamp está diseñado para llevar a los estudiantes desde los fundamento
 | **13** | [Concurrencia](bootcamp/semana-13)             | 🔴    | 4 horas  |
 | **14** | [Concurrencia Avanzada](bootcamp/semana-14)    | 🔴    | 4 horas  |
 | **15** | [Async/Await](bootcamp/semana-15)              | 🔴    | 4 horas  |
+| **16** | [Testing y Documentación](bootcamp/semana-16)  | 🟡    | 4 horas  |
+| **17** | [API REST con Axum](bootcamp/semana-17)        | 🔴    | 4 horas  |
 
-**Total**: 64 horas de formación intensiva
+**Total**: 68 horas de formación intensiva
 
 **Leyenda**: 🟢 Básico | 🟡 Intermedio | 🔴 Avanzado
 

@@ -67,6 +67,20 @@ members = [
     "bootcamp/semana-15/2-practica/practica-03-io-async",
     "bootcamp/semana-15/2-practica/practica-04-channels",
     "bootcamp/semana-15/2-practica/proyecto-crawler",
+    
+    # Semana 16 - Testing y Documentación
+    "bootcamp/semana-16/2-practica/practica-01-unit-tests",
+    "bootcamp/semana-16/2-practica/practica-02-integration",
+    "bootcamp/semana-16/2-practica/practica-03-doctests",
+    "bootcamp/semana-16/2-practica/practica-04-tdd",
+    "bootcamp/semana-16/2-practica/proyecto-calculadora-testeada",
+    
+    # Semana 17 - API REST con Axum
+    "bootcamp/semana-17/2-practica/practica-01-hello-axum",
+    "bootcamp/semana-17/2-practica/practica-02-crud",
+    "bootcamp/semana-17/2-practica/practica-03-validacion",
+    "bootcamp/semana-17/2-practica/practica-04-middleware",
+    "bootcamp/semana-17/2-practica/proyecto-api-tareas",
 ]
 
 [workspace.package]
