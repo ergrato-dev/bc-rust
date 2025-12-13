@@ -9,6 +9,23 @@ Proyecto final del bootcamp: API REST completa con SQLite para gestión de tarea
 - Validación de datos
 - Manejo de errores robusto
 - Tests de integración
+- **Documentación OpenAPI con Swagger UI**
+
+---
+
+## 📚 Documentación API
+
+La API incluye documentación interactiva con **Swagger UI**:
+
+- **Swagger UI**: http://localhost:3000/swagger-ui
+- **OpenAPI JSON**: http://localhost:3000/api-docs/openapi.json
+
+### Características
+
+- Documentación auto-generada con `utoipa`
+- Interfaz interactiva para probar endpoints
+- Schemas de request/response documentados
+- Ejemplos incluidos en cada endpoint
 
 ---
 
@@ -18,12 +35,12 @@ Proyecto final del bootcamp: API REST completa con SQLite para gestión de tarea
 proyecto-api-tareas/
 ├── Cargo.toml
 ├── src/
-│   ├── main.rs        # Punto de entrada
+│   ├── main.rs        # Punto de entrada + OpenAPI
 │   ├── lib.rs         # Exports de módulos
 │   ├── db.rs          # Pool SQLite
 │   ├── error.rs       # Tipos de error
-│   ├── models.rs      # Structs de datos
-│   ├── handlers.rs    # Lógica de endpoints
+│   ├── models.rs      # Structs + ToSchema
+│   ├── handlers.rs    # Handlers + utoipa::path
 │   └── routes.rs      # Definición de rutas
 └── tests/
     └── api_tests.rs   # Tests de integración
@@ -41,6 +58,7 @@ proyecto-api-tareas/
 | PUT    | /tareas/:id            | Actualizar tarea      |
 | DELETE | /tareas/:id            | Eliminar tarea        |
 | GET    | /tareas/estadisticas   | Estadísticas          |
+| GET    | /swagger-ui            | 📚 Documentación      |
 
 ### 🔍 Filtros (Query Parameters)
 
@@ -217,6 +235,8 @@ CREATE TABLE IF NOT EXISTS tareas (
 | tower-http          | 0.6     | Middleware (CORS, trace) |
 | tracing             | 0.1     | Logging                  |
 | thiserror           | 2       | Errores tipados          |
+| **utoipa**          | **5**   | **OpenAPI/Swagger**      |
+| **utoipa-swagger-ui** | **9** | **Swagger UI**           |
 
 ---
 

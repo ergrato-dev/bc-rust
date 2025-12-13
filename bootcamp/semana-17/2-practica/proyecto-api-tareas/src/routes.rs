@@ -1,9 +1,6 @@
 //! Definición de rutas de la API
 
-use axum::{
-    routing::{delete, get, post, put},
-    Router,
-};
+use axum::{routing::get, Router};
 use sqlx::SqlitePool;
 
 use crate::handlers;
