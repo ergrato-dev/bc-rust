@@ -9,7 +9,11 @@
 > 🎓 Intensive **17-week (68 hours)** bootcamp to master Rust from zero to advanced level.  
 > 🐳 Containerized environment with Docker for consistent development.
 
-**🇪🇸 [Versión en Español](README.md)**
+<p align="center">
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/🇪🇸_Versión_en_Español-Click_Aquí-red?style=for-the-badge" alt="Versión en Español">
+  </a>
+</p>
 
 ---
 
