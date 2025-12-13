@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520">
+  <style>
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 20px; fill: #d4d4d4; font-weight: bold; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; fill: #808080; }
+    .label { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code { font-family: 'Fira Code', monospace; font-size: 11px; fill: #d4d4d4; }
+    .type { fill: #4ec9b0; }
+    .accent { fill: #CE422B; }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#1e1e1e"/>
+  
+  <!-- Título -->
+  <text x="400" y="35" text-anchor="middle" class="title">Interior Mutability</text>
+  <text x="400" y="55" text-anchor="middle" class="subtitle">Mutar datos a través de referencias inmutables</text>
+  
+  <!-- Diagrama de decisión -->
+  <text x="400" y="85" text-anchor="middle" class="label" style="font-weight:bold;">GUÍA DE SELECCIÓN</text>
+  
+  <!-- Pregunta inicial -->
+  <rect x="280" y="100" width="240" height="40" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="400" y="125" text-anchor="middle" class="label">¿Necesitas thread-safety?</text>
+  
+  <!-- Rama NO -->
+  <path d="M320 140 L320 160 L150 160 L150 185" stroke="#4ec9b0" stroke-width="2" fill="none"/>
+  <text x="230" y="155" class="type" style="font-size:10px;">NO</text>
+  
+  <!-- Pregunta single-thread -->
+  <rect x="50" y="185" width="200" height="40" rx="6" fill="#252526" stroke="#569cd6"/>
+  <text x="150" y="210" text-anchor="middle" class="label">¿El tipo es Copy?</text>
+  
+  <!-- Cell -->
+  <path d="M100 225 L100 255" stroke="#4ec9b0" stroke-width="2" fill="none"/>
+  <text x="75" y="245" class="type" style="font-size:10px;">SÍ</text>
+  <rect x="30" y="260" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="100" y="285" text-anchor="middle" class="type" style="font-size:14px;">Cell&lt;T&gt;</text>
+  <text x="100" y="302" text-anchor="middle" class="label" style="font-size:10px;">get() / set()</text>
+  
+  <!-- RefCell -->
+  <path d="M200 225 L200 255" stroke="#CE422B" stroke-width="2" fill="none"/>
+  <text x="215" y="245" class="accent" style="font-size:10px;">NO</text>
+  <rect x="180" y="260" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="250" y="285" text-anchor="middle" class="accent" style="font-size:14px;">RefCell&lt;T&gt;</text>
+  <text x="250" y="302" text-anchor="middle" class="label" style="font-size:10px;">borrow() / borrow_mut()</text>
+  
+  <!-- Rama SÍ -->
+  <path d="M480 140 L480 160 L650 160 L650 185" stroke="#CE422B" stroke-width="2" fill="none"/>
+  <text x="565" y="155" class="accent" style="font-size:10px;">SÍ</text>
+  
+  <!-- Pregunta multi-thread -->
+  <rect x="550" y="185" width="200" height="40" rx="6" fill="#252526" stroke="#569cd6"/>
+  <text x="650" y="210" text-anchor="middle" class="label">¿Muchas lecturas?</text>
+  
+  <!-- Mutex -->
+  <path d="M600" y="225 L600 255" stroke="#CE422B" stroke-width="2" fill="none"/>
+  <text x="575" y="245" class="accent" style="font-size:10px;">NO</text>
+  <rect x="480" y="260" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="550" y="285" text-anchor="middle" class="accent" style="font-size:14px;">Mutex&lt;T&gt;</text>
+  <text x="550" y="302" text-anchor="middle" class="label" style="font-size:10px;">lock()</text>
+  
+  <!-- RwLock -->
+  <path d="M700 225 L700 255" stroke="#4ec9b0" stroke-width="2" fill="none"/>
+  <text x="715" y="245" class="type" style="font-size:10px;">SÍ</text>
+  <rect x="630" y="260" width="140" height="50" rx="6" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="700" y="285" text-anchor="middle" class="type" style="font-size:14px;">RwLock&lt;T&gt;</text>
+  <text x="700" y="302" text-anchor="middle" class="label" style="font-size:10px;">read() / write()</text>
+  
+  <!-- Tabla comparativa -->
+  <rect x="40" y="340" width="720" height="165" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  
+  <!-- Headers -->
+  <text x="120" y="365" text-anchor="middle" class="label" style="font-weight:bold;">Tipo</text>
+  <text x="260" y="365" text-anchor="middle" class="label" style="font-weight:bold;">Thread-Safe</text>
+  <text x="400" y="365" text-anchor="middle" class="label" style="font-weight:bold;">Puede Panic</text>
+  <text x="540" y="365" text-anchor="middle" class="label" style="font-weight:bold;">Multi-Reader</text>
+  <text x="680" y="365" text-anchor="middle" class="label" style="font-weight:bold;">Uso</text>
+  
+  <line x1="40" y1="375" x2="760" y2="375" stroke="#3c3c3c"/>
+  
+  <!-- Cell -->
+  <text x="120" y="400" text-anchor="middle" class="type">Cell&lt;T&gt;</text>
+  <text x="260" y="400" text-anchor="middle" class="label">❌</text>
+  <text x="400" y="400" text-anchor="middle" class="label">❌</text>
+  <text x="540" y="400" text-anchor="middle" class="label">N/A</text>
+  <text x="680" y="400" text-anchor="middle" class="label" style="font-size:10px;">Copy types</text>
+  
+  <!-- RefCell -->
+  <text x="120" y="430" text-anchor="middle" class="accent">RefCell&lt;T&gt;</text>
+  <text x="260" y="430" text-anchor="middle" class="label">❌</text>
+  <text x="400" y="430" text-anchor="middle" class="label">✅</text>
+  <text x="540" y="430" text-anchor="middle" class="label">✅</text>
+  <text x="680" y="430" text-anchor="middle" class="label" style="font-size:10px;">Single-thread</text>
+  
+  <!-- Mutex -->
+  <text x="120" y="460" text-anchor="middle" class="accent">Mutex&lt;T&gt;</text>
+  <text x="260" y="460" text-anchor="middle" class="label">✅</text>
+  <text x="400" y="460" text-anchor="middle" class="label">❌*</text>
+  <text x="540" y="460" text-anchor="middle" class="label">❌</text>
+  <text x="680" y="460" text-anchor="middle" class="label" style="font-size:10px;">Multi-thread</text>
+  
+  <!-- RwLock -->
+  <text x="120" y="490" text-anchor="middle" class="type">RwLock&lt;T&gt;</text>
+  <text x="260" y="490" text-anchor="middle" class="label">✅</text>
+  <text x="400" y="490" text-anchor="middle" class="label">❌*</text>
+  <text x="540" y="490" text-anchor="middle" class="label">✅</text>
+  <text x="680" y="490" text-anchor="middle" class="label" style="font-size:10px;">Read-heavy</text>
+</svg>
