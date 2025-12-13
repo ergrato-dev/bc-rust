@@ -10,25 +10,25 @@ fn main() {
 
     // Ejercicio 1: Lista enlazada básica
     println!("--- Ejercicio 1: Lista Enlazada ---");
-    let lista = List::new()
+    let list = List::new()
         .prepend(3)
         .prepend(2)
         .prepend(1);
-    println!("Lista: {:?}", lista);
-    println!("Longitud: {}", lista.len());
-    println!("Suma: {}", lista.sum());
+    println!("Lista: {:?}", list);
+    println!("Longitud: {}", list.len());
+    println!("Suma: {}", list.sum());
 
     // Ejercicio 2: Árbol binario
     println!("\n--- Ejercicio 2: Árbol Binario ---");
-    let arbol = crear_arbol_ejemplo();
-    println!("Árbol: {:?}", arbol);
-    println!("Profundidad: {}", arbol.depth());
-    println!("Suma: {}", arbol.sum());
+    let tree = create_example_tree();
+    println!("Árbol: {:?}", tree);
+    println!("Profundidad: {}", tree.depth());
+    println!("Suma: {}", tree.sum());
 
     // Ejercicio 3: Expresiones matemáticas
     println!("\n--- Ejercicio 3: Expresiones ---");
     // (2 + 3) * 4 = 20
-    let expr = crear_expresion_ejemplo();
+    let expr = create_example_expr();
     println!("Resultado: {}", expr.eval());
 
     println!("\n✅ Todos los ejercicios completados!");
@@ -117,7 +117,7 @@ impl TreeNode {
     }
 }
 
-fn crear_arbol_ejemplo() -> TreeNode {
+fn create_example_tree() -> TreeNode {
     //       5
     //      / \
     //     3   8
@@ -156,7 +156,7 @@ impl Expr {
     }
 }
 
-fn crear_expresion_ejemplo() -> Expr {
+fn create_example_expr() -> Expr {
     // (2 + 3) * 4
     Expr::Mul(
         Box::new(Expr::Add(
@@ -198,14 +198,14 @@ mod tests {
 
     #[test]
     fn test_tree_with_children() {
-        let tree = crear_arbol_ejemplo();
+        let tree = create_example_tree();
         assert_eq!(tree.depth(), 3);
         assert_eq!(tree.sum(), 17);
     }
 
     #[test]
     fn test_expr_eval() {
-        let expr = crear_expresion_ejemplo();
+        let expr = create_example_expr();
         assert_eq!(expr.eval(), 20);
     }
 }

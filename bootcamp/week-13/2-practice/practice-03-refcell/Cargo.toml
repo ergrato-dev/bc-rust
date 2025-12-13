@@ -1,5 +1,5 @@
 [package]
-name = "practica-03-refcell"
+name = "practice-03-refcell"
 version = "0.1.0"
 edition = "2024"
 
