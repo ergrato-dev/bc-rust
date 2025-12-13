@@ -60,6 +60,13 @@ members = [
     "bootcamp/semana-14/2-practica/practica-03-mutex",
     "bootcamp/semana-14/2-practica/practica-04-patrones",
     "bootcamp/semana-14/2-practica/proyecto-workers",
+    
+    # Semana 15 - Async/Await
+    "bootcamp/semana-15/2-practica/practica-01-async-basico",
+    "bootcamp/semana-15/2-practica/practica-02-tokio",
+    "bootcamp/semana-15/2-practica/practica-03-io-async",
+    "bootcamp/semana-15/2-practica/practica-04-channels",
+    "bootcamp/semana-15/2-practica/proyecto-crawler",
 ]
 
 [workspace.package]
