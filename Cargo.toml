@@ -49,7 +49,7 @@ members = [
     "bootcamp/week-13/2-practice/practice-02-rc-arc",
     "bootcamp/week-13/2-practice/practice-03-refcell",
     "bootcamp/week-13/2-practice/practice-04-weak",
-    "bootcamp/week-13/2-practice/project-cache",
+    "bootcamp/week-13/3-project/project-cache",
     
     # Week 14 - Concurrency
     "bootcamp/week-14/2-practice/practice-01-threads",
