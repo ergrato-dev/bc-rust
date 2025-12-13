@@ -3,8 +3,8 @@
 fn main() {
     println!("=== Soluciones Práctica 02: Lifetimes en Structs ===\n");
 
-    let novela = String::from("Llámame Ishmael. Hace algunos años...");
-    let excerpt = Excerpt::new(&novela[..16]);
+    let novel = String::from("Llámame Ishmael. Hace algunos años...");
+    let excerpt = Excerpt::new(&novel[..16]);
     println!("Ejercicio 1 - Excerpt: '{}'", excerpt.part());
 
     let key = String::from("database_url");
@@ -12,8 +12,8 @@ fn main() {
     let config = Config::new(&key, &value);
     println!("Ejercicio 2 - Config: {} = {}", config.key(), config.value());
 
-    let texto = "primera línea\nsegunda línea\ntercera línea";
-    let mut iter = LineIterator::new(texto);
+    let text = "primera línea\nsegunda línea\ntercera línea";
+    let mut iter = LineIterator::new(text);
     println!("Ejercicio 3 - Líneas:");
     while let Some(line) = iter.next_line() {
         println!("  - {}", line);

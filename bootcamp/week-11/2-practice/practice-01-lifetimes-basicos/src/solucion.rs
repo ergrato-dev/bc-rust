@@ -7,12 +7,12 @@ fn main() {
 
     let s1 = String::from("Rust es genial");
     let s2 = String::from("Ownership");
-    let resultado = longest(&s1, &s2);
-    println!("Ejercicio 1 - El más largo: {}", resultado);
+    let result = longest(&s1, &s2);
+    println!("Ejercicio 1 - El más largo: {}", result);
 
-    let texto = String::from("Hola mundo Rust");
-    let primera = first_word(&texto);
-    println!("Ejercicio 2 - Primera palabra: {}", primera);
+    let text = String::from("Hola mundo Rust");
+    let first = first_word(&text);
+    println!("Ejercicio 2 - Primera palabra: {}", first);
 
     let data = String::from("prefijo:valor");
     let prefix = get_prefix(&data, ':');
@@ -20,12 +20,12 @@ fn main() {
 
     let a = String::from("opción A");
     let b = String::from("opción B");
-    let elegido = pick_one(&a, &b, true);
-    println!("Ejercicio 4 - Elegido: {}", elegido);
+    let chosen = pick_one(&a, &b, true);
+    println!("Ejercicio 4 - Elegido: {}", chosen);
 
-    let linea = String::from("   espacios al inicio");
-    let sin_espacios = skip_prefix(&linea, ' ');
-    println!("Ejercicio 5 - Sin espacios: '{}'", sin_espacios);
+    let line = String::from("   espacios al inicio");
+    let trimmed = skip_prefix(&line, ' ');
+    println!("Ejercicio 5 - Sin espacios: '{}'", trimmed);
 
     println!("\n✅ Todas las soluciones funcionan!");
 }
