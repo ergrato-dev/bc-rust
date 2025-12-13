@@ -1,0 +1,8 @@
+[package]
+name = "practica-04-patrones-avanzados"
+version = "0.1.0"
+edition = "2024"
+description = "Practice 04: Advanced Patterns - if let, while let, let else, @ binding, matches! macro"
+
+
+[dependencies]

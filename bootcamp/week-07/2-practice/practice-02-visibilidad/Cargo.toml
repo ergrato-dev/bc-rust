@@ -4,6 +4,5 @@ version = "0.1.0"
 edition = "2024"
 description = "Practice 02: Visibility - pub modifiers and encapsulation"
 
-[workspace]
 
 [dependencies]

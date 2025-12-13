@@ -1,0 +1,6 @@
+[package]
+name = "practica-01-declaracion-variables"
+version = "0.1.0"
+edition = "2024"
+description = "Practice 01: Variable declaration - immutable, mutable, and type annotations"
+

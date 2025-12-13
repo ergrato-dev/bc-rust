@@ -1,9 +1,0 @@
-[package]
-name = "practica-04-conversion"
-version = "0.1.0"
-edition = "2024"
-description = "Practice 04: Error Conversion - map_err, Box<dyn Error>, and context wrapping"
-
-[workspace]
-
-[dependencies]

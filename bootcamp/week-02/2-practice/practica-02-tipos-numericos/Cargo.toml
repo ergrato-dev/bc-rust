@@ -1,7 +1,0 @@
-[package]
-name = "practica-02-tipos-numericos"
-version = "0.1.0"
-edition = "2024"
-description = "Practice 02: Numeric types - integers and floating-point numbers"
-
-[workspace]

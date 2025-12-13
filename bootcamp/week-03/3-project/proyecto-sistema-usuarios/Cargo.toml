@@ -1,7 +1,0 @@
-[package]
-name = "proyecto-sistema-usuarios"
-version = "0.1.0"
-edition = "2024"
-description = "Week 03 Project: User System - structs, methods, and composition"
-
-[workspace]

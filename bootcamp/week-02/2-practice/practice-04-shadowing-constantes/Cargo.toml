@@ -1,0 +1,6 @@
+[package]
+name = "practica-04-shadowing-constantes"
+version = "0.1.0"
+edition = "2024"
+description = "Practice 04: Shadowing and constants"
+

@@ -1,0 +1,6 @@
+[package]
+name = "practica-04-ownership-funciones"
+version = "0.1.0"
+edition = "2024"
+description = "Week 04 Practice: Ownership and borrowing"
+

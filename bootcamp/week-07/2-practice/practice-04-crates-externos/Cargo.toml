@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2024"
 description = "Practice 04: External crates - Using dependencies from crates.io"
 
-[workspace]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }

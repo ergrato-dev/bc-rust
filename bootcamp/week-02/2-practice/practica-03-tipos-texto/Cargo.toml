@@ -1,7 +1,0 @@
-[package]
-name = "practica-03-tipos-texto"
-version = "0.1.0"
-edition = "2024"
-description = "Practice 03: Text types - char and String"
-
-[workspace]

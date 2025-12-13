@@ -1,0 +1,9 @@
+[package]
+name = "proyecto-info-system"
+version = "0.1.0"
+edition = "2021"
+description = "Week 01 Project: Personal Information System"
+authors = ["Rust Bootcamp"]
+
+[dependencies]
+

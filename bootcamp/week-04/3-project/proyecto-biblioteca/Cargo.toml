@@ -1,7 +1,0 @@
-[package]
-name = "proyecto-biblioteca"
-version = "0.1.0"
-edition = "2024"
-description = "Week 04 Project: Library System - ownership and borrowing"
-
-[workspace]

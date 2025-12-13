@@ -1,9 +1,0 @@
-[package]
-name = "practica-03-option"
-version = "0.1.0"
-edition = "2024"
-description = "Practice 03: Option - User search, Option methods, and builder pattern"
-
-[workspace]
-
-[dependencies]

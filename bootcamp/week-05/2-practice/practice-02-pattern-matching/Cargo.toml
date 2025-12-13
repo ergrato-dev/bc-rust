@@ -1,0 +1,8 @@
+[package]
+name = "practica-02-pattern-matching"
+version = "0.1.0"
+edition = "2024"
+description = "Practice 02: Pattern Matching - Currency conversion, shapes, and point classification"
+
+
+[dependencies]

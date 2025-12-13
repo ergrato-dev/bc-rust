@@ -1,0 +1,6 @@
+[package]
+name = "practica-03-borrow-checker"
+version = "0.1.0"
+edition = "2024"
+description = "Week 04 Practice: Ownership and borrowing"
+

@@ -1,9 +1,0 @@
-[package]
-name = "proyecto-validador-config"
-version = "0.1.0"
-edition = "2024"
-description = "Project: Configuration Validator - Robust config file parser with complete error handling"
-
-[workspace]
-
-[dependencies]
