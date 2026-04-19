@@ -1,6 +1,6 @@
 # 🦀 Bootcamp Rust: Zero to Hero
 
-![Bootcamp Rust Header](_assets/bootcamp-header.svg)
+![Bootcamp Rust Header](assets/bootcamp-header.svg)
 
 ![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
@@ -121,9 +121,9 @@ bc-rust/
 ├── .devcontainer/           # Configuración Dev Container
 ├── .github/
 │   └── copilot-instructions.md
-├── _assets/                 # Recursos visuales
+├── assets/                  # Recursos visuales
 ├── _docs/                   # Documentación adicional
-├── _scripts/                # Scripts de utilidad
+├── scripts/                 # Scripts de utilidad
 ├── bootcamp/
 │   ├── week-01-introduccion_y_setup/
 │   ├── week-02-variables_y_tipos_de_datos/

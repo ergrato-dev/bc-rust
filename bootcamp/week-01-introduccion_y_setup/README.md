@@ -1,6 +1,6 @@
 # 🦀 Semana 01: Introducción a Rust y Setup del Entorno
 
-![Bootcamp Rust](../../_assets/bootcamp-header.svg)
+![Bootcamp Rust](../../assets/bootcamp-header.svg)
 
 ## 📋 Información General
 

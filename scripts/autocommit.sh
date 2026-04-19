@@ -10,7 +10,7 @@ set -e
 
 # Configuration
 REPO_DIR="/home/epti/Documents/epti-dev/bc-channel/bc-rust"
-LOG_FILE="$REPO_DIR/_scripts/autocommit.log"
+LOG_FILE="$REPO_DIR/scripts/autocommit.log"
 MAX_LOG_LINES=500
 
 # Colors for terminal output
@@ -76,9 +76,9 @@ detect_scope() {
         echo "$week"
     elif echo "$files" | grep -qE "_docs/"; then
         echo "docs"
-    elif echo "$files" | grep -qE "_assets/"; then
+    elif echo "$files" | grep -qE "assets/"; then
         echo "assets"
-    elif echo "$files" | grep -qE "_scripts/"; then
+    elif echo "$files" | grep -qE "scripts/"; then
         echo "scripts"
     elif echo "$files" | grep -qE "\.vscode/"; then
         echo "vscode"

@@ -109,13 +109,13 @@ bc-rust/
 ├── .devcontainer/
 │   ├── devcontainer.json          # Configuración Dev Container
 │   └── Dockerfile                 # Imagen Docker del bootcamp
-├── _assets/
+├── assets/
 │   └── bootcamp-header.svg        # Imagen del header
 ├── _docs/
 │   ├── GUIA-DOCKER.md             # Guía de Docker
 │   ├── GUIA-VSCODE.md             # Guía de VS Code
 │   └── tema.md                    # Estructura temática
-├── _scripts/
+├── scripts/
 │   └── setup.sh                   # Script de configuración
 ├── bootcamp/
 │   ├── semana-01/
