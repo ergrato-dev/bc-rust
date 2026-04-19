@@ -3,81 +3,81 @@ resolver = "2"
 
 members = [
     # Week 07 - Modules and Crates
-    "bootcamp/week-07/2-practice/practice-01-modulos-basicos",
-    "bootcamp/week-07/2-practice/practice-02-visibilidad",
-    "bootcamp/week-07/2-practice/practice-03-estructura-archivos",
-    "bootcamp/week-07/2-practice/practice-04-crates-externos",
-    "bootcamp/week-07/3-project/project-geometria",
+    "bootcamp/week-07-modulos_y_crates/2-practice/practice-01-modulos-basicos",
+    "bootcamp/week-07-modulos_y_crates/2-practice/practice-02-visibilidad",
+    "bootcamp/week-07-modulos_y_crates/2-practice/practice-03-estructura-archivos",
+    "bootcamp/week-07-modulos_y_crates/2-practice/practice-04-crates-externos",
+    "bootcamp/week-07-modulos_y_crates/3-project/project-geometria",
     
     # Week 08 - Collections
-    "bootcamp/week-08/2-practice/practice-01-vectores",
-    "bootcamp/week-08/2-practice/practice-02-strings",
-    "bootcamp/week-08/2-practice/practice-03-hashmaps",
-    "bootcamp/week-08/2-practice/practice-04-iteradores",
-    "bootcamp/week-08/3-project/project-inventario",
+    "bootcamp/week-08-colecciones/2-practice/practice-01-vectores",
+    "bootcamp/week-08-colecciones/2-practice/practice-02-strings",
+    "bootcamp/week-08-colecciones/2-practice/practice-03-hashmaps",
+    "bootcamp/week-08-colecciones/2-practice/practice-04-iteradores",
+    "bootcamp/week-08-colecciones/3-project/project-inventario",
     
     # Week 09 - Basic Traits
-    "bootcamp/week-09/2-practice/practice-01-definir-traits",
-    "bootcamp/week-09/2-practice/practice-02-implementar-traits",
-    "bootcamp/week-09/2-practice/practice-03-traits-derivables",
-    "bootcamp/week-09/2-practice/practice-04-trait-bounds",
-    "bootcamp/week-09/3-project/project-formas",
+    "bootcamp/week-09-traits_basicos/2-practice/practice-01-definir-traits",
+    "bootcamp/week-09-traits_basicos/2-practice/practice-02-implementar-traits",
+    "bootcamp/week-09-traits_basicos/2-practice/practice-03-traits-derivables",
+    "bootcamp/week-09-traits_basicos/2-practice/practice-04-trait-bounds",
+    "bootcamp/week-09-traits_basicos/3-project/project-formas",
     
     # Week 10 - Generics
-    "bootcamp/week-10/2-practice/practice-01-funciones-genericas",
-    "bootcamp/week-10/2-practice/practice-02-structs-genericos",
-    "bootcamp/week-10/2-practice/practice-03-trait-bounds",
-    "bootcamp/week-10/2-practice/practice-04-generics-avanzados",
-    "bootcamp/week-10/3-project/project-contenedor",
+    "bootcamp/week-10-generics/2-practice/practice-01-funciones-genericas",
+    "bootcamp/week-10-generics/2-practice/practice-02-structs-genericos",
+    "bootcamp/week-10-generics/2-practice/practice-03-trait-bounds",
+    "bootcamp/week-10-generics/2-practice/practice-04-generics-avanzados",
+    "bootcamp/week-10-generics/3-project/project-contenedor",
     
     # Week 11 - Lifetimes
-    "bootcamp/week-11/2-practice/practice-01-lifetimes-basicos",
-    "bootcamp/week-11/2-practice/practice-02-lifetimes-structs",
-    "bootcamp/week-11/2-practice/practice-03-elision",
-    "bootcamp/week-11/2-practice/practice-04-lifetimes-avanzados",
-    "bootcamp/week-11/3-project/project-parser",
+    "bootcamp/week-11-lifetimes/2-practice/practice-01-lifetimes-basicos",
+    "bootcamp/week-11-lifetimes/2-practice/practice-02-lifetimes-structs",
+    "bootcamp/week-11-lifetimes/2-practice/practice-03-elision",
+    "bootcamp/week-11-lifetimes/2-practice/practice-04-lifetimes-avanzados",
+    "bootcamp/week-11-lifetimes/3-project/project-parser",
     
     # Week 12 - Closures and Iterators
-    "bootcamp/week-12/2-practice/practice-01-closures-basicos",
-    "bootcamp/week-12/2-practice/practice-02-captura",
-    "bootcamp/week-12/2-practice/practice-03-fn-traits",
-    "bootcamp/week-12/2-practice/practice-04-iteradores",
-    "bootcamp/week-12/3-project/project-pipeline",
+    "bootcamp/week-12-closures_e_iteradores/2-practice/practice-01-closures-basicos",
+    "bootcamp/week-12-closures_e_iteradores/2-practice/practice-02-captura",
+    "bootcamp/week-12-closures_e_iteradores/2-practice/practice-03-fn-traits",
+    "bootcamp/week-12-closures_e_iteradores/2-practice/practice-04-iteradores",
+    "bootcamp/week-12-closures_e_iteradores/3-project/project-pipeline",
     
     # Week 13 - Smart Pointers
-    "bootcamp/week-13/2-practice/practice-01-box",
-    "bootcamp/week-13/2-practice/practice-02-rc-arc",
-    "bootcamp/week-13/2-practice/practice-03-refcell",
-    "bootcamp/week-13/2-practice/practice-04-weak",
-    "bootcamp/week-13/3-project/project-cache",
+    "bootcamp/week-13-smart_pointers/2-practice/practice-01-box",
+    "bootcamp/week-13-smart_pointers/2-practice/practice-02-rc-arc",
+    "bootcamp/week-13-smart_pointers/2-practice/practice-03-refcell",
+    "bootcamp/week-13-smart_pointers/2-practice/practice-04-weak",
+    "bootcamp/week-13-smart_pointers/3-project/project-cache",
     
     # Week 14 - Concurrency
-    "bootcamp/week-14/2-practice/practice-01-threads",
-    "bootcamp/week-14/2-practice/practice-02-channels",
-    "bootcamp/week-14/2-practice/practice-03-mutex",
-    "bootcamp/week-14/2-practice/practice-04-patterns",
-    "bootcamp/week-14/2-practice/project-workers",
+    "bootcamp/week-14-concurrencia/2-practice/practice-01-threads",
+    "bootcamp/week-14-concurrencia/2-practice/practice-02-channels",
+    "bootcamp/week-14-concurrencia/2-practice/practice-03-mutex",
+    "bootcamp/week-14-concurrencia/2-practice/practice-04-patterns",
+    "bootcamp/week-14-concurrencia/2-practice/project-workers",
     
     # Week 15 - Async/Await
-    "bootcamp/week-15/2-practice/practice-01-async-basic",
-    "bootcamp/week-15/2-practice/practice-02-tokio",
-    "bootcamp/week-15/2-practice/practice-03-io-async",
-    "bootcamp/week-15/2-practice/practice-04-channels",
-    "bootcamp/week-15/2-practice/project-crawler",
+    "bootcamp/week-15-async_await/2-practice/practice-01-async-basic",
+    "bootcamp/week-15-async_await/2-practice/practice-02-tokio",
+    "bootcamp/week-15-async_await/2-practice/practice-03-io-async",
+    "bootcamp/week-15-async_await/2-practice/practice-04-channels",
+    "bootcamp/week-15-async_await/2-practice/project-crawler",
     
     # Week 16 - Testing and Documentation
-    "bootcamp/week-16/2-practice/practice-01-unit-tests",
-    "bootcamp/week-16/2-practice/practice-02-integration",
-    "bootcamp/week-16/2-practice/practice-03-doctests",
-    "bootcamp/week-16/2-practice/practice-04-tdd",
-    "bootcamp/week-16/2-practice/project-tested-calculator",
+    "bootcamp/week-16-testing_y_documentacion/2-practice/practice-01-unit-tests",
+    "bootcamp/week-16-testing_y_documentacion/2-practice/practice-02-integration",
+    "bootcamp/week-16-testing_y_documentacion/2-practice/practice-03-doctests",
+    "bootcamp/week-16-testing_y_documentacion/2-practice/practice-04-tdd",
+    "bootcamp/week-16-testing_y_documentacion/2-practice/project-tested-calculator",
     
     # Week 17 - REST API with Axum
-    "bootcamp/week-17/2-practice/practice-01-hello-axum",
-    "bootcamp/week-17/2-practice/practice-02-crud",
-    "bootcamp/week-17/2-practice/practice-03-validation",
-    "bootcamp/week-17/2-practice/practice-04-middleware",
-    "bootcamp/week-17/2-practice/project-task-api",
+    "bootcamp/week-17-api_rest_con_axum/2-practice/practice-01-hello-axum",
+    "bootcamp/week-17-api_rest_con_axum/2-practice/practice-02-crud",
+    "bootcamp/week-17-api_rest_con_axum/2-practice/practice-03-validation",
+    "bootcamp/week-17-api_rest_con_axum/2-practice/practice-04-middleware",
+    "bootcamp/week-17-api_rest_con_axum/2-practice/project-task-api",
 ]
 
 [workspace.package]

@@ -35,23 +35,23 @@ This bootcamp is designed to take students from Rust fundamentals to advanced co
 
 | Week   | Main Topic                                   | Level | Duration |
 | ------ | -------------------------------------------- | ----- | -------- |
-| **1**  | [Setup & Hello World](bootcamp/week-01)      | 🟢    | 4 hours  |
-| **2**  | [Variables & Types](bootcamp/week-02)        | 🟢    | 4 hours  |
-| **3**  | [Ownership & Borrowing](bootcamp/week-03)    | 🟡    | 4 hours  |
-| **4**  | [Structs & Methods](bootcamp/week-04)        | 🟢    | 4 hours  |
-| **5**  | [Enums & Pattern Matching](bootcamp/week-05) | 🟡    | 4 hours  |
-| **6**  | [Error Handling](bootcamp/week-06)           | 🟡    | 4 hours  |
-| **7**  | [Modules & Crates](bootcamp/week-07)         | 🟢    | 4 hours  |
-| **8**  | [Collections](bootcamp/week-08)              | 🟡    | 4 hours  |
-| **9**  | [Basic Traits](bootcamp/week-09)             | 🟡    | 4 hours  |
-| **10** | [Generics](bootcamp/week-10)                 | 🟡    | 4 hours  |
-| **11** | [Lifetimes](bootcamp/week-11)                | 🔴    | 4 hours  |
-| **12** | [Closures & Iterators](bootcamp/week-12)     | 🟡    | 4 hours  |
-| **13** | [Smart Pointers](bootcamp/week-13)           | 🔴    | 4 hours  |
-| **14** | [Concurrency](bootcamp/week-14)              | 🔴    | 4 hours  |
-| **15** | [Async/Await](bootcamp/week-15)              | 🔴    | 4 hours  |
-| **16** | [Testing & Documentation](bootcamp/week-16)  | 🟡    | 4 hours  |
-| **17** | [REST API with Axum](bootcamp/week-17)       | 🔴    | 4 hours  |
+| **1**  | [Setup & Hello World](bootcamp/week-01-introduccion_y_setup)      | 🟢    | 4 hours  |
+| **2**  | [Variables & Types](bootcamp/week-02-variables_y_tipos_de_datos)        | 🟢    | 4 hours  |
+| **3**  | [Structs & Methods](bootcamp/week-03-structs_y_metodos)    | 🟡    | 4 hours  |
+| **4**  | [Ownership & Borrowing](bootcamp/week-04-ownership_y_borrowing)        | 🟢    | 4 hours  |
+| **5**  | [Enums & Pattern Matching](bootcamp/week-05-enums_y_pattern_matching) | 🟡    | 4 hours  |
+| **6**  | [Error Handling](bootcamp/week-06-manejo_de_errores)           | 🟡    | 4 hours  |
+| **7**  | [Modules & Crates](bootcamp/week-07-modulos_y_crates)         | 🟢    | 4 hours  |
+| **8**  | [Collections](bootcamp/week-08-colecciones)              | 🟡    | 4 hours  |
+| **9**  | [Basic Traits](bootcamp/week-09-traits_basicos)             | 🟡    | 4 hours  |
+| **10** | [Generics](bootcamp/week-10-generics)                 | 🟡    | 4 hours  |
+| **11** | [Lifetimes](bootcamp/week-11-lifetimes)                | 🔴    | 4 hours  |
+| **12** | [Closures & Iterators](bootcamp/week-12-closures_e_iteradores)     | 🟡    | 4 hours  |
+| **13** | [Smart Pointers](bootcamp/week-13-smart_pointers)           | 🔴    | 4 hours  |
+| **14** | [Concurrency](bootcamp/week-14-concurrencia)              | 🔴    | 4 hours  |
+| **15** | [Async/Await](bootcamp/week-15-async_await)              | 🔴    | 4 hours  |
+| **16** | [Testing & Documentation](bootcamp/week-16-testing_y_documentacion)  | 🟡    | 4 hours  |
+| **17** | [REST API with Axum](bootcamp/week-17-api_rest_con_axum)       | 🔴    | 4 hours  |
 
 **Total**: 68 hours of intensive training
 
@@ -125,10 +125,10 @@ bc-rust/
 ├── _docs/                   # Additional documentation
 ├── _scripts/                # Utility scripts
 ├── bootcamp/
-│   ├── week-01/             # Setup & Hello World
-│   ├── week-02/             # Variables & Types
+│   ├── week-01-introduccion_y_setup/
+│   ├── week-02-variables_y_tipos_de_datos/
 │   ├── ...
-│   └── week-17/             # REST API with Axum
+│   └── week-17-api_rest_con_axum/
 ├── Cargo.toml               # Workspace configuration
 ├── docker-compose.yml
 ├── Dockerfile
@@ -138,7 +138,7 @@ bc-rust/
 Each week contains:
 
 ```
-week-XX/
+week-XX-tema_principal/
 ├── README.md                # Main guide
 ├── RUBRICA_EVALUACION.md    # Evaluation criteria
 ├── 0-assets/                # SVG diagrams
