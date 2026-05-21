@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .body     { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+  </style>
+
+  <rect width="860" height="540" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 21 — Patrón Builder</text>
+  <text x="24" y="45" class="subtitle">Builder clásico (runtime) vs. Builder typestate (compile-time)</text>
+
+  <!-- ── BUILDER CLÁSICO (izquierda) ── -->
+  <rect x="20" y="72" width="390" height="260" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="72" width="390" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="86" width="390" height="14" fill="#2d2d2d"/>
+  <text x="36" y="91" class="label" font-weight="bold">Builder Clásico — validación en runtime</text>
+
+  <!-- flujo de estados -->
+  <!-- Box 1 -->
+  <rect x="36" y="112" width="130" height="44" rx="4" fill="#1e1e1e" stroke="#454545" stroke-width="1"/>
+  <text x="46" y="129" class="ty" font-size="12">ServidorBuilder</text>
+  <text x="46" y="146" class="small">{ host: None, puerto: None }</text>
+  <text x="30" y="108" class="small">new()</text>
+
+  <!-- Arrow -->
+  <line x1="166" y1="134" x2="198" y2="134" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="168" y="127" class="small">.host("x")</text>
+
+  <!-- Box 2 -->
+  <rect x="200" y="112" width="130" height="44" rx="4" fill="#1e1e1e" stroke="#454545" stroke-width="1"/>
+  <text x="210" y="129" class="ty" font-size="12">ServidorBuilder</text>
+  <text x="210" y="146" class="small">{ host: Some("x"), ... }</text>
+
+  <!-- Arrow down -->
+  <line x1="265" y1="156" x2="265" y2="180" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="272" y="171" class="small">.puerto(8080)</text>
+
+  <!-- Box 3 -->
+  <rect x="200" y="182" width="130" height="44" rx="4" fill="#1e1e1e" stroke="#454545" stroke-width="1"/>
+  <text x="210" y="199" class="ty" font-size="12">ServidorBuilder</text>
+  <text x="210" y="216" class="small">{ host: Some, puerto: Some }</text>
+
+  <!-- Arrow to build -->
+  <line x1="200" y1="204" x2="168" y2="250" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="164" y="235" class="small">.build()</text>
+
+  <!-- Build box -->
+  <rect x="36" y="252" width="200" height="66" rx="4" fill="#1e1e1e" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="46" y="270" class="label">Validación en runtime</text>
+  <text x="46" y="286" class="small" fill="#4ec9b0">Ok(Servidor { ... })</text>
+  <text x="46" y="302" class="small" fill="#f44747">Err(HostVacio) / Err(PuertoReservado)</text>
+
+  <!-- código: impl -->
+  <text x="36" y="336" class="kw">pub fn </text><text x="70" y="336" class="fn">build</text><text x="96" y="336" class="code">(self) → </text><text x="139" y="336" class="ty">Result</text><text x="170" y="336" class="code">&lt;</text><text x="175" y="336" class="ty">Servidor</text><text x="213" y="336" class="code">, </text><text x="219" y="336" class="ty">ServidorError</text><text x="295" y="336" class="code">&gt; {</text>
+  <text x="46" y="352" class="kw">  if </text><text x="64" y="352" class="code">self.host.is_none() { </text><text x="186" y="352" class="kw">return </text><text x="220" y="352" class="ty">Err</text><text x="235" y="352" class="code">(...) }</text>
+  <text x="36" y="368" class="code">  ... </text><text x="54" y="368" class="kw">Ok</text><text x="66" y="368" class="code">(</text><text x="71" y="368" class="ty">Servidor</text><text x="113" y="368" class="code"> { ... })</text>
+
+  <!-- ── BUILDER TYPESTATE (derecha) ── -->
+  <rect x="430" y="72" width="410" height="260" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <rect x="430" y="72" width="410" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="430" y="86" width="410" height="14" fill="#2d2d2d"/>
+  <text x="446" y="91" class="label" font-weight="bold">Builder Typestate — garantía en compile-time</text>
+
+  <!-- Estados como tipos -->
+  <text x="446" y="116" class="small">Estados como tipos vacíos (zero-cost)</text>
+  <text x="446" y="132" class="kw">pub struct </text><text x="506" y="132" class="ty">SinUrl</text><text x="538" y="132" class="code">;      </text>
+  <text x="620" y="132" class="kw">pub struct </text><text x="680" y="132" class="ty">ConUrl</text><text x="712" y="132" class="code">(</text><text x="716" y="132" class="ty">String</text><text x="744" y="132" class="code">);</text>
+
+  <!-- Flujo de transición -->
+  <!-- Box SinUrl -->
+  <rect x="446" y="148" width="130" height="44" rx="4" fill="#1e1e1e" stroke="#454545" stroke-width="1"/>
+  <text x="456" y="165" class="ty" font-size="11">RequestBuilder</text>
+  <text x="456" y="181" class="ty" font-size="11">&lt;SinUrl, SinMetodo&gt;</text>
+
+  <line x1="576" y1="170" x2="620" y2="170" stroke="#4ec9b0" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="578" y="163" class="small">.url("...")</text>
+
+  <!-- Box ConUrl -->
+  <rect x="622" y="148" width="130" height="44" rx="4" fill="#1e1e1e" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="632" y="165" class="ty" font-size="11">RequestBuilder</text>
+  <text x="632" y="181" class="ty" font-size="11">&lt;ConUrl, SinMetodo&gt;</text>
+
+  <line x1="687" y1="192" x2="687" y2="216" stroke="#4ec9b0" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="694" y="208" class="small">.metodo("GET")</text>
+
+  <!-- Box ConUrl + ConMetodo -->
+  <rect x="622" y="218" width="130" height="44" rx="4" fill="#1e1e1e" stroke="#CE422B" stroke-width="1"/>
+  <text x="632" y="235" class="ty" font-size="11">RequestBuilder</text>
+  <text x="632" y="251" class="ty" font-size="11">&lt;ConUrl, ConMetodo&gt;</text>
+
+  <line x1="622" y1="240" x2="598" y2="285" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="586" y="270" class="small">.build()</text>
+
+  <!-- Build exitoso -->
+  <rect x="446" y="287" width="150" height="32" rx="4" fill="#1e1e1e" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="456" y="307" class="small" fill="#4ec9b0">✅ Request { url, metodo }</text>
+  <text x="446" y="332" class="small">build() SIN Result — siempre Ok</text>
+
+  <!-- Error en compile-time -->
+  <rect x="620" y="280" width="202" height="50" rx="4" fill="#2d1515" stroke="#f44747" stroke-width="1"/>
+  <text x="630" y="298" class="small" fill="#f44747">❌ Sin .url() → compile-time error</text>
+  <text x="630" y="314" class="code" font-size="10" fill="#f44747">error: no method `build` found</text>
+  <text x="630" y="326" class="code" font-size="10" fill="#f44747">for `Builder&lt;SinUrl, ConMetodo&gt;`</text>
+
+  <!-- ── Tabla comparativa ── -->
+  <rect x="20" y="348" width="820" height="170" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="348" width="820" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="362" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="367" class="label" font-weight="bold">Comparativa: Builder Clásico vs. Typestate</text>
+
+  <!-- encabezados tabla -->
+  <line x1="20" y1="382" x2="840" y2="382" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="36"  y="396" class="small" fill="#CE422B">Característica</text>
+  <text x="236" y="396" class="small" fill="#CE422B">Builder Clásico</text>
+  <text x="476" y="396" class="small" fill="#CE422B">Builder Typestate</text>
+
+  <!-- filas -->
+  <text x="36"  y="414" class="body">Detección de errores</text>
+  <text x="236" y="414" class="body" fill="#dcdcaa">Runtime (en build())</text>
+  <text x="476" y="414" class="body" fill="#4ec9b0">Compile-time</text>
+
+  <text x="36"  y="432" class="body">Complejidad de implementación</text>
+  <text x="236" y="432" class="body">Baja</text>
+  <text x="476" y="432" class="body">Media-Alta (PhantomData)</text>
+
+  <text x="36"  y="450" class="body">Campos opcionales</text>
+  <text x="236" y="450" class="body" fill="#4ec9b0">Natural con Option&lt;T&gt;</text>
+  <text x="476" y="450" class="body" fill="#4ec9b0">Natural (no cambian tipos)</text>
+
+  <text x="36"  y="468" class="body">Campos obligatorios</text>
+  <text x="236" y="468" class="body" fill="#dcdcaa">Validados en build()</text>
+  <text x="476" y="468" class="body" fill="#4ec9b0">Imposible olvidar</text>
+
+  <text x="36"  y="494" class="small">✅ Recomendación: Clásico para APIs de librerías con muchos opcionales — Typestate para máquinas de estado</text>
+
+  <!-- markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#CE422B"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4ec9b0"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .body     { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #CE422B; }
+    .doc      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+  </style>
+
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 21 — Documentación y Doctests</text>
+  <text x="24" y="45" class="subtitle">/// ítems · //! módulos · Secciones canónicas · cargo test --doc · examples/</text>
+
+  <!-- Columna izquierda: Tipos de comentario -->
+  <rect x="20" y="72" width="268" height="196" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="72" width="268" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="86" width="268" height="14" fill="#2d2d2d"/>
+  <text x="36" y="91" class="label" font-weight="bold">Tipos de comentario</text>
+
+  <!-- //! -->
+  <rect x="30" y="108" width="248" height="56" rx="3" fill="#1e1e1e"/>
+  <text x="40" y="124" class="doc">//! # mi-crate — Utilidades</text>
+  <text x="40" y="140" class="doc">//!</text>
+  <text x="40" y="156" class="doc">//! Documentación del **módulo**.</text>
+  <text x="36" y="172" class="small">↑ inner doc — documenta el módulo que lo contiene</text>
+
+  <line x1="30" y1="180" x2="278" y2="180" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- /// -->
+  <rect x="30" y="186" width="248" height="56" rx="3" fill="#1e1e1e"/>
+  <text x="40" y="202" class="doc">/// Convierte texto a slug.</text>
+  <text x="40" y="218" class="doc">/// # Examples</text>
+  <text x="40" y="234" class="doc">/// ```</text>
+  <text x="36" y="253" class="small">↑ outer doc — documenta el ítem siguiente</text>
+
+  <!-- Columna central: secciones canónicas -->
+  <rect x="306" y="72" width="270" height="196" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="306" y="72" width="270" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="306" y="86" width="270" height="14" fill="#2d2d2d"/>
+  <text x="322" y="91" class="label" font-weight="bold">Secciones Canónicas</text>
+
+  <text x="316" y="114" class="doc">/// # Examples</text>
+  <text x="430" y="114" class="small"> — siempre incluirla</text>
+
+  <text x="316" y="132" class="doc">/// # Errors</text>
+  <text x="416" y="132" class="small"> — cuando retorna Result</text>
+
+  <text x="316" y="150" class="doc">/// # Panics</text>
+  <text x="416" y="150" class="small"> — cuando puede panic!</text>
+
+  <text x="316" y="168" class="doc">/// # Safety</text>
+  <text x="416" y="168" class="small"> — cuando es unsafe fn</text>
+
+  <line x1="316" y1="180" x2="566" y2="180" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <text x="316" y="198" class="doc">/// [`Tipo`]</text>
+  <text x="386" y="198" class="small"> — intra-doc link</text>
+  <text x="316" y="214" class="doc">/// [`fn_nombre`]</text>
+  <text x="394" y="214" class="small"> — link a función</text>
+  <text x="316" y="230" class="doc">/// [`Error::Variante`]</text>
+  <text x="414" y="230" class="small"> — link a variante</text>
+  <text x="316" y="248" class="small">Los links se verifican en compilación</text>
+  <text x="316" y="260" class="small">de docs → error si el ítem no existe</text>
+
+  <!-- Columna derecha: directivas doctest -->
+  <rect x="594" y="72" width="246" height="196" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="594" y="72" width="246" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="594" y="86" width="246" height="14" fill="#2d2d2d"/>
+  <text x="610" y="91" class="label" font-weight="bold">Directivas de Doctest</text>
+
+  <text x="604" y="114" class="doc">```</text>
+  <text x="648" y="114" class="small"> → ejecuta el test</text>
+  <text x="604" y="130" class="doc">```should_panic</text>
+  <text x="696" y="130" class="small"> → debe panic!</text>
+  <text x="604" y="146" class="doc">```compile_fail</text>
+  <text x="694" y="146" class="small"> → debe fallar</text>
+  <text x="604" y="162" class="doc">```no_run</text>
+  <text x="663" y="162" class="small"> → compila, no ejecuta</text>
+  <text x="604" y="178" class="doc">```ignore</text>
+  <text x="660" y="178" class="small"> → ni compila ni ejecuta</text>
+
+  <line x1="604" y1="190" x2="830" y2="190" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <text x="604" y="208" class="doc">/// ```</text>
+  <text x="604" y="224" class="doc">/// # use mi::Foo; </text>
+  <text x="604" y="240" class="doc">/// let f = Foo::new();</text>
+  <text x="604" y="256" class="doc">/// ```</text>
+  <text x="604" y="264" class="small">Líneas con # se ocultan en HTML</text>
+
+  <!-- Ejemplo completo de doctest -->
+  <rect x="20" y="282" width="560" height="224" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="282" width="560" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="296" width="560" height="14" fill="#2d2d2d"/>
+  <text x="36" y="301" class="label" font-weight="bold">Ejemplo completo con doctests</text>
+
+  <text x="30" y="324" class="doc">/// Calcula el factorial de `n`.</text>
+  <text x="30" y="340" class="doc">///</text>
+  <text x="30" y="356" class="doc">/// # Examples</text>
+  <text x="30" y="372" class="doc">///</text>
+  <text x="30" y="388" class="doc">/// ```</text>
+  <text x="30" y="404" class="doc">/// </text><text x="52" y="404" class="doc"># </text><text x="62" y="404" class="kw">use </text><text x="80" y="404" class="ty">mi_crate</text><text x="120" y="404" class="doc">::</text><text x="125" y="404" class="fn">factorial</text><text x="165" y="404" class="doc">;   </text><text x="196" y="404" class="comment">// # oculta la línea</text>
+  <text x="30" y="420" class="doc">/// </text><text x="52" y="420" class="fn">assert_eq!</text><text x="100" y="420" class="code">(</text><text x="104" y="420" class="fn">factorial</text><text x="143" y="420" class="code">(</text><text x="147" y="420" class="ty">5</text><text x="153" y="420" class="code">), </text><text x="162" y="420" class="ty">120</text><text x="174" y="420" class="code">);</text>
+  <text x="30" y="436" class="doc">/// ```</text>
+  <text x="30" y="452" class="doc">///</text>
+  <text x="30" y="468" class="doc">/// # Panics</text>
+  <text x="30" y="484" class="doc">/// Panics si `n &gt; 20` (overflow de u64).</text>
+  <text x="30" y="500" class="kw">pub fn </text><text x="64" y="500" class="fn">factorial</text><text x="100" y="500" class="code">(n: </text><text x="120" y="500" class="ty">u64</text><text x="136" y="500" class="code">) → </text><text x="156" y="500" class="ty">u64</text><text x="172" y="500" class="code"> { ... }</text>
+
+  <!-- Columna: examples/ y deny(missing_docs) -->
+  <rect x="598" y="282" width="242" height="224" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="598" y="282" width="242" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="598" y="296" width="242" height="14" fill="#2d2d2d"/>
+  <text x="614" y="301" class="label" font-weight="bold">examples/ y deny(missing_docs)</text>
+
+  <!-- deny(missing_docs) -->
+  <rect x="608" y="318" width="222" height="58" rx="3" fill="#1e1e1e"/>
+  <text x="618" y="334" class="attr">#![deny(missing_docs)]</text>
+  <text x="618" y="350" class="comment">// Toda API pública debe tener ///</text>
+  <text x="618" y="366" class="comment">// Si falta → error de compilación</text>
+
+  <!-- examples/ estructura -->
+  <text x="608" y="390" class="small">Estructura examples/</text>
+  <rect x="608" y="396" width="222" height="96" rx="3" fill="#1e1e1e"/>
+  <text x="618" y="412" class="code">mi_crate/</text>
+  <text x="618" y="428" class="code">├── src/lib.rs</text>
+  <text x="618" y="444" class="code">└── examples/</text>
+  <text x="618" y="460" class="code">    ├── basico.rs</text>
+  <text x="618" y="476" class="code">    └── avanzado.rs</text>
+  <text x="618" y="494" class="comment">// cargo run --example basico</text>
+</svg>

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .body     { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #CE422B; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+    .major    { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: bold; fill: #f44747; }
+    .minor    { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: bold; fill: #dcdcaa; }
+    .patch    { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: bold; fill: #4ec9b0; }
+  </style>
+
+  <rect width="860" height="540" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 21 — Semver y cargo publish</text>
+  <text x="24" y="45" class="subtitle">MAJOR.MINOR.PATCH · CHANGELOG · #[deprecated] · Cargo.toml metadata · crates.io</text>
+
+  <!-- ── Semver visual ── -->
+  <rect x="20" y="72" width="820" height="96" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+
+  <!-- Número de versión grande -->
+  <text x="130" y="148" font-family="'Fira Code', monospace" font-size="52" font-weight="bold" fill="#CE422B">1</text>
+  <text x="162" y="148" font-family="'Fira Code', monospace" font-size="52" fill="#454545">.</text>
+  <text x="182" y="148" font-family="'Fira Code', monospace" font-size="52" font-weight="bold" fill="#dcdcaa">2</text>
+  <text x="215" y="148" font-family="'Fira Code', monospace" font-size="52" fill="#454545">.</text>
+  <text x="235" y="148" font-family="'Fira Code', monospace" font-size="52" font-weight="bold" fill="#4ec9b0">3</text>
+
+  <!-- Etiquetas -->
+  <text x="130" y="82" class="major">MAJOR</text>
+  <text x="182" y="82" class="minor">MINOR</text>
+  <text x="234" y="82" class="patch">PATCH</text>
+
+  <!-- Descripciones -->
+  <text x="290" y="100" class="major">MAJOR</text><text x="340" y="100" class="body"> — Breaking change: eliminar/cambiar firma/variante enum</text>
+  <text x="290" y="118" class="minor">MINOR</text><text x="340" y="118" class="body"> — Nueva funcionalidad compatible hacia atrás</text>
+  <text x="290" y="136" class="patch">PATCH</text><text x="340" y="136" class="body"> — Corrección de bug, sin nuevas funciones</text>
+  <text x="290" y="154" class="small">Versión 0.y.z: 0.y se comporta como MAJOR (pre-estable)</text>
+
+  <!-- ── Flujo de versiones ── -->
+  <rect x="20" y="182" width="408" height="134" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="182" width="408" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="196" width="408" height="14" fill="#2d2d2d"/>
+  <text x="36" y="201" class="label" font-weight="bold">Flujo de versiones en el tiempo</text>
+
+  <!-- Timeline -->
+  <line x1="36" y1="250" x2="410" y2="250" stroke="#3c3c3c" stroke-width="2"/>
+
+  <circle cx="60" cy="250" r="6" fill="#4ec9b0"/>
+  <text x="50" y="270" class="patch">0.1.0</text>
+  <text x="44" y="284" class="small">Lanzamiento</text>
+  <text x="44" y="296" class="small">inicial</text>
+
+  <circle cx="160" cy="250" r="6" fill="#dcdcaa"/>
+  <text x="150" y="270" class="minor">0.2.0</text>
+  <text x="144" y="284" class="small">+ nuevas fns</text>
+  <text x="144" y="296" class="small">compatible</text>
+
+  <circle cx="255" cy="250" r="6" fill="#4ec9b0"/>
+  <text x="245" y="270" class="patch">0.2.1</text>
+  <text x="239" y="284" class="small">fix bug</text>
+
+  <circle cx="350" cy="250" r="6" fill="#f44747"/>
+  <text x="340" y="270" class="major">1.0.0</text>
+  <text x="334" y="284" class="small">API estable</text>
+  <text x="334" y="296" class="small">breaking change</text>
+
+  <text x="36" y="308" class="small">cargo set-version 0.2.0</text>
+
+  <!-- ── CHANGELOG ── -->
+  <rect x="448" y="182" width="392" height="134" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="448" y="182" width="392" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="448" y="196" width="392" height="14" fill="#2d2d2d"/>
+  <text x="464" y="201" class="label" font-weight="bold">CHANGELOG.md — Keep a Changelog</text>
+
+  <text x="458" y="222" class="comment">## [0.2.0] — 2026-05-21</text>
+  <text x="458" y="238" class="comment">### Added</text>
+  <text x="458" y="254" class="comment">- `con_precision(usize)` — nuevo constructor</text>
+  <text x="458" y="270" class="comment">### Changed</text>
+  <text x="458" y="286" class="comment">- `dividir` ahora retorna Result&lt;f64, Error&gt;</text>
+  <text x="458" y="302" class="comment">## [0.1.0] — 2026-04-15</text>
+
+  <!-- ── #[deprecated] ── -->
+  <rect x="20" y="330" width="408" height="110" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="330" width="408" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="344" width="408" height="14" fill="#2d2d2d"/>
+  <text x="36" y="349" class="label" font-weight="bold">#[deprecated] — marcar API obsoleta</text>
+
+  <text x="30" y="372" class="attr">#[deprecated(since = </text><text x="154" y="372" class="str">"0.2.0"</text><text x="192" y="372" class="attr">, note = </text><text x="232" y="372" class="str">"Usa `nueva_fn`"</text><text x="314" y="372" class="attr">)]</text>
+  <text x="30" y="388" class="kw">pub fn </text><text x="64" y="388" class="fn">funcion_antigua</text><text x="140" y="388" class="code">(...) { ... }</text>
+  <line x1="30" y1="400" x2="420" y2="400" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="30" y="416" class="small">El caller recibe:</text>
+  <text x="30" y="430" class="small" fill="#dcdcaa">warning: use of deprecated function `funcion_antigua`: Usa `nueva_fn`</text>
+
+  <!-- ── Cargo.toml metadata ── -->
+  <rect x="448" y="330" width="392" height="110" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <rect x="448" y="330" width="392" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="448" y="344" width="392" height="14" fill="#2d2d2d"/>
+  <text x="464" y="349" class="label" font-weight="bold">Cargo.toml — metadata obligatoria</text>
+
+  <text x="458" y="372" class="code">description = </text><text x="540" y="372" class="str">"Utilidades de texto"</text>
+  <text x="458" y="388" class="code">license     = </text><text x="540" y="388" class="str">"MIT OR Apache-2.0"</text>
+  <text x="458" y="404" class="code">keywords    = [</text><text x="532" y="404" class="str">"text"</text><text x="562" y="404" class="code">, </text><text x="568" y="404" class="str">"utils"</text><text x="601" y="404" class="code">]  </text><text x="620" y="404" class="comment">// máx. 5</text>
+  <text x="458" y="420" class="code">categories  = [</text><text x="534" y="420" class="str">"text-processing"</text><text x="636" y="420" class="code">]</text>
+  <text x="458" y="432" class="small">Sin description o license → cargo publish rechaza</text>
+
+  <!-- ── Flujo de publicación ── -->
+  <rect x="20" y="454" width="820" height="70" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="454" width="820" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="468" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="473" class="label" font-weight="bold">Flujo de publicación — cargo publish</text>
+
+  <!-- pasos -->
+  <rect x="30" y="490" width="100" height="26" rx="3" fill="#1e1e1e" stroke="#3c3c3c"/>
+  <text x="40" y="507" class="fn" font-size="10">cargo test</text>
+
+  <line x1="130" y1="503" x2="148" y2="503" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="150" y="490" width="120" height="26" rx="3" fill="#1e1e1e" stroke="#3c3c3c"/>
+  <text x="160" y="507" class="fn" font-size="10">cargo clippy</text>
+
+  <line x1="270" y1="503" x2="288" y2="503" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="290" y="490" width="150" height="26" rx="3" fill="#1e1e1e" stroke="#3c3c3c"/>
+  <text x="300" y="507" class="fn" font-size="10">cargo publish --dry-run</text>
+
+  <line x1="440" y1="503" x2="458" y2="503" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="460" y="490" width="140" height="26" rx="3" fill="#1e1e1e" stroke="#3c3c3c"/>
+  <text x="470" y="507" class="fn" font-size="10">cargo package --list</text>
+
+  <line x1="600" y1="503" x2="618" y2="503" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="620" y="490" width="110" height="26" rx="3" fill="#1e1e1e" stroke="#CE422B"/>
+  <text x="630" y="507" class="fn" font-size="10" fill="#CE422B">cargo publish</text>
+
+  <line x1="730" y1="503" x2="748" y2="503" stroke="#4ec9b0" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+  <rect x="750" y="490" width="78" height="26" rx="3" fill="#1e1e1e" stroke="#4ec9b0"/>
+  <text x="757" y="507" class="ty" font-size="10">crates.io ✓</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#CE422B"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4ec9b0"/>
+    </marker>
+  </defs>
+</svg>

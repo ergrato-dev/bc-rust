@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .body     { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #d4d4d4; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #CE422B; }
+  </style>
+
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 21 — Tipos de Error con thiserror</text>
+  <text x="24" y="45" class="subtitle">thiserror (librerías) vs. anyhow (aplicaciones) · jerarquías · #[from] · #[source]</text>
+
+  <!-- ── Jerarquía central ── -->
+  <!-- std::error::Error -->
+  <rect x="310" y="72" width="240" height="40" rx="6" fill="#2d2d2d" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="322" y="94" class="ty" font-size="13">std::error::Error</text>
+  <text x="460" y="94" class="small"> (trait base)</text>
+
+  <!-- flechas hacia abajo -->
+  <line x1="380" y1="112" x2="220" y2="148" stroke="#454545" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="430" y1="112" x2="430" y2="148" stroke="#454545" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="480" y1="112" x2="640" y2="148" stroke="#454545" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <text x="148" y="142" class="small">impl manual</text>
+  <text x="378" y="142" class="small">thiserror</text>
+  <text x="590" y="142" class="small">anyhow</text>
+
+  <!-- Manual box -->
+  <rect x="36" y="152" width="240" height="80" rx="4" fill="#252526" stroke="#454545" stroke-width="1"/>
+  <text x="46" y="170" class="comment">// Mucho boilerplate</text>
+  <text x="46" y="186" class="kw">impl </text><text x="69" y="186" class="ty">fmt::Display </text><text x="140" y="186" class="kw">for </text><text x="156" y="186" class="ty">MiError</text><text x="197" y="186" class="code"> { ... }</text>
+  <text x="46" y="202" class="kw">impl </text><text x="69" y="202" class="ty">Error </text><text x="96" y="202" class="kw">for </text><text x="112" y="202" class="ty">MiError</text><text x="153" y="202" class="code"> { ... }</text>
+  <text x="46" y="218" class="kw">impl </text><text x="69" y="218" class="ty">From</text><text x="88" y="218" class="code">&lt;</text><text x="92" y="218" class="ty">io::Error</text><text x="133" y="218" class="code">&gt; </text><text x="140" y="218" class="kw">for </text><text x="156" y="218" class="ty">MiError</text><text x="197" y="218" class="code"> { ... }</text>
+
+  <!-- thiserror box -->
+  <rect x="304" y="152" width="252" height="80" rx="4" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <text x="314" y="170" class="attr">#[derive(Debug, Error)]</text>
+  <text x="314" y="186" class="kw">pub enum </text><text x="366" y="186" class="ty">MiError </text><text x="404" y="186" class="code">{</text>
+  <text x="324" y="202" class="attr">  #[error(</text><text x="371" y="202" class="str">"no encontrado: {0}"</text><text x="490" y="202" class="attr">)]</text>
+  <text x="324" y="218" class="ty">  NoEncontrado</text><text x="404" y="218" class="code">(</text><text x="408" y="218" class="ty">String</text><text x="436" y="218" class="code">),</text>
+
+  <!-- anyhow box -->
+  <rect x="584" y="152" width="256" height="80" rx="4" fill="#252526" stroke="#454545" stroke-width="1"/>
+  <text x="594" y="170" class="comment">// Para aplicaciones/binarios</text>
+  <text x="594" y="186" class="kw">use </text><text x="612" y="186" class="ty">anyhow</text><text x="640" y="186" class="code">::{</text><text x="655" y="186" class="ty">Result</text><text x="680" y="186" class="code">, </text><text x="686" y="186" class="ty">Context</text><text x="721" y="186" class="code">};</text>
+  <text x="594" y="202" class="kw">fn </text><text x="610" y="202" class="fn">main</text><text x="628" y="202" class="code">() → </text><text x="653" y="202" class="ty">Result</text><text x="680" y="202" class="code">&lt;()&gt; {</text>
+  <text x="604" y="218" class="fn">  leer</text><text x="628" y="218" class="code">(path)?</text><text x="671" y="218" class="comment"> // wrap auto</text>
+
+  <!-- ── Atributos de thiserror ── -->
+  <rect x="20" y="248" width="560" height="134" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="248" width="560" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="262" width="560" height="14" fill="#2d2d2d"/>
+  <text x="36" y="267" class="label" font-weight="bold">Atributos de thiserror</text>
+
+  <!-- tabla -->
+  <text x="36"  y="292" class="attr">#[error("mensaje fijo")]</text>
+  <text x="216" y="292" class="small">Display con texto literal</text>
+  <text x="36"  y="310" class="attr">#[error("error: {0}")]</text>
+  <text x="216" y="310" class="small">Interpola el primer campo sin nombre</text>
+  <text x="36"  y="328" class="attr">#[error("campo={valor}")]</text>
+  <text x="216" y="328" class="small">Interpola campo nombrado del enum</text>
+  <text x="36"  y="346" class="attr">#[from]</text>
+  <text x="216" y="346" class="small">Genera impl From&lt;T&gt; para conversión con ?</text>
+  <text x="36"  y="364" class="attr">#[source]</text>
+  <text x="216" y="364" class="small">Marca el campo como causa raíz (source())</text>
+
+  <!-- ── Cadena de errores ── -->
+  <rect x="598" y="248" width="242" height="134" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="598" y="248" width="242" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="598" y="262" width="242" height="14" fill="#2d2d2d"/>
+  <text x="614" y="267" class="label" font-weight="bold">Cadena de errores</text>
+
+  <rect x="614" y="286" width="210" height="26" rx="3" fill="#1e1e1e" stroke="#CE422B" stroke-width="1"/>
+  <text x="624" y="303" class="ty">AppError::Db(sqlx::Error)</text>
+
+  <line x1="719" y1="312" x2="719" y2="328" stroke="#454545" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="726" y="323" class="small">.source()</text>
+
+  <rect x="614" y="330" width="210" height="26" rx="3" fill="#1e1e1e" stroke="#454545" stroke-width="1"/>
+  <text x="624" y="347" class="ty">sqlx::Error::Io(io::Error)</text>
+
+  <line x1="719" y1="356" x2="719" y2="372" stroke="#454545" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="614" y="374" width="210" height="26" rx="3" fill="#1e1e1e" stroke="#454545" stroke-width="1"/>
+  <text x="624" y="391" class="small">std::io::Error (raíz)</text>
+
+  <!-- ── Ejemplo completo ── -->
+  <rect x="20" y="398" width="820" height="106" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="398" width="820" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="412" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="417" class="label" font-weight="bold">Ejemplo: errores del dominio + uso con ?</text>
+
+  <text x="36"  y="440" class="attr">#[derive(Debug, Error)]</text>
+  <text x="236" y="440" class="kw">pub fn </text><text x="270" y="440" class="fn">leer_config</text><text x="322" y="440" class="code">(path: &amp;</text><text x="366" y="440" class="ty">str</text><text x="378" y="440" class="code">) → </text><text x="398" y="440" class="ty">Result</text><text x="426" y="440" class="code">&lt;</text><text x="430" y="440" class="ty">Config</text><text x="458" y="440" class="code">, </text><text x="462" y="440" class="ty">AppError</text><text x="498" y="440" class="code">&gt; {</text>
+
+  <text x="36"  y="456" class="kw">pub enum </text><text x="84" y="456" class="ty">AppError </text><text x="122" y="456" class="code">{</text>
+  <text x="246" y="456" class="comment">  // io::Error → AppError gracias a #[from]</text>
+
+  <text x="46"  y="472" class="attr">  #[error(</text><text x="84" y="472" class="str">"db: {0}"</text><text x="126" y="472" class="attr">)] </text><text x="140" y="472" class="ty">Db</text><text x="152" y="472" class="code">(</text><text x="156" y="472" class="attr">#[from] </text><text x="192" y="472" class="ty">sqlx::Error</text><text x="237" y="472" class="code">),</text>
+  <text x="246" y="472" class="kw">  let </text><text x="264" y="472" class="code">contenido = </text><text x="318" y="472" class="fn">fs::read_to_string</text><text x="408" y="472" class="code">(path)</text><text x="434" y="472" class="attr">?</text><text x="440" y="472" class="code">;  </text><text x="452" y="472" class="comment">// io::Error → AppError::Io</text>
+
+  <text x="46"  y="488" class="attr">  #[error(</text><text x="84" y="488" class="str">"io: {0}"</text><text x="126" y="488" class="attr">)] </text><text x="140" y="488" class="ty">Io</text><text x="152" y="488" class="code">(</text><text x="156" y="488" class="attr">#[from] </text><text x="192" y="488" class="ty">io::Error</text><text x="232" y="488" class="code">),</text>
+  <text x="246" y="488" class="kw">  let </text><text x="264" y="488" class="code">cfg: </text><text x="286" y="488" class="ty">Config </text><text x="311" y="488" class="code">= </text><text x="318" y="488" class="fn">serde_json::from_str</text><text x="409" y="488" class="code">(&amp;contenido)</text><text x="467" y="488" class="attr">?</text><text x="473" y="488" class="code">;</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#454545"/>
+    </marker>
+  </defs>
+</svg>

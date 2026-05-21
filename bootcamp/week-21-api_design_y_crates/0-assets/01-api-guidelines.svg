@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .accent   { fill: #CE422B; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <!-- Fondo -->
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 21 — Rust API Guidelines</text>
+  <text x="24" y="45" class="subtitle">Naming · Newtypes · Conversiones · Constructores</text>
+
+  <!-- Columna izquierda: Naming conventions -->
+  <rect x="20" y="72" width="250" height="198" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="72" width="250" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="86" width="250" height="14" fill="#2d2d2d"/>
+  <text x="36" y="91" class="label" font-weight="bold">Naming Conventions</text>
+
+  <text x="30" y="118" class="small">Funciones / métodos</text>
+  <text x="30" y="133" class="code">snake_case</text>
+  <text x="160" y="133" class="fn">to_string, as_bytes</text>
+
+  <text x="30" y="154" class="small">Tipos / Traits</text>
+  <text x="30" y="169" class="code">PascalCase</text>
+  <text x="140" y="169" class="ty">HashMap, Display</text>
+
+  <text x="30" y="190" class="small">Constantes</text>
+  <text x="30" y="205" class="code" fill="#9cdcfe">SCREAMING_SNAKE</text>
+  <text x="180" y="205" class="code">MAX_SIZE</text>
+
+  <text x="30" y="226" class="small">Módulos</text>
+  <text x="30" y="241" class="code">snake_case</text>
+  <text x="140" y="241" class="code">std::io, std::fs</text>
+
+  <text x="30" y="258" class="small">Getters: sin prefijo "get_"</text>
+
+  <!-- Columna central: Conversiones estándar -->
+  <rect x="288" y="72" width="272" height="198" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="288" y="72" width="272" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="288" y="86" width="272" height="14" fill="#2d2d2d"/>
+  <text x="304" y="91" class="label" font-weight="bold">Conversiones Estándar</text>
+
+  <text x="298" y="118" class="small">as_*  → barata, sin aloc, retorna &amp;ref</text>
+  <text x="298" y="134" class="kw">pub fn </text><text x="335" y="134" class="fn">as_str</text><text x="367" y="134" class="code">(&amp;self) → &amp;</text><text x="410" y="134" class="ty">str</text>
+
+  <text x="298" y="155" class="small">to_*  → puede alocar, toma &amp;self</text>
+  <text x="298" y="171" class="kw">pub fn </text><text x="335" y="171" class="fn">to_string</text><text x="390" y="171" class="code">(&amp;self) → </text><text x="439" y="171" class="ty">String</text>
+
+  <text x="298" y="192" class="small">into_* → consuma (ownership)</text>
+  <text x="298" y="208" class="kw">pub fn </text><text x="335" y="208" class="fn">into_bytes</text><text x="392" y="208" class="code">(self) → </text><text x="436" y="208" class="ty">Vec</text><text x="451" y="208" class="code">&lt;</text><text x="456" y="208" class="ty">u8</text><text x="467" y="208" class="code">&gt;</text>
+
+  <text x="298" y="229" class="small">impl Into&lt;T&gt; → acepta &amp;str Y String</text>
+  <text x="298" y="245" class="kw">fn </text><text x="313" y="245" class="fn">saludar</text><text x="348" y="245" class="code">(n: </text><text x="368" y="245" class="kw">impl </text><text x="390" y="245" class="ty">Into</text><text x="409" y="245" class="code">&lt;</text><text x="414" y="245" class="ty">String</text><text x="443" y="245" class="code">&gt;)</text>
+
+  <text x="298" y="262" class="small">↑ acepta "hola", String::from("hola")</text>
+
+  <!-- Columna derecha: Newtype pattern -->
+  <rect x="578" y="72" width="262" height="198" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="578" y="72" width="262" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="578" y="86" width="262" height="14" fill="#2d2d2d"/>
+  <text x="594" y="91" class="label" font-weight="bold">Newtype Pattern</text>
+
+  <!-- Mal ejemplo -->
+  <text x="588" y="116" class="small" fill="#f44747">❌ Primitivos — confuso</text>
+  <text x="588" y="132" class="kw">fn </text><text x="603" y="132" class="fn">mover</text><text x="630" y="132" class="code">(x: </text><text x="651" y="132" class="ty">f64</text><text x="667" y="132" class="code">, y: </text><text x="691" y="132" class="ty">f64</text><text x="707" y="132" class="code">)</text>
+
+  <line x1="588" y1="144" x2="830" y2="144" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Buen ejemplo -->
+  <text x="588" y="160" class="small" fill="#4ec9b0">✅ Newtypes — semántico</text>
+  <text x="588" y="176" class="kw">pub struct </text><text x="647" y="176" class="ty">MetrosX</text><text x="690" y="176" class="code">(</text><text x="694" y="176" class="ty">f64</text><text x="710" y="176" class="code">);</text>
+  <text x="588" y="192" class="kw">pub struct </text><text x="647" y="192" class="ty">MetrosY</text><text x="690" y="192" class="code">(</text><text x="694" y="192" class="ty">f64</text><text x="710" y="192" class="code">);</text>
+  <text x="588" y="208" class="kw">fn </text><text x="603" y="208" class="fn">mover</text><text x="630" y="208" class="code">(x: </text><text x="651" y="208" class="ty">MetrosX</text><text x="695" y="208" class="code">, y: </text><text x="719" y="208" class="ty">MetrosY</text><text x="763" y="208" class="code">)</text>
+
+  <text x="588" y="228" class="small">Confundir x e y → error de compilación</text>
+  <text x="588" y="244" class="small">impl From&lt;f64&gt; for MetrosX { ... }</text>
+  <text x="588" y="260" class="small">let x: MetrosX = 42.5.into();</text>
+
+  <!-- Sección inferior: Constructores canónicos -->
+  <rect x="20" y="284" width="820" height="110" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="284" width="820" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="298" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="303" class="label" font-weight="bold">Constructores Canónicos</text>
+
+  <!-- Type::new -->
+  <rect x="36" y="322" width="140" height="58" rx="4" fill="#1e1e1e" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="46" y="338" class="fn" font-size="12">Type::new()</text>
+  <text x="46" y="354" class="small">Constructor principal</text>
+  <text x="46" y="368" class="small">Vec::new(), String::new()</text>
+
+  <!-- Type::default -->
+  <rect x="196" y="322" width="140" height="58" rx="4" fill="#1e1e1e" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="206" y="338" class="fn" font-size="12">Type::default()</text>
+  <text x="206" y="354" class="small">Valor vacío/inicial</text>
+  <text x="206" y="368" class="small">HashMap::default()</text>
+
+  <!-- Type::from -->
+  <rect x="356" y="322" width="140" height="58" rx="4" fill="#1e1e1e" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="366" y="338" class="fn" font-size="12">Type::from(x)</text>
+  <text x="366" y="354" class="small">Conversión desde otro tipo</text>
+  <text x="366" y="368" class="small">String::from("hola")</text>
+
+  <!-- Type::with_capacity -->
+  <rect x="516" y="322" width="148" height="58" rx="4" fill="#1e1e1e" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="526" y="338" class="fn" font-size="12">with_capacity(n)</text>
+  <text x="526" y="354" class="small">Con pre-alocación</text>
+  <text x="526" y="368" class="small">Vec::with_capacity(100)</text>
+
+  <!-- Type::builder -->
+  <rect x="684" y="322" width="140" height="58" rx="4" fill="#1e1e1e" stroke="#CE422B" stroke-width="1"/>
+  <text x="694" y="338" class="fn" font-size="12" fill="#CE422B">Type::builder()</text>
+  <text x="694" y="354" class="small">Inicia un Builder</text>
+  <text x="694" y="368" class="small">Request::builder()</text>
+
+  <!-- Sección inferior: reglas de oro -->
+  <rect x="20" y="408" width="820" height="94" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="408" width="820" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="422" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="427" class="label" font-weight="bold">Principios de las Rust API Guidelines</text>
+
+  <text x="36" y="453" class="comment">// Predictibilidad — mismos nombres y comportamientos en toda la API</text>
+  <text x="36" y="469" class="comment">// Flexibilidad   — impl Into&lt;T&gt; donde sea razonable, no String fijo</text>
+  <text x="36" y="485" class="comment">// Explícito      — Result&lt;T, MiError&gt; con thiserror, no Box&lt;dyn Error&gt;</text>
+  <text x="36" y="495" class="small">→ Una API bien diseñada hace que los errores no compilen y los casos correctos sean fáciles</text>
+</svg>
