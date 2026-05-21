@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #9cdcfe; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+  </style>
+
+  <rect width="860" height="540" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 24 — heapless: Colecciones sin Heap</text>
+  <text x="24" y="45" class="subtitle">Vec&lt;T,N&gt; · String&lt;N&gt; · spsc::Queue · FnvIndexMap · capacidad en compile-time</text>
+
+  <!-- ===== CONCEPTUAL: stack vs heap ===== -->
+  <rect x="20" y="68" width="820" height="60" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="36" y="88" class="label" font-weight="bold">Diferencia clave con std</text>
+  <text x="36" y="108" class="code" fill="#f44747">std::Vec   </text><text x="102" y="108" class="comment"> // capacidad dinámica — alloca en heap en runtime → prohibido en bare metal</text>
+  <text x="36" y="124" class="code" fill="#4ec9b0">heapless::Vec&lt;T, 16&gt;</text><text x="210" y="124" class="comment"> // capacidad = 16, en stack, resuelta en compile-time → siempre disponible</text>
+
+  <!-- ===== CARGO.TOML ===== -->
+  <rect x="20" y="144" width="240" height="66" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="144" width="240" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="156" width="240" height="14" fill="#2d2d2d"/>
+  <text x="36" y="163" class="label" font-weight="bold">Cargo.toml</text>
+  <text x="30" y="188" class="code">[dependencies]</text>
+  <text x="30" y="204" class="attr">heapless</text><text x="86" y="204" class="code"> = </text><text x="104" y="204" class="str">"0.8.0"</text>
+
+  <!-- ===== VEC ===== -->
+  <rect x="276" y="144" width="584" height="112" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <rect x="276" y="144" width="584" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="276" y="156" width="584" height="14" fill="#2d2d2d"/>
+  <text x="292" y="163" class="label" font-weight="bold" fill="#CE422B">heapless::Vec&lt;T, N&gt;</text>
+
+  <text x="286" y="188" class="kw">use </text><text x="308" y="188" class="ty">heapless</text><text x="356" y="188" class="code">::</text><text x="362" y="188" class="ty">Vec</text><text x="380" y="188" class="code">;</text>
+  <text x="286" y="204" class="kw">let mut </text><text x="328" y="204" class="code">v: </text><text x="344" y="204" class="ty">Vec</text><text x="362" y="204" class="code">&lt;</text><text x="368" y="204" class="ty">u8</text><text x="380" y="204" class="code">, </text><text x="388" y="204" class="num">8</text><text x="396" y="204" class="code">&gt; = </text><text x="420" y="204" class="ty">Vec</text><text x="438" y="204" class="code">::</text><text x="446" y="204" class="fn">new</text><text x="464" y="204" class="code">();  </text><text x="496" y="204" class="comment">// stack, 8 bytes</text>
+  <text x="286" y="220" class="code">v.</text><text x="298" y="220" class="fn">push</text><text x="322" y="220" class="code">(</text><text x="328" y="220" class="num">42</text><text x="340" y="220" class="code">).</text><text x="352" y="220" class="fn">ok</text><text x="368" y="220" class="code">();   </text><text x="408" y="220" class="comment">// Err(42) si full — nunca panic</text>
+  <text x="286" y="236" class="kw">if </text><text x="304" y="236" class="code">v.</text><text x="316" y="236" class="fn">is_full</text><text x="352" y="236" class="code">() { </text><text x="384" y="236" class="comment">/* manejar overflow */</text><text x="520" y="236" class="code"> }</text>
+  <text x="286" y="252" class="comment">// v.len() <= 8 siempre garantizado</text>
+
+  <!-- ===== STRING ===== -->
+  <rect x="20" y="222" width="240" height="96" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <rect x="20" y="222" width="240" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="234" width="240" height="14" fill="#2d2d2d"/>
+  <text x="36" y="241" class="label" font-weight="bold" fill="#CE422B">heapless::String&lt;N&gt;</text>
+  <text x="30" y="266" class="kw">use </text><text x="52" y="266" class="ty">heapless</text><text x="100" y="266" class="code">::</text><text x="106" y="266" class="ty">String</text><text x="142" y="266" class="code">;</text>
+  <text x="30" y="282" class="kw">let mut </text><text x="72" y="282" class="code">s: </text><text x="88" y="282" class="ty">String</text><text x="124" y="282" class="code">&lt;</text><text x="130" y="282" class="num">32</text><text x="142" y="282" class="code">&gt; =</text>
+  <text x="42" y="298" class="ty">String</text><text x="78" y="298" class="code">::</text><text x="86" y="298" class="fn">new</text><text x="104" y="298" class="code">();</text>
+  <text x="30" y="314" class="code">s.</text><text x="42" y="314" class="fn">push_str</text><text x="86" y="314" class="code">(</text><text x="92" y="314" class="str">"hola"</text><text x="126" y="314" class="code">).</text><text x="138" y="314" class="fn">ok</text><text x="154" y="314" class="code">();</text>
+
+  <!-- ===== SPSC QUEUE ===== -->
+  <rect x="20" y="330" width="460" height="120" rx="6" fill="#252526" stroke="#569cd6" stroke-width="1"/>
+  <rect x="20" y="330" width="460" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="342" width="460" height="14" fill="#2d2d2d"/>
+  <text x="36" y="349" class="label" font-weight="bold" fill="#569cd6">heapless::spsc::Queue — ISR ↔ main loop</text>
+
+  <text x="30" y="374" class="kw">use </text><text x="52" y="374" class="ty">heapless</text><text x="100" y="374" class="code">::spsc::</text><text x="148" y="374" class="ty">Queue</text><text x="178" y="374" class="code">;</text>
+  <text x="30" y="390" class="kw">static mut </text><text x="92" y="390" class="code">COLA: </text><text x="130" y="390" class="ty">Queue</text><text x="158" y="390" class="code">&lt;</text><text x="164" y="390" class="ty">u32</text><text x="180" y="390" class="code">, </text><text x="188" y="390" class="num">16</text><text x="200" y="390" class="code">&gt; = </text><text x="224" y="390" class="ty">Queue</text><text x="252" y="390" class="code">::</text><text x="260" y="390" class="fn">new</text><text x="278" y="390" class="code">();</text>
+  <text x="30" y="406" class="kw">let </text><text x="52" y="406" class="code">(</text><text x="58" y="406" class="kw">mut</text><text x="80" y="406" class="code"> prod, </text><text x="122" y="406" class="kw">mut</text><text x="144" y="406" class="code"> cons) = </text><text x="192" y="406" class="kw">unsafe </text><text x="228" y="406" class="code">{ COLA.</text><text x="276" y="406" class="fn">split</text><text x="304" y="406" class="code">() };</text>
+  <text x="30" y="422" class="comment">// En ISR: prod.enqueue(valor).ok();</text>
+  <text x="30" y="438" class="comment">// En main: if let Some(v) = cons.dequeue() { … }</text>
+  <text x="30" y="454" class="small" fill="#569cd6">SPSC = single-producer / single-consumer — seguro sin Mutex</text>
+
+  <!-- ===== TABLA TIPOS ===== -->
+  <rect x="496" y="330" width="344" height="190" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="496" y="330" width="344" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="496" y="342" width="344" height="14" fill="#2d2d2d"/>
+  <text x="512" y="349" class="label" font-weight="bold">Tipos disponibles en heapless</text>
+
+  <text x="506" y="374" class="ty">Vec&lt;T, N&gt;</text>         <text x="610" y="374" class="small">Vector, capacidad N</text>
+  <text x="506" y="390" class="ty">String&lt;N&gt;</text>        <text x="610" y="390" class="small">String UTF-8, N bytes</text>
+  <text x="506" y="406" class="ty">Deque&lt;T, N&gt;</text>      <text x="610" y="406" class="small">Doble-cola, N elementos</text>
+  <text x="506" y="422" class="ty">FnvIndexMap</text>       <text x="610" y="422" class="small">HashMap FNV, N pares</text>
+  <text x="506" y="438" class="ty">FnvIndexSet</text>       <text x="610" y="438" class="small">HashSet FNV, N elementos</text>
+  <text x="506" y="454" class="ty">spsc::Queue</text>       <text x="610" y="454" class="small">Cola ISR↔main, N slots</text>
+  <text x="506" y="470" class="ty">mpmc_queue::MpMcQueue</text> <text x="688" y="470" class="small">multi-productor</text>
+  <text x="506" y="486" class="ty">pool::Pool&lt;T&gt;</text>    <text x="610" y="486" class="small">Pool de objetos fijo</text>
+  <text x="506" y="502" class="ty">Arc (heapless)</text>    <text x="610" y="502" class="small">Rc sin heap via Pool</text>
+
+  <!-- ===== MEMORIA VISUAL ===== -->
+  <rect x="20" y="462" width="460" height="62" rx="6" fill="#2d2d2d" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="36" y="482" class="small" font-weight="bold" fill="#d4d4d4">Layout en memoria — Vec&lt;u8, 4&gt; con 3 elementos:</text>
+  <!-- stack diagram -->
+  <rect x="120" y="490" width="24" height="20" fill="#CE422B" fill-opacity="0.8"/>
+  <rect x="144" y="490" width="24" height="20" fill="#CE422B" fill-opacity="0.8"/>
+  <rect x="168" y="490" width="24" height="20" fill="#CE422B" fill-opacity="0.8"/>
+  <rect x="192" y="490" width="24" height="20" fill="#2d2d2d" stroke="#454545" stroke-width="1"/>
+  <text x="132" y="505" class="num" text-anchor="middle">42</text>
+  <text x="156" y="505" class="num" text-anchor="middle">7</text>
+  <text x="180" y="505" class="num" text-anchor="middle">3</text>
+  <text x="204" y="505" class="small" text-anchor="middle" fill="#454545">—</text>
+  <text x="240" y="505" class="small">len=3, cap=4 (stack)</text>
+</svg>

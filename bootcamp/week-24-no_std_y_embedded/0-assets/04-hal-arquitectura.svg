@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #9cdcfe; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .good     { fill: #4ec9b0; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <rect width="860" height="560" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 24 — HAL y RTIC: Abstracciones Hardware</text>
+  <text x="24" y="45" class="subtitle">PAC → HAL → embedded-hal traits · RTIC tareas por prioridad · defmt / probe-rs</text>
+
+  <!-- ===== PILA HAL ===== -->
+  <rect x="20" y="68" width="360" height="294" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="68" width="360" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="80" width="360" height="14" fill="#2d2d2d"/>
+  <text x="36" y="87" class="label" font-weight="bold">Arquitectura HAL en Rust Embedded</text>
+
+  <!-- capas de la pila -->
+  <rect x="36"  y="104" width="328" height="38" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1.5"/>
+  <text x="200" y="120" class="label" text-anchor="middle" fill="#4ec9b0">Tu aplicación (crate)</text>
+  <text x="200" y="136" class="small" text-anchor="middle">Lógica de negocio, usa traits de embedded-hal</text>
+
+  <rect x="36"  y="150" width="328" height="38" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="200" y="166" class="label" text-anchor="middle" fill="#CE422B">HAL crate (ej. stm32f4xx-hal)</text>
+  <text x="200" y="182" class="small" text-anchor="middle">Implementa traits embedded-hal sobre PAC</text>
+
+  <rect x="36"  y="196" width="328" height="38" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1.5"/>
+  <text x="200" y="212" class="label" text-anchor="middle" fill="#dcdcaa">PAC — Peripheral Access Crate</text>
+  <text x="200" y="228" class="small" text-anchor="middle">Generado con svd2rust desde el SVD del fabricante</text>
+
+  <rect x="36"  y="242" width="328" height="38" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="1.5"/>
+  <text x="200" y="258" class="label" text-anchor="middle" fill="#569cd6">embedded-hal traits</text>
+  <text x="200" y="274" class="small" text-anchor="middle">OutputPin, InputPin, Read, Write, DelayMs…</text>
+
+  <rect x="36"  y="288" width="328" height="38" rx="4" fill="#1a1a1a" stroke="#454545" stroke-width="1"/>
+  <text x="200" y="304" class="small" text-anchor="middle" fill="#808080">Hardware (registros GPIO, UART, SPI, I2C, Timers)</text>
+  <text x="200" y="318" class="small" text-anchor="middle" fill="#454545">MCU: STM32, nRF52, RP2040, ESP32-C3…</text>
+
+  <!-- flechas entre capas -->
+  <line x1="200" y1="142" x2="200" y2="150" stroke="#454545" stroke-width="1.5" marker-end="url(#arw)"/>
+  <line x1="200" y1="188" x2="200" y2="196" stroke="#454545" stroke-width="1.5" marker-end="url(#arw)"/>
+  <line x1="200" y1="234" x2="200" y2="242" stroke="#454545" stroke-width="1.5" marker-end="url(#arw)"/>
+  <line x1="200" y1="280" x2="200" y2="288" stroke="#454545" stroke-width="1.5" marker-end="url(#arw)"/>
+
+  <!-- embedded-hal trait example -->
+  <rect x="36" y="336" width="328" height="18" rx="3" fill="#2d2d2d"/>
+  <text x="44" y="349" class="code">fn </text><text x="60" y="349" class="fn">parpadear</text><text x="104" y="349" class="code">&lt;P: </text><text x="128" y="349" class="ty">OutputPin</text><text x="176" y="349" class="code">&gt;(p: &amp;</text><text x="210" y="349" class="kw">mut</text><text x="230" y="349" class="code"> P) {</text>
+
+  <!-- ===== RTIC ===== -->
+  <rect x="396" y="68" width="444" height="294" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="396" y="68" width="444" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="396" y="80" width="444" height="14" fill="#2d2d2d"/>
+  <text x="412" y="87" class="label" font-weight="bold" fill="#CE422B">RTIC — Real-Time Interrupt-driven Concurrency</text>
+
+  <text x="406" y="112" class="attr">#[rtic::app(device = pac)]</text>
+  <text x="406" y="128" class="kw">mod </text><text x="432" y="128" class="ty">app</text><text x="448" y="128" class="code"> {</text>
+
+  <text x="418" y="148" class="attr">  #[shared]</text>
+  <text x="418" y="164" class="kw">  struct </text><text x="462" y="164" class="ty">Shared</text><text x="496" y="164" class="code"> { contador: </text><text x="572" y="164" class="ty">u32</text><text x="588" y="164" class="code"> }</text>
+
+  <text x="418" y="184" class="attr">  #[init]</text>
+  <text x="418" y="200" class="kw">  fn </text><text x="436" y="200" class="fn">init</text><text x="460" y="200" class="code">(cx: </text><text x="492" y="200" class="ty">init</text><text x="516" y="200" class="code">::</text><text x="524" y="200" class="ty">Context</text><text x="562" y="200" class="code">) -> … {…}</text>
+
+  <text x="418" y="220" class="comment">  // Tarea de baja prioridad (1)</text>
+  <text x="418" y="236" class="attr">  #[task(binds = EXTI0, shared = [contador], priority = 1)]</text>
+  <text x="418" y="252" class="kw">  fn </text><text x="436" y="252" class="fn">boton</text><text x="468" y="252" class="code">(mut cx: </text><text x="512" y="252" class="ty">boton</text><text x="540" y="252" class="code">::</text><text x="548" y="252" class="ty">Context</text><text x="586" y="252" class="code">) {</text>
+  <text x="430" y="268" class="code">    cx.shared.</text><text x="496" y="268" class="attr">contador</text><text x="544" y="268" class="code">.</text><text x="550" y="268" class="fn">lock</text><text x="570" y="268" class="code">(|c| *c += </text><text x="628" y="268" class="num">1</text><text x="636" y="268" class="code">);</text>
+  <text x="418" y="284" class="code">  }</text>
+
+  <text x="418" y="300" class="comment">  // Tarea de alta prioridad (2) — no la interrumpe boton()</text>
+  <text x="418" y="316" class="attr">  #[task(binds = TIM2, priority = 2)]</text>
+  <text x="418" y="332" class="kw">  fn </text><text x="436" y="332" class="fn">timer_tick</text><text x="490" y="332" class="code">(_cx: </text><text x="522" y="332" class="ty">timer_tick</text><text x="576" y="332" class="code">::</text><text x="584" y="332" class="ty">Context</text><text x="622" y="332" class="code">) {…}</text>
+  <text x="406" y="352" class="code">}</text>
+
+  <!-- ===== TABLA embedded-hal traits ===== -->
+  <rect x="20" y="374" width="360" height="170" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="374" width="360" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="386" width="360" height="14" fill="#2d2d2d"/>
+  <text x="36" y="393" class="label" font-weight="bold">Traits de embedded-hal</text>
+
+  <text x="36"  y="418" class="ty">OutputPin</text>       <text x="140" y="418" class="small">GPIO salida: set_high(), set_low()</text>
+  <text x="36"  y="434" class="ty">InputPin</text>        <text x="140" y="434" class="small">GPIO entrada: is_high(), is_low()</text>
+  <text x="36"  y="450" class="ty">serial::Write</text>   <text x="140" y="450" class="small">UART TX: write(byte), flush()</text>
+  <text x="36"  y="466" class="ty">serial::Read</text>    <text x="140" y="466" class="small">UART RX: read() → Result&lt;u8&gt;</text>
+  <text x="36"  y="482" class="ty">spi::Transfer</text>   <text x="140" y="482" class="small">SPI full-duplex: transfer(&amp;mut buf)</text>
+  <text x="36"  y="498" class="ty">i2c::Write</text>      <text x="140" y="498" class="small">I2C: write(addr, &amp;[u8])</text>
+  <text x="36"  y="514" class="ty">DelayMs</text>         <text x="140" y="514" class="small">Timer: delay_ms(ms: u32)</text>
+  <text x="36"  y="530" class="small">Permite código portable entre HALs distintos.</text>
+
+  <!-- ===== HERRAMIENTAS ===== -->
+  <rect x="396" y="374" width="444" height="170" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="396" y="374" width="444" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="396" y="386" width="444" height="14" fill="#2d2d2d"/>
+  <text x="412" y="393" class="label" font-weight="bold">Herramientas del ecosistema</text>
+
+  <text x="406" y="418" class="warn">probe-rs</text>
+  <text x="466" y="418" class="small">Flashear y depurar: </text><text x="564" y="418" class="code">cargo embed --chip STM32F4</text>
+
+  <text x="406" y="438" class="warn">defmt</text>
+  <text x="466" y="438" class="small">Logging embebido: </text><text x="560" y="438" class="code">defmt::info!("temp={}", t)</text>
+
+  <text x="406" y="458" class="warn">RTT</text>
+  <text x="466" y="458" class="small">Real-Time Transfer — logs sin UART via probe</text>
+
+  <text x="406" y="478" class="warn">cargo-embed</text>
+  <text x="466" y="478" class="small">Build + flash + RTT monitor en un comando</text>
+
+  <text x="406" y="498" class="warn">flip-link</text>
+  <text x="466" y="498" class="small">Detecta stack overflow en tiempo real (linker trick)</text>
+
+  <text x="406" y="518" class="warn">svd2rust</text>
+  <text x="466" y="518" class="small">Genera PAC desde el SVD del fabricante</text>
+
+  <text x="406" y="540" class="warn">Miri</text>
+  <text x="466" y="540" class="small">Valida unsafe en tests (host, no MCU)</text>
+
+  <defs>
+    <marker id="arw" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L7,2.5 z" fill="#454545"/>
+    </marker>
+  </defs>
+</svg>

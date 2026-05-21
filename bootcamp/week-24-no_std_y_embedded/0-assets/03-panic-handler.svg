@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #9cdcfe; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <rect width="860" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 24 — Panic Handler y Estrategias de Error</text>
+  <text x="24" y="45" class="subtitle">#[panic_handler] · panic = "abort" · ErrorCode · EmbResult</text>
+
+  <!-- ===== FLUJO PANIC ===== -->
+  <rect x="20" y="68" width="820" height="40" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="36" y="85" class="label" font-weight="bold">Flujo de un panic en no_std</text>
+  <!-- pasos -->
+  <rect x="30"  y="84" width="100" height="18" rx="3" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="80"  y="96" class="small" text-anchor="middle" fill="#CE422B">panic!("msg")</text>
+  <line x1="130" y1="93" x2="150" y2="93" stroke="#CE422B" stroke-width="1" marker-end="url(#ar)"/>
+
+  <rect x="150" y="84" width="110" height="18" rx="3" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="205" y="96" class="small" text-anchor="middle">runtime llama</text>
+  <line x1="260" y1="93" x2="280" y2="93" stroke="#CE422B" stroke-width="1" marker-end="url(#ar)"/>
+
+  <rect x="280" y="84" width="140" height="18" rx="3" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="350" y="96" class="small" text-anchor="middle">#[panic_handler] fn</text>
+  <line x1="420" y1="93" x2="440" y2="93" stroke="#CE422B" stroke-width="1" marker-end="url(#ar)"/>
+
+  <rect x="440" y="84" width="130" height="18" rx="3" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="505" y="96" class="small" text-anchor="middle">acción del sistema</text>
+  <line x1="570" y1="93" x2="590" y2="93" stroke="#CE422B" stroke-width="1" marker-end="url(#ar)"/>
+
+  <rect x="590" y="84" width="80" height="18" rx="3" fill="#2d2d2d" stroke="#f44747" stroke-width="1"/>
+  <text x="630" y="96" class="small" text-anchor="middle" fill="#f44747">→ ! (never)</text>
+
+  <!-- ===== CÓDIGO PANIC HANDLER ===== -->
+  <rect x="20" y="118" width="420" height="146" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <rect x="20" y="118" width="420" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="130" width="420" height="14" fill="#2d2d2d"/>
+  <text x="36" y="137" class="label" font-weight="bold" fill="#CE422B">#[panic_handler] — implementación</text>
+
+  <text x="30" y="162" class="kw">use </text><text x="52" y="162" class="ty">core</text><text x="76" y="162" class="code">::panic::</text><text x="132" y="162" class="ty">PanicInfo</text><text x="180" y="162" class="code">;</text>
+  <text x="30" y="178" class="attr">#[panic_handler]</text>
+  <text x="30" y="194" class="kw">fn </text><text x="46" y="194" class="fn">mi_panic</text><text x="92" y="194" class="code">(_info: &amp;</text><text x="148" y="194" class="ty">PanicInfo</text><text x="196" y="194" class="code">) -> ! {</text>
+  <text x="30" y="210" class="comment">    // Opción 1: bucle infinito (bare metal)</text>
+  <text x="42" y="226" class="kw">    loop </text><text x="82" y="226" class="code">{}</text>
+  <text x="30" y="242" class="comment">    // Opción 2: resetear el MCU via NVIC</text>
+  <text x="30" y="258" class="comment">    // cortex_m::peripheral::SCB::sys_reset();</text>
+  <text x="30" y="274" class="code">}</text><text x="58" y="274" class="comment"> // → ! nunca retorna</text>
+
+  <!-- ===== ESTRATEGIAS ===== -->
+  <rect x="456" y="118" width="384" height="146" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="456" y="118" width="384" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="456" y="130" width="384" height="14" fill="#2d2d2d"/>
+  <text x="472" y="137" class="label" font-weight="bold">Estrategias de panic</text>
+
+  <text x="466" y="162" class="kw">// Cargo.toml</text>
+  <text x="466" y="178" class="code">[profile.release]</text>
+  <text x="466" y="194" class="attr">panic</text><text x="510" y="194" class="code"> = </text><text x="528" y="194" class="str">"abort"</text>
+  <text x="624" y="194" class="comment">← recomendado</text>
+
+  <line x1="466" y1="202" x2="830" y2="202" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="3"/>
+
+  <text x="466" y="218" class="small" font-weight="bold" fill="#d4d4d4">unwind</text><text x="530" y="218" class="small"> — limpia stack, requiere runtime overhead</text>
+  <text x="466" y="234" class="small" font-weight="bold" fill="#d4d4d4">abort</text><text x="516" y="234" class="small">   — termina inmediatamente, binario más pequeño</text>
+  <text x="466" y="250" class="small" font-weight="bold" fill="#CE422B">custom</text><text x="520" y="250" class="small">  — #[panic_handler], control total del sistema</text>
+
+  <text x="466" y="268" class="small">Crate alternativo: </text><text x="564" y="268" class="ty" font-size="11px" font-family="'Fira Code', monospace">panic-halt</text><text x="634" y="268" class="small"> (loop{} automático)</text>
+
+  <!-- ===== EMBRESULT ===== -->
+  <rect x="20" y="276" width="420" height="132" rx="6" fill="#252526" stroke="#4ec9b0" stroke-width="1"/>
+  <rect x="20" y="276" width="420" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="288" width="420" height="14" fill="#2d2d2d"/>
+  <text x="36" y="295" class="label" font-weight="bold" fill="#4ec9b0">Manejo de errores sin heap — ErrorCode</text>
+
+  <text x="30" y="320" class="attr">#[repr(u8)]</text>
+  <text x="30" y="336" class="kw">pub enum </text><text x="86" y="336" class="ty">ErrorCode</text><text x="142" y="336" class="code"> { </text><text x="160" y="336" class="ty">Ok</text><text x="176" y="336" class="code"> = </text><text x="192" y="336" class="num">0</text><text x="200" y="336" class="code">, </text><text x="208" y="336" class="ty">BufferFull</text><text x="264" y="336" class="code"> = </text><text x="280" y="336" class="num">1</text><text x="288" y="336" class="code">, </text><text x="296" y="336" class="ty">Timeout</text><text x="340" y="336" class="code"> = </text><text x="356" y="336" class="num">2</text><text x="364" y="336" class="code"> }</text>
+  <text x="30" y="352" class="kw">pub type </text><text x="84" y="352" class="ty">EmbResult</text><text x="140" y="352" class="code">&lt;</text><text x="146" y="352" class="ty">T</text><text x="152" y="352" class="code">&gt; = </text><text x="176" y="352" class="ty">Result</text><text x="210" y="352" class="code">&lt;</text><text x="216" y="352" class="ty">T</text><text x="222" y="352" class="code">, </text><text x="230" y="352" class="ty">ErrorCode</text><text x="286" y="352" class="code">&gt;;</text>
+  <text x="30" y="368" class="kw">fn </text><text x="46" y="368" class="fn">leer_sensor</text><text x="110" y="368" class="code">() -> </text><text x="146" y="368" class="ty">EmbResult</text><text x="202" y="368" class="code">&lt;</text><text x="208" y="368" class="ty">u16</text><text x="224" y="368" class="code">&gt; {</text>
+  <text x="30" y="384" class="kw">    if </text><text x="52" y="384" class="fn">timeout</text><text x="90" y="384" class="code">() { </text><text x="114" y="384" class="kw">return </text><text x="156" y="384" class="ty">Err</text><text x="174" y="384" class="code">(</text><text x="180" y="384" class="ty">ErrorCode</text><text x="236" y="384" class="code">::</text><text x="244" y="384" class="ty">Timeout</text><text x="288" y="384" class="code">); }</text>
+  <text x="30" y="400" class="kw">    </text><text x="42" y="400" class="ty">Ok</text><text x="58" y="400" class="code">(</text><text x="64" y="400" class="fn">read_adc</text><text x="108" y="400" class="code">())</text>
+  <text x="30" y="410" class="code">}</text>
+  <text x="30" y="422" class="comment">// Sin Box&lt;dyn Error&gt; — cero alloc, tamaño conocido en compile-time</text>
+
+  <!-- ===== TABLA COMPARATIVA ===== -->
+  <rect x="456" y="276" width="384" height="134" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="456" y="276" width="384" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="456" y="288" width="384" height="14" fill="#2d2d2d"/>
+  <text x="472" y="295" class="label" font-weight="bold">std vs no_std manejo de errores</text>
+
+  <text x="466" y="320" class="small" font-weight="bold" fill="#d4d4d4">std</text>
+  <text x="500" y="320" class="small">Box&lt;dyn Error&gt;, String de mensaje, backtrace</text>
+  <text x="466" y="340" class="small" font-weight="bold" fill="#CE422B">no_std</text>
+  <text x="510" y="340" class="small">enum concreto, #[repr(u8)], sin alloc</text>
+  <text x="466" y="360" class="small" font-weight="bold" fill="#4ec9b0">heapless</text>
+  <text x="528" y="360" class="small">Result&lt;T, ErrorCode&gt; con tipos copy</text>
+
+  <line x1="466" y1="368" x2="830" y2="368" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="3"/>
+  <text x="466" y="384" class="small">En embedded evitar: </text><text x="574" y="384" class="bad">unwrap()</text><text x="614" y="384" class="small"> sin comprobar</text>
+  <text x="466" y="400" class="small">Preferir: </text><text x="518" y="400" class="good">if let Ok(v)</text><text x="588" y="400" class="small"> o </text><text x="600" y="400" class="good">match result</text>
+
+  <!-- ===== BOTTOM BAR ===== -->
+  <rect x="20" y="424" width="820" height="60" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="36" y="444" class="label" font-weight="bold">Errores comunes</text>
+  <text x="36" y="462" class="bad">•</text><text x="48" y="462" class="small"> "language item required: `panic_impl`" → falta #[panic_handler] o panic-halt como dependencia</text>
+  <text x="36" y="478" class="bad">•</text><text x="48" y="478" class="small"> #[panic_handler] defined twice → solo puede haber uno en todo el grafo de crates</text>
+
+  <defs>
+    <marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L7,2.5 z" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>
