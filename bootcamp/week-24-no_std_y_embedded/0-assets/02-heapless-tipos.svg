@@ -48,7 +48,7 @@
   <text x="286" y="204" class="kw">let mut </text><text x="328" y="204" class="code">v: </text><text x="344" y="204" class="ty">Vec</text><text x="362" y="204" class="code">&lt;</text><text x="368" y="204" class="ty">u8</text><text x="380" y="204" class="code">, </text><text x="388" y="204" class="num">8</text><text x="396" y="204" class="code">&gt; = </text><text x="420" y="204" class="ty">Vec</text><text x="438" y="204" class="code">::</text><text x="446" y="204" class="fn">new</text><text x="464" y="204" class="code">();  </text><text x="496" y="204" class="comment">// stack, 8 bytes</text>
   <text x="286" y="220" class="code">v.</text><text x="298" y="220" class="fn">push</text><text x="322" y="220" class="code">(</text><text x="328" y="220" class="num">42</text><text x="340" y="220" class="code">).</text><text x="352" y="220" class="fn">ok</text><text x="368" y="220" class="code">();   </text><text x="408" y="220" class="comment">// Err(42) si full — nunca panic</text>
   <text x="286" y="236" class="kw">if </text><text x="304" y="236" class="code">v.</text><text x="316" y="236" class="fn">is_full</text><text x="352" y="236" class="code">() { </text><text x="384" y="236" class="comment">/* manejar overflow */</text><text x="520" y="236" class="code"> }</text>
-  <text x="286" y="252" class="comment">// v.len() <= 8 siempre garantizado</text>
+  <text x="286" y="252" class="comment">// v.len() &lt;= 8 siempre garantizado</text>
 
   <!-- ===== STRING ===== -->
   <rect x="20" y="222" width="240" height="96" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1"/>
