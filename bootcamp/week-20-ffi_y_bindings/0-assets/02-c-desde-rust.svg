@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540">
+  <style>
+    .title   { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: 700; fill: #d4d4d4; }
+    .sub     { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label   { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small   { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .str     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .type    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+  </style>
+
+  <rect width="900" height="540" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" class="title">Llamar a C desde Rust</text>
+  <text x="450" y="60" text-anchor="middle" class="sub">extern "C" · libc · bindgen · Wrappers seguros</text>
+  <line x1="40" y1="72" x2="860" y2="72" stroke="#3c3c3c" stroke-width="1"/>
+
+  <!-- SECTION 1: extern "C" block -->
+  <rect x="40" y="88" width="400" height="130" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="60" y="108" class="label" font-weight="700">1 — Declarar con extern "C"</text>
+
+  <text x="60" y="132" class="kw">extern </text>
+  <text x="103" y="132" class="str">"C"</text>
+  <text x="128" y="132" class="code"> {</text>
+
+  <text x="76" y="148" class="kw">fn </text>
+  <text x="96" y="148" class="fn">strlen</text>
+  <text x="136" y="148" class="code">(s: *</text>
+  <text x="173" y="148" class="kw">const </text>
+  <text x="211" y="148" class="type">c_char</text>
+  <text x="250" y="148" class="code">) → </text>
+  <text x="273" y="148" class="type">size_t</text>
+  <text x="313" y="148" class="code">;</text>
+
+  <text x="76" y="164" class="kw">fn </text>
+  <text x="96" y="164" class="fn">abs</text>
+  <text x="116" y="164" class="code">(n: </text>
+  <text x="140" y="164" class="type">c_int</text>
+  <text x="172" y="164" class="code">) → </text>
+  <text x="195" y="164" class="type">c_int</text>
+  <text x="227" y="164" class="code">;</text>
+
+  <text x="60" y="180" class="code">}</text>
+  <text x="60" y="200" class="comment">// Cada llamada al exterior es unsafe</text>
+
+  <!-- SECTION 2: libc types -->
+  <rect x="460" y="88" width="400" height="130" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="480" y="108" class="label" font-weight="700">2 — Tipos portables con libc</text>
+
+  <text x="480" y="132" class="kw">use </text>
+  <text x="504" y="132" class="type">libc</text>
+  <text x="527" y="132" class="code">::{</text>
+  <text x="548" y="132" class="type">c_int, c_char</text>
+  <text x="636" y="132" class="code">,</text>
+
+  <text x="504" y="148" class="type">c_void, size_t</text>
+  <text x="592" y="148" class="code">, </text>
+  <text x="604" y="148" class="type">c_double</text>
+  <text x="656" y="148" class="code">};</text>
+
+  <!-- Table -->
+  <text x="480" y="174" class="small">Tipo C</text>
+  <text x="560" y="174" class="small">libc</text>
+  <text x="640" y="174" class="small">Rust directo</text>
+  <line x1="480" y1="178" x2="840" y2="178" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="480" y="194" class="code">int</text>
+  <text x="560" y="194" class="type">c_int</text>
+  <text x="640" y="194" class="comment">i32 (no portable)</text>
+  <text x="480" y="210" class="code">size_t</text>
+  <text x="560" y="210" class="type">size_t</text>
+  <text x="640" y="210" class="comment">usize (OK)</text>
+
+  <!-- SECTION 3: Safe wrapper -->
+  <rect x="40" y="238" width="580" height="160" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="60" y="258" class="label" font-weight="700">3 — Wrapper seguro (patrón obligatorio)</text>
+
+  <text x="60" y="280" class="kw">pub fn </text>
+  <text x="102" y="280" class="fn">strlen_safe</text>
+  <text x="168" y="280" class="code">(s: &amp;</text>
+  <text x="197" y="280" class="kw">str</text>
+  <text x="217" y="280" class="code">) → </text>
+  <text x="240" y="280" class="type">Option</text>
+  <text x="282" y="280" class="code">&lt;</text>
+  <text x="293" y="280" class="type">usize</text>
+  <text x="325" y="280" class="code">&gt; {</text>
+
+  <text x="76" y="296" class="kw">let </text>
+  <text x="98" y="296" class="code">c = </text>
+  <text x="118" y="296" class="type">CString</text>
+  <text x="163" y="296" class="code">::</text>
+  <text x="175" y="296" class="fn">new</text>
+  <text x="197" y="296" class="code">(s).</text>
+  <text x="221" y="296" class="fn">ok</text>
+  <text x="237" y="296" class="code">()?;</text>
+
+  <text x="76" y="312" class="comment">// SAFETY: c.as_ptr() es válido mientras `c` está en scope.</text>
+  <text x="76" y="328" class="comment">// strlen solo lee hasta el null terminator.</text>
+
+  <text x="76" y="344" class="kw">let </text>
+  <text x="98" y="344" class="code">n = </text>
+  <text x="118" y="344" class="kw">unsafe </text>
+  <text x="158" y="344" class="code">{ </text>
+  <text x="172" y="344" class="fn">strlen</text>
+  <text x="210" y="344" class="code">(c.</text>
+  <text x="228" y="344" class="fn">as_ptr</text>
+  <text x="268" y="344" class="code">()) };</text>
+
+  <text x="76" y="360" class="type">Some</text>
+  <text x="103" y="360" class="code">(n)</text>
+
+  <text x="60" y="376" class="code">}</text>
+
+  <!-- SECTION 4: bindgen -->
+  <rect x="640" y="238" width="220" height="160" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="660" y="258" class="label" font-weight="700">4 — bindgen</text>
+  <text x="660" y="278" class="small">Genera bindings desde .h</text>
+
+  <rect x="656" y="288" width="188" height="96" rx="4" fill="#2d2d2d"/>
+  <text x="668" y="304" class="comment"># build.rs</text>
+  <text x="668" y="320" class="kw">fn </text>
+  <text x="688" y="320" class="fn">main</text>
+  <text x="714" y="320" class="code">() {</text>
+  <text x="680" y="336" class="type">bindgen</text>
+  <text x="724" y="336" class="code">::</text>
+  <text x="736" y="336" class="type">Builder</text>
+  <text x="784" y="336" class="code">::</text>
+  <text x="668" y="352" class="fn">  default</text>
+  <text x="720" y="352" class="code">()</text>
+  <text x="668" y="368" class="fn">  .header</text>
+  <text x="720" y="368" class="code">(</text>
+  <text x="726" y="368" class="str">"lib.h"</text>
+  <text x="770" y="368" class="code">)</text>
+  <text x="668" y="384" class="fn">  .generate</text>
+  <text x="730" y="384" class="code">();</text>
+
+  <!-- FLOW DIAGRAM at bottom -->
+  <rect x="40" y="418" width="820" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="450" y="438" text-anchor="middle" class="label" font-weight="700">Flujo: &str → *const c_char → resultado</text>
+
+  <!-- Step boxes -->
+  <rect x="60" y="450" width="130" height="48" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="125" y="468" text-anchor="middle" class="code">&amp;</text>
+  <text x="132" y="468" class="kw">str</text>
+  <text x="125" y="488" text-anchor="middle" class="small">"hola"</text>
+
+  <text x="202" y="477" text-anchor="middle" class="type">CString::new</text>
+  <line x1="194" y1="474" x2="220" y2="474" stroke="#CE422B" stroke-width="1.5"/>
+  <polygon points="220,474 213,469 213,479" fill="#CE422B"/>
+
+  <rect x="230" y="450" width="130" height="48" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="295" y="468" text-anchor="middle" class="type">CString</text>
+  <text x="295" y="488" text-anchor="middle" class="small">68 6F 6C 61 00</text>
+
+  <text x="374" y="477" text-anchor="middle" class="fn">as_ptr()</text>
+  <line x1="364" y1="474" x2="390" y2="474" stroke="#CE422B" stroke-width="1.5"/>
+  <polygon points="390,474 383,469 383,479" fill="#CE422B"/>
+
+  <rect x="400" y="450" width="130" height="48" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="465" y="468" text-anchor="middle" class="code">*</text>
+  <text x="474" y="468" class="kw">const </text>
+  <text x="514" y="468" class="type">c_char</text>
+  <text x="465" y="488" text-anchor="middle" class="small">puntero C válido</text>
+
+  <text x="545" y="477" text-anchor="middle" class="fn">unsafe fn</text>
+  <line x1="534" y1="474" x2="560" y2="474" stroke="#CE422B" stroke-width="1.5"/>
+  <polygon points="560,474 553,469 553,479" fill="#CE422B"/>
+
+  <rect x="570" y="450" width="130" height="48" rx="4" fill="#CE422B" fill-opacity="0.15" stroke="#CE422B"/>
+  <text x="635" y="468" text-anchor="middle" class="type">usize</text>
+  <text x="635" y="488" text-anchor="middle" class="small">resultado seguro</text>
+
+  <!-- Warning -->
+  <text x="716" y="468" class="small" fill="#CE422B">⚠️ CString</text>
+  <text x="716" y="484" class="small" fill="#CE422B">debe vivir</text>
+  <text x="716" y="500" class="small" fill="#CE422B">el tiempo justo</text>
+</svg>

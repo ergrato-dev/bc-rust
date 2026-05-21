@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+  <style>
+    .title   { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: 700; fill: #d4d4d4; }
+    .sub     { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label   { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small   { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .str     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .type    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .attr    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+  </style>
+
+  <rect width="900" height="560" fill="#1e1e1e"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Exportar Rust a C</text>
+  <text x="450" y="60" text-anchor="middle" class="sub">#[no_mangle] · #[repr(C)] · cbindgen · Box::into_raw / from_raw</text>
+  <line x1="40" y1="72" x2="860" y2="72" stroke="#3c3c3c" stroke-width="1"/>
+
+  <!-- LEFT: #[repr(C)] explanation -->
+  <rect x="40" y="88" width="380" height="170" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="60" y="108" class="label" font-weight="700">1 — #[repr(C)]: layout de memoria</text>
+
+  <!-- Without repr(C) -->
+  <text x="60" y="130" class="comment">// Sin #[repr(C)]: Rust puede reordenar</text>
+  <rect x="60" y="138" width="160" height="50" rx="4" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="70" y="152" class="code">struct Punto {</text>
+  <text x="70" y="168" class="kw">  x</text>
+  <text x="86" y="168" class="code">: </text>
+  <text x="96" y="168" class="type">f32</text>
+  <text x="118" y="168" class="code">, y: </text>
+  <text x="148" y="168" class="type">f32</text>
+  <text x="170" y="168" class="code"> }</text>
+  <text x="80" y="184" class="code">// ❌ layout indefinido</text>
+
+  <!-- With repr(C) -->
+  <text x="240" y="130" class="comment">// Con #[repr(C)]: idéntico a C</text>
+  <rect x="240" y="138" width="164" height="50" rx="4" fill="#CE422B" fill-opacity="0.12" stroke="#CE422B"/>
+  <text x="250" y="152" class="attr">#[repr(C)]</text>
+  <text x="250" y="168" class="kw">pub struct </text>
+  <text x="315" y="168" class="type">Punto</text>
+  <text x="348" y="168" class="code"> {</text>
+  <text x="250" y="184" class="kw">  x</text>
+  <text x="267" y="184" class="code">: </text>
+  <text x="276" y="184" class="type">f32</text>
+  <text x="298" y="184" class="code">, y: </text>
+  <text x="330" y="184" class="type">f32 </text>
+  <text x="357" y="184" class="code">}</text>
+
+  <!-- Memory layout visualization -->
+  <text x="60" y="222" class="small">Layout en memoria (offset en bytes):</text>
+  <rect x="60" y="228" width="80" height="24" rx="2" fill="#CE422B" fill-opacity="0.25" stroke="#CE422B"/>
+  <text x="100" y="244" text-anchor="middle" class="code" fill="#CE422B">x: f32</text>
+  <rect x="140" y="228" width="80" height="24" rx="2" fill="#569cd6" fill-opacity="0.25" stroke="#569cd6"/>
+  <text x="180" y="244" text-anchor="middle" class="code" fill="#569cd6">y: f32</text>
+  <text x="60" y="264" class="small">offset 0</text>
+  <text x="155" y="264" class="small">offset 4</text>
+  <text x="226" y="264" class="small">= 8 bytes total</text>
+
+  <!-- RIGHT: Export anatomy -->
+  <rect x="440" y="88" width="420" height="170" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="460" y="108" class="label" font-weight="700">2 — Anatomía de una función exportada</text>
+
+  <rect x="456" y="118" width="384" height="120" rx="4" fill="#2d2d2d"/>
+  <text x="468" y="136" class="attr">#[no_mangle]</text>
+  <text x="468" y="152" class="kw">pub extern </text>
+  <text x="527" y="152" class="str">"C"</text>
+  <text x="554" y="152" class="kw"> fn </text>
+  <text x="576" y="152" class="fn">punto_nuevo</text>
+  <text x="650" y="152" class="code">(</text>
+  <text x="468" y="168" class="type">    x: f64, y: f64</text>
+  <text x="468" y="184" class="code">) → *</text>
+  <text x="510" y="184" class="kw">mut </text>
+  <text x="534" y="184" class="type">Punto </text>
+  <text x="575" y="184" class="code">{</text>
+  <text x="468" y="200" class="type">    Box</text>
+  <text x="496" y="200" class="code">::</text>
+  <text x="508" y="200" class="fn">into_raw</text>
+  <text x="562" y="200" class="code">(</text>
+  <text x="570" y="200" class="type">Box</text>
+  <text x="590" y="200" class="code">::</text>
+  <text x="602" y="200" class="fn">new</text>
+  <text x="622" y="200" class="code">(</text>
+  <text x="628" y="200" class="type">Punto</text>
+  <text x="665" y="200" class="code">{ x, y }))</text>
+  <text x="468" y="216" class="code">}</text>
+
+  <!-- Annotations -->
+  <line x1="456" y1="152" x2="445" y2="152" stroke="#CE422B" stroke-width="1"/>
+  <line x1="445" y1="115" x2="445" y2="152" stroke="#CE422B" stroke-width="1"/>
+  <text x="340" y="119" class="small" fill="#CE422B">sin name mangling →</text>
+  <text x="340" y="157" class="small" fill="#569cd6">ABI de C →</text>
+
+  <!-- Box lifecycle -->
+  <rect x="40" y="278" width="820" height="130" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="450" y="298" text-anchor="middle" class="label" font-weight="700">3 — Ciclo de vida: Box::into_raw / Box::from_raw</text>
+
+  <!-- Step 1 -->
+  <rect x="60" y="310" width="150" height="70" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="135" y="330" text-anchor="middle" class="small">Rust crea</text>
+  <text x="135" y="348" text-anchor="middle" class="type">Box::new(T)</text>
+  <text x="135" y="366" text-anchor="middle" class="small">heap allocation</text>
+  <text x="135" y="382" text-anchor="middle" class="small">(Rust owns)</text>
+
+  <!-- Arrow 1 -->
+  <line x1="214" y1="345" x2="248" y2="345" stroke="#CE422B" stroke-width="1.5"/>
+  <polygon points="248,345 241,340 241,350" fill="#CE422B"/>
+  <text x="231" y="339" text-anchor="middle" class="small" fill="#CE422B">into_raw</text>
+
+  <!-- Step 2 -->
+  <rect x="256" y="310" width="150" height="70" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="331" y="330" text-anchor="middle" class="small">Puntero C</text>
+  <text x="331" y="348" text-anchor="middle" class="code">*mut T</text>
+  <text x="331" y="366" text-anchor="middle" class="small">C almacena</text>
+  <text x="331" y="382" text-anchor="middle" class="small">(ninguno owns)</text>
+
+  <!-- Arrow 2 -->
+  <line x1="410" y1="345" x2="444" y2="345" stroke="#CE422B" stroke-width="1.5"/>
+  <polygon points="444,345 437,340 437,350" fill="#CE422B"/>
+  <text x="427" y="339" text-anchor="middle" class="small" fill="#CE422B">usa ptr</text>
+
+  <!-- Step 3 -->
+  <rect x="452" y="310" width="150" height="70" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="527" y="330" text-anchor="middle" class="small">C llama funciones</text>
+  <text x="527" y="348" text-anchor="middle" class="fn">cosa_operar(ptr)</text>
+  <text x="527" y="366" text-anchor="middle" class="small">acceso via &amp;*ptr</text>
+  <text x="527" y="382" text-anchor="middle" class="small">(sin ownership)</text>
+
+  <!-- Arrow 3 -->
+  <line x1="606" y1="345" x2="640" y2="345" stroke="#CE422B" stroke-width="1.5"/>
+  <polygon points="640,345 633,340 633,350" fill="#CE422B"/>
+  <text x="623" y="339" text-anchor="middle" class="small" fill="#CE422B">from_raw</text>
+
+  <!-- Step 4 -->
+  <rect x="648" y="310" width="172" height="70" rx="4" fill="#CE422B" fill-opacity="0.15" stroke="#CE422B"/>
+  <text x="734" y="330" text-anchor="middle" class="small">C llama cosa_free</text>
+  <text x="734" y="348" text-anchor="middle" class="type">Box::from_raw(ptr)</text>
+  <text x="734" y="366" text-anchor="middle" class="small">→ drop automático</text>
+  <text x="734" y="382" text-anchor="middle" class="small">(Rust libera)</text>
+
+  <!-- Bottom: cbindgen -->
+  <rect x="40" y="428" width="820" height="110" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="450" y="448" text-anchor="middle" class="label" font-weight="700">4 — cbindgen: genera el header C automáticamente</text>
+
+  <rect x="56" y="458" width="360" height="64" rx="4" fill="#2d2d2d"/>
+  <text x="68" y="474" class="comment"># Rust (src/lib.rs)</text>
+  <text x="68" y="490" class="attr">#[repr(C)]</text>
+  <text x="68" y="506" class="kw">pub struct </text>
+  <text x="128" y="506" class="type">Punto </text>
+  <text x="168" y="506" class="code">{ </text>
+  <text x="180" y="506" class="kw">pub </text>
+  <text x="202" y="506" class="code">x: </text>
+  <text x="220" y="506" class="type">f64</text>
+  <text x="246" y="506" class="code">, </text>
+  <text x="258" y="506" class="kw">pub </text>
+  <text x="280" y="506" class="code">y: </text>
+  <text x="298" y="506" class="type">f64 </text>
+  <text x="322" y="506" class="code">}</text>
+  <text x="68" y="514" class="attr">#[no_mangle]</text>
+  <text x="68" y="530" class="kw">pub extern </text>
+  <text x="127" y="530" class="str">"C"</text>
+  <text x="152" y="530" class="kw"> fn </text>
+  <text x="174" y="530" class="fn">punto_nuevo</text>
+  <text x="248" y="530" class="code">(x: </text>
+  <text x="272" y="530" class="type">f64</text>
+  <text x="296" y="530" class="code">, y: </text>
+  <text x="322" y="530" class="type">f64</text>
+  <text x="346" y="530" class="code">) → ...</text>
+
+  <text x="430" y="474" text-anchor="middle" class="small" fill="#CE422B">cbindgen →</text>
+
+  <rect x="444" y="458" width="380" height="64" rx="4" fill="#2d2d2d"/>
+  <text x="456" y="474" class="comment">/* Generado: include/lib.h */</text>
+  <text x="456" y="490" class="code">#include &lt;stdint.h&gt;</text>
+  <text x="456" y="506" class="kw">typedef struct </text>
+  <text x="560" y="506" class="code">{ </text>
+  <text x="572" y="506" class="type">double </text>
+  <text x="614" y="506" class="code">x; </text>
+  <text x="630" y="506" class="type">double </text>
+  <text x="672" y="506" class="code">y; } </text>
+  <text x="700" y="506" class="type">Punto</text>
+  <text x="742" y="506" class="code">;</text>
+  <text x="456" y="522" class="type">Punto </text>
+  <text x="496" y="522" class="code">*</text>
+  <text x="504" y="522" class="fn">punto_nuevo</text>
+  <text x="576" y="522" class="code">(</text>
+  <text x="583" y="522" class="type">double </text>
+  <text x="625" y="522" class="code">x, </text>
+  <text x="648" y="522" class="type">double </text>
+  <text x="690" y="522" class="code">y);</text>
+</svg>

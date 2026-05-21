@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520">
+  <style>
+    .title   { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: 700; fill: #d4d4d4; }
+    .sub     { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label   { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small   { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .accent  { fill: #CE422B; }
+    .keyword { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .string  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .comment { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+  </style>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" class="title">FFI y Language Bindings — ¿Qué es FFI?</text>
+  <text x="450" y="60" text-anchor="middle" class="sub">Foreign Function Interface · ABI de C · Name Mangling</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="72" x2="860" y2="72" stroke="#3c3c3c" stroke-width="1"/>
+
+  <!-- LEFT: Languages box -->
+  <rect x="40" y="88" width="260" height="220" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="170" y="110" text-anchor="middle" class="label" font-weight="700">Lenguajes del Mundo</text>
+
+  <!-- Language tags -->
+  <rect x="60" y="124" width="70" height="26" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="95" y="141" text-anchor="middle" class="code" fill="#4ec9b0">Python</text>
+
+  <rect x="146" y="124" width="60" height="26" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="176" y="141" text-anchor="middle" class="code" fill="#569cd6">Node.js</text>
+
+  <rect x="222" y="124" width="54" height="26" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="249" y="141" text-anchor="middle" class="code" fill="#dcdcaa">C/C++</text>
+
+  <!-- Arrow down -->
+  <text x="170" y="177" text-anchor="middle" class="small">FFI / bindings</text>
+  <line x1="170" y1="160" x2="170" y2="188" stroke="#CE422B" stroke-width="2"/>
+  <polygon points="170,195 164,183 176,183" fill="#CE422B"/>
+
+  <!-- Rust Library -->
+  <rect x="60" y="205" width="220" height="54" rx="6" fill="#CE422B" fill-opacity="0.15" stroke="#CE422B"/>
+  <text x="170" y="225" text-anchor="middle" class="label" font-weight="700" fill="#CE422B">Rust Library (.so / .dll)</text>
+  <text x="170" y="246" text-anchor="middle" class="small">Alto rendimiento · Memoria segura</text>
+
+  <!-- Benefits -->
+  <text x="60" y="282" class="small">✅ Rendimiento nativo (sin IPC)</text>
+  <text x="60" y="298" class="small">✅ Seguridad de memoria de Rust</text>
+  <text x="60" y="314" class="small">✅ Interfaz C estable y portable</text>
+
+  <!-- CENTER ARROWS -->
+  <!-- Rust as Caller -->
+  <rect x="340" y="88" width="220" height="90" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="450" y="110" text-anchor="middle" class="label" font-weight="700">Rust como Caller</text>
+  <text x="450" y="130" text-anchor="middle" class="small">Rust llama a C</text>
+  <text x="360" y="154" class="code" fill="#569cd6">extern </text>
+  <text x="410" y="154" class="code" fill="#ce9178">"C"</text>
+  <text x="441" y="154" class="code" fill="#d4d4d4"> { fn strlen(...) }</text>
+  <text x="360" y="168" class="code" fill="#569cd6">use </text>
+  <text x="388" y="168" class="code" fill="#4ec9b0">libc</text>
+  <text x="408" y="168" class="code" fill="#808080">; // tipos C</text>
+
+  <!-- Rust as Callee -->
+  <rect x="340" y="194" width="220" height="90" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="450" y="216" text-anchor="middle" class="label" font-weight="700">Rust como Callee</text>
+  <text x="450" y="236" text-anchor="middle" class="small">C llama a Rust</text>
+  <text x="360" y="260" class="code" fill="#dcdcaa">#[no_mangle]</text>
+  <text x="360" y="276" class="code" fill="#569cd6">pub extern </text>
+  <text x="431" y="276" class="code" fill="#ce9178">"C" </text>
+  <text x="461" y="276" class="code" fill="#569cd6">fn </text>
+  <text x="481" y="276" class="code" fill="#dcdcaa">add</text>
+
+  <!-- RIGHT: ABI box -->
+  <rect x="600" y="88" width="260" height="196" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="730" y="110" text-anchor="middle" class="label" font-weight="700">ABI de C (x86-64 Linux)</text>
+
+  <text x="616" y="135" class="small" fill="#808080">Args enteros:</text>
+  <text x="716" y="135" class="code" fill="#4ec9b0">rdi rsi rdx rcx</text>
+  <text x="616" y="153" class="small" fill="#808080">Args float:</text>
+  <text x="716" y="153" class="code" fill="#4ec9b0">xmm0 – xmm7</text>
+  <text x="616" y="171" class="small" fill="#808080">Retorno:</text>
+  <text x="716" y="171" class="code" fill="#4ec9b0">rax (int), xmm0 (f)</text>
+
+  <line x1="616" y1="180" x2="844" y2="180" stroke="#3c3c3c" stroke-width="1"/>
+
+  <text x="730" y="202" text-anchor="middle" class="small" font-style="italic">add(a: i32, b: i32) → i32</text>
+  <rect x="620" y="210" width="60" height="32" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="650" y="230" text-anchor="middle" class="code" fill="#569cd6">rdi=a</text>
+  <rect x="696" y="210" width="60" height="32" rx="4" fill="#2d2d2d" stroke="#454545"/>
+  <text x="726" y="230" text-anchor="middle" class="code" fill="#569cd6">rsi=b</text>
+  <text x="768" y="230" text-anchor="middle" class="code">→</text>
+  <rect x="784" y="210" width="60" height="32" rx="4" fill="#CE422B" fill-opacity="0.25" stroke="#CE422B"/>
+  <text x="814" y="230" text-anchor="middle" class="code" fill="#CE422B">rax</text>
+
+  <text x="616" y="274" class="small">Name mangling Rust:</text>
+  <text x="616" y="290" class="code" fill="#808080">_ZN7crate3add17h4f...</text>
+  <text x="616" y="306" class="small">Con #[no_mangle]:</text>
+  <text x="616" y="322" class="code" fill="#CE422B">add</text>
+
+  <!-- Bottom: decision tree -->
+  <rect x="40" y="330" width="820" height="160" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="450" y="354" text-anchor="middle" class="label" font-weight="700">Árbol de Decisión: ¿Cuándo usar FFI?</text>
+
+  <text x="80" y="380" class="small">¿Existe en crates.io?</text>
+  <line x1="200" y1="375" x2="260" y2="375" stroke="#3c3c3c"/>
+  <text x="270" y="380" class="small" fill="#6a9955">Sí → cargo add (no FFI)</text>
+
+  <text x="80" y="410" class="small">¿Quiero llamar librería C?</text>
+  <line x1="230" y1="405" x2="260" y2="405" stroke="#3c3c3c"/>
+  <text x="270" y="410" class="code" fill="#4ec9b0">extern "C" + libc/bindgen</text>
+
+  <text x="80" y="440" class="small">¿Quiero exponer a Python?</text>
+  <line x1="230" y1="435" x2="260" y2="435" stroke="#3c3c3c"/>
+  <text x="270" y="440" class="code" fill="#4ec9b0">PyO3 + maturin</text>
+
+  <text x="80" y="470" class="small">¿Quiero exponer a Node.js?</text>
+  <line x1="232" y1="465" x2="260" y2="465" stroke="#3c3c3c"/>
+  <text x="270" y="470" class="code" fill="#4ec9b0">napi-rs</text>
+
+  <!-- Week badge -->
+  <rect x="790" y="460" width="110" height="32" rx="6" fill="#CE422B" fill-opacity="0.2" stroke="#CE422B"/>
+  <text x="845" y="481" text-anchor="middle" class="label" fill="#CE422B">Semana 20</text>
+</svg>

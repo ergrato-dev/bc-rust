@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560">
+  <style>
+    .title   { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: 700; fill: #d4d4d4; }
+    .sub     { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label   { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small   { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .str     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .type    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .attr    { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+  </style>
+
+  <rect width="900" height="560" fill="#1e1e1e"/>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Bindings Python (PyO3) y Node.js (napi-rs)</text>
+  <text x="450" y="60" text-anchor="middle" class="sub">#[pyfunction] · #[pyclass] · #[napi] · maturin · napi build</text>
+  <line x1="40" y1="72" x2="860" y2="72" stroke="#3c3c3c" stroke-width="1"/>
+
+  <!-- LEFT COLUMN: PyO3 -->
+  <rect x="40" y="88" width="400" height="30" rx="4" fill="#4ec9b0" fill-opacity="0.15" stroke="#4ec9b0"/>
+  <text x="240" y="108" text-anchor="middle" class="label" font-weight="700" fill="#4ec9b0">PyO3 — Extensión Python</text>
+
+  <!-- Architecture -->
+  <rect x="40" y="126" width="400" height="70" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="70" y="144" class="small">Python script</text>
+  <rect x="60" y="150" width="200" height="36" rx="4" fill="#2d2d2d"/>
+  <text x="68" y="164" class="kw">import </text>
+  <text x="114" y="164" class="type">mi_modulo</text>
+  <text x="68" y="180" class="fn">mi_modulo</text>
+  <text x="124" y="180" class="code">.</text>
+  <text x="130" y="180" class="fn">suma</text>
+  <text x="155" y="180" class="code">(3, 4)</text>
+  <text x="270" y="150" class="small">CPython C API ↓</text>
+  <rect x="270" y="158" width="154" height="36" rx="4" fill="#CE422B" fill-opacity="0.12" stroke="#CE422B"/>
+  <text x="347" y="172" text-anchor="middle" class="code" fill="#CE422B">mi_modulo.so</text>
+  <text x="347" y="188" text-anchor="middle" class="small">cdylib (Rust+PyO3)</text>
+
+  <!-- PyO3 code -->
+  <rect x="40" y="204" width="400" height="190" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="60" y="222" class="label" font-weight="700">Anatomía PyO3</text>
+
+  <rect x="56" y="232" width="368" height="152" rx="4" fill="#2d2d2d"/>
+  <text x="68" y="248" class="kw">use </text>
+  <text x="90" y="248" class="type">pyo3</text>
+  <text x="117" y="248" class="code">::</text>
+  <text x="129" y="248" class="type">prelude</text>
+  <text x="171" y="248" class="code">::*;</text>
+
+  <text x="68" y="268" class="attr">#[pyfunction]</text>
+  <text x="68" y="284" class="kw">fn </text>
+  <text x="88" y="284" class="fn">suma</text>
+  <text x="110" y="284" class="code">(a: </text>
+  <text x="134" y="284" class="type">f64</text>
+  <text x="156" y="284" class="code">, b: </text>
+  <text x="183" y="284" class="type">f64</text>
+  <text x="205" y="284" class="code">) → </text>
+  <text x="228" y="284" class="type">f64 </text>
+  <text x="254" y="284" class="code">{ a + b }</text>
+
+  <text x="68" y="304" class="attr">#[pyclass]</text>
+  <text x="68" y="320" class="kw">struct </text>
+  <text x="108" y="320" class="type">Contador </text>
+  <text x="162" y="320" class="code">{ valor: </text>
+  <text x="214" y="320" class="type">i64 </text>
+  <text x="240" y="320" class="code">}</text>
+
+  <text x="68" y="340" class="attr">#[pymethods]</text>
+  <text x="68" y="356" class="kw">impl </text>
+  <text x="96" y="356" class="type">Contador </text>
+  <text x="150" y="356" class="code">{</text>
+  <text x="80" y="372" class="attr">  #[new]</text>
+  <text x="80" y="388" class="kw">  fn </text>
+  <text x="104" y="388" class="fn">new</text>
+  <text x="124" y="388" class="code">(v: </text>
+  <text x="148" y="388" class="type">i64</text>
+  <text x="170" y="388" class="code">) → </text>
+  <text x="193" y="388" class="type">Self </text>
+  <text x="225" y="388" class="code">{ ... } }</text>
+
+  <!-- Maturin workflow -->
+  <rect x="40" y="402" width="400" height="80" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="60" y="420" class="label" font-weight="700">Build con maturin</text>
+  <rect x="56" y="428" width="368" height="44" rx="4" fill="#2d2d2d"/>
+  <text x="68" y="444" class="comment"># Cargo.toml: crate-type = ["cdylib"]</text>
+  <text x="68" y="460" class="code">maturin develop</text>
+  <text x="246" y="460" class="comment">  # instala en venv activo</text>
+
+  <!-- RIGHT COLUMN: napi-rs -->
+  <rect x="460" y="88" width="400" height="30" rx="4" fill="#569cd6" fill-opacity="0.15" stroke="#569cd6"/>
+  <text x="660" y="108" text-anchor="middle" class="label" font-weight="700" fill="#569cd6">napi-rs — Addon Node.js</text>
+
+  <!-- Architecture -->
+  <rect x="460" y="126" width="400" height="70" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="490" y="144" class="small">JavaScript/TypeScript</text>
+  <rect x="480" y="150" width="200" height="36" rx="4" fill="#2d2d2d"/>
+  <text x="488" y="164" class="kw">const </text>
+  <text x="522" y="164" class="code">{ </text>
+  <text x="534" y="164" class="fn">suma</text>
+  <text x="558" y="164" class="code"> } = </text>
+  <text x="590" y="164" class="fn">require</text>
+  <text x="634" y="164" class="code">(</text>
+  <text x="642" y="164" class="str">'./index'</text>
+  <text x="692" y="164" class="code">)</text>
+  <text x="488" y="180" class="fn">suma</text>
+  <text x="512" y="180" class="code">(3, 4)</text>
+  <text x="690" y="150" class="small">Node-API ↓</text>
+  <rect x="688" y="158" width="156" height="36" rx="4" fill="#CE422B" fill-opacity="0.12" stroke="#CE422B"/>
+  <text x="766" y="172" text-anchor="middle" class="code" fill="#CE422B">index.node</text>
+  <text x="766" y="188" text-anchor="middle" class="small">cdylib (Rust+napi)</text>
+
+  <!-- napi-rs code -->
+  <rect x="460" y="204" width="400" height="190" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="480" y="222" class="label" font-weight="700">Anatomía napi-rs</text>
+
+  <rect x="476" y="232" width="368" height="152" rx="4" fill="#2d2d2d"/>
+  <text x="488" y="248" class="attr">#![deny(clippy::all)]</text>
+  <text x="488" y="264" class="kw">use </text>
+  <text x="510" y="264" class="type">napi_derive</text>
+  <text x="568" y="264" class="code">::</text>
+  <text x="580" y="264" class="type">napi</text>
+  <text x="604" y="264" class="code">;</text>
+
+  <text x="488" y="284" class="attr">#[napi]</text>
+  <text x="488" y="300" class="kw">pub fn </text>
+  <text x="530" y="300" class="fn">suma</text>
+  <text x="552" y="300" class="code">(a: </text>
+  <text x="575" y="300" class="type">f64</text>
+  <text x="597" y="300" class="code">, b: </text>
+  <text x="623" y="300" class="type">f64</text>
+  <text x="645" y="300" class="code">) → </text>
+  <text x="668" y="300" class="type">f64 </text>
+  <text x="694" y="300" class="code">{ a+b }</text>
+
+  <text x="488" y="320" class="attr">#[napi]</text>
+  <text x="488" y="336" class="kw">pub async fn </text>
+  <text x="558" y="336" class="fn">calcular</text>
+  <text x="606" y="336" class="code">(n: </text>
+  <text x="630" y="336" class="type">u32</text>
+  <text x="652" y="336" class="code">) → </text>
+  <text x="676" y="336" class="type">u64 </text>
+  <text x="703" y="336" class="code">{</text>
+  <text x="500" y="352" class="comment">// async → genera Promise en JS</text>
+  <text x="500" y="368" class="code">(1..=n </text>
+  <text x="544" y="368" class="kw">as </text>
+  <text x="562" y="368" class="type">u64</text>
+  <text x="584" y="368" class="code">).</text>
+  <text x="596" y="368" class="fn">sum</text>
+  <text x="618" y="368" class="code">() }</text>
+  <text x="488" y="388" class="comment">// napi build --platform → index.node + index.d.ts</text>
+
+  <!-- napi build workflow -->
+  <rect x="460" y="402" width="400" height="80" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="480" y="420" class="label" font-weight="700">Build con napi CLI</text>
+  <rect x="476" y="428" width="368" height="44" rx="4" fill="#2d2d2d"/>
+  <text x="488" y="444" class="comment"># build.rs: napi_build::setup();</text>
+  <text x="488" y="460" class="code">napi build --platform</text>
+  <text x="648" y="460" class="comment">  # → index.node</text>
+
+  <!-- BOTTOM: Comparison table -->
+  <rect x="40" y="500" width="820" height="44" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <text x="90" y="520" text-anchor="middle" class="small" font-weight="700">Aspecto</text>
+  <text x="250" y="520" text-anchor="middle" class="type">PyO3</text>
+  <text x="430" y="520" text-anchor="middle" class="type">napi-rs</text>
+  <text x="620" y="520" text-anchor="middle" class="type">cbindgen</text>
+  <text x="780" y="520" text-anchor="middle" class="small">Notas</text>
+  <line x1="40" y1="524" x2="860" y2="524" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="90" y="538" text-anchor="middle" class="small">Errores</text>
+  <text x="250" y="538" text-anchor="middle" class="code">PyResult&lt;T&gt;</text>
+  <text x="430" y="538" text-anchor="middle" class="code">napi::Result&lt;T&gt;</text>
+  <text x="620" y="538" text-anchor="middle" class="code">código retorno</text>
+  <text x="780" y="538" text-anchor="middle" class="small">PyO3/napi más ergonómico</text>
+</svg>
