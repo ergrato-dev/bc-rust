@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500">
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:22px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .H  { font-family:'Segoe UI',sans-serif; font-size:13px; font-weight:700; fill:#CE422B; }
+    .L  { font-family:'Segoe UI',sans-serif; font-size:12px; font-weight:600; fill:#d4d4d4; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:9.5px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#d4d4d4; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#569cd6; }
+    .G  { font-family:'Fira Code','Consolas',monospace; font-size:9px; fill:#6a9955; }
+    .OR { font-family:'Fira Code','Consolas',monospace; font-size:9px; fill:#ce9178; }
+  </style>
+
+  <rect width="860" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="430" y="34" class="T" text-anchor="middle">Funciones `unsafe` — Capas de Seguridad</text>
+  <text x="430" y="52" class="S" text-anchor="middle">Patrón: unsafe fn interna + safe fn pública = abstracción segura</text>
+  <line x1="40" y1="62" x2="820" y2="62" stroke="#3c3c3c"/>
+
+  <!-- Layer diagram -->
+  <!-- Outer layer: User (safe API) -->
+  <rect x="50" y="75" width="760" height="70" rx="8" fill="#252526" stroke="#6a9955" stroke-width="2"/>
+  <text x="430" y="98" class="H" text-anchor="middle" fill="#6a9955">Capa 1 — API Pública (Safe)</text>
+  <text x="430" y="116" class="C" text-anchor="middle">pub fn swap&lt;T&gt;(a: &amp;mut T, b: &amp;mut T) { ... }</text>
+  <text x="430" y="132" class="X" text-anchor="middle">El caller no necesita escribir unsafe · las referencias &amp;mut garantizan exclusividad y validez</text>
+
+  <!-- Arrow down -->
+  <line x1="430" y1="145" x2="430" y2="165" stroke="#454545" stroke-width="1.5"/>
+  <polygon points="430,168 425,158 435,158" fill="#454545"/>
+
+  <!-- Middle layer: Unsafe block -->
+  <rect x="100" y="168" width="660" height="70" rx="8" fill="#252526" stroke="#dcdcaa" stroke-width="1.5"/>
+  <text x="430" y="191" class="H" text-anchor="middle" fill="#dcdcaa">Capa 2 — Bloque unsafe (acotado)</text>
+  <text x="430" y="209" class="G" text-anchor="middle">// SAFETY: referencias &amp;mut garantizan exclusividad, validez e inicialización.</text>
+  <text x="430" y="225" class="C" text-anchor="middle">unsafe { swap_raw(a as *mut T, b as *mut T) }</text>
+
+  <!-- Arrow down -->
+  <line x1="430" y1="238" x2="430" y2="258" stroke="#454545" stroke-width="1.5"/>
+  <polygon points="430,261 425,251 435,251" fill="#454545"/>
+
+  <!-- Inner layer: unsafe fn -->
+  <rect x="150" y="261" width="560" height="70" rx="8" fill="#2d2d2d" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="430" y="284" class="H" text-anchor="middle">Capa 3 — Función unsafe fn (precondiciones documentadas)</text>
+  <text x="430" y="302" class="K" text-anchor="middle">unsafe fn</text>
+  <text x="493" y="302" class="C" text-anchor="middle"> swap_raw&lt;T&gt;(a: *mut T, b: *mut T) { ptr::read/write }</text>
+  <text x="430" y="318" class="X" text-anchor="middle">Documentar con /// # Safety — el caller es responsable de cumplir precondiciones</text>
+
+  <!-- Contracts box: 2 columns -->
+  <text x="430" y="355" class="H" text-anchor="middle">Contrato de Seguridad</text>
+  <line x1="40" y1="363" x2="820" y2="363" stroke="#3c3c3c"/>
+
+  <!-- Safe fn contract -->
+  <rect x="50" y="372" width="370" height="115" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1.2"/>
+  <text x="235" y="392" class="L" text-anchor="middle" fill="#6a9955">safe fn — garantías del compilador</text>
+  <text x="65" y="410" class="M">• &amp;mut T garantiza exclusividad (borrow check)</text>
+  <text x="65" y="426" class="M">• Referencias siempre apuntan a datos válidos</text>
+  <text x="65" y="442" class="M">• No hay null — tipo garantizado por Rust</text>
+  <text x="65" y="458" class="M">• Lifetime verificado en tiempo de compilación</text>
+  <text x="65" y="474" class="G">// El compilador verifica todo</text>
+
+  <!-- Unsafe fn contract -->
+  <rect x="440" y="372" width="370" height="115" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1.2"/>
+  <text x="625" y="392" class="L" text-anchor="middle" fill="#CE422B">unsafe fn — garantías del programador</text>
+  <text x="455" y="410" class="M">• Punteros apuntan a valores inicializados</text>
+  <text x="455" y="426" class="M">• Punteros son distintos (sin solapamiento)</text>
+  <text x="455" y="442" class="M">• Lifetimes son correctos (dato vive suficiente)</text>
+  <text x="455" y="458" class="M">• Alineación correcta para el tipo</text>
+  <text x="455" y="474" class="G">// SAFETY: el programador garantiza todo</text>
+</svg>

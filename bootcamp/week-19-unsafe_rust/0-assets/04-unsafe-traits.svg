@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:22px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .H  { font-family:'Segoe UI',sans-serif; font-size:13px; font-weight:700; fill:#CE422B; }
+    .L  { font-family:'Segoe UI',sans-serif; font-size:12px; font-weight:600; fill:#d4d4d4; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:9.5px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#d4d4d4; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#569cd6; }
+    .G  { font-family:'Fira Code','Consolas',monospace; font-size:9px; fill:#6a9955; }
+  </style>
+
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="430" y="34" class="T" text-anchor="middle">`Send` y `Sync` — Los Unsafe Traits de Threading</text>
+  <text x="430" y="52" class="S" text-anchor="middle">Auto-implementados por el compilador · solo override manual cuando el compilador se equivoca</text>
+  <line x1="40" y1="62" x2="820" y2="62" stroke="#3c3c3c"/>
+
+  <!-- Send card -->
+  <rect x="50" y="75" width="370" height="200" rx="8" fill="#252526" stroke="#569cd6" stroke-width="1.5"/>
+  <text x="235" y="98" class="H" text-anchor="middle" fill="#569cd6">T: Send</text>
+  <text x="235" y="116" class="L" text-anchor="middle">T puede moverse a otro thread</text>
+  <line x1="60" y1="122" x2="410" y2="122" stroke="#3c3c3c"/>
+  <text x="65" y="140" class="M">Allows: thread::spawn(move || { T })</text>
+  <text x="65" y="157" class="M">Allows: channel.send(T)</text>
+  <line x1="60" y1="168" x2="410" y2="168" stroke="#3c3c3c"/>
+  <text x="235" y="184" class="X" text-anchor="middle" fill="#6a9955">✓ Send (automático)</text>
+  <text x="65" y="200" class="C">i32, f64, String, Vec&lt;T&gt;, Box&lt;T&gt;</text>
+  <text x="65" y="216" class="C">Arc&lt;T&gt;, Mutex&lt;T&gt;, AtomicU64</text>
+  <text x="235" y="234" class="X" text-anchor="middle" fill="#CE422B">✗ !Send (no puede cruzar threads)</text>
+  <text x="65" y="250" class="C">Rc&lt;T&gt;  (contador no atómico)</text>
+  <text x="65" y="265" class="C">*mut T  (sin garantías)</text>
+
+  <!-- Sync card -->
+  <rect x="440" y="75" width="370" height="200" rx="8" fill="#252526" stroke="#4ec9b0" stroke-width="1.5"/>
+  <text x="625" y="98" class="H" text-anchor="middle" fill="#4ec9b0">T: Sync</text>
+  <text x="625" y="116" class="L" text-anchor="middle">&amp;T puede compartirse entre threads</text>
+  <line x1="450" y1="122" x2="800" y2="122" stroke="#3c3c3c"/>
+  <text x="455" y="140" class="M">Allows: Arc::new(T) compartido</text>
+  <text x="455" y="157" class="M">Regla: T: Sync  ⟺  &amp;T: Send</text>
+  <line x1="450" y1="168" x2="800" y2="168" stroke="#3c3c3c"/>
+  <text x="625" y="184" class="X" text-anchor="middle" fill="#6a9955">✓ Sync (automático)</text>
+  <text x="455" y="200" class="C">i32, f64, String (lecturas OK)</text>
+  <text x="455" y="216" class="C">Mutex&lt;T&gt;, RwLock&lt;T&gt;, AtomicU64</text>
+  <text x="625" y="234" class="X" text-anchor="middle" fill="#CE422B">✗ !Sync (no compartir entre threads)</text>
+  <text x="455" y="250" class="C">Cell&lt;T&gt;, RefCell&lt;T&gt;  (interior mut)</text>
+  <text x="455" y="265" class="C">Rc&lt;T&gt;  (contador no atómico)</text>
+
+  <!-- Separator -->
+  <line x1="40" y1="292" x2="820" y2="292" stroke="#3c3c3c"/>
+
+  <!-- Manual impl section -->
+  <text x="430" y="315" class="H" text-anchor="middle">Cuándo Implementar Manualmente</text>
+
+  <!-- Needs manual impl box -->
+  <rect x="50" y="325" width="360" height="120" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1.2"/>
+  <text x="230" y="345" class="L" text-anchor="middle">Tipo que necesita override</text>
+  <text x="65" y="363" class="K">struct</text>
+  <text x="102" y="363" class="C"> CHandle { ptr: *mut u8 }</text>
+  <text x="65" y="379" class="G">// El compilador deduce: !Send + !Sync</text>
+  <text x="65" y="395" class="G">// porque *mut u8 es !Send + !Sync</text>
+  <text x="65" y="413" class="G">// Pero la API C garantiza thread-safety...</text>
+  <text x="65" y="429" class="G">// → necesitamos unsafe impl manual</text>
+
+  <!-- Safe impl box -->
+  <rect x="450" y="325" width="360" height="120" rx="6" fill="#252526" stroke="#6a9955" stroke-width="1.2"/>
+  <text x="630" y="345" class="L" text-anchor="middle">Override correcto</text>
+  <text x="465" y="363" class="G">// SAFETY: API C garantiza transfer OK.</text>
+  <text x="465" y="379" class="K">unsafe impl</text>
+  <text x="537" y="379" class="C"> Send </text>
+  <text x="562" y="379" class="K">for</text>
+  <text x="580" y="379" class="C"> CHandle {}</text>
+  <text x="465" y="396" class="G">// SAFETY: lecturas concurrentes OK.</text>
+  <text x="465" y="412" class="K">unsafe impl</text>
+  <text x="537" y="412" class="C"> Sync </text>
+  <text x="562" y="412" class="K">for</text>
+  <text x="580" y="412" class="C"> CHandle {}</text>
+  <text x="465" y="429" class="G">// usar con Arc&lt;Mutex&lt;CHandle&gt;&gt;</text>
+
+  <!-- Bottom: auto-impl rule -->
+  <rect x="50" y="460" width="760" height="45" rx="6" fill="#252526" stroke="#454545"/>
+  <text x="430" y="479" class="L" text-anchor="middle">Regla de Auto-Implementación</text>
+  <text x="430" y="496" class="X" text-anchor="middle">Si TODOS los campos son Send → el tipo es Send automáticamente  ·  Si TODOS son Sync → el tipo es Sync automáticamente</text>
+</svg>

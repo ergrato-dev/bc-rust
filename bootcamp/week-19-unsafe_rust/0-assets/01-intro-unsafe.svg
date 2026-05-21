@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500">
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:22px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .H  { font-family:'Segoe UI',sans-serif; font-size:14px; font-weight:700; fill:#CE422B; }
+    .L  { font-family:'Segoe UI',sans-serif; font-size:12px; font-weight:600; fill:#d4d4d4; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:9.5px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#ce9178; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#569cd6; }
+    .G  { font-family:'Segoe UI',sans-serif; font-size:10px; fill:#6a9955; }
+  </style>
+
+  <rect width="860" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="430" y="34" class="T" text-anchor="middle">Los 5 Superpoderes de `unsafe` en Rust</text>
+  <text x="430" y="52" class="S" text-anchor="middle">unsafe no desactiva el borrow checker · solo habilita estas 5 operaciones</text>
+  <line x1="40" y1="62" x2="820" y2="62" stroke="#3c3c3c"/>
+
+  <!-- Safe vs Unsafe divider -->
+  <text x="180" y="85" class="H" text-anchor="middle">Safe Rust</text>
+  <text x="660" y="85" class="H" text-anchor="middle">Unsafe Rust</text>
+  <line x1="430" y1="70" x2="430" y2="490" stroke="#454545" stroke-dasharray="6,4"/>
+
+  <!-- Safe Rust box -->
+  <rect x="50" y="95" width="360" height="120" rx="8" fill="#252526" stroke="#3c3c3c"/>
+  <text x="230" y="116" class="L" text-anchor="middle">El compilador verifica:</text>
+  <text x="80" y="136" class="M">✓  Borrow checker (aliasing + exclusividad)</text>
+  <text x="80" y="153" class="M">✓  Lifetime analysis (referencias válidas)</text>
+  <text x="80" y="170" class="M">✓  Null-safety (no raw pointers)</text>
+  <text x="80" y="187" class="M">✓  Type system completo</text>
+  <text x="80" y="204" class="M">✓  Seguridad de memoria estática garantizada</text>
+
+  <!-- Arrow center -->
+  <text x="430" y="167" class="H" text-anchor="middle">+5</text>
+  <text x="430" y="183" class="X" text-anchor="middle">superpoderes</text>
+
+  <!-- Unsafe Rust box -->
+  <rect x="450" y="95" width="360" height="120" rx="8" fill="#252526" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="630" y="116" class="L" text-anchor="middle">El programador garantiza:</text>
+  <text x="480" y="136" class="M">⚡  Raw pointer dereference</text>
+  <text x="480" y="153" class="M">⚡  Llamar funciones unsafe</text>
+  <text x="480" y="170" class="M">⚡  Acceder a static mut</text>
+  <text x="480" y="187" class="M">⚡  Implementar unsafe traits</text>
+  <text x="480" y="204" class="M">⚡  Acceder campos de union</text>
+
+  <!-- 5 superpowers detailed cards -->
+  <!-- Card 1: Raw Pointers -->
+  <rect x="50" y="235" width="155" height="110" rx="6" fill="#2d2d2d" stroke="#569cd6" stroke-width="1.2"/>
+  <text x="127" y="253" class="H" text-anchor="middle" fill="#569cd6">① Raw Pointers</text>
+  <text x="127" y="270" class="C" text-anchor="middle">*const T / *mut T</text>
+  <text x="60" y="288" class="X">Sin lifetime</text>
+  <text x="60" y="302" class="X">Sin garantía de validez</text>
+  <text x="60" y="316" class="X">Sin null-check automático</text>
+  <text x="60" y="330" class="G">// SAFETY: ptr válido</text>
+
+  <!-- Card 2: Unsafe fn -->
+  <rect x="215" y="235" width="155" height="110" rx="6" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1.2"/>
+  <text x="292" y="253" class="H" text-anchor="middle" fill="#4ec9b0">② unsafe fn</text>
+  <text x="292" y="270" class="C" text-anchor="middle">unsafe fn f() { }</text>
+  <text x="225" y="288" class="X">Precondiciones manuales</text>
+  <text x="225" y="302" class="X">Documentar con # Safety</text>
+  <text x="225" y="316" class="X">Caller se hace responsable</text>
+  <text x="225" y="330" class="G">/// # Safety</text>
+
+  <!-- Card 3: static mut -->
+  <rect x="380" y="235" width="155" height="110" rx="6" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1.2"/>
+  <text x="457" y="253" class="H" text-anchor="middle" fill="#dcdcaa">③ static mut</text>
+  <text x="457" y="270" class="C" text-anchor="middle">static mut X: T</text>
+  <text x="390" y="288" class="X">Estado global mutable</text>
+  <text x="390" y="302" class="X">Riesgo de data races</text>
+  <text x="390" y="316" class="X">Preferir Mutex/AtomicX</text>
+  <text x="390" y="330" class="G">// SAFETY: single-thread</text>
+
+  <!-- Card 4: unsafe impl -->
+  <rect x="545" y="235" width="155" height="110" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="1.2"/>
+  <text x="622" y="253" class="H" text-anchor="middle" fill="#CE422B">④ unsafe impl</text>
+  <text x="622" y="270" class="C" text-anchor="middle">unsafe impl Send</text>
+  <text x="555" y="288" class="X">Implementar Send/Sync</text>
+  <text x="555" y="302" class="X">Garantías de threading</text>
+  <text x="555" y="316" class="X">Solo si semánt. correcto</text>
+  <text x="555" y="330" class="G">// SAFETY: thread-safe</text>
+
+  <!-- Card 5: union -->
+  <rect x="710" y="235" width="110" height="110" rx="6" fill="#2d2d2d" stroke="#808080" stroke-width="1.2"/>
+  <text x="765" y="253" class="H" text-anchor="middle" fill="#808080">⑤ union</text>
+  <text x="765" y="270" class="C" text-anchor="middle">union U { }</text>
+  <text x="720" y="288" class="X">FFI con C</text>
+  <text x="720" y">302" class="X">Overlapping fields</text>
+  <text x="720" y="316" class="X">Variante activa manual</text>
+  <text x="720" y="330" class="G">// SAFETY: campo b</text>
+
+  <!-- Bottom rule box -->
+  <rect x="50" y="360" width="760" height="55" rx="8" fill="#252526" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="430" y="380" class="H" text-anchor="middle">Regla de Oro — SAFETY comment obligatorio</text>
+  <text x="430" y="398" class="C" text-anchor="middle">// SAFETY: &lt;explicar invariante que garantiza que no hay UB&gt;</text>
+  <text x="430" y="414" class="X" text-anchor="middle">Sin comentario SAFETY → el código no pasa revisión</text>
+
+  <!-- Bottom note -->
+  <text x="430" y="450" class="S" text-anchor="middle">unsafe no desactiva el borrow checker, lifetime analysis ni el type system</text>
+  <text x="430" y="466" class="S" text-anchor="middle">El riesgo queda ACOTADO: solo en los bloques unsafe — auditables en code review</text>
+</svg>
