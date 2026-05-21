@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .smallb   { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #d4d4d4; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+    .neutral  { fill: #569cd6; }
+  </style>
+
+  <rect width="860" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 23 — Interpretar Resultados de Criterion</text>
+  <text x="24" y="45" class="subtitle">Salida de terminal · Detección de regresión · Gráfico de violín · BenchmarkId</text>
+
+  <!-- ===== SALIDA DE TERMINAL ===== -->
+  <rect x="20" y="68" width="540" height="200" rx="6" fill="#0d1117" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="68" width="540" height="26" rx="6" fill="#161b22"/>
+  <rect x="20" y="80" width="540" height="14" fill="#161b22"/>
+  <text x="36" y="87" class="code" fill="#58a6ff">$ cargo bench</text>
+
+  <text x="30" y="112" class="code" fill="#8b949e">fibonacci/recursivo_n20</text>
+  <text x="30" y="128" class="code" fill="#8b949e">      time:   </text><text x="130" y="128" class="code" fill="#f0f6fc">[</text><text x="136" y="128" class="num">14.521 µs</text><text x="196" y="128" class="code" fill="#f0f6fc">  </text><text x="202" y="128" class="num">14.612 µs</text><text x="262" y="128" class="code" fill="#f0f6fc">  </text><text x="268" y="128" class="num">14.718 µs</text><text x="328" y="128" class="code" fill="#f0f6fc">]</text>
+  <text x="30" y="144" class="small" fill="#8b949e">             ^95% CI izq.  ^media    ^95% CI der.</text>
+
+  <text x="30" y="164" class="code" fill="#8b949e">fibonacci/iterativo_n20</text>
+  <text x="30" y="180" class="code" fill="#8b949e">      time:   </text><text x="130" y="180" class="code" fill="#f0f6fc">[</text><text x="136" y="180" class="num">3.1 ns</text><text x="172" y="180" class="code" fill="#f0f6fc">  </text><text x="178" y="180" class="num">3.2 ns</text><text x="214" y="180" class="code" fill="#f0f6fc">  </text><text x="220" y="180" class="num">3.3 ns</text><text x="256" y="180" class="code" fill="#f0f6fc">]</text>
+  <text x="30" y="196" class="code" fill="#3fb950">      change: </text><text x="130" y="196" class="code" fill="#3fb950">[-3.2%  -1.8%  -0.5%]</text><text x="266" y="196" class="code" fill="#8b949e">  (p = 0.01 &lt; 0.05)</text>
+  <text x="30" y="212" class="code" fill="#3fb950">      Performance has improved.</text>
+
+  <text x="30" y="234" class="code" fill="#f85149">fibonacci/recursivo_n20</text>
+  <text x="30" y="250" class="code" fill="#f85149">      change: [+8.1%  +9.4%  +10.7%]  (p = 0.00 &lt; 0.05)</text>
+  <text x="30" y="266" class="code" fill="#f85149">      Performance has regressed.</text>
+
+  <!-- LEYENDA SALIDA -->
+  <rect x="576" y="68" width="264" height="200" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="576" y="68" width="264" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="576" y="80" width="264" height="14" fill="#2d2d2d"/>
+  <text x="592" y="87" class="label" font-weight="bold">Leyenda</text>
+
+  <text x="586" y="114" class="neutral">[ bajo   media   alto ]</text>
+  <text x="586" y="130" class="small">Intervalo de confianza del 95%</text>
+  <text x="586" y="146" class="small">Media = estimación puntual del tiempo</text>
+
+  <text x="586" y="170" class="good">change: negativo</text>
+  <text x="586" y="186" class="small">Performance mejoró respecto al</text>
+  <text x="586" y="202" class="small">baseline guardado (--save-baseline)</text>
+
+  <text x="586" y="226" class="bad">change: positivo</text>
+  <text x="586" y="242" class="small">Regresión detectada — el código</text>
+  <text x="586" y="258" class="small">es más lento que el baseline</text>
+
+  <!-- ===== GRÁFICO DE VIOLÍN SIMULADO ===== -->
+  <rect x="20" y="282" width="400" height="200" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="282" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="294" width="400" height="14" fill="#2d2d2d"/>
+  <text x="36" y="301" class="label" font-weight="bold">Gráfico de violín (HTML report)</text>
+
+  <!-- ejes -->
+  <line x1="60" y1="320" x2="60" y2="462" stroke="#454545" stroke-width="1"/>
+  <line x1="60" y1="462" x2="400" y2="462" stroke="#454545" stroke-width="1"/>
+  <text x="230" y="478" class="small" text-anchor="middle">Tiempo (ns)</text>
+  <text x="36" y="420" class="small" text-anchor="middle" transform="rotate(-90,36,420)">Densidad</text>
+
+  <!-- violín 1: iterativo (estrecho, bueno) -->
+  <ellipse cx="130" cy="400" rx="20" ry="60" fill="#CE422B" fill-opacity="0.6"/>
+  <line x1="130" y1="340" x2="130" y2="460" stroke="#CE422B" stroke-width="1.5" stroke-dasharray="3"/>
+  <text x="130" y="318" class="small" text-anchor="middle" fill="#CE422B">iterativo</text>
+  <text x="130" y="484" class="num" text-anchor="middle">3.2 ns</text>
+
+  <!-- violín 2: recursivo (ancho, lento) -->
+  <ellipse cx="300" cy="400" rx="50" ry="50" fill="#569cd6" fill-opacity="0.3"/>
+  <line x1="300" y1="350" x2="300" y2="450" stroke="#569cd6" stroke-width="1.5" stroke-dasharray="3"/>
+  <text x="300" y="318" class="small" text-anchor="middle" fill="#569cd6">recursivo</text>
+  <text x="300" y="484" class="num" text-anchor="middle">14.6 µs</text>
+
+  <!-- anotaciones -->
+  <text x="80" y="345" class="small" fill="#CE422B">estrecho =</text>
+  <text x="80" y="359" class="small" fill="#CE422B">poca varianza</text>
+  <text x="240" y="345" class="small" fill="#569cd6">ancho =</text>
+  <text x="240" y="359" class="small" fill="#569cd6">alta varianza</text>
+
+  <!-- ===== TABLA BenchmarkId ===== -->
+  <rect x="436" y="282" width="404" height="200" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="436" y="282" width="404" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="436" y="294" width="404" height="14" fill="#2d2d2d"/>
+  <text x="452" y="301" class="label" font-weight="bold">BenchmarkId — comparar con distintos inputs</text>
+
+  <!-- tabla simulada de criterion output -->
+  <text x="446" y="326" class="code">sorting/burbuja/100     </text><text x="596" y="326" class="num">312 µs</text>
+  <text x="446" y="342" class="code">sorting/insercion/100   </text><text x="596" y="342" class="num">89 µs</text>
+  <text x="446" y="358" class="code">sorting/mergesort/100   </text><text x="596" y="358" class="num">12 µs</text>
+  <text x="446" y="374" class="code">sorting/stdlib/100      </text><text x="596" y="374" class="num">6.2 µs</text><text x="640" y="374" class="good"> ← más rápido</text>
+
+  <line x1="446" y1="382" x2="830" y2="382" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4"/>
+
+  <text x="446" y="398" class="code">sorting/burbuja/1000    </text><text x="596" y="398" class="num">31 ms</text>
+  <text x="446" y="414" class="code">sorting/mergesort/1000  </text><text x="596" y="414" class="num">180 µs</text>
+  <text x="446" y="430" class="code">sorting/stdlib/1000     </text><text x="596" y="430" class="num">82 µs</text><text x="640" y="430" class="good"> ← más rápido</text>
+
+  <text x="446" y="454" class="small">El reporte HTML incluye gráfico de líneas tiempo vs. tamaño.</text>
+  <text x="446" y="470" class="small">Permite ver cómo escala cada algoritmo con el input.</text>
+</svg>

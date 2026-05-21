@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #9cdcfe; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 23 — Anatomía de un Benchmark con Criterion</text>
+  <text x="24" y="45" class="subtitle">Cargo.toml · benches/ · black_box · BenchmarkGroup · criterion_group!</text>
+
+  <!-- ===== COLUMNA IZQUIERDA: Cargo.toml ===== -->
+  <rect x="20" y="68" width="260" height="144" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="68" width="260" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="80" width="260" height="14" fill="#2d2d2d"/>
+  <text x="36" y="87" class="label" font-weight="bold">Cargo.toml</text>
+
+  <text x="30" y="112" class="code">[dev-dependencies]</text>
+  <text x="30" y="128" class="attr">criterion</text><text x="92" y="128" class="code"> = { </text><text x="124" y="128" class="attr">version</text><text x="172" y="128" class="code"> = </text><text x="188" y="128" class="str">"0.5.1"</text><text x="232" y="128" class="code">,</text>
+  <text x="42" y="144" class="attr">features</text><text x="96" y="144" class="code"> = [</text><text x="120" y="144" class="str">"html_reports"</text><text x="214" y="144" class="code">] }</text>
+
+  <text x="30" y="164" class="code">[[bench]]</text>
+  <text x="30" y="180" class="attr">name</text><text x="60" y="180" class="code">    = </text><text x="90" y="180" class="str">"mi_bench"</text>
+  <text x="30" y="196" class="attr">harness</text><text x="78" y="196" class="code"> = </text><text x="96" y="196" class="kw">false</text>
+  <text x="130" y="196" class="comment">← obligatorio</text>
+
+  <!-- ===== COLUMNA IZQUIERDA: Estructura dirs ===== -->
+  <rect x="20" y="224" width="260" height="100" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="224" width="260" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="236" width="260" height="14" fill="#2d2d2d"/>
+  <text x="36" y="243" class="label" font-weight="bold">Estructura de archivos</text>
+  <text x="30" y="268" class="code">mi-crate/</text>
+  <text x="30" y="284" class="code">├── src/</text><text x="84" y="284" class="ty">lib.rs</text><text x="130" y="284" class="comment">   ← código</text>
+  <text x="30" y="300" class="code">└── benches/</text>
+  <text x="30" y="316" class="code">    └── </text><text x="72" y="316" class="ty">mi_bench.rs</text><text x="148" y="316" class="comment"> ← bench</text>
+
+  <!-- ===== COLUMNA DERECHA: Código del bench ===== -->
+  <rect x="296" y="68" width="544" height="356" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="296" y="68" width="544" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="296" y="80" width="544" height="14" fill="#2d2d2d"/>
+  <text x="312" y="87" class="label" font-weight="bold" fill="#CE422B">benches/mi_bench.rs</text>
+
+  <text x="306" y="112" class="kw">use </text><text x="328" y="112" class="ty">criterion</text><text x="376" y="112" class="code">::{</text><text x="400" y="112" class="fn">black_box</text><text x="452" y="112" class="code">, </text><text x="460" y="112" class="fn">criterion_group</text><text x="556" y="112" class="code">, </text><text x="564" y="112" class="fn">criterion_main</text><text x="656" y="112" class="code">, </text><text x="664" y="112" class="ty">Criterion</text><text x="712" y="112" class="code">};</text>
+
+  <text x="306" y="134" class="kw">use </text><text x="328" y="134" class="ty">mi_crate</text><text x="374" y="134" class="code">::</text><text x="380" y="134" class="fn">mi_funcion</text><text x="436" y="134" class="code">;</text>
+
+  <!-- función de benchmark -->
+  <text x="306" y="158" class="kw">fn </text><text x="322" y="158" class="fn">bench_mi_funcion</text><text x="420" y="158" class="code">(c: &amp;</text><text x="452" y="158" class="kw">mut </text><text x="474" y="158" class="ty">Criterion</text><text x="522" y="158" class="code">) {</text>
+
+  <!-- bench_function simple -->
+  <text x="322" y="176" class="comment">// Benchmark simple con nombre</text>
+  <text x="322" y="192" class="code">c.</text><text x="334" y="192" class="fn">bench_function</text><text x="418" y="192" class="code">(</text><text x="424" y="192" class="str">"mi_funcion_100"</text><text x="516" y="192" class="code">, |b| {</text>
+  <text x="336" y="208" class="code">b.</text><text x="348" y="208" class="fn">iter</text><text x="368" y="208" class="code">(|| </text><text x="386" y="208" class="fn">mi_funcion</text><text x="440" y="208" class="code">(</text><text x="446" y="208" class="fn">black_box</text><text x="494" y="208" class="code">(</text><text x="500" y="208" class="num">100</text><text x="518" y="208" class="code">)))</text>
+  <text x="322" y="224" class="code">});</text>
+
+  <!-- BenchmarkGroup -->
+  <text x="322" y="248" class="comment">// Grupo para comparar variantes</text>
+  <text x="322" y="264" class="kw">let mut </text><text x="364" y="264" class="code">group = c.</text><text x="424" y="264" class="fn">benchmark_group</text><text x="520" y="264" class="code">(</text><text x="526" y="264" class="str">"fibonacci"</text><text x="584" y="264" class="code">);</text>
+  <text x="322" y="280" class="code">group.</text><text x="358" y="280" class="fn">bench_function</text><text x="442" y="280" class="code">(</text><text x="448" y="280" class="str">"recursivo"</text><text x="510" y="280" class="code">, |b| b.</text><text x="558" y="280" class="fn">iter</text><text x="578" y="280" class="code">(|| </text><text x="596" y="280" class="fn">fib_rec</text><text x="634" y="280" class="code">(</text><text x="640" y="280" class="fn">black_box</text><text x="688" y="280" class="code">(</text><text x="694" y="280" class="num">20</text><text x="706" y="280" class="code">))));</text>
+  <text x="322" y="296" class="code">group.</text><text x="358" y="296" class="fn">bench_function</text><text x="442" y="296" class="code">(</text><text x="448" y="296" class="str">"iterativo"</text><text x="510" y="296" class="code">, |b| b.</text><text x="558" y="296" class="fn">iter</text><text x="578" y="296" class="code">(|| </text><text x="596" y="296" class="fn">fib_iter</text><text x="636" y="296" class="code">(</text><text x="642" y="296" class="fn">black_box</text><text x="690" y="296" class="code">(</text><text x="696" y="296" class="num">20</text><text x="708" y="296" class="code">))));</text>
+  <text x="322" y="312" class="code">group.</text><text x="358" y="312" class="fn">finish</text><text x="394" y="312" class="code">();</text><text x="416" y="312" class="comment">  // ← importante, volcar resultados</text>
+
+  <text x="306" y="330" class="code">}</text>
+
+  <!-- macros -->
+  <text x="306" y="354" class="fn">criterion_group!</text><text x="408" y="354" class="code">(benches, bench_mi_funcion);</text>
+  <text x="306" y="370" class="fn">criterion_main!</text><text x="404" y="370" class="code">(benches);</text><text x="480" y="370" class="comment">  // genera el fn main()</text>
+
+  <text x="306" y="392" class="comment">// Ejecutar con:</text>
+  <text x="306" y="408" class="code">// cargo bench</text>
+  <text x="306" y="422" class="code">// cargo bench -- --save-baseline v1</text>
+
+  <!-- ===== NOTAS black_box ===== -->
+  <rect x="20" y="336" width="260" height="88" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="36" y="356" class="label" font-weight="bold" fill="#CE422B">black_box</text>
+  <text x="30" y="374" class="small">Impide que el compilador elimine</text>
+  <text x="30" y="390" class="small">el cómputo como "dead code".</text>
+  <text x="30" y="410" class="code" fill="#f44747">❌ </text><text x="48" y="410" class="code">b.iter(|| </text><text x="106" y="410" class="fn">fib</text><text x="124" y="410" class="code">(20))</text>
+  <text x="30" y="426" class="code" fill="#4ec9b0">✓ </text><text x="48" y="426" class="code">b.iter(|| </text><text x="106" y="426" class="fn">fib</text><text x="124" y="426" class="code">(</text><text x="130" y="426" class="fn">black_box</text><text x="178" y="426" class="code">(20)))</text>
+
+  <!-- ===== CICLO DE EJECUCIÓN ===== -->
+  <rect x="20" y="436" width="820" height="68" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="436" width="820" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="448" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="455" class="label" font-weight="bold">Ciclo de ejecución de Criterion</text>
+
+  <!-- steps -->
+  <rect x="36"  y="470" width="120" height="22" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="96"  y="484" class="small" text-anchor="middle">1. Warmup</text>
+  <line x1="156" y1="481" x2="180" y2="481" stroke="#CE422B" stroke-width="1" marker-end="url(#a)"/>
+
+  <rect x="180" y="470" width="120" height="22" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="240" y="484" class="small" text-anchor="middle">2. Medir N iters</text>
+  <line x1="300" y1="481" x2="324" y2="481" stroke="#CE422B" stroke-width="1" marker-end="url(#a)"/>
+
+  <rect x="324" y="470" width="120" height="22" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="384" y="484" class="small" text-anchor="middle">3. Análisis estadístico</text>
+  <line x1="444" y1="481" x2="468" y2="481" stroke="#CE422B" stroke-width="1" marker-end="url(#a)"/>
+
+  <rect x="468" y="470" width="120" height="22" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="528" y="484" class="small" text-anchor="middle">4. Comparar baseline</text>
+  <line x1="588" y1="481" x2="612" y2="481" stroke="#CE422B" stroke-width="1" marker-end="url(#a)"/>
+
+  <rect x="612" y="470" width="120" height="22" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="672" y="484" class="small" text-anchor="middle">5. Generar HTML</text>
+  <line x1="732" y1="481" x2="756" y2="481" stroke="#CE422B" stroke-width="1" marker-end="url(#a)"/>
+
+  <rect x="756" y="470" width="88" height="22" rx="4" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="800" y="484" class="small" text-anchor="middle" fill="#4ec9b0">✓ Reporte</text>
+
+  <defs>
+    <marker id="a" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L7,2.5 z" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .cmd      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 23 — Flamegraph: Generación y Lectura</text>
+  <text x="24" y="45" class="subtitle">cargo flamegraph · perf · call stack · hot path</text>
+
+  <!-- ===== COMANDOS ===== -->
+  <rect x="20" y="68" width="400" height="112" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="68" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="80" width="400" height="14" fill="#2d2d2d"/>
+  <text x="36" y="87" class="label" font-weight="bold">Comandos</text>
+
+  <text x="30" y="112" class="small">Instalar</text>
+  <text x="110" y="112" class="cmd">cargo install flamegraph@0.6.5</text>
+  <text x="30" y="130" class="small">Generar</text>
+  <text x="110" y="130" class="cmd">cargo flamegraph --bin mi-binario</text>
+  <text x="30" y="148" class="small">Abrir</text>
+  <text x="110" y="148" class="cmd">xdg-open flamegraph.svg</text>
+  <text x="30" y="166" class="small">Con perf</text>
+  <text x="110" y="166" class="cmd">perf stat -e cache-misses ./target/release/bin</text>
+
+  <!-- ===== INSTRUCCIONES FLAMEGRAPH ===== -->
+  <rect x="436" y="68" width="404" height="112" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="436" y="68" width="404" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="436" y="80" width="404" height="14" fill="#2d2d2d"/>
+  <text x="452" y="87" class="label" font-weight="bold">Interactividad del SVG</text>
+  <text x="446" y="112" class="small">Click en un frame → zoom a ese subárbol</text>
+  <text x="446" y="128" class="small">Ctrl+F → buscar función por nombre</text>
+  <text x="446" y="144" class="small">Click en "Reset Zoom" → volver a la vista completa</text>
+  <text x="446" y="160" class="small">Hover → mostrar porcentaje de tiempo y call stack</text>
+  <text x="446" y="176" class="small">Los frames son clickables solo en navegador, no en VSCode</text>
+
+  <!-- ===== DIAGRAMA FLAMEGRAPH SIMULADO ===== -->
+  <rect x="20" y="196" width="820" height="226" rx="6" fill="#1a1a1a" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="196" width="820" height="26" rx="6" fill="#252526"/>
+  <rect x="20" y="208" width="820" height="14" fill="#252526"/>
+  <text x="36" y="215" class="label" font-weight="bold">Flamegraph simulado — programa con 3 hot paths</text>
+
+  <!-- NIVEL 0: main -->
+  <rect x="30" y="226" width="800" height="24" rx="2" fill="#CE422B" fill-opacity="0.8"/>
+  <text x="430" y="242" class="small" text-anchor="middle" fill="#1e1e1e" font-weight="bold">main  [100% del tiempo]</text>
+
+  <!-- NIVEL 1: tres funciones -->
+  <rect x="30"  y="252" width="500" height="24" rx="2" fill="#CE422B" fill-opacity="0.7"/>
+  <text x="280" y="268" class="small" text-anchor="middle" fill="#1e1e1e" font-weight="bold">calcular_primos  [62.5%]</text>
+
+  <rect x="534" y="252" width="150" height="24" rx="2" fill="#CE422B" fill-opacity="0.5"/>
+  <text x="609" y="268" class="small" text-anchor="middle" fill="#d4d4d4">suma_factorial [18.7%]</text>
+
+  <rect x="688" y="252" width="142" height="24" rx="2" fill="#CE422B" fill-opacity="0.3"/>
+  <text x="759" y="268" class="small" text-anchor="middle" fill="#d4d4d4">hash_simple [17.8%]</text>
+
+  <!-- NIVEL 2: bajo calcular_primos -->
+  <rect x="30"  y="278" width="460" height="24" rx="2" fill="#CE422B" fill-opacity="0.6"/>
+  <text x="260" y="294" class="small" text-anchor="middle" fill="#1e1e1e" font-weight="bold">es_primo  [57.5%]  ← HOT PATH</text>
+
+  <rect x="494" y="278" width="36"  height="24" rx="2" fill="#CE422B" fill-opacity="0.3"/>
+  <text x="512" y="294" class="code" text-anchor="middle">iter</text>
+
+  <!-- NIVEL 3: dentro de es_primo -->
+  <rect x="30"  y="304" width="340" height="24" rx="2" fill="#CE422B" fill-opacity="0.5"/>
+  <text x="200" y="320" class="small" text-anchor="middle" fill="#d4d4d4">divisibilidad loop  [42.5%]</text>
+
+  <rect x="374" y="304" width="116" height="24" rx="2" fill="#CE422B" fill-opacity="0.25"/>
+  <text x="432" y="320" class="small" text-anchor="middle" fill="#808080">setup  [15%]</text>
+
+  <!-- NIVEL 4 -->
+  <rect x="30" y="330" width="200" height="24" rx="2" fill="#CE422B" fill-opacity="0.4"/>
+  <text x="130" y="346" class="small" text-anchor="middle" fill="#d4d4d4">wrapping_mul  [25%]</text>
+
+  <rect x="234" y="330" width="106" height="24" rx="2" fill="#CE422B" fill-opacity="0.2"/>
+  <text x="287" y="346" class="small" text-anchor="middle" fill="#808080">rem  [17.5%]</text>
+
+  <!-- NIVEL 5: fondo de la pila (idle) -->
+  <rect x="30" y="356" width="800" height="14" rx="2" fill="#2d2d2d"/>
+  <text x="430" y="367" class="small" text-anchor="middle" fill="#454545">... capas del runtime (std, libc, kernel)</text>
+
+  <!-- ANOTACIONES -->
+  <!-- flecha a hot path -->
+  <line x1="260" y1="292" x2="260" y2="188" stroke="#CE422B" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="268" y="184" class="small" fill="#CE422B">Función a optimizar</text>
+
+  <!-- eje Y -->
+  <text x="840" y="232" class="small" text-anchor="end" fill="#808080">profundidad</text>
+  <text x="840" y="260" class="small" text-anchor="end">nivel 0</text>
+  <text x="840" y="286" class="small" text-anchor="end">nivel 1</text>
+  <text x="840" y="312" class="small" text-anchor="end">nivel 2</text>
+  <text x="840" y="338" class="small" text-anchor="end">nivel 3</text>
+
+  <!-- ===== REGLAS DE LECTURA ===== -->
+  <rect x="20" y="434" width="820" height="68" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="434" width="820" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="446" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="453" class="label" font-weight="bold">Reglas de lectura</text>
+
+  <text x="36" y="474" class="bad">•</text>
+  <text x="48" y="474" class="small">Rectángulo ancho en la CIMA = función que consume CPU, candidata a optimizar</text>
+
+  <text x="36" y="490" class="good">•</text>
+  <text x="48" y="490" class="small">Rectángulo ancho en la BASE pero estrecho arriba = función de setup, generalmente no es el problema</text>
+
+  <text x="440" y="474" class="warn">•</text>
+  <text x="452" y="474" class="small">Muchos frames pequeños = overhead de función; considerar inline (#[inline])</text>
+
+  <text x="440" y="490" class="warn">•</text>
+  <text x="452" y="490" class="small">Compilar siempre con --release antes de generar flamegraph (debug es 10-100x más lento)</text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .tag      { font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: bold; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .num      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #b5cea8; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <rect width="860" height="560" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 23 — Patrones de Optimización en Rust</text>
+  <text x="24" y="45" class="subtitle">Evitar allocations · with_capacity · iteradores · SIMD autovectorización</text>
+
+  <!-- === PATRÓN 1: Evitar Vec en retorno === -->
+  <text x="30" y="84" class="label" font-weight="bold" fill="#CE422B">① Evitar Vec allocation innecesaria</text>
+
+  <rect x="20" y="92" width="400" height="120" rx="5" fill="#252526" stroke="#f44747" stroke-width="1"/>
+  <rect x="20" y="92" width="60" height="20" rx="4" fill="#f44747"/>
+  <text x="50" y="105" class="tag" text-anchor="middle" fill="#1e1e1e">LENTO</text>
+  <text x="30" y="126" class="kw">fn </text><text x="46" y="126" class="fn">maximo_v1</text><text x="104" y="126" class="code">(datos: &amp;[</text><text x="152" y="126" class="ty">i32</text><text x="168" y="126" class="code">]) -> </text><text x="204" y="126" class="ty">i32</text><text x="220" y="126" class="code"> {</text>
+  <text x="30" y="142" class="kw">    let </text><text x="64" y="142" class="code">v: </text><text x="80" y="142" class="ty">Vec</text><text x="104" y="142" class="code">&lt;</text><text x="110" y="142" class="ty">_</text><text x="116" y="142" class="code">&gt; = datos.</text><text x="176" y="142" class="fn">iter</text><text x="196" y="142" class="code">().</text><text x="210" y="142" class="fn">collect</text><text x="252" y="142" class="code">();</text>
+  <text x="30" y="158" class="comment">    // ❌ alloc heap innecesaria</text>
+  <text x="30" y="174" class="code">    *v.</text><text x="60" y="174" class="fn">iter</text><text x="80" y="174" class="code">().</text><text x="94" y="174" class="fn">max</text><text x="116" y="174" class="code">().</text><text x="130" y="174" class="fn">unwrap</text><text x="172" y="174" class="code">()</text>
+  <text x="30" y="190" class="code">}</text>
+  <text x="30" y="204" class="code" fill="#f44747">// ~2 allocs/free por llamada</text>
+
+  <rect x="436" y="92" width="400" height="120" rx="5" fill="#252526" stroke="#4ec9b0" stroke-width="1"/>
+  <rect x="436" y="92" width="64" height="20" rx="4" fill="#4ec9b0"/>
+  <text x="468" y="105" class="tag" text-anchor="middle" fill="#1e1e1e">RÁPIDO</text>
+  <text x="446" y="126" class="kw">fn </text><text x="462" y="126" class="fn">maximo_v2</text><text x="520" y="126" class="code">(datos: &amp;[</text><text x="568" y="126" class="ty">i32</text><text x="584" y="126" class="code">]) -> </text><text x="620" y="126" class="ty">Option</text><text x="660" y="126" class="code">&lt;</text><text x="666" y="126" class="ty">i32</text><text x="682" y="126" class="code">&gt; {</text>
+  <text x="446" y="142" class="comment">    // ✅ Iterador directo, sin heap</text>
+  <text x="446" y="158" class="code">    datos.</text><text x="492" y="158" class="fn">iter</text><text x="512" y="158" class="code">().</text><text x="526" y="158" class="fn">copied</text><text x="566" y="158" class="code">().</text><text x="580" y="158" class="fn">max</text><text x="602" y="158" class="code">()</text>
+  <text x="446" y="174" class="code">}</text>
+  <text x="446" y="204" class="code" fill="#4ec9b0">// 0 allocs — solo registros CPU</text>
+
+  <!-- === PATRÓN 2: String with_capacity === -->
+  <text x="30" y="232" class="label" font-weight="bold" fill="#CE422B">② String::with_capacity en vez de concatenación</text>
+
+  <rect x="20" y="240" width="400" height="120" rx="5" fill="#252526" stroke="#f44747" stroke-width="1"/>
+  <rect x="20" y="240" width="60" height="20" rx="4" fill="#f44747"/>
+  <text x="50" y="253" class="tag" text-anchor="middle" fill="#1e1e1e">LENTO</text>
+  <text x="30" y="274" class="kw">fn </text><text x="46" y="274" class="fn">concat_v1</text><text x="102" y="274" class="code">(partes: &amp;[&amp;</text><text x="162" y="274" class="kw">str</text><text x="178" y="274" class="code">]) -> </text><text x="214" y="274" class="ty">String</text><text x="246" y="274" class="code"> {</text>
+  <text x="30" y="290" class="kw">    let mut </text><text x="90" y="290" class="code">acc = </text><text x="126" y="290" class="ty">String</text><text x="162" y="290" class="code">::</text><text x="170" y="290" class="fn">new</text><text x="188" y="290" class="code">();</text>
+  <text x="30" y="306" class="kw">    for </text><text x="60" y="306" class="code">p </text><text x="72" y="306" class="kw">in </text><text x="88" y="306" class="code">partes { acc </text><text x="160" y="306" class="code">+= p; }</text>
+  <text x="30" y="322" class="comment">    // ❌ realloc en cada iteración</text>
+  <text x="30" y="338" class="code">    acc</text>
+  <text x="30" y="356" class="code">}</text>
+
+  <rect x="436" y="240" width="400" height="120" rx="5" fill="#252526" stroke="#4ec9b0" stroke-width="1"/>
+  <rect x="436" y="240" width="64" height="20" rx="4" fill="#4ec9b0"/>
+  <text x="468" y="253" class="tag" text-anchor="middle" fill="#1e1e1e">RÁPIDO</text>
+  <text x="446" y="274" class="kw">fn </text><text x="462" y="274" class="fn">concat_v2</text><text x="518" y="274" class="code">(partes: &amp;[&amp;</text><text x="578" y="274" class="kw">str</text><text x="594" y="274" class="code">]) -> </text><text x="630" y="274" class="ty">String</text><text x="662" y="274" class="code"> {</text>
+  <text x="446" y="290" class="kw">    let </text><text x="476" y="290" class="code">cap: </text><text x="506" y="290" class="ty">usize</text><text x="538" y="290" class="code"> = partes.</text><text x="592" y="290" class="fn">iter</text><text x="612" y="290" class="code">().</text><text x="626" y="290" class="fn">map</text><text x="648" y="290" class="code">(|s| s.</text><text x="694" y="290" class="fn">len</text><text x="712" y="290" class="code">()).</text><text x="726" y="290" class="fn">sum</text><text x="748" y="290" class="code">();</text>
+  <text x="446" y="306" class="kw">    let mut </text><text x="506" y="306" class="code">acc = </text><text x="542" y="306" class="ty">String</text><text x="578" y="306" class="code">::</text><text x="586" y="306" class="fn">with_capacity</text><text x="666" y="306" class="code">(cap);</text>
+  <text x="446" y="322" class="kw">    for </text><text x="476" y="322" class="code">p </text><text x="488" y="322" class="kw">in </text><text x="504" y="322" class="code">partes { acc.</text><text x="576" y="322" class="fn">push_str</text><text x="624" y="322" class="code">(p); }</text>
+  <text x="446" y="338" class="comment">    // ✅ una sola alloc al inicio</text>
+  <text x="446" y="356" class="code">    acc</text>
+  <text x="446" y="372" class="code">}</text>
+
+  <!-- === PATRÓN 3: SIMD autovectorización === -->
+  <text x="30" y="392" class="label" font-weight="bold" fill="#CE422B">③ Ayudar al compilador a autovectorizar (SIMD)</text>
+
+  <rect x="20" y="400" width="400" height="120" rx="5" fill="#252526" stroke="#569cd6" stroke-width="1"/>
+  <text x="30" y="424" class="kw">fn </text><text x="46" y="424" class="fn">suma_escalar</text><text x="122" y="424" class="code">(v: &amp;[</text><text x="154" y="424" class="ty">f32</text><text x="170" y="424" class="code">]) -> </text><text x="206" y="424" class="ty">f32</text><text x="222" y="424" class="code"> {</text>
+  <text x="30" y="440" class="kw">    let mut </text><text x="90" y="440" class="code">s = </text><text x="114" y="440" class="num">0.0</text><text x="132" y="440" class="ty">_f32</text><text x="156" y="440" class="code">;</text>
+  <text x="30" y="456" class="kw">    for </text><text x="60" y="456" class="code">x </text><text x="72" y="456" class="kw">in </text><text x="88" y="456" class="code">v { s += x; }</text>
+  <text x="30" y="472" class="comment">    // compilador puede vectorizar con -C opt-level=3</text>
+  <text x="30" y="488" class="code">    s</text>
+  <text x="30" y="504" class="code">}</text>
+
+  <rect x="436" y="400" width="400" height="120" rx="5" fill="#252526" stroke="#569cd6" stroke-width="1"/>
+  <text x="446" y="424" class="kw">fn </text><text x="462" y="424" class="fn">suma_iteradores</text><text x="554" y="424" class="code">(v: &amp;[</text><text x="586" y="424" class="ty">f32</text><text x="602" y="424" class="code">]) -> </text><text x="638" y="424" class="ty">f32</text><text x="654" y="424" class="code"> {</text>
+  <text x="446" y="440" class="comment">    // iterador .sum() usa fold optimizado</text>
+  <text x="446" y="456" class="code">    v.</text><text x="464" y="456" class="fn">iter</text><text x="484" y="456" class="code">().</text><text x="498" y="456" class="fn">sum</text><text x="520" y="456" class="code">()</text>
+  <text x="446" y="488" class="comment">    // rustc + LLVM autovectorizan con AVX2/SSE4</text>
+  <text x="446" y="504" class="comment">    // procesa 8 f32 por instrucción SIMD</text>
+  <text x="446" y="520" class="code">}</text>
+
+  <!-- bottom bar: tip -->
+  <rect x="20" y="534" width="820" height="20" rx="4" fill="#2d2d2d"/>
+  <text x="36" y="547" class="small" fill="#dcdcaa">Tip: </text>
+  <text x="66" y="547" class="small">compilar con </text>
+  <text x="138" y="547" class="code" font-size="11">RUSTFLAGS="-C target-cpu=native"</text>
+  <text x="350" y="547" class="small"> para activar SIMD nativo (AVX2/AVX-512) en la máquina actual</text>
+</svg>
