@@ -6,7 +6,7 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-> 🎓 Bootcamp intensivo de **17 semanas (68 horas)** para dominar Rust desde cero hasta un nivel avanzado.  
+> 🎓 Bootcamp intensivo de **25 semanas (100 horas)** para dominar Rust desde cero hasta el nivel de **Rust Library/Systems Author**.  
 > 🐳 Entorno containerizado con Docker para desarrollo consistente.
 
 <p align="center">
@@ -19,7 +19,7 @@
 
 ## 📋 Descripción
 
-Este bootcamp está diseñado para llevar a los estudiantes desde los fundamentos de Rust hasta conceptos avanzados como concurrencia, async/await y smart pointers. Utilizamos Docker para garantizar un entorno de desarrollo idéntico para todos los participantes.
+Este bootcamp está diseñado para llevar a los estudiantes desde los fundamentos de Rust hasta poder **diseñar y publicar librerías de producción** con bindings para Python, Node.js, C y WebAssembly. Utilizamos Docker para garantizar un entorno de desarrollo idéntico para todos los participantes.
 
 ### ¿Por qué Rust?
 
@@ -52,10 +52,26 @@ Este bootcamp está diseñado para llevar a los estudiantes desde los fundamento
 | **15** | [Async/Await](bootcamp/week-15-async_await)            | 🔴    | 4 horas  |
 | **16** | [Testing y Documentación](bootcamp/week-16-testing_y_documentacion) | 🟡   | 4 horas  |
 | **17** | [API REST con Axum](bootcamp/week-17-api_rest_con_axum)      | 🔴    | 4 horas  |
+| **18** | Macros: declarativas y proc              | 🔴    | 4 horas  |
+| **19** | `unsafe` Rust y raw pointers             | 🔴    | 4 horas  |
+| **20** | FFI y Language Bindings                  | 🔴    | 4 horas  |
+| **21** | API Design + `crates.io`                 | 🔴    | 4 horas  |
+| **22** | WebAssembly                              | 🔴    | 4 horas  |
+| **23** | Benchmarking y Profiling                 | 🔴    | 4 horas  |
+| **24** | `no_std` e Intro a Embedded              | 🔴    | 4 horas  |
+| **25** | Capstone — Rewrite It In Rust (RIIR)     | 🔴    | 4 horas  |
 
-**Total**: 68 horas de formación intensiva
+**Total**: 100 horas de formación intensiva
 
 **Leyenda**: 🟢 Básico | 🟡 Intermedio | 🔴 Avanzado
+
+> **Fases del bootcamp**  
+> Fase 1-2 (sem. 1-8): Fundamentos y Control de Flujo  
+> Fase 3-4 (sem. 9-14): Abstracción y Patrones Avanzados  
+> Fase 5 (sem. 15-17): Integración y Producción  
+> Fase 6 (sem. 18-21): Diseño de Librerías  
+> Fase 7 (sem. 22-24): Sistemas y Performance  
+> Capstone (sem. 25): Proyecto RIIR Real
 
 ---
 
@@ -166,8 +182,8 @@ week-XX-tema_principal/
 <tr>
 <td align="center"><code>cargo check</code><br/>✔️ Pasa</td>
 <td align="center"><b>866+</b><br/>tests unitarios</td>
-<td align="center"><b>68</b><br/>prácticas</td>
-<td align="center"><b>17</b><br/>proyectos semanales</td>
+<td align="center"><b>100+</b><br/>prácticas</td>
+<td align="center"><b>25</b><br/>proyectos semanales</td>
 </tr>
 </table>
 
@@ -258,6 +274,16 @@ Cada sesión de 4 horas sigue esta estructura:
 - [Rust by Example](https://doc.rust-lang.org/rust-by-example/) - Ejemplos prácticos
 - [Rust Reference](https://doc.rust-lang.org/reference/) - Referencia del lenguaje
 - [Standard Library](https://doc.rust-lang.org/std/) - Documentación std
+- [The Rustonomicon](https://doc.rust-lang.org/nomicon/) - unsafe Rust (fases 6-7)
+- [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/) - Diseño de APIs
+- [The Embedded Rust Book](https://doc.rust-lang.org/stable/embedded-book/) - Sem. 24
+
+### Ecosistema y Bindings
+
+- [PyO3 User Guide](https://pyo3.rs/) - Bindings Python (sem. 20)
+- [napi-rs](https://napi.rs/) - Bindings Node.js (sem. 20)
+- [wasm-bindgen Guide](https://rustwasm.github.io/docs/wasm-bindgen/) - WASM (sem. 22)
+- [Criterion.rs](https://bheisler.github.io/criterion.rs/book/) - Benchmarking (sem. 23)
 
 ### Práctica
 

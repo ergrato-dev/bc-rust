@@ -2,13 +2,13 @@
 
 ## 📋 Información del Proyecto
 
-Este repositorio contiene el **Bootcamp de Rust: Zero to Hero**, un programa de formación intensivo de **17 semanas (68 horas totales)** diseñado para llevar a los estudiantes desde los fundamentos hasta un nivel avanzado en el lenguaje de programación Rust.
+Este repositorio contiene el **Bootcamp de Rust: Zero to Hero**, un programa de formación intensivo de **25 semanas (100 horas totales)** diseñado para llevar a los estudiantes desde los fundamentos hasta el nivel de **Rust Library/Systems Author**.
 
-- **Duración**: 17 semanas
+- **Duración**: 25 semanas
 - **Dedicación**: 4 horas por semana
 - **Modalidad**: Presencial / Virtual
 - **Entorno**: Docker (contenedor Rust oficial)
-- **Nivel**: De principiante a avanzado
+- **Nivel**: De principiante a Rust Library/Systems Author
 
 ---
 
@@ -23,8 +23,10 @@ El bootcamp utiliza Docker para garantizar un entorno de desarrollo consistente:
 FROM rust:1.92-slim-bookworm
 
 # Herramientas adicionales
-RUN rustup component add rustfmt clippy rust-src rust-docs
-RUN cargo install cargo-watch cargo-edit cargo-expand bacon
+RUN rustup component add rustfmt clippy rust-src rust-docs rust-analyzer
+RUN cargo install cargo-watch cargo-edit cargo-expand bacon \
+    cargo-criterion wasm-pack cbindgen maturin
+RUN apt-get update && apt-get install -y python3 python3-pip nodejs npm && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
 ```
@@ -97,6 +99,32 @@ El proyecto incluye configuración para VS Code Dev Containers en `.devcontainer
 | **15** | Async/Await     | Futures, tokio básico, async runtime   |
 | **16** | Testing y Docs  | Unit tests, integration tests, rustdoc |
 | **17** | API REST        | Axum, endpoints, SQLite, middleware    |
+
+### Fase 6: Diseño de Librerías (Semanas 18-21)
+
+| Semana | Tema                          | Descripción                                                    |
+| ------ | ----------------------------- | -------------------------------------------------------------- |
+| **18** | Macros: declarativas y proc   | `macro_rules!`, `proc-macro`, `#[derive]` custom               |
+| **19** | `unsafe` Rust y raw pointers  | Unsafe blocks, raw ptrs, invariantes, `std::mem`               |
+| **20** | FFI y Language Bindings       | C interop, `PyO3` (Python), `napi-rs` (Node.js), `cbindgen`    |
+| **21** | API Design + `crates.io`      | Ergonomía de APIs, doctests, semver, publicación de crates      |
+
+### Fase 7: Sistemas y Performance (Semanas 22-24)
+
+| Semana | Tema                         | Descripción                                              |
+| ------ | ---------------------------- | -------------------------------------------------------- |
+| **22** | WebAssembly                  | `wasm-pack`, `wasm-bindgen`, Wasmtime, Deno              |
+| **23** | Benchmarking y Profiling     | `criterion`, flamegraph, perf, SIMD básico               |
+| **24** | `no_std` e Intro a Embedded  | Bare metal Rust, `#![no_std]`, HAL, IoT                  |
+
+### Semana 25: Capstone — "Rewrite It In Rust" (RIIR)
+
+| Opción | Proyecto                            | Stack                            |
+| ------ | ----------------------------------- | -------------------------------- |
+| A      | Parser/lexer expuesto a Python      | Rust + PyO3 + maturin            |
+| B      | CLI tool que reemplaza herramienta  | Rust + clap + indicatif          |
+| C      | Motor numérico compilado a WASM     | Rust + wasm-pack + TypeScript    |
+| D      | Librería criptográfica con API C    | Rust + cbindgen + unsafe         |
 
 ---
 
@@ -282,8 +310,14 @@ cargo fmt
 # Documentación
 cargo doc --open
 
-# Agregar dependencia
-cargo add serde
+# Agregar dependencia (SIEMPRE con versión exacta)
+cargo add serde@1.0.219
+
+# Auditoría de CVEs (ejecutar después de cada cambio en dependencias)
+cargo audit --deny warnings
+
+# Ver árbol de dependencias
+cargo tree
 ```
 
 ---
@@ -342,6 +376,8 @@ El compilador de Rust es muy estricto pero educativo. Enseñar a:
 - ✅ Código formateado (`cargo fmt --check`)
 - ✅ Documentación básica
 - ✅ Manejo correcto de errores (no `unwrap()` en producción)
+- ✅ Dependencias con **versión exacta** en `Cargo.toml` (sin `^`, `~`, `*`, `>=`)
+- ✅ Auditoría CVE aprobada: `cargo audit --deny warnings` antes de cada commit
 
 ---
 
@@ -355,13 +391,26 @@ El compilador de Rust es muy estricto pero educativo. Enseñar a:
 - `crates` - Versiones de dependencias
 - `Docker` - Soporte Docker
 - `Dev Containers` - Desarrollo en contenedor
+- `WebAssembly DWARF Debugging` - Debug de WASM
+- `CodeLLDB` - Depurador nativo para unsafe/FFI
 
-### Recursos Online
+### Recursos Online — Fundamentos
 
 - [The Rust Book](https://doc.rust-lang.org/book/)
 - [Rust by Example](https://doc.rust-lang.org/rust-by-example/)
 - [Rustlings](https://github.com/rust-lang/rustlings)
 - [Exercism Rust Track](https://exercism.org/tracks/rust)
+
+### Recursos Online — Fases Avanzadas (18-25)
+
+- [The Rustonomicon](https://doc.rust-lang.org/nomicon/) — unsafe Rust en profundidad
+- [Rust Reference - Macros](https://doc.rust-lang.org/reference/macros.html)
+- [PyO3 User Guide](https://pyo3.rs/) — bindings Python
+- [napi-rs docs](https://napi.rs/) — bindings Node.js
+- [wasm-bindgen Guide](https://rustwasm.github.io/docs/wasm-bindgen/)
+- [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
+- [Criterion.rs](https://bheisler.github.io/criterion.rs/book/) — benchmarking
+- [The Embedded Rust Book](https://doc.rust-lang.org/stable/embedded-book/)
 
 ---
 
@@ -380,10 +429,25 @@ Cuando generes código Rust para este bootcamp:
 
 ### Niveles de Complejidad
 
-- **Semanas 0-3**: Código simple, sin genéricos ni lifetimes
+- **Semanas 1-3**: Código simple, sin genéricos ni lifetimes
 - **Semanas 4-7**: Introducir enums, Result, Option
 - **Semanas 8-10**: Traits y genéricos básicos
-- **Semanas 11+**: Código avanzado, async, concurrencia
+- **Semanas 11-14**: Código avanzado, lifetimes explícitos, concurrencia
+- **Semanas 15-17**: Async/await, APIs REST, integración
+- **Semanas 18-19**: Macros procedurales, `unsafe` Rust, raw pointers
+- **Semanas 20-21**: FFI, bindings Python/Node.js, publicación en `crates.io`
+- **Semanas 22-23**: WebAssembly, benchmarking, SIMD
+- **Semana 24**: `no_std`, bare metal, embedded
+- **Semana 25**: Capstone — proyecto de librería real con bindings
+
+### Reglas para Código de Fases 6-7 (Semanas 18-25)
+
+- **`unsafe`**: siempre documentar invariantes con `// SAFETY:` antes del bloque
+- **FFI**: usar `#[repr(C)]` para tipos que crucen la frontera ABI
+- **Macros**: preferir `proc-macro` sobre `macro_rules!` para complejidad alta
+- **WASM**: no usar `std::thread`, usar `wasm-bindgen-futures` para async
+- **`no_std`**: prohibido `println!`, usar `core::` en vez de `std::`
+- **Capstone**: el crate debe tener `#![deny(missing_docs)]` y pasar `cargo clippy`
 
 ### Ejemplos del Mundo Real
 
@@ -419,20 +483,74 @@ services:
 
 ---
 
-## 📅 Cronograma de Desarrollo del Bootcamp
+## �️ Workflow de Creación de Contenido
 
-### Prioridad de Creación
+### Modelo de trabajo: solodev
 
-1. ⬜ Semana 00 - Setup (base del bootcamp)
-2. ⬜ Semana 01 - Variables
-3. ⬜ Semana 02 - Ownership (crítico)
-4. ⬜ Semana 03 - Structs
-5. ⬜ Semanas 04-07
-6. ⬜ Semanas 08-10
-7. ⬜ Semanas 11-15
+- Repositorio de **un solo desarrollador**: no se usan ramas ni Pull Requests
+- El trabajo va directamente a `main`
+- Cada semana completa se cierra con un **commit + push** al finalizar
+- No usar `git branch`, `git checkout -b`, ni abrir PRs
+
+### Orden obligatorio de creación por semana
+
+Cada semana se desarrolla **en este orden exacto**, sin saltarse pasos:
+
+| Paso | Artefacto | Descripción |
+|------|-----------|-------------|
+| 1 | `README.md` | Guía principal de la semana (objetivos, tabla de contenidos, cómo ejecutar) |
+| 2 | `RUBRICA_EVALUACION.md` | Criterios de evaluación con pesos y escala |
+| 3 | `1-theory/README.md` + archivos adicionales | Teoría completa; **extensión promedio: 180 líneas** por archivo |
+| 4 | `0-assets/` | Diagramas SVG de apoyo a la teoría (dark mode) |
+| 5 | `2-practice/practice-NN-*/` | Prácticas con scaffolding y tests |
+| 6 | `2-practice/project-*/` (o `3-project/`) | Proyecto integrador de la semana |
+| 7 | `4-resources/README.md` | Links, referencias y recursos externos |
+| 8 | `5-glossary/README.md` | Glosario de términos clave de la semana |
+| 9 | `git add . && git commit -m "..." && git push` | Commit y push directo a `main` |
+
+### Convención de mensajes de commit
+
+```bash
+# Formato
+git commit -m "week-NN: descripción breve del contenido añadido"
+
+# Ejemplos
+git commit -m "week-18: macros declarativas y proc-macro con derive custom"
+git commit -m "week-19: unsafe rust, raw pointers y SAFETY invariants"
+git commit -m "week-25: capstone RIIR - opción A PyO3 scaffolding"
+```
+
+### Extensión esperada de archivos de teoría
+
+- **Target**: ~180 líneas por archivo de teoría
+- Mínimo: 120 líneas (no dejar teoría incompleta)
+- Máximo orientativo: 250 líneas (si se necesita más, dividir en múltiples archivos)
+- Dividir en secciones: conceptos, ejemplos comentados, errores comunes, comparación con otros lenguajes
 
 ---
 
-**Última actualización**: Diciembre 2025  
-**Versión**: 1.0  
-**Bootcamp**: Rust Zero to Hero
+## �📅 Cronograma de Desarrollo del Bootcamp
+
+### Prioridad de Creación
+
+**Fase base (ya estructuradas)**
+1. ✅ Semana 01 - Setup
+2. ✅ Semana 02 - Variables
+3. ✅ Semana 03 - Structs
+4. ✅ Semanas 04-17
+
+**Fases de expansión**
+5. ⬜ Semana 18 - Macros declarativas y procedurales
+6. ⬜ Semana 19 - `unsafe` Rust y raw pointers
+7. ⬜ Semana 20 - FFI y Language Bindings
+8. ⬜ Semana 21 - API Design + `crates.io`
+9. ⬜ Semana 22 - WebAssembly
+10. ⬜ Semana 23 - Benchmarking y Profiling
+11. ⬜ Semana 24 - `no_std` e Intro a Embedded
+12. ⬜ Semana 25 - Capstone RIIR
+
+---
+
+**Última actualización**: Mayo 2026  
+**Versión**: 2.0  
+**Bootcamp**: Rust Zero to Hero → Library/Systems Author
