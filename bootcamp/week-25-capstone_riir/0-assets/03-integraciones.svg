@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 570">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #9cdcfe; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .sh       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #808080; }
+  </style>
+
+  <rect width="860" height="570" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 25 — Las 4 Integraciones</text>
+  <text x="24" y="45" class="subtitle">PyO3 · clap · wasm-bindgen · cbindgen — patrones de código y comandos clave</text>
+
+  <!-- ===== PyO3 (A) ===== -->
+  <rect x="20" y="68" width="400" height="228" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1.5"/>
+  <rect x="20" y="68" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="80" width="400" height="14" fill="#2d2d2d"/>
+  <text x="36" y="87" class="label" font-weight="bold" fill="#CE422B">A — PyO3: exponer Rust a Python</text>
+
+  <text x="30" y="114" class="attr">#[pyclass]</text>
+  <text x="30" y="130" class="kw">pub struct </text><text x="86" y="130" class="ty">Lexer</text><text x="116" y="130" class="code"> { … }</text>
+
+  <text x="30" y="150" class="attr">#[pymethods]</text>
+  <text x="30" y="166" class="kw">impl </text><text x="54" y="166" class="ty">Lexer</text><text x="84" y="166" class="code"> {</text>
+  <text x="42" y="182" class="attr">    #[new]</text>
+  <text x="42" y="198" class="kw">    pub fn </text><text x="86" y="198" class="fn">new</text><text x="106" y="198" class="code">(expr: &amp;</text><text x="148" y="198" class="ty">str</text><text x="164" y="198" class="code">) -> </text><text x="192" y="198" class="ty">PyResult</text><text x="234" y="198" class="code">&lt;</text><text x="240" y="198" class="ty">Self</text><text x="264" y="198" class="code">&gt; { … }</text>
+  <text x="42" y="214" class="kw">    pub fn </text><text x="86" y="214" class="fn">tokenizar</text><text x="130" y="214" class="code">(&amp;</text><text x="142" y="214" class="kw">self</text><text x="162" y="214" class="code">) -> </text><text x="190" y="214" class="ty">PyResult</text><text x="232" y="214" class="code">&lt;</text><text x="238" y="214" class="ty">Vec</text><text x="256" y="214" class="code">&lt;</text><text x="262" y="214" class="ty">Token</text><text x="294" y="214" class="code">&gt;&gt; { … }</text>
+  <text x="30" y="230" class="code">}</text>
+
+  <text x="30" y="250" class="attr">#[pymodule]</text>
+  <text x="30" y="266" class="kw">fn </text><text x="46" y="266" class="fn">mi_modulo</text><text x="100" y="266" class="code">(m: &amp;</text><text x="128" y="266" class="ty">Bound</text><text x="158" y="266" class="code">&lt;'_, </text><text x="182" y="266" class="ty">PyModule</text><text x="226" y="266" class="code">&gt;) -> </text><text x="258" y="266" class="ty">PyResult</text><text x="302" y="266" class="code">&lt;()&gt; { … }</text>
+
+  <rect x="28" y="278" width="384" height="14" rx="2" fill="#2d2d2d"/>
+  <text x="34" y="289" class="sh">$ maturin develop   # dev  |  $ maturin build --release  # distrib</text>
+
+  <!-- ===== clap (B) ===== -->
+  <rect x="440" y="68" width="400" height="228" rx="6" fill="#252526" stroke="#569cd6" stroke-width="1.5"/>
+  <rect x="440" y="68" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="440" y="80" width="400" height="14" fill="#2d2d2d"/>
+  <text x="456" y="87" class="label" font-weight="bold" fill="#569cd6">B — clap: CLI con subcomandos</text>
+
+  <text x="450" y="114" class="kw">use </text><text x="474" y="114" class="ty">clap</text><text x="498" y="114" class="code">::</text><text x="504" y="114" class="ty">Parser</text><text x="534" y="114" class="code">;</text>
+
+  <text x="450" y="134" class="attr">/// rwc — Reescritura de `wc` en Rust</text>
+  <text x="450" y="150" class="attr">#[derive(Parser, Debug)]</text>
+  <text x="450" y="166" class="attr">#[command(name = </text><text x="556" y="166" class="str">"rwc"</text><text x="582" y="166" class="attr">, version, about)]</text>
+  <text x="450" y="182" class="kw">struct </text><text x="492" y="182" class="ty">Args</text><text x="516" y="182" class="code"> {</text>
+  <text x="462" y="198" class="attr">    /// Contar líneas</text>
+  <text x="462" y="214" class="attr">    #[arg(short = </text><text x="546" y="214" class="str">'l'</text><text x="566" y="214" class="attr">)]</text>
+  <text x="462" y="230" class="attr">    lineas</text><text x="510" y="230" class="code">: </text><text x="518" y="230" class="ty">bool</text><text x="542" y="230" class="code">,</text>
+  <text x="462" y="246" class="code">    archivos: </text><text x="530" y="246" class="ty">Vec</text><text x="548" y="246" class="code">&lt;</text><text x="554" y="246" class="ty">String</text><text x="590" y="246" class="code">&gt;,</text>
+  <text x="450" y="262" class="code">}</text>
+
+  <rect x="448" y="278" width="384" height="14" rx="2" fill="#2d2d2d"/>
+  <text x="454" y="289" class="sh">$ cargo run -- -l archivo.txt   |  $ cargo install --path .</text>
+
+  <!-- ===== wasm-bindgen (C) ===== -->
+  <rect x="20" y="312" width="400" height="228" rx="6" fill="#252526" stroke="#dcdcaa" stroke-width="1.5"/>
+  <rect x="20" y="312" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="324" width="400" height="14" fill="#2d2d2d"/>
+  <text x="36" y="331" class="label" font-weight="bold" fill="#dcdcaa">C — wasm-bindgen: Rust en el navegador</text>
+
+  <text x="30" y="358" class="kw">use </text><text x="54" y="358" class="ty">wasm_bindgen</text><text x="126" y="358" class="code">::prelude::*;</text>
+
+  <text x="30" y="378" class="attr">#[wasm_bindgen]</text>
+  <text x="30" y="394" class="kw">pub struct </text><text x="86" y="394" class="ty">Estadisticas</text><text x="156" y="394" class="code"> { datos: </text><text x="208" y="394" class="ty">Vec</text><text x="226" y="394" class="code">&lt;</text><text x="232" y="394" class="ty">f64</text><text x="248" y="394" class="code">&gt; }</text>
+
+  <text x="30" y="414" class="attr">#[wasm_bindgen]</text>
+  <text x="30" y="430" class="kw">impl </text><text x="54" y="430" class="ty">Estadisticas</text><text x="124" y="430" class="code"> {</text>
+  <text x="42" y="446" class="attr">    #[wasm_bindgen(constructor)]</text>
+  <text x="42" y="462" class="kw">    pub fn </text><text x="86" y="462" class="fn">new</text><text x="106" y="462" class="code">(d: </text><text x="130" y="462" class="ty">Vec</text><text x="148" y="462" class="code">&lt;</text><text x="154" y="462" class="ty">f64</text><text x="170" y="462" class="code">&gt;) -> </text><text x="198" y="462" class="ty">Self</text><text x="222" y="462" class="code"> { … }</text>
+  <text x="42" y="478" class="kw">    pub fn </text><text x="86" y="478" class="fn">media</text><text x="118" y="478" class="code">(&amp;</text><text x="130" y="478" class="kw">self</text><text x="150" y="478" class="code">) -> </text><text x="178" y="478" class="ty">f64</text><text x="194" y="478" class="code"> { … }</text>
+  <text x="30" y="494" class="code">}</text>
+
+  <rect x="28" y="522" width="384" height="14" rx="2" fill="#2d2d2d"/>
+  <text x="34" y="533" class="sh">$ wasm-pack build --target web   |  pkg/  →  import en JS/TS</text>
+
+  <!-- ===== cbindgen (D) ===== -->
+  <rect x="440" y="312" width="400" height="228" rx="6" fill="#252526" stroke="#4ec9b0" stroke-width="1.5"/>
+  <rect x="440" y="312" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="440" y="324" width="400" height="14" fill="#2d2d2d"/>
+  <text x="456" y="331" class="label" font-weight="bold" fill="#4ec9b0">D — cbindgen: API C autogenerada</text>
+
+  <text x="450" y="358" class="comment">// lib.rs — expuesto a C</text>
+  <text x="450" y="374" class="attr">#[repr(C)]</text>
+  <text x="450" y="390" class="kw">pub struct </text><text x="506" y="390" class="ty">HashResult</text><text x="572" y="390" class="code"> { </text><text x="590" y="390" class="attr">valor</text><text x="622" y="390" class="code">: </text><text x="630" y="390" class="ty">u64</text><text x="654" y="390" class="code">, … }</text>
+
+  <text x="450" y="410" class="attr">#[no_mangle]</text>
+  <text x="450" y="426" class="kw">pub extern </text><text x="508" y="426" class="str">"C"</text><text x="528" y="426" class="kw"> fn </text><text x="548" y="426" class="fn">fnv1a_64</text><text x="596" y="426" class="code">(</text>
+  <text x="462" y="442" class="code">    data: *</text><text x="506" y="442" class="kw">const </text><text x="532" y="442" class="ty">c_uchar</text><text x="576" y="442" class="code">, len: </text><text x="614" y="442" class="ty">size_t</text><text x="650" y="442" class="code">,</text>
+  <text x="450" y="458" class="code">) -> </text><text x="478" y="458" class="ty">u64</text><text x="494" y="458" class="code"> { … }</text>
+
+  <text x="450" y="478" class="comment">// build.rs genera automáticamente:</text>
+  <text x="450" y="494" class="comment">// uint64_t fnv1a_64(const uint8_t*, size_t);</text>
+
+  <rect x="448" y="522" width="384" height="14" rx="2" fill="#2d2d2d"/>
+  <text x="454" y="533" class="sh">$ cargo build  # genera header  |  gcc demo.c -L target/debug -lhash</text>
+
+  <!-- separador central horizontal -->
+  <line x1="20" y1="556" x2="840" y2="556" stroke="#3c3c3c" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="30" y="568" class="small" fill="#CE422B" font-weight="bold">Criterio comun: </text>
+  <text x="120" y="568" class="small">#![deny(missing_docs)] · todas las funciones pub tienen /// · cargo test pasa · integracion funciona end-to-end</text>
+</svg>

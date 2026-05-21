@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .sh       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #808080; }
+    .ok       { fill: #4ec9b0; }
+    .warn     { fill: #dcdcaa; }
+    .bad      { fill: #f44747; }
+  </style>
+
+  <rect width="860" height="560" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 25 — Pipeline de Calidad y Publicación</text>
+  <text x="24" y="45" class="subtitle">cargo fmt · clippy · test · audit · doc · publish — flujo completo antes de crates.io</text>
+
+  <!-- ===== PIPELINE FLOW ===== -->
+  <!-- paso 1 -->
+  <rect x="20"  y="72" width="110" height="56" rx="6" fill="#2d2d2d" stroke="#454545" stroke-width="1"/>
+  <text x="75"  y="94" class="label" text-anchor="middle" fill="#d4d4d4">fmt</text>
+  <text x="75"  y="112" class="small" text-anchor="middle">cargo fmt</text>
+  <text x="75"  y="124" class="small" text-anchor="middle">--check</text>
+
+  <line x1="130" y1="100" x2="154" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arwR)"/>
+
+  <!-- paso 2 -->
+  <rect x="154" y="72" width="110" height="56" rx="6" fill="#2d2d2d" stroke="#454545" stroke-width="1"/>
+  <text x="209" y="94" class="label" text-anchor="middle" fill="#d4d4d4">clippy</text>
+  <text x="209" y="112" class="small" text-anchor="middle">cargo clippy</text>
+  <text x="209" y="124" class="small" text-anchor="middle">-D warnings</text>
+
+  <line x1="264" y1="100" x2="288" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arwR)"/>
+
+  <!-- paso 3 -->
+  <rect x="288" y="72" width="110" height="56" rx="6" fill="#2d2d2d" stroke="#454545" stroke-width="1"/>
+  <text x="343" y="94" class="label" text-anchor="middle" fill="#d4d4d4">test</text>
+  <text x="343" y="112" class="small" text-anchor="middle">cargo test</text>
+  <text x="343" y="124" class="small" text-anchor="middle">--all-features</text>
+
+  <line x1="398" y1="100" x2="422" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arwR)"/>
+
+  <!-- paso 4 -->
+  <rect x="422" y="72" width="110" height="56" rx="6" fill="#2d2d2d" stroke="#454545" stroke-width="1"/>
+  <text x="477" y="94" class="label" text-anchor="middle" fill="#d4d4d4">audit</text>
+  <text x="477" y="112" class="small" text-anchor="middle">cargo audit</text>
+  <text x="477" y="124" class="small" text-anchor="middle">--deny warn</text>
+
+  <line x1="532" y1="100" x2="556" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arwR)"/>
+
+  <!-- paso 5 -->
+  <rect x="556" y="72" width="110" height="56" rx="6" fill="#2d2d2d" stroke="#454545" stroke-width="1"/>
+  <text x="611" y="94" class="label" text-anchor="middle" fill="#d4d4d4">doc</text>
+  <text x="611" y="112" class="small" text-anchor="middle">cargo doc</text>
+  <text x="611" y="124" class="small" text-anchor="middle">--no-deps</text>
+
+  <line x1="666" y1="100" x2="690" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arwR)"/>
+
+  <!-- paso 6 -->
+  <rect x="690" y="72" width="110" height="56" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="745" y="94" class="label" text-anchor="middle" fill="#CE422B">publish</text>
+  <text x="745" y="112" class="small" text-anchor="middle">cargo publish</text>
+  <text x="745" y="124" class="small" text-anchor="middle">--dry-run primero</text>
+
+  <!-- ===== Cargo.toml METADATOS ===== -->
+  <rect x="20"  y="148" width="500" height="196" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20"  y="148" width="500" height="26"  rx="6" fill="#2d2d2d"/>
+  <rect x="20"  y="160" width="500" height="14"  fill="#2d2d2d"/>
+  <text x="36"  y="167" class="label" font-weight="bold">Cargo.toml — Metadatos obligatorios para crates.io</text>
+
+  <text x="30"  y="194" class="code">[package]</text>
+  <text x="30"  y="210" class="code">name        = </text><text x="128" y="210" class="sh">"nombre-del-crate"</text>
+  <text x="30"  y="226" class="code">version     = </text><text x="128" y="226" class="sh">"0.1.0"</text><text x="184" y="226" class="sh">          # MAJOR.MINOR.PATCH</text>
+  <text x="30"  y="242" class="code">edition     = </text><text x="128" y="242" class="sh">"2021"</text>
+  <text x="30"  y="258" class="code">description = </text><text x="128" y="258" class="sh">"Descripción de una línea (requerida)"</text>
+  <text x="30"  y="274" class="code">license     = </text><text x="128" y="274" class="sh">"MIT OR Apache-2.0"</text><text x="284" y="274" class="sh">  # dual-license estándar</text>
+  <text x="30"  y="290" class="code">repository  = </text><text x="128" y="290" class="sh">"https://github.com/usuario/repo"</text>
+  <text x="30"  y="306" class="code">keywords    = </text><text x="128" y="306" class="sh">["parser", "math", "lexer"]</text><text x="306" y="306" class="sh">  # máx 5</text>
+  <text x="30"  y="322" class="code">categories  = </text><text x="128" y="322" class="sh">["parsing"]</text><text x="200" y="322" class="sh">                  # lista oficial crates.io</text>
+  <text x="30"  y="338" class="code">readme      = </text><text x="128" y="338" class="sh">"README.md"</text>
+
+  <!-- ===== SEMVER ===== -->
+  <rect x="540" y="148" width="300" height="196" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="540" y="148" width="300" height="26"  rx="6" fill="#2d2d2d"/>
+  <rect x="540" y="160" width="300" height="14"  fill="#2d2d2d"/>
+  <text x="556" y="167" class="label" font-weight="bold">Semver — qué bump corresponde</text>
+
+  <text x="554" y="198" class="small" fill="#CE422B" font-weight="bold">MAJOR</text>
+  <text x="604" y="198" class="small">Cambio breaking (firma, tipo eliminado)</text>
+  <text x="604" y="212" class="sh">0.1.0 → 1.0.0</text>
+
+  <text x="554" y="236" class="small" fill="#dcdcaa" font-weight="bold">MINOR</text>
+  <text x="604" y="236" class="small">Nueva función compatible</text>
+  <text x="604" y="250" class="sh">0.1.0 → 0.2.0</text>
+
+  <text x="554" y="274" class="small" fill="#4ec9b0" font-weight="bold">PATCH</text>
+  <text x="604" y="274" class="small">Bugfix sin cambio de API</text>
+  <text x="604" y="288" class="sh">0.1.0 → 0.1.1</text>
+
+  <text x="554" y="316" class="small">Pre-release: </text><text x="628" y="316" class="sh">0.1.0-alpha.1</text>
+  <text x="554" y="330" class="small">Yanked:      </text><text x="628" y="330" class="sh">cargo yank --vers 0.1.0</text>
+
+  <!-- ===== TESTING PYRAMID ===== -->
+  <rect x="20" y="360" width="820" height="184" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="360" width="820" height="26"  rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="372" width="820" height="14"  fill="#2d2d2d"/>
+  <text x="36" y="379" class="label" font-weight="bold">Estrategia de Testing — tres capas</text>
+
+  <!-- capa 1: unit -->
+  <rect x="36"  y="398" width="240" height="130" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="156" y="418" class="small" text-anchor="middle" fill="#CE422B" font-weight="bold">Unit Tests (src/lib.rs)</text>
+  <text x="46"  y="436" class="sh">#[cfg(test)]</text>
+  <text x="46"  y="452" class="sh">mod tests {</text>
+  <text x="46"  y="468" class="sh">  #[test]</text>
+  <text x="46"  y="484" class="sh">  fn calculo_correcto() {</text>
+  <text x="46"  y="500" class="sh">    assert_eq!(media(&amp;[1,2,3]), 2.0);</text>
+  <text x="46"  y="516" class="sh">  }</text>
+
+  <!-- capa 2: integration -->
+  <rect x="296" y="398" width="240" height="130" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="1"/>
+  <text x="416" y="418" class="small" text-anchor="middle" fill="#569cd6" font-weight="bold">Integration Tests (tests/)</text>
+  <text x="306" y="436" class="sh">// tests/integracion.rs</text>
+  <text x="306" y="452" class="sh">use nombre_crate::Procesador;</text>
+  <text x="306" y="468" class="sh">#[test]</text>
+  <text x="306" y="484" class="sh">fn pipeline_completo() {</text>
+  <text x="306" y="500" class="sh">  let r = Procesador::new()</text>
+  <text x="306" y="516" class="sh">    .procesar("(3+4)*2").unwrap();</text>
+
+  <!-- capa 3: doctests -->
+  <rect x="556" y="398" width="264" height="130" rx="4" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="688" y="418" class="small" text-anchor="middle" fill="#dcdcaa" font-weight="bold">Doctests (en /// comentarios)</text>
+  <text x="566" y="436" class="sh">/// Calcula la media.</text>
+  <text x="566" y="452" class="sh">///</text>
+  <text x="566" y="468" class="sh">/// ```</text>
+  <text x="566" y="484" class="sh">/// use crate::media;</text>
+  <text x="566" y="500" class="sh">/// assert_eq!(media(&amp;[1,2,3]), 2.0);</text>
+  <text x="566" y="516" class="sh">/// ```</text>
+
+  <defs>
+    <marker id="arwR" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L7,2.5 z" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>
