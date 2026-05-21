@@ -1,0 +1,7 @@
+[package]
+name    = "project-macro-toolkit"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+project-macro-toolkit-derive = { path = "../project-macro-toolkit-derive" }

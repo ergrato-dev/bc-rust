@@ -1,0 +1,11 @@
+[package]
+name    = "practice-04-wasmtime-host"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "host"
+path = "src/main.rs"
+
+[dependencies]
+wasmtime = "30.0.2"

@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500">
+  <!--
+    DISEÑO: Estructura de workspace (dos crates lado a lado como file-tree)
+    + flecha de importación entre ellos
+    + pipeline TokenStream horizontal en la franja inferior
+  -->
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:20px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .LB { font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:700; fill:#808080; letter-spacing:1px; }
+    .LW { font-family:'Segoe UI',sans-serif; font-size:12px; font-weight:700; fill:#d4d4d4; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:10px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#d4d4d4; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#569cd6; }
+    .G  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#6a9955; }
+    .O  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#ce9178; }
+    .P  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#CE422B; }
+    .Tc { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#4ec9b0; }
+    .Y  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#dcdcaa; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 0,8 10,4" fill="#CE422B"/>
+    </marker>
+    <marker id="arrW" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 0,8 10,4" fill="#808080"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="410" y="30" class="T" text-anchor="middle">Proc-Macros — Estructura de Workspace</text>
+  <text x="410" y="48" class="S" text-anchor="middle">Crate separado obligatorio · TokenStream entra y sale · syn parse · quote genera</text>
+  <line x1="40" y1="58" x2="780" y2="58" stroke="#3c3c3c"/>
+
+  <!-- ═══════════════════════════════════════════════
+       LEFT BOX: consumer crate  (x=30, y=68, w=340)
+       ═══════════════════════════════════════════════ -->
+  <rect x="30" y="68" width="340" height="262" rx="6" fill="#252526" stroke="#3c3c3c"/>
+  <!-- Title bar -->
+  <rect x="30" y="68" width="340" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="30" y="84" width="340" height="10" fill="#2d2d2d"/>
+  <text x="50" y="85" class="LB">  CONSUMER CRATE</text>
+  <circle cx="348" cy="81" r="5" fill="none" stroke="#808080" stroke-width="1"/>
+  <text x="346" y="85" class="X">u</text>
+
+  <!-- folder: your-crate/ -->
+  <text x="50" y="112" class="Y">📁</text><text x="66" y="112" class="Y"> your-crate/</text>
+
+  <!-- Cargo.toml -->
+  <text x="72" y="130" class="G">  📄</text><text x="92" y="130" class="C"> Cargo.toml</text>
+  <rect x="72" y="138" width="278" height="52" rx="3" fill="#1a1a1a"/>
+  <text x="84" y="152" class="G">[package]</text>
+  <text x="84" y="166" class="C">name = </text><text x="136" y="166" class="O">"your-crate"</text>
+  <text x="84" y="180" class="G">[dependencies]</text>
+  <text x="84" y="194" class="C">my-macros = { path = </text><text x="222" y="194" class="O">"../my-macros"</text><text x="306" y="194" class="C"> }</text>
+
+  <!-- src/main.rs -->
+  <text x="72" y="212" class="G">  📄</text><text x="92" y="212" class="C"> src/main.rs</text>
+  <rect x="72" y="220" width="278" height="96" rx="3" fill="#1a1a1a"/>
+  <text x="84" y="234" class="K">use</text><text x="105" y="234" class="C"> my_macros::MyDerive;</text>
+  <text x="84" y="250" class="K">use</text><text x="105" y="250" class="C"> my_macros::log_call;</text>
+  <line x1="84" y1="258" x2="336" y2="258" stroke="#2d2d2d"/>
+  <text x="84" y="272" class="P">#[derive(MyDerive)]</text>
+  <text x="84" y="288" class="K">struct</text><text x="124" y="288" class="Tc"> Punto</text><text x="168" y="288" class="C"> { x: </text><text x="208" y="288" class="K">f64</text><text x="226" y="288" class="C">, y: </text><text x="256" y="288" class="K">f64</text><text x="274" y="288" class="C"> }</text>
+  <text x="84" y="304" class="P">#[log_call]</text>
+  <text x="84" y="310" class="K">fn</text><text x="102" y="310" class="Y"> run</text><text x="124" y="310" class="C">() { }</text>
+
+  <!-- ═══════════════════════════════════════════════
+       ARROW in center (x=380-440)
+       ═══════════════════════════════════════════════ -->
+  <!-- import arrow pointing from consumer to macro crate -->
+  <line x1="374" y1="198" x2="446" y2="198" stroke="#CE422B" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="410" y="214" class="X" text-anchor="middle" fill="#CE422B">importa</text>
+  <text x="410" y="226" class="X" text-anchor="middle" fill="#808080">[dependencies]</text>
+
+  <!-- ═══════════════════════════════════════════════
+       RIGHT BOX: proc-macro crate  (x=450, y=68, w=340)
+       ═══════════════════════════════════════════════ -->
+  <rect x="450" y="68" width="340" height="262" rx="6" fill="#252526" stroke="#CE422B" stroke-width="1.5"/>
+  <!-- Title bar -->
+  <rect x="450" y="68" width="340" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="450" y="84" width="340" height="10" fill="#2d2d2d"/>
+  <text x="470" y="85" class="LB">  PROC-MACRO CRATE</text>
+
+  <!-- folder: my-macros/ -->
+  <text x="470" y="112" class="P">📁</text><text x="486" y="112" class="P"> my-macros/</text>
+
+  <!-- Cargo.toml -->
+  <text x="492" y="130" class="G">  📄</text><text x="512" y="130" class="C"> Cargo.toml</text>
+  <rect x="492" y="138" width="278" height="66" rx="3" fill="#1a1a1a"/>
+  <text x="504" y="152" class="G">[package]</text>
+  <text x="504" y="166" class="C">name = </text><text x="556" y="166" class="O">"my-macros"</text>
+  <text x="504" y="180" class="G">[lib]</text>
+  <text x="504" y="194" class="C">proc-macro = </text><text x="604" y="194" class="K">true</text><text x="634" y="194" class="G">   # ¡obligatorio!</text>
+  <text x="504" y="208" class="G">[dependencies]  syn  quote  proc-macro2</text>
+
+  <!-- src/lib.rs -->
+  <text x="492" y="226" class="G">  📄</text><text x="512" y="226" class="C"> src/lib.rs</text>
+  <rect x="492" y="234" width="278" height="82" rx="3" fill="#1a1a1a"/>
+  <text x="504" y="248" class="K">use</text><text x="525" y="248" class="C"> proc_macro::TokenStream;</text>
+  <line x1="504" y1="254" x2="756" y2="254" stroke="#2d2d2d"/>
+  <text x="504" y="268" class="P">#[proc_macro_derive(MyDerive)]</text>
+  <text x="504" y="284" class="K">pub fn</text><text x="542" y="284" class="Y"> my_derive</text><text x="600" y="284" class="C">(</text>
+  <text x="504" y="298" class="C">  input: TokenStream) -&gt; TokenStream {</text>
+  <text x="504" y="312" class="G">    /* syn + quote */</text><text x="638" y="312" class="C"> }</text>
+
+  <!-- ═══════════════════════════════════════════════
+       BOTTOM: TokenStream pipeline (y=344-490)
+       ═══════════════════════════════════════════════ -->
+  <line x1="30" y1="346" x2="790" y2="346" stroke="#3c3c3c"/>
+  <text x="30" y="364" class="LB">PIPELINE EN COMPILE-TIME</text>
+
+  <!-- 5 nodes connected horizontally -->
+  <!-- Node 1: código fuente -->
+  <rect x="30"  y="370" width="118" height="44" rx="5" fill="#252526" stroke="#3c3c3c"/>
+  <text x="89"  y="388" class="LW" text-anchor="middle" font-size="10">código fuente</text>
+  <text x="89"  y="404" class="C"  text-anchor="middle">#[derive(X)]</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="150" y1="392" x2="180" y2="392" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="165" y="385" class="X" text-anchor="middle">lexer</text>
+
+  <!-- Node 2: TokenStream input -->
+  <rect x="182" y="370" width="130" height="44" rx="5" fill="#1a3a1a" stroke="#CE422B" stroke-width="1"/>
+  <text x="247" y="388" class="Tc" text-anchor="middle">TokenStream</text>
+  <text x="247" y="404" class="X"  text-anchor="middle">input → tu función</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="314" y1="392" x2="344" y2="392" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="329" y="385" class="X" text-anchor="middle">llama</text>
+
+  <!-- Node 3: syn parse -->
+  <rect x="346" y="370" width="128" height="44" rx="5" fill="#252526" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="410" y="388" class="Tc" text-anchor="middle">syn::parse</text>
+  <text x="410" y="404" class="X"  text-anchor="middle">→ DeriveInput / AST</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="476" y1="392" x2="506" y2="392" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="491" y="385" class="X" text-anchor="middle">genera</text>
+
+  <!-- Node 4: quote! -->
+  <rect x="508" y="370" width="120" height="44" rx="5" fill="#252526" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="568" y="388" class="Y" text-anchor="middle">quote! { }</text>
+  <text x="568" y="404" class="X" text-anchor="middle">→ TokenStream output</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="630" y1="392" x2="660" y2="392" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="645" y="385" class="X" text-anchor="middle">emite</text>
+
+  <!-- Node 5: resultado -->
+  <rect x="662" y="370" width="128" height="44" rx="5" fill="#252526" stroke="#3c3c3c"/>
+  <text x="726" y="388" class="LW" text-anchor="middle" font-size="10">código generado</text>
+  <text x="726" y="404" class="C"  text-anchor="middle">impl X for T { }</text>
+
+  <!-- Footer note -->
+  <text x="410" y="460" class="M" text-anchor="middle">Todo ocurre en compile-time. El binario final solo contiene el código ordinario generado.</text>
+  <text x="410" y="478" class="X" text-anchor="middle">proc-macro2 permite usar TokenStream fuera del contexto de compilación (tests, herramientas).</text>
+</svg>

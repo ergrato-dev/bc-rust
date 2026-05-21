@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480">
+  <!--
+    DISEÑO: Diagrama radial (hub + 4 satélites en diamante)
+    Cada tipo de macro = círculo de color propio conectado al hub central.
+    Sin tablas ni columnas rectangulares.
+  -->
+  <style>
+    .T { font-family:'Segoe UI',sans-serif; font-size:21px; font-weight:700; fill:#d4d4d4; }
+    .S { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .H { font-family:'Segoe UI',sans-serif; font-size:15px; font-weight:700; fill:#CE422B; }
+    .L { font-family:'Segoe UI',sans-serif; font-size:12px; font-weight:600; fill:#d4d4d4; }
+    .M { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X { font-family:'Segoe UI',sans-serif; font-size:9px; fill:#6a6a6a; }
+    .C { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#d4d4d4; }
+    .K { font-family:'Fira Code','Consolas',monospace; font-size:10px; fill:#569cd6; }
+  </style>
+
+
+  <rect width="820" height="480" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="410" y="32" class="T" text-anchor="middle">Taxonomía de Macros en Rust</text>
+  <text x="410" y="50" class="S" text-anchor="middle">Cuatro mecanismos de metaprogramación · todos actúan antes del type-checker</text>
+  <line x1="40" y1="60" x2="780" y2="60" stroke="#3c3c3c"/>
+
+  <!-- SPOKES (dashed, drawn before circles so circles sit on top) -->
+  <line x1="410" y1="174" x2="410" y2="148" stroke="#454545" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="360" y1="224" x2="223" y2="224" stroke="#454545" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="460" y1="224" x2="597" y2="224" stroke="#454545" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="410" y1="274" x2="410" y2="302" stroke="#454545" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- CENTER HUB: (410,224) r=50 -->
+  <circle cx="410" cy="224" r="50" fill="#252526" stroke="#CE422B" stroke-width="2.5"/>
+  <text x="410" y="218" class="H" text-anchor="middle">Macros</text>
+  <text x="410" y="234" class="M" text-anchor="middle">en tiempo de</text>
+  <text x="410" y="248" class="M" text-anchor="middle">compilación</text>
+
+  <!-- TOP: macro_rules! (410,90) r=58 — blue -->
+  <circle cx="410" cy="90" r="58" fill="#252526" stroke="#569cd6" stroke-width="1.5"/>
+  <text x="410" y="72" class="K" text-anchor="middle">macro_rules!</text>
+  <text x="410" y="88" class="L" text-anchor="middle">Declarativa</text>
+  <text x="410" y="103" class="M" text-anchor="middle">Patrones de tokens</text>
+  <text x="410" y="117" class="X" text-anchor="middle">Sin dependencias externas</text>
+  <text x="410" y="130" class="X" text-anchor="middle">vec!  println!  assert!</text>
+
+  <!-- LEFT: Custom Derive (165,224) r=58 — teal -->
+  <circle cx="165" cy="224" r="58" fill="#252526" stroke="#4ec9b0" stroke-width="1.5"/>
+  <text x="165" y="204" class="C" text-anchor="middle" fill="#4ec9b0">#[derive(...)]</text>
+  <text x="165" y="220" class="L" text-anchor="middle">Custom Derive</text>
+  <text x="165" y="235" class="M" text-anchor="middle">Genera trait impls</text>
+  <text x="165" y="249" class="X" text-anchor="middle">Debug · Serialize · Clone</text>
+  <text x="165" y="262" class="X" text-anchor="middle">Solo añade código</text>
+
+  <!-- RIGHT: Attribute Macro (655,224) r=58 — yellow -->
+  <circle cx="655" cy="224" r="58" fill="#252526" stroke="#dcdcaa" stroke-width="1.5"/>
+  <text x="655" y="204" class="C" text-anchor="middle" fill="#dcdcaa">#[log_call]</text>
+  <text x="655" y="220" class="L" text-anchor="middle">Attribute Macro</text>
+  <text x="655" y="235" class="M" text-anchor="middle">Transforma cualquier item</text>
+  <text x="655" y="249" class="X" text-anchor="middle">fn · struct · impl · mod</text>
+  <text x="655" y="262" class="X" text-anchor="middle">Puede reemplazar el item</text>
+
+  <!-- BOTTOM: Function-like (410,360) r=58 — orange -->
+  <circle cx="410" cy="360" r="58" fill="#252526" stroke="#ce9178" stroke-width="1.5"/>
+  <text x="410" y="340" class="C" text-anchor="middle" fill="#ce9178">sql!( SELECT ... )</text>
+  <text x="410" y="356" class="L" text-anchor="middle">Function-like</text>
+  <text x="410" y="371" class="M" text-anchor="middle">Tokens arbitrarios</text>
+  <text x="410" y="385" class="X" text-anchor="middle">DSLs embebidos</text>
+  <text x="410" y="398" class="X" text-anchor="middle">Validación estática</text>
+
+  <!-- FOOTER NOTE -->
+  <rect x="40" y="438" width="740" height="26" rx="3" fill="#252526" stroke="#3c3c3c"/>
+  <text x="55" y="455" class="M">
+    <tspan fill="#569cd6" font-weight="700">macro_rules!</tspan>
+    <tspan> → crate normal  ·  </tspan>
+    <tspan fill="#4ec9b0" font-weight="700">proc-macros </tspan>
+    <tspan>(derive · attr · fn-like) → crate separado con </tspan>
+    <tspan fill="#CE422B">proc-macro = true</tspan>
+  </text>
+</svg>

@@ -1,0 +1,15 @@
+[package]
+name        = "capstone-opcion-d-ffi"
+version     = "0.1.0"
+edition     = "2021"
+description = "Librería criptográfica con API C — Capstone RIIR Opción D"
+license     = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+libc = "0.2.172"
+
+[build-dependencies]
+cbindgen = "0.27.0"

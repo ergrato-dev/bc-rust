@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500">
+  <!--
+    DISEÑO: Tres paneles horizontales con transformación
+    Izquierda: struct de entrada (código sintactizado)
+    Centro: árbol DeriveInput (AST visual en forma de árbol con nodos conectados)
+    Derecha: impl generado (código output)
+    Arriba de los paneles: header con título y etiquetas de etapa
+    Abajo: franja de referencia de métodos clave (parse_macro_input!, quote!, fields iteration)
+  -->
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:20px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .LB { font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:700; fill:#808080; letter-spacing:1px; }
+    .LW { font-family:'Segoe UI',sans-serif; font-size:11px; font-weight:700; fill:#d4d4d4; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:10px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#d4d4d4; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#569cd6; }
+    .G  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#6a9955; }
+    .O  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#ce9178; }
+    .P  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#CE422B; }
+    .Tc { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#4ec9b0; }
+    .Y  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#dcdcaa; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 0,8 10,4" fill="#CE422B"/>
+    </marker>
+    <marker id="treeArr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <polygon points="0,0 0,6 6,3" fill="#3c3c3c"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="410" y="30" class="T" text-anchor="middle">Custom Derive — #[derive(Describe)]</text>
+  <text x="410" y="48" class="S" text-anchor="middle">Struct de entrada · syn parsea el AST · quote genera el impl · código listo</text>
+  <line x1="20" y1="58" x2="800" y2="58" stroke="#3c3c3c"/>
+
+  <!-- Stage labels (y=68) -->
+  <text x="105" y="74" class="LB" text-anchor="middle">① INPUT</text>
+  <text x="410" y="74" class="LB" text-anchor="middle">② DeriveInput AST (syn)</text>
+  <text x="715" y="74" class="LB" text-anchor="middle">③ OUTPUT (quote)</text>
+
+  <!-- ═══════════════════════════════════════════════
+       LEFT PANEL: input struct  x=20..210, y=80..340
+       ═══════════════════════════════════════════════ -->
+  <rect x="20"  y="80" width="192" height="262" rx="5" fill="#252526" stroke="#3c3c3c"/>
+  <!-- tab bar -->
+  <rect x="20"  y="80" width="192" height="20" rx="5" fill="#2d2d2d"/>
+  <rect x="20"  y="92" width="192" height="8"  fill="#2d2d2d"/>
+  <text x="34"  y="93" class="X">usuario.rs</text>
+
+  <text x="34"  y="120" class="P">#[derive(Describe)]</text>
+  <text x="34"  y="138" class="K">pub struct</text><text x="94" y="138" class="Tc"> Usuario</text><text x="152" y="138" class="C"> {</text>
+  <text x="34"  y="156" class="G">    // campo 1</text>
+  <text x="34"  y="173" class="C">    nombre:</text>
+  <text x="34"  y="190" class="K">        String</text><text x="98" y="190" class="C">,</text>
+  <text x="34"  y="208" class="G">    // campo 2</text>
+  <text x="34"  y="225" class="C">    edad:</text>
+  <text x="34"  y="242" class="K">        u32</text><text x="70" y="242" class="C">,</text>
+  <text x="34"  y="260" class="G">    // campo 3</text>
+  <text x="34"  y="277" class="C">    activo:</text>
+  <text x="34"  y="294" class="K">        bool</text><text x="78" y="294" class="C">,</text>
+  <text x="34"  y="316" class="C">}</text>
+  <text x="34"  y="334" class="G">// TokenStream →</text>
+
+  <!-- Arrow panel 1 → 2 -->
+  <polygon points="216,193 240,193 240,182 260,200 240,218 240,207 216,207"
+           fill="#2d2d2d" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="238" y="232" class="X" text-anchor="middle" fill="#CE422B">parse</text>
+
+  <!-- ═══════════════════════════════════════════════
+       CENTER PANEL: DeriveInput tree  x=264..556, y=80..340
+       ═══════════════════════════════════════════════ -->
+  <rect x="264" y="80" width="292" height="262" rx="5" fill="#1a2030" stroke="#4ec9b0" stroke-width="1.5"/>
+  <!-- tab bar -->
+  <rect x="264" y="80" width="292" height="20" rx="5" fill="#1e2840"/>
+  <rect x="264" y="92" width="292" height="8"  fill="#1e2840"/>
+  <text x="278" y="93" class="X" fill="#4ec9b0">DeriveInput</text>
+
+  <!-- Root node -->
+  <rect x="330" y="102" width="160" height="22" rx="11" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="410" y="117" class="Tc" text-anchor="middle">DeriveInput</text>
+
+  <!-- .ident branch -->
+  <line x1="364" y1="124" x2="320" y2="148" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="290" y="148" width="62" height="18" rx="4" fill="#252526" stroke="#3c3c3c"/>
+  <text x="321" y="160" class="C" text-anchor="middle">.ident</text>
+  <line x1="321" y1="166" x2="321" y2="182" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="283" y="182" width="76" height="18" rx="4" fill="#1a1a1a" stroke="#454545"/>
+  <text x="321" y="194" class="O" text-anchor="middle">"Usuario"</text>
+
+  <!-- .generics branch -->
+  <line x1="410" y1="124" x2="410" y2="148" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="374" y="148" width="72" height="18" rx="4" fill="#252526" stroke="#3c3c3c"/>
+  <text x="410" y="160" class="C" text-anchor="middle">.generics</text>
+  <line x1="410" y1="166" x2="410" y2="182" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="382" y="182" width="56" height="18" rx="4" fill="#1a1a1a" stroke="#454545"/>
+  <text x="410" y="194" class="G" text-anchor="middle">&lt;&gt; vacío</text>
+
+  <!-- .data branch -->
+  <line x1="455" y1="124" x2="500" y2="148" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="470" y="148" width="62" height="18" rx="4" fill="#252526" stroke="#3c3c3c"/>
+  <text x="501" y="160" class="C" text-anchor="middle">.data</text>
+
+  <!-- Data::Struct sub-node -->
+  <line x1="501" y1="166" x2="501" y2="182" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="456" y="182" width="90" height="18" rx="4" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <text x="501" y="194" class="P" text-anchor="middle">Data::Struct</text>
+
+  <!-- .fields sub-node -->
+  <line x1="501" y1="200" x2="501" y2="216" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="466" y="216" width="70" height="18" rx="4" fill="#252526" stroke="#3c3c3c"/>
+  <text x="501" y="228" class="C" text-anchor="middle">.fields</text>
+
+  <!-- Fields::Named -->
+  <line x1="501" y1="234" x2="501" y2="250" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="456" y="250" width="90" height="18" rx="4" fill="#1a1a1a" stroke="#454545"/>
+  <text x="501" y="262" class="Tc" text-anchor="middle">Fields::Named</text>
+
+  <!-- Three field nodes -->
+  <line x1="471" y1="268" x2="430" y2="284" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="398" y="284" width="64" height="18" rx="3" fill="#1a1a1a" stroke="#454545"/>
+  <text x="430" y="296" class="C" text-anchor="middle">nombre:str</text>
+
+  <line x1="501" y1="268" x2="501" y2="284" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="472" y="284" width="58" height="18" rx="3" fill="#1a1a1a" stroke="#454545"/>
+  <text x="501" y="296" class="C" text-anchor="middle">edad:u32</text>
+
+  <line x1="531" y1="268" x2="541" y2="284" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="512" y="284" width="58" height="18" rx="3" fill="#1a1a1a" stroke="#454545"/>
+  <text x="541" y="296" class="C" text-anchor="middle">activo:bool</text>
+
+  <!-- iteration hint -->
+  <text x="278" y="322" class="G">// for field in fields.named.iter()</text>
+  <text x="278" y="337" class="G">// let name = &amp;field.ident;</text>
+
+  <!-- Arrow panel 2 → 3 -->
+  <polygon points="560,193 584,193 584,182 604,200 584,218 584,207 560,207"
+           fill="#2d2d2d" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="582" y="232" class="X" text-anchor="middle" fill="#CE422B">quote!</text>
+
+  <!-- ═══════════════════════════════════════════════
+       RIGHT PANEL: generated impl  x=608..800, y=80..340
+       ═══════════════════════════════════════════════ -->
+  <rect x="608" y="80" width="194" height="262" rx="5" fill="#1a2a1a" stroke="#dcdcaa" stroke-width="1.5"/>
+  <!-- tab bar -->
+  <rect x="608" y="80" width="194" height="20" rx="5" fill="#1e2e1e"/>
+  <rect x="608" y="92" width="194" height="8"  fill="#1e2e1e"/>
+  <text x="622" y="93" class="X" fill="#dcdcaa">generado</text>
+
+  <text x="622" y="120" class="G">// auto-generado por</text>
+  <text x="622" y="136" class="G">// #[derive(Describe)]</text>
+  <text x="622" y="154" class="K">impl</text><text x="644" y="154" class="C"> Describe</text>
+  <text x="622" y="171" class="K">    for</text><text x="656" y="171" class="Tc"> Usuario</text><text x="714" y="171" class="C"> {</text>
+  <text x="622" y="189" class="Y">  fn describe</text><text x="712" y="189" class="C">(</text>
+  <text x="622" y="206" class="C">    &amp;self</text>
+  <text x="622" y="223" class="C">  ) -&gt; String {</text>
+  <text x="622" y="241" class="C">    format!(</text>
+  <text x="622" y="258" class="O">      "Usuario {{"</text>
+  <text x="622" y="275" class="O">      "nombre={}"</text>
+  <text x="622" y="292" class="C">      self.nombre</text>
+  <text x="622" y="309" class="C">    )</text>
+  <text x="622" y="326" class="C">  }}</text>
+  <text x="622" y="343" class="C">}</text>
+
+  <!-- ═══════════════════════════════════════════════
+       BOTTOM STRIP: key API reference (y=350-490)
+       ═══════════════════════════════════════════════ -->
+  <line x1="20" y1="354" x2="800" y2="354" stroke="#3c3c3c"/>
+  <text x="20" y="371" class="LB">API CLAVE — syn &amp; quote</text>
+
+  <!-- 3 reference cards side by side -->
+  <!-- Card 1: parse_macro_input! -->
+  <rect x="20"  y="378" width="238" height="102" rx="5" fill="#252526" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="34"  y="394" class="Tc">parse_macro_input!</text>
+  <text x="34"  y="412" class="C">let ast = parse_macro_input!(</text>
+  <text x="34"  y="428" class="C">    input as DeriveInput);</text>
+  <text x="34"  y="448" class="G">// Convierte TokenStream</text>
+  <text x="34"  y="464" class="G">// en struct tipado de syn</text>
+  <text x="34"  y="476" class="M">Panic automático si falla el parse.</text>
+
+  <!-- Card 2: quote! interpolation -->
+  <rect x="291" y="378" width="238" height="102" rx="5" fill="#252526" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="305" y="394" class="Y">quote! { }</text>
+  <text x="305" y="412" class="C">quote! {</text>
+  <text x="305" y="428" class="K">  impl</text><text x="332" y="428" class="C"> Describe </text><text x="386" y="428" class="K">for</text><text x="407" y="428" class="C"> #nombre {</text>
+  <text x="305" y="444" class="C">    /* #variable = interpolación */</text>
+  <text x="305" y="460" class="C">  }</text>
+  <text x="305" y="476" class="G">// #var reemplaza con su TokenStream</text>
+
+  <!-- Card 3: .into() -->
+  <rect x="562" y="378" width="238" height="102" rx="5" fill="#252526" stroke="#CE422B" stroke-width="1"/>
+  <text x="576" y="394" class="P">.into()  /  TokenStream2</text>
+  <text x="576" y="412" class="C">let ts2: TokenStream2 = quote!{...};</text>
+  <text x="576" y="428" class="C">ts2.into()  </text><text x="672" y="428" class="G">// → TokenStream</text>
+  <text x="576" y="448" class="G">// proc_macro2::TokenStream ≠</text>
+  <text x="576" y="464" class="G">// proc_macro::TokenStream</text>
+  <text x="576" y="476" class="M">.into() convierte entre los dos.</text>
+</svg>
+

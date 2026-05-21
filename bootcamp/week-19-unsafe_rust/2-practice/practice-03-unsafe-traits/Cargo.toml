@@ -1,0 +1,4 @@
+[package]
+name    = "practice-03-unsafe-traits"
+version = "0.1.0"
+edition = "2021"

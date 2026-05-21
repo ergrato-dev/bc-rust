@@ -1,0 +1,7 @@
+[package]
+name    = "practice-03-custom-derive"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+practice-03-custom-derive-macro = { path = "../practice-03-custom-derive-macro" }

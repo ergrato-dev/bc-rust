@@ -1,0 +1,13 @@
+[package]
+name        = "capstone-opcion-a-pyo3"
+version     = "0.1.0"
+edition     = "2021"
+description = "Parser/lexer Rust expuesto a Python via PyO3 — Capstone RIIR Opción A"
+license     = "MIT"
+
+[lib]
+name       = "capstone_opcion_a"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.23.4", features = ["extension-module"] }

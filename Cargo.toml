@@ -78,6 +78,63 @@ members = [
     "bootcamp/week-17-api_rest_con_axum/2-practice/practice-03-validation",
     "bootcamp/week-17-api_rest_con_axum/2-practice/practice-04-middleware",
     "bootcamp/week-17-api_rest_con_axum/2-practice/project-task-api",
+    # Week 18 - Macros
+    "bootcamp/week-18-macros/2-practice/practice-01-macro-rules-basico",
+    "bootcamp/week-18-macros/2-practice/practice-02-macro-rules-avanzado",
+    "bootcamp/week-18-macros/2-practice/practice-03-custom-derive",
+    "bootcamp/week-18-macros/2-practice/practice-03-custom-derive-macro",
+    "bootcamp/week-18-macros/2-practice/practice-04-attribute-macro",
+    "bootcamp/week-18-macros/2-practice/practice-04-attribute-macro-impl",
+    "bootcamp/week-18-macros/2-practice/project-macro-toolkit",
+    "bootcamp/week-18-macros/2-practice/project-macro-toolkit-derive",
+
+    # Week 19 - Unsafe Rust
+    "bootcamp/week-19-unsafe_rust/2-practice/practice-01-raw-pointers",
+    "bootcamp/week-19-unsafe_rust/2-practice/practice-02-unsafe-funciones",
+    "bootcamp/week-19-unsafe_rust/2-practice/practice-03-unsafe-traits",
+    "bootcamp/week-19-unsafe_rust/2-practice/practice-04-mem-y-transmute",
+    "bootcamp/week-19-unsafe_rust/2-practice/project-unsafe-collections",
+
+    # Week 20 - FFI y Bindings
+    "bootcamp/week-20-ffi_y_bindings/2-practice/practice-01-c-desde-rust",
+    "bootcamp/week-20-ffi_y_bindings/2-practice/practice-02-rust-hacia-c",
+    "bootcamp/week-20-ffi_y_bindings/2-practice/practice-03-pyo3-basico",
+    "bootcamp/week-20-ffi_y_bindings/2-practice/practice-04-napi-basico",
+    "bootcamp/week-20-ffi_y_bindings/2-practice/project-libreria-ffi",
+
+    # Week 21 - API Design y Crates
+    "bootcamp/week-21-api_design_y_crates/2-practice/practice-01-ergonomia-api",
+    "bootcamp/week-21-api_design_y_crates/2-practice/practice-02-builder-pattern",
+    "bootcamp/week-21-api_design_y_crates/2-practice/practice-03-doctests-ejemplos",
+    "bootcamp/week-21-api_design_y_crates/2-practice/practice-04-semver-changelogs",
+    "bootcamp/week-21-api_design_y_crates/2-practice/project-mi-crate",
+
+    # Week 22 - WebAssembly
+    "bootcamp/week-22-webassembly/2-practice/practice-01-wasm-bindgen",
+    "bootcamp/week-22-webassembly/2-practice/practice-02-tipos-js",
+    "bootcamp/week-22-webassembly/2-practice/practice-03-wasm-structs",
+    "bootcamp/week-22-webassembly/2-practice/practice-04-wasmtime-host",
+    "bootcamp/week-22-webassembly/2-practice/project-calculadora-wasm",
+
+    # Week 23 - Benchmarking y Profiling
+    "bootcamp/week-23-benchmarking_y_profiling/2-practice/practice-01-criterion-basico",
+    "bootcamp/week-23-benchmarking_y_profiling/2-practice/practice-02-bench-sorting",
+    "bootcamp/week-23-benchmarking_y_profiling/2-practice/practice-03-profiling-flamegraph",
+    "bootcamp/week-23-benchmarking_y_profiling/2-practice/practice-04-simd-intro",
+    "bootcamp/week-23-benchmarking_y_profiling/2-practice/project-optimizacion",
+
+    # Week 24 - no_std y Embedded
+    "bootcamp/week-24-no_std_y_embedded/2-practice/practice-01-no-std-lib",
+    "bootcamp/week-24-no_std_y_embedded/2-practice/practice-02-core-primitivos",
+    "bootcamp/week-24-no_std_y_embedded/2-practice/practice-03-heapless",
+    "bootcamp/week-24-no_std_y_embedded/2-practice/practice-04-panic-handler",
+    "bootcamp/week-24-no_std_y_embedded/2-practice/project-firmware-sim",
+
+    # Week 25 - Capstone RIIR
+    "bootcamp/week-25-capstone_riir/2-practice/project-opcion-a-pyo3",
+    "bootcamp/week-25-capstone_riir/2-practice/project-opcion-b-cli",
+    "bootcamp/week-25-capstone_riir/2-practice/project-opcion-c-wasm",
+    "bootcamp/week-25-capstone_riir/2-practice/project-opcion-d-ffi",
 ]
 
 [workspace.package]

@@ -1,0 +1,11 @@
+[package]
+name    = "practice-03-pyo3-basico"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "practice_03_pyo3_basico"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.23.4", features = ["extension-module"] }

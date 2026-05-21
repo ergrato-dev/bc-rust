@@ -1,0 +1,4 @@
+[package]
+name    = "practice-01-macro-rules-basico"
+version = "0.1.0"
+edition = "2021"

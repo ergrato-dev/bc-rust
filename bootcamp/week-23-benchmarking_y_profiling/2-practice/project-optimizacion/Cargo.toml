@@ -1,0 +1,11 @@
+[package]
+name    = "project-optimizacion"
+version = "0.1.0"
+edition = "2021"
+
+[dev-dependencies]
+criterion = { version = "0.5.1", features = ["html_reports"] }
+
+[[bench]]
+name    = "optimizacion_bench"
+harness = false

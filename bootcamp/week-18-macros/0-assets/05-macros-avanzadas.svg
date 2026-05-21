@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500">
+  <!--
+    DISEÑO: Comparación de 3 tipos de proc-macro en columnas
+    Cada columna tiene un badge header visualmente distinto.
+    Filas: invocación, firma de función, recibe, modifica item, uso típico
+    Alternancia de background en filas.
+    No hay rectangles de ancho completo como en el original.
+  -->
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:20px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .LB { font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:700; fill:#808080; letter-spacing:1px; }
+    .HL { font-family:'Segoe UI',sans-serif; font-size:13px; font-weight:700; fill:#1e1e1e; }
+    .RL { font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:700; fill:#808080; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:10px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#d4d4d4; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#569cd6; }
+    .G  { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#6a9955; }
+    .O  { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#ce9178; }
+    .P  { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#CE422B; }
+    .Tc { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#4ec9b0; }
+    .Y  { font-family:'Fira Code','Consolas',monospace; font-size:10.5px; fill:#dcdcaa; }
+    .Vr { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#4ec9b0; }
+    .Vg { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#CE422B; }
+  </style>
+
+  <rect width="820" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="410" y="30" class="T" text-anchor="middle">Tres Tipos de Proc-Macro — Comparación</text>
+  <text x="410" y="48" class="S" text-anchor="middle">Derive · Attribute · Function-like  —  misma base (TokenStream), propósitos distintos</text>
+  <line x1="20" y1="58" x2="800" y2="58" stroke="#3c3c3c"/>
+
+  <!-- ═══════════════════════════════════════════════
+       Column geometry:
+         Col A (Derive):         x=22..285     cx=154
+         Col B (Attribute):      x=292..555    cx=424
+         Col C (Function-like):  x=562..800    cx=681
+       ═══════════════════════════════════════════════ -->
+
+  <!-- ── COLUMN HEADERS (badge shape = large rx pill) ── -->
+  <!-- A: teal badge for derive -->
+  <rect x="22"  y="64" width="263" height="34" rx="17" fill="#4ec9b0"/>
+  <text x="154" y="85" class="HL" text-anchor="middle">#[derive(X)]</text>
+
+  <!-- B: red badge for attribute -->
+  <rect x="292" y="64" width="263" height="34" rx="17" fill="#CE422B"/>
+  <text x="424" y="85" class="HL" text-anchor="middle">#[attribute]</text>
+
+  <!-- C: yellow badge for function-like -->
+  <rect x="562" y="64" width="238" height="34" rx="17" fill="#dcdcaa"/>
+  <text x="681" y="85" class="HL" text-anchor="middle">fn_like!( )</text>
+
+  <!-- ── ROW LABELS (left gutter) ── -->
+  <!-- Using slim left-side label strips instead of row dividers -->
+
+  <!-- ROW 1: invocación  y=105-152 -->
+  <rect x="22"  y="104" width="263" height="46" rx="3" fill="#252526"/>
+  <rect x="292" y="104" width="263" height="46" rx="3" fill="#252526"/>
+  <rect x="562" y="104" width="238" height="46" rx="3" fill="#252526"/>
+  <text x="8"   y="130" class="RL" text-anchor="middle" transform="rotate(-90,8,130)">INVOCACIÓN</text>
+  <!-- A -->
+  <text x="36"  y="122" class="P">#[derive(Describe)]</text>
+  <text x="36"  y="140" class="K">struct</text><text x="78" y="140" class="Tc"> Punto</text><text x="118" y="140" class="C"> { x: f64 }</text>
+  <!-- B -->
+  <text x="306" y="122" class="P">#[log_call]</text>
+  <text x="306" y="140" class="K">fn</text><text x="324" y="140" class="Y"> suma</text><text x="360" y="140" class="C">(a: i32) -&gt; i32 {</text>
+  <text x="306" y="148" class="C">  a + 1 }</text>
+  <!-- C -->
+  <text x="576" y="122" class="Y">sql!</text><text x="606" y="122" class="C"> (SELECT * FROM t</text>
+  <text x="576" y="140" class="C">      WHERE id = {id})</text>
+
+  <!-- ROW 2: firma y=158-210 -->
+  <rect x="22"  y="157" width="263" height="52" rx="3" fill="#2a2a2a"/>
+  <rect x="292" y="157" width="263" height="52" rx="3" fill="#2a2a2a"/>
+  <rect x="562" y="157" width="238" height="52" rx="3" fill="#2a2a2a"/>
+  <text x="8"   y="186" class="RL" text-anchor="middle" transform="rotate(-90,8,186)">FIRMA</text>
+  <!-- A -->
+  <text x="36"  y="173" class="K">#[proc_macro_derive(X)]</text>
+  <text x="36"  y="189" class="K">pub fn</text><text x="77" y="189" class="Y"> x</text><text x="91" y="189" class="C">(input: TS) -&gt; TS</text>
+  <text x="36"  y="203" class="G">// TS = proc_macro::TokenStream</text>
+  <!-- B -->
+  <text x="306" y="173" class="K">#[proc_macro_attribute]</text>
+  <text x="306" y="189" class="K">pub fn</text><text x="347" y="189" class="Y"> x</text><text x="361" y="189" class="C">(attr: TS, item: TS)</text>
+  <text x="306" y="203" class="C">    -&gt; TS</text>
+  <!-- C -->
+  <text x="576" y="173" class="K">#[proc_macro]</text>
+  <text x="576" y="189" class="K">pub fn</text><text x="617" y="189" class="Y"> x</text><text x="631" y="189" class="C">(input: TS) -&gt; TS</text>
+  <text x="576" y="203" class="G">// igual que derive</text>
+
+  <!-- ROW 3: qué recibe y=217-263 -->
+  <rect x="22"  y="216" width="263" height="46" rx="3" fill="#252526"/>
+  <rect x="292" y="216" width="263" height="46" rx="3" fill="#252526"/>
+  <rect x="562" y="216" width="238" height="46" rx="3" fill="#252526"/>
+  <text x="8"   y="241" class="RL" text-anchor="middle" transform="rotate(-90,8,241)">RECIBE</text>
+  <!-- A -->
+  <text x="36"  y="233" class="C">struct/enum/union completo</text>
+  <text x="36"  y="249" class="G">// solo el item anotado</text>
+  <!-- B -->
+  <text x="306" y="233" class="C">attr = argumentos del #[x(...)]</text>
+  <text x="306" y="249" class="C">item = función/struct completa</text>
+  <!-- C -->
+  <text x="576" y="233" class="C">tokens arbitrarios entre ()</text>
+  <text x="576" y="249" class="G">// sin estructura predefinida</text>
+
+  <!-- ROW 4: modifica item? y=269-315 -->
+  <rect x="22"  y="268" width="263" height="46" rx="3" fill="#2a2a2a"/>
+  <rect x="292" y="268" width="263" height="46" rx="3" fill="#2a2a2a"/>
+  <rect x="562" y="268" width="238" height="46" rx="3" fill="#2a2a2a"/>
+  <text x="8"   y="293" class="RL" text-anchor="middle" transform="rotate(-90,8,293)">ITEM?</text>
+  <!-- A: no -->
+  <text x="36"  y="288" class="Vr">✓ item original conservado</text>
+  <text x="36"  y="304" class="M">Genera código ADICIONAL</text>
+  <!-- B: sí -->
+  <text x="306" y="288" class="Vg">✗ puede REEMPLAZAR el item</text>
+  <text x="306" y="304" class="M">o envolverlo / añadir código</text>
+  <!-- C: no aplica -->
+  <text x="576" y="288" class="M">No hay item. Genera código</text>
+  <text x="576" y="304" class="M">completamente nuevo.</text>
+
+  <!-- ROW 5: error reporting y=321-367 -->
+  <rect x="22"  y="320" width="263" height="46" rx="3" fill="#252526"/>
+  <rect x="292" y="320" width="263" height="46" rx="3" fill="#252526"/>
+  <rect x="562" y="320" width="238" height="46" rx="3" fill="#252526"/>
+  <text x="8"   y="345" class="RL" text-anchor="middle" transform="rotate(-90,8,345)">ERRORES</text>
+  <!-- A -->
+  <text x="36"  y="340" class="C">syn::Error::new(span, msg)</text>
+  <text x="36"  y="356" class="C">    .to_compile_error().into()</text>
+  <!-- B -->
+  <text x="306" y="340" class="C">span del attr o del item</text>
+  <text x="306" y="356" class="G">// apunta al lugar correcto</text>
+  <!-- C -->
+  <text x="576" y="340" class="C">span del token problemático</text>
+  <text x="576" y="356" class="G">// .span() en cada token</text>
+
+  <!-- ROW 6: uso típico y=373-419 -->
+  <rect x="22"  y="372" width="263" height="46" rx="3" fill="#2a2a2a"/>
+  <rect x="292" y="372" width="263" height="46" rx="3" fill="#2a2a2a"/>
+  <rect x="562" y="372" width="238" height="46" rx="3" fill="#2a2a2a"/>
+  <text x="8"   y="397" class="RL" text-anchor="middle" transform="rotate(-90,8,397)">USO TÍPICO</text>
+  <!-- A -->
+  <text x="36"  y="392" class="C">Serialize, Deserialize,</text>
+  <text x="36"  y="408" class="C">Debug personalizado, Builder</text>
+  <!-- B -->
+  <text x="306" y="392" class="C">log_call, route, test,</text>
+  <text x="306" y="408" class="C">retry, async_trait</text>
+  <!-- C -->
+  <text x="576" y="392" class="C">sql!, html!, json!,</text>
+  <text x="576" y="408" class="C">DSLs arbitrarias</text>
+
+  <!-- Bottom: key shared note -->
+  <line x1="20" y1="428" x2="800" y2="428" stroke="#3c3c3c"/>
+  <text x="410" y="447" class="M" text-anchor="middle">Los 3 tipos viven en un crate con  [lib] proc-macro = true  y tienen la misma ABI de compilación.</text>
+  <text x="410" y="464" class="M" text-anchor="middle">Combínalos en el mismo crate: un derive + un attribute + helpers compartidos de syn/quote.</text>
+  <text x="410" y="482" class="X" text-anchor="middle">Exports típicos: pub use my_macros_impl::{derive_x, attr_x, fn_x}; desde el crate wrapper.</text>
+</svg>
+

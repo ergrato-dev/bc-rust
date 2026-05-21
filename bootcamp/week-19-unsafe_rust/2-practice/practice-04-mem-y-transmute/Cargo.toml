@@ -1,0 +1,4 @@
+[package]
+name    = "practice-04-mem-y-transmute"
+version = "0.1.0"
+edition = "2021"

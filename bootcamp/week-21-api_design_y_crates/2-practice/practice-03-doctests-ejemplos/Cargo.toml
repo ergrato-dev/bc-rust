@@ -1,0 +1,4 @@
+[package]
+name    = "practice-03-doctests-ejemplos"
+version = "0.1.0"
+edition = "2021"

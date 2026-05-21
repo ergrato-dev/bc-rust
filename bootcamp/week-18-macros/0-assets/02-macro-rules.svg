@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500">
+  <!--
+    DISEÑO: Expansión antes/después
+    Izquierda: código del usuario con la llamada al macro.
+    Centro: gran flecha de transformación + etiqueta "cargo expand".
+    Derecha: código expandido por el compilador.
+    Abajo: franja de referencia de designadores como píldoras de color.
+  -->
+  <style>
+    .T  { font-family:'Segoe UI',sans-serif; font-size:20px; font-weight:700; fill:#d4d4d4; }
+    .S  { font-family:'Segoe UI',sans-serif; font-size:12px; fill:#808080; }
+    .LB { font-family:'Segoe UI',sans-serif; font-size:11px; font-weight:700; fill:#808080; letter-spacing:1px; }
+    .M  { font-family:'Segoe UI',sans-serif; font-size:11px; fill:#a0a0a0; }
+    .X  { font-family:'Segoe UI',sans-serif; font-size:10px; fill:#6a6a6a; }
+    .C  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#d4d4d4; }
+    .K  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#569cd6; }
+    .G  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#6a9955; }
+    .O  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#ce9178; }
+    .P  { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#CE422B; }
+    .Tc { font-family:'Fira Code','Consolas',monospace; font-size:11px; fill:#4ec9b0; }
+  </style>
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 0,8 10,4" fill="#CE422B"/>
+    </marker>
+  </defs>
+
+  <rect width="820" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <text x="410" y="30" class="T" text-anchor="middle">macro_rules! en Acción</text>
+  <text x="410" y="48" class="S" text-anchor="middle">Código fuente (izquierda) · Transformación en compile-time · Código expandido (derecha)</text>
+  <line x1="40" y1="58" x2="780" y2="58" stroke="#3c3c3c"/>
+
+  <!-- ─── SECTION LABELS ─── -->
+  <text x="175" y="76" class="LB" text-anchor="middle">ANTES — código escrito</text>
+  <text x="645" y="76" class="LB" text-anchor="middle">DESPUÉS — cargo expand</text>
+
+  <!-- ─── LEFT: macro call (x=28, y=82, w=310, h=240) ─── -->
+  <rect x="28" y="82" width="312" height="242" rx="5" fill="#252526" stroke="#3c3c3c"/>
+  <!-- tab bar -->
+  <rect x="28" y="82" width="312" height="22" rx="5" fill="#2d2d2d"/>
+  <rect x="28" y="96" width="312" height="8" fill="#2d2d2d"/>
+  <text x="44" y="97" class="X">main.rs</text>
+
+  <!-- macro definition (grayed out, shows the template) -->
+  <text x="44" y="122" class="G">// definición</text>
+  <text x="44" y="139" class="K">macro_rules!</text><text x="136" y="139" class="C"> map {</text>
+  <text x="44" y="156" class="C">  ($($k:expr => $v:expr),+</text>
+  <text x="44" y="173" class="P">   $(,)?</text><text x="86" y="173" class="C">) => {{</text>
+  <text x="44" y="190" class="C">    </text><text x="56" y="190" class="K">let mut</text><text x="104" y="190" class="C"> m = HashMap::new();</text>
+  <text x="44" y="207" class="Tc">    $( m.insert($k, $v); )*</text>
+  <text x="44" y="224" class="C">    m  }}  }</text>
+
+  <!-- blank separator line -->
+  <line x1="44" y1="234" x2="320" y2="234" stroke="#3c3c3c"/>
+
+  <!-- the actual call -->
+  <text x="44" y="251" class="G">// invocación</text>
+  <text x="44" y="268" class="K">let</text><text x="66" y="268" class="C"> tabla = </text><text x="134" y="268" class="P">map!</text><text x="165" y="268" class="C">[</text>
+  <text x="44" y="285" class="O">  "uno"</text><text x="96" y="285" class="C"> => 1,</text>
+  <text x="44" y="302" class="O">  "dos"</text><text x="96" y="302" class="C"> => 2,</text>
+  <text x="44" y="319" class="C">];</text>
+
+  <!-- ─── CENTER: big arrow ─── -->
+  <!-- chevron polygon pointing right, centered at x=410, y=200 -->
+  <polygon points="356,185 390,185 390,170 418,203 390,236 390,221 356,221"
+           fill="#2d2d2d" stroke="#CE422B" stroke-width="1.5"/>
+  <text x="387" y="257" class="X" text-anchor="middle" fill="#CE422B">cargo</text>
+  <text x="387" y="269" class="X" text-anchor="middle" fill="#CE422B">expand</text>
+
+  <!-- ─── RIGHT: expanded output (x=424, y=82, w=368, h=242) ─── -->
+  <rect x="424" y="82" width="368" height="242" rx="5" fill="#1a2a1a" stroke="#4ec9b0" stroke-width="1"/>
+  <!-- tab bar -->
+  <rect x="424" y="82" width="368" height="22" rx="5" fill="#1e2e1e"/>
+  <rect x="424" y="96" width="368" height="8" fill="#1e2e1e"/>
+  <text x="440" y="97" class="X" fill="#4ec9b0">expansión generada</text>
+
+  <text x="440" y="122" class="K">let</text><text x="462" y="122" class="C"> tabla = {</text>
+  <text x="440" y="139" class="K">    let mut</text><text x="504" y="139" class="C"> m =</text>
+  <text x="504" y="156" class="C">        ::std::collections::HashMap::new();</text>
+  <text x="440" y="173" class="Tc">    // primera iteración ($k="uno", $v=1)</text>
+  <text x="440" y="190" class="C">    m.insert(</text><text x="530" y="190" class="O">"uno"</text><text x="570" y="190" class="C">, 1);</text>
+  <text x="440" y="207" class="Tc">    // segunda iteración ($k="dos", $v=2)</text>
+  <text x="440" y="224" class="C">    m.insert(</text><text x="530" y="224" class="O">"dos"</text><text x="570" y="224" class="C">, 2);</text>
+  <text x="440" y="241" class="C">    m</text>
+  <text x="440" y="258" class="C">};</text>
+  <text x="440" y="278" class="G">// ↑ solo Rust ordinario, sin macros</text>
+  <text x="440" y="294" class="G">// el compilador lo procesa normalmente</text>
+  <text x="440" y="310" class="G">// type-check · borrow-check · opt</text>
+
+  <!-- ─── BOTTOM STRIP: designator pills ─── -->
+  <line x1="28" y1="342" x2="792" y2="342" stroke="#3c3c3c"/>
+  <text x="28" y="360" class="LB">DESIGNADORES  —  qué acepta cada placeholder</text>
+
+  <!-- Row 1: pills y=370, height=24, radius=4 -->
+  <!-- :expr -->
+  <rect x="28"  y="370" width="90"  height="24" rx="12" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="73"  y="386" class="C" text-anchor="middle" fill="#CE422B">:expr</text>
+  <!-- :ident -->
+  <rect x="128" y="370" width="90"  height="24" rx="12" fill="#2d2d2d" stroke="#569cd6" stroke-width="1"/>
+  <text x="173" y="386" class="C" text-anchor="middle" fill="#569cd6">:ident</text>
+  <!-- :ty -->
+  <rect x="228" y="370" width="70"  height="24" rx="12" fill="#2d2d2d" stroke="#4ec9b0" stroke-width="1"/>
+  <text x="263" y="386" class="C" text-anchor="middle" fill="#4ec9b0">:ty</text>
+  <!-- :pat -->
+  <rect x="308" y="370" width="80"  height="24" rx="12" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="348" y="386" class="C" text-anchor="middle" fill="#dcdcaa">:pat</text>
+  <!-- :block -->
+  <rect x="398" y="370" width="90"  height="24" rx="12" fill="#2d2d2d" stroke="#ce9178" stroke-width="1"/>
+  <text x="443" y="386" class="C" text-anchor="middle" fill="#ce9178">:block</text>
+  <!-- :literal -->
+  <rect x="498" y="370" width="100" height="24" rx="12" fill="#2d2d2d" stroke="#6a9955" stroke-width="1"/>
+  <text x="548" y="386" class="C" text-anchor="middle" fill="#6a9955">:literal</text>
+  <!-- :tt -->
+  <rect x="608" y="370" width="65"  height="24" rx="12" fill="#2d2d2d" stroke="#808080" stroke-width="1"/>
+  <text x="640" y="386" class="C" text-anchor="middle" fill="#808080">:tt</text>
+  <!-- :meta -->
+  <rect x="683" y="370" width="85"  height="24" rx="12" fill="#2d2d2d" stroke="#808080" stroke-width="1"/>
+  <text x="725" y="386" class="C" text-anchor="middle" fill="#808080">:meta</text>
+
+  <!-- Row 2: descriptions -->
+  <text x="73"  y="410" class="X" text-anchor="middle">1+2, x, f()</text>
+  <text x="173" y="410" class="X" text-anchor="middle">foo, mi_var</text>
+  <text x="263" y="410" class="X" text-anchor="middle">i32, Vec&lt;T&gt;</text>
+  <text x="348" y="410" class="X" text-anchor="middle">Some(x)</text>
+  <text x="443" y="410" class="X" text-anchor="middle">{ x + 1 }</text>
+  <text x="548" y="410" class="X" text-anchor="middle">42, "hola"</text>
+  <text x="640" y="410" class="X" text-anchor="middle">cualquier</text>
+  <text x="725" y="410" class="X" text-anchor="middle">derive(Debug)</text>
+
+  <!-- Repetition strip -->
+  <line x1="28" y1="428" x2="792" y2="428" stroke="#3c3c3c"/>
+  <text x="28" y="446" class="LB">REPETICIÓN</text>
+  <rect x="100" y="433" width="90"  height="22" rx="3" fill="#2d2d2d" stroke="#454545"/>
+  <text x="145" y="448" class="C" text-anchor="middle">$( ... )*</text>
+  <text x="145" y="462" class="X" text-anchor="middle">0 o más</text>
+  <rect x="210" y="433" width="90"  height="22" rx="3" fill="#2d2d2d" stroke="#454545"/>
+  <text x="255" y="448" class="C" text-anchor="middle">$( ... )+</text>
+  <text x="255" y="462" class="X" text-anchor="middle">1 o más</text>
+  <rect x="320" y="433" width="90"  height="22" rx="3" fill="#2d2d2d" stroke="#454545"/>
+  <text x="365" y="448" class="C" text-anchor="middle">$( ... )?</text>
+  <text x="365" y="462" class="X" text-anchor="middle">0 ó 1</text>
+  <text x="440" y="446" class="M">Separador opcional:</text>
+  <rect x="568" y="433" width="220" height="22" rx="3" fill="#2d2d2d" stroke="#3c3c3c"/>
+  <text x="678" y="448" class="C" text-anchor="middle">$( $x:expr ),* $(,)?</text>
+  <text x="678" y="462" class="X" text-anchor="middle">coma trailing opcional</text>
+</svg>
+

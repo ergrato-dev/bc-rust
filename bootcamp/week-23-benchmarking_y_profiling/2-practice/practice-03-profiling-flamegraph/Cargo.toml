@@ -1,0 +1,8 @@
+[package]
+name    = "practice-03-profiling-flamegraph"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "carga-cpu"
+path = "src/main.rs"

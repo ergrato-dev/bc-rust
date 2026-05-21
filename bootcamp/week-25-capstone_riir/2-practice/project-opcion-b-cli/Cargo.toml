@@ -1,0 +1,13 @@
+[package]
+name        = "capstone-opcion-b-cli"
+version     = "0.1.0"
+edition     = "2021"
+description = "CLI tool Rust — contador de palabras/líneas/bytes (reemplaza wc) — Capstone RIIR Opción B"
+license     = "MIT"
+
+[[bin]]
+name = "rwc"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.5.40", features = ["derive"] }

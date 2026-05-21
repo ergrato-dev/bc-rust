@@ -1,0 +1,7 @@
+[package]
+name    = "practice-04-attribute-macro"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+practice-04-attribute-macro-impl = { path = "../practice-04-attribute-macro-impl" }

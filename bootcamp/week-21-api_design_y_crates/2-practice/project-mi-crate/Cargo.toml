@@ -1,0 +1,12 @@
+[package]
+name        = "project-mi-crate"
+version     = "0.1.0"
+edition     = "2021"
+description = "Librería de utilidades de texto — proyecto bootcamp semana 21"
+license     = "MIT"
+keywords    = ["text", "utils", "bootcamp"]
+categories  = ["text-processing"]
+repository  = "https://github.com/ergrato-dev/bc-rust"
+
+[dependencies]
+thiserror = "2.0.12"
