@@ -6,7 +6,7 @@
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-> 🎓 Intensive **17-week (68 hours)** bootcamp to master Rust from zero to advanced level.  
+> 🎓 Intensive **25-week (100 hours)** bootcamp to master Rust from zero to advanced level.  
 > 🐳 Containerized environment with Docker for consistent development.
 
 <p align="center">
@@ -52,8 +52,16 @@ This bootcamp is designed to take students from Rust fundamentals to advanced co
 | **15** | [Async/Await](bootcamp/week-15-async_await)              | 🔴    | 4 hours  |
 | **16** | [Testing & Documentation](bootcamp/week-16-testing_y_documentacion)  | 🟡    | 4 hours  |
 | **17** | [REST API with Axum](bootcamp/week-17-api_rest_con_axum)       | 🔴    | 4 hours  |
+| **18** | [Macros: declarative & proc](bootcamp/week-18-macros)              | 🔴    | 4 hours  |
+| **19** | [`unsafe` Rust & raw pointers](bootcamp/week-19-unsafe_rust)           | 🔴    | 4 hours  |
+| **20** | [FFI & Language Bindings](bootcamp/week-20-ffi_y_bindings)                 | 🔴    | 4 hours  |
+| **21** | [API Design + `crates.io`](bootcamp/week-21-api_design_y_crates)                | 🔴    | 4 hours  |
+| **22** | [WebAssembly](bootcamp/week-22-webassembly)                             | 🔴    | 4 hours  |
+| **23** | [Benchmarking & Profiling](bootcamp/week-23-benchmarking_y_profiling)               | 🔴    | 4 hours  |
+| **24** | [`no_std` & Intro to Embedded](bootcamp/week-24-no_std_y_embedded)            | 🔴    | 4 hours  |
+| **25** | [Capstone — Rewrite It In Rust (RIIR)](bootcamp/week-25-capstone_riir)    | 🔴    | 4 hours  |
 
-**Total**: 68 hours of intensive training
+**Total**: 100 hours of intensive training
 
 **Legend**: 🟢 Beginner | 🟡 Intermediate | 🔴 Advanced
 
@@ -122,13 +130,19 @@ bc-rust/
 ├── .github/
 │   └── copilot-instructions.md
 ├── assets/                  # Visual resources
-├── _docs/                   # Additional documentation
 ├── scripts/                 # Utility scripts
 ├── bootcamp/
 │   ├── week-01-introduccion_y_setup/
 │   ├── week-02-variables_y_tipos_de_datos/
-│   ├── ...
-│   └── week-17-api_rest_con_axum/
+│   ├── ...                  # Weeks 03-17: Fundamentals → REST API
+│   ├── week-18-macros/
+│   ├── week-19-unsafe_rust/
+│   ├── week-20-ffi_y_bindings/
+│   ├── week-21-api_design_y_crates/
+│   ├── week-22-webassembly/
+│   ├── week-23-benchmarking_y_profiling/
+│   ├── week-24-no_std_y_embedded/
+│   └── week-25-capstone_riir/
 ├── Cargo.toml               # Workspace configuration
 ├── docker-compose.yml
 ├── Dockerfile
@@ -141,15 +155,16 @@ Each week contains:
 week-XX-tema_principal/
 ├── README.md                # Main guide
 ├── RUBRICA_EVALUACION.md    # Evaluation criteria
-├── 0-assets/                # SVG diagrams
-├── 1-theory/                # Theory material
+├── 0-assets/                # SVG diagrams (dark mode)
+├── 1-theory/                # Theory material (~180-250 lines)
 ├── 2-practice/              # Exercises
 │   ├── practice-01-xxx/
 │   │   ├── Cargo.toml
 │   │   ├── src/main.rs
 │   │   └── README.md
 │   └── project-xxx/         # Integration project
-└── 4-resources/             # Glossary, references
+├── 4-resources/             # External links and references
+└── 5-glossary/              # Key terms glossary
 ```
 
 ---
@@ -332,7 +347,7 @@ If this bootcamp is useful to you:
 
 ---
 
-**Last updated**: December 2025  
-**Version**: 1.0  
+**Last updated**: May 2026  
+**Version**: 2.0  
 **Author**: [ergrato-dev](https://github.com/ergrato-dev)  
 **License**: MIT
