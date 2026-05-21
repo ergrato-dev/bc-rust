@@ -87,7 +87,7 @@
   <text x="765" y="253" class="H" text-anchor="middle" fill="#808080">⑤ union</text>
   <text x="765" y="270" class="C" text-anchor="middle">union U { }</text>
   <text x="720" y="288" class="X">FFI con C</text>
-  <text x="720" y">302" class="X">Overlapping fields</text>
+  <text x="720" y="302" class="X">Overlapping fields</text>
   <text x="720" y="316" class="X">Variante activa manual</text>
   <text x="720" y="330" class="G">// SAFETY: campo b</text>
 

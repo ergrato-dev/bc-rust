@@ -139,7 +139,7 @@
 
   <!-- FLOW DIAGRAM at bottom -->
   <rect x="40" y="418" width="820" height="100" rx="6" fill="#252526" stroke="#3c3c3c"/>
-  <text x="450" y="438" text-anchor="middle" class="label" font-weight="700">Flujo: &str → *const c_char → resultado</text>
+  <text x="450" y="438" text-anchor="middle" class="label" font-weight="700">Flujo: &amp;str → *const c_char → resultado</text>
 
   <!-- Step boxes -->
   <rect x="60" y="450" width="130" height="48" rx="4" fill="#2d2d2d" stroke="#454545"/>
