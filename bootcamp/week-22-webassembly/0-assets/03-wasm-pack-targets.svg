@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .cmd      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <!-- Fondo -->
+  <rect width="860" height="480" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 22 — wasm-pack: Targets y Flujo de Build</text>
+  <text x="24" y="45" class="subtitle">web · bundler · nodejs · no-modules  ·  pkg/ generado</text>
+
+  <!-- ===== FLUJO DE BUILD ===== -->
+  <!-- Paso 1: cargo build -->
+  <rect x="20" y="72" width="130" height="56" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="85" y="96" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">cargo build</text>
+  <text x="85" y="112" class="small" text-anchor="middle">--target</text>
+  <text x="85" y="126" class="small" text-anchor="middle">wasm32-unknown-unknown</text>
+
+  <!-- Arrow -->
+  <line x1="150" y1="100" x2="194" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Paso 2: wasm-bindgen CLI -->
+  <rect x="194" y="72" width="150" height="56" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="269" y="96" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">wasm-bindgen</text>
+  <text x="269" y="112" class="small" text-anchor="middle">genera glue JS</text>
+  <text x="269" y="126" class="small" text-anchor="middle">y tipos .d.ts</text>
+
+  <!-- Arrow -->
+  <line x1="344" y1="100" x2="388" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Paso 3: wasm-opt (opcional) -->
+  <rect x="388" y="72" width="120" height="56" rx="6" fill="#252526" stroke="#454545" stroke-width="1"/>
+  <text x="448" y="96" class="label" text-anchor="middle" font-weight="bold" fill="#808080">wasm-opt</text>
+  <text x="448" y="112" class="small" text-anchor="middle">optimización</text>
+  <text x="448" y="126" class="small" text-anchor="middle">tamaño binario</text>
+
+  <!-- Arrow -->
+  <line x1="508" y1="100" x2="552" y2="100" stroke="#CE422B" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Paso 4: pkg/ -->
+  <rect x="552" y="72" width="140" height="56" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="622" y="92" class="label" text-anchor="middle" font-weight="bold">pkg/</text>
+  <text x="622" y="108" class="code" text-anchor="middle">mi_crate_bg.wasm</text>
+  <text x="622" y="122" class="code" text-anchor="middle">mi_crate.js · .d.ts</text>
+
+  <text x="706" y="92" class="small">package.json</text>
+  <text x="706" y="108" class="small">listo para npm</text>
+  <text x="706" y="124" class="small">publish directo</text>
+
+  <!-- ===== TARGETS ===== -->
+  <text x="20" y="154" class="small" font-weight="bold">TARGETS DISPONIBLES</text>
+
+  <!-- web -->
+  <rect x="20" y="162" width="195" height="104" rx="6" fill="#252526" stroke="#569cd6" stroke-width="2"/>
+  <rect x="20" y="162" width="195" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="174" width="195" height="14" fill="#2d2d2d"/>
+  <text x="117" y="181" class="label" text-anchor="middle" fill="#569cd6" font-weight="bold">--target web</text>
+  <text x="30" y="202" class="small">ESModule para browser</text>
+  <text x="30" y="218" class="cmd">import init from './pkg/mi_crate.js'</text>
+  <text x="30" y="234" class="cmd">await init();</text>
+  <text x="30" y="250" class="small">Requiere llamar init() antes de usar</text>
+  <text x="30" y="264" class="small">Compatible con Chrome, Firefox, Safari</text>
+
+  <!-- bundler -->
+  <rect x="228" y="162" width="195" height="104" rx="6" fill="#252526" stroke="#4ec9b0" stroke-width="2"/>
+  <rect x="228" y="162" width="195" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="228" y="174" width="195" height="14" fill="#2d2d2d"/>
+  <text x="325" y="181" class="label" text-anchor="middle" fill="#4ec9b0" font-weight="bold">--target bundler</text>
+  <text x="238" y="202" class="small">Para Vite / Webpack / Rollup</text>
+  <text x="238" y="218" class="cmd">import { mi_func } from './pkg'</text>
+  <text x="238" y="234" class="small">Sin init() explícito</text>
+  <text x="238" y="250" class="small">Bundler gestiona la inicialización</text>
+  <text x="238" y="264" class="small">Recomendado para SPAs</text>
+
+  <!-- nodejs -->
+  <rect x="436" y="162" width="195" height="104" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="436" y="162" width="195" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="436" y="174" width="195" height="14" fill="#2d2d2d"/>
+  <text x="533" y="181" class="label" text-anchor="middle" fill="#CE422B" font-weight="bold">--target nodejs</text>
+  <text x="446" y="202" class="small">CommonJS para Node.js</text>
+  <text x="446" y="218" class="cmd">const w = require('./pkg/mi_crate.js')</text>
+  <text x="446" y="234" class="cmd">w.mi_func()</text>
+  <text x="446" y="250" class="small">Síncrono, sin await init()</text>
+  <text x="446" y="264" class="small">Ideal para scripts y pruebas</text>
+
+  <!-- no-modules -->
+  <rect x="644" y="162" width="196" height="104" rx="6" fill="#252526" stroke="#454545" stroke-width="1"/>
+  <rect x="644" y="162" width="196" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="644" y="174" width="196" height="14" fill="#2d2d2d"/>
+  <text x="742" y="181" class="label" text-anchor="middle" fill="#808080" font-weight="bold">--target no-modules</text>
+  <text x="654" y="202" class="small">Script clásico sin módulos</text>
+  <text x="654" y="218" class="cmd">&lt;script src="mi_crate.js"&gt;&lt;/script&gt;</text>
+  <text x="654" y="234" class="small">Global wasm_bindgen</text>
+  <text x="654" y="250" class="small">Compatibilidad máxima</text>
+  <text x="654" y="264" class="small">Sin import/export</text>
+
+  <!-- ===== COMANDOS FRECUENTES ===== -->
+  <rect x="20" y="282" width="820" height="176" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="282" width="820" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="294" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="301" class="label" font-weight="bold">Comandos wasm-pack frecuentes</text>
+
+  <!-- columna 1 -->
+  <text x="36" y="330" class="small">Build desarrollo (sin optimizar)</text>
+  <text x="36" y="346" class="cmd">wasm-pack build --dev --target nodejs</text>
+
+  <text x="36" y="374" class="small">Build release (binario optimizado)</text>
+  <text x="36" y="390" class="cmd">wasm-pack build --release --target web</text>
+
+  <text x="36" y="418" class="small">Tests en Node.js</text>
+  <text x="36" y="434" class="cmd">wasm-pack test --node</text>
+
+  <text x="36" y="452" class="small">Tests en navegador headless Firefox</text>
+
+  <!-- columna 2 -->
+  <text x="440" y="330" class="small">Publicar en npm (requiere npm login)</text>
+  <text x="440" y="346" class="cmd">wasm-pack publish --access public</text>
+
+  <text x="440" y="374" class="small">Inspeccionar el binario WASM</text>
+  <text x="440" y="390" class="cmd">wasm-objdump -d pkg/mi_crate_bg.wasm | head</text>
+
+  <text x="440" y="418" class="small">Ver tamaño de secciones</text>
+  <text x="440" y="434" class="cmd">twiggy top pkg/mi_crate_bg.wasm</text>
+
+  <text x="440" y="452" class="small">Optimizar manualmente el binario</text>
+
+  <!-- defs -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>

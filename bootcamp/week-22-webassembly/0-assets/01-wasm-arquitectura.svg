@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+    .warn     { fill: #dcdcaa; }
+  </style>
+
+  <!-- Fondo -->
+  <rect width="860" height="520" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 22 — Arquitectura WebAssembly</text>
+  <text x="24" y="45" class="subtitle">Rust → WASM → Browser / Node.js / Wasmtime</text>
+
+  <!-- ===== CAPA 1: Fuentes ===== -->
+  <text x="20" y="82" class="small">FUENTES</text>
+
+  <!-- Rust Box -->
+  <rect x="20" y="92" width="130" height="60" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="85" y="118" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">Rust</text>
+  <text x="85" y="136" class="small" text-anchor="middle">src/lib.rs</text>
+  <text x="85" y="150" class="small" text-anchor="middle">#[wasm_bindgen]</text>
+
+  <!-- C/C++ Box -->
+  <rect x="165" y="92" width="130" height="60" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="230" y="118" class="label" text-anchor="middle" fill="#808080">C / C++</text>
+  <text x="230" y="136" class="small" text-anchor="middle">emscripten</text>
+  <text x="230" y="150" class="small" text-anchor="middle">clang --target wasm</text>
+
+  <!-- AssemblyScript Box -->
+  <rect x="310" y="92" width="130" height="60" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="375" y="118" class="label" text-anchor="middle" fill="#808080">AssemblyScript</text>
+  <text x="375" y="136" class="small" text-anchor="middle">TypeScript-like</text>
+  <text x="375" y="150" class="small" text-anchor="middle">asc compiler</text>
+
+  <!-- Arrow down to WASM -->
+  <line x1="85" y1="152" x2="85" y2="196" stroke="#CE422B" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230" y1="152" x2="230" y2="196" stroke="#454545" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="375" y1="152" x2="375" y2="196" stroke="#454545" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- ===== CAPA 2: WASM Binary ===== -->
+  <text x="20" y="192" class="small">COMPILACIÓN</text>
+  <rect x="20" y="200" width="420" height="64" rx="6" fill="#2d2d2d" stroke="#CE422B" stroke-width="2"/>
+  <text x="230" y="224" class="label" text-anchor="middle" font-weight="bold">Binario WASM  (.wasm)</text>
+  <text x="230" y="244" class="small" text-anchor="middle">Instrucciones binarias portátiles · Memoria lineal · Stack-based VM · Tipos: i32 i64 f32 f64</text>
+  <text x="230" y="258" class="small" text-anchor="middle">wasm32-unknown-unknown  ·  wasm32-wasip1</text>
+
+  <!-- Arrow from wasm-pack -->
+  <text x="460" y="210" class="code" fill="#dcdcaa">wasm-pack build</text>
+  <text x="460" y="228" class="code" fill="#dcdcaa">  --target web|nodejs</text>
+  <text x="460" y="246" class="code" fill="#dcdcaa">  --release</text>
+
+  <!-- Arrow down to runtimes -->
+  <line x1="230" y1="264" x2="230" y2="306" stroke="#CE422B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ===== CAPA 3: Runtimes ===== -->
+  <text x="20" y="302" class="small">RUNTIMES</text>
+
+  <!-- Browser Box -->
+  <rect x="20" y="310" width="160" height="72" rx="6" fill="#252526" stroke="#569cd6" stroke-width="2"/>
+  <text x="100" y="332" class="label" text-anchor="middle" fill="#569cd6" font-weight="bold">Navegador</text>
+  <text x="100" y="350" class="small" text-anchor="middle">Chrome / Firefox / Safari</text>
+  <text x="100" y="366" class="small" text-anchor="middle">Web Worker compatible</text>
+  <text x="100" y="380" class="small" text-anchor="middle">wasm-pack --target web</text>
+
+  <!-- Node.js Box -->
+  <rect x="200" y="310" width="160" height="72" rx="6" fill="#252526" stroke="#4ec9b0" stroke-width="2"/>
+  <text x="280" y="332" class="label" text-anchor="middle" fill="#4ec9b0" font-weight="bold">Node.js</text>
+  <text x="280" y="350" class="small" text-anchor="middle">CommonJS / ESM</text>
+  <text x="280" y="366" class="small" text-anchor="middle">require('./pkg/...')</text>
+  <text x="280" y="380" class="small" text-anchor="middle">wasm-pack --target nodejs</text>
+
+  <!-- Wasmtime Box -->
+  <rect x="380" y="310" width="160" height="72" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <text x="460" y="332" class="label" text-anchor="middle" fill="#CE422B" font-weight="bold">Wasmtime</text>
+  <text x="460" y="350" class="small" text-anchor="middle">Rust host / CLI</text>
+  <text x="460" y="366" class="small" text-anchor="middle">Engine + Store + Instance</text>
+  <text x="460" y="380" class="small" text-anchor="middle">Server-side / plugins</text>
+
+  <!-- Bundler Box -->
+  <rect x="560" y="310" width="160" height="72" rx="6" fill="#252526" stroke="#808080" stroke-width="1"/>
+  <text x="640" y="332" class="label" text-anchor="middle" fill="#808080" font-weight="bold">Bundler</text>
+  <text x="640" y="350" class="small" text-anchor="middle">Vite / Webpack / Rollup</text>
+  <text x="640" y="366" class="small" text-anchor="middle">ESModule import</text>
+  <text x="640" y="380" class="small" text-anchor="middle">wasm-pack --target bundler</text>
+
+  <!-- ===== TABLA DE RESTRICCIONES ===== -->
+  <rect x="20" y="402" width="820" height="100" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="402" width="820" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="414" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="421" class="label" font-weight="bold">Restricciones de wasm32-unknown-unknown</text>
+
+  <text x="36" y="445" class="bad">✗</text>
+  <text x="52" y="445" class="code">std::thread</text>
+  <text x="160" y="445" class="small">Single-threaded (salvo SharedArrayBuffer experimental)</text>
+
+  <text x="36" y="462" class="bad">✗</text>
+  <text x="52" y="462" class="code">std::fs</text>
+  <text x="160" y="462" class="small">Sin filesystem — usar APIs del host o wasm32-wasip1</text>
+
+  <text x="36" y="479" class="bad">✗</text>
+  <text x="52" y="479" class="code">println!</text>
+  <text x="160" y="479" class="small">Sin stdout — usar web_sys::console::log_1</text>
+
+  <text x="430" y="445" class="good">✓</text>
+  <text x="446" y="445" class="code">wasm-bindgen-futures</text>
+  <text x="590" y="445" class="small">Async con Promises JavaScript</text>
+
+  <text x="430" y="462" class="good">✓</text>
+  <text x="446" y="462" class="code">console_error_panic_hook</text>
+  <text x="640" y="462" class="small">Panics visibles en DevTools</text>
+
+  <text x="430" y="479" class="good">✓</text>
+  <text x="446" y="479" class="code">wasm-opt</text>
+  <text x="590" y="479" class="small">Optimizar tamaño del binario WASM</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>

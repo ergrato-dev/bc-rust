@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+  </style>
+
+  <!-- Fondo -->
+  <rect width="860" height="500" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 22 — Wasmtime: Modelo del Host</text>
+  <text x="24" y="45" class="subtitle">Engine · Store · Module · Instance · TypedFunc</text>
+
+  <!-- ===== DIAGRAMA DE OBJETOS ===== -->
+
+  <!-- Engine -->
+  <rect x="20" y="72" width="150" height="70" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="20" y="72" width="150" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="84" width="150" height="14" fill="#2d2d2d"/>
+  <text x="95" y="91" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">Engine</text>
+  <text x="30" y="114" class="small">Compilador WASM (AOT/JIT)</text>
+  <text x="30" y="130" class="small">Compartido entre módulos</text>
+  <text x="30" y="134" class="small">Engine::default()</text>
+
+  <!-- Arrow Engine → Store -->
+  <line x1="170" y1="107" x2="224" y2="107" stroke="#CE422B" stroke-width="2" marker-end="url(#a)"/>
+  <text x="197" y="100" class="small" text-anchor="middle">ref</text>
+
+  <!-- Store -->
+  <rect x="224" y="72" width="160" height="70" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="224" y="72" width="160" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="224" y="84" width="160" height="14" fill="#2d2d2d"/>
+  <text x="304" y="91" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">Store&lt;T&gt;</text>
+  <text x="234" y="114" class="small">Estado del host (tipo T)</text>
+  <text x="234" y="130" class="small">Recursos, memoria, tablas</text>
+  <text x="234" y="134" class="small">Store::new(&amp;engine, ())</text>
+
+  <!-- Arrow Store → Instance -->
+  <line x1="384" y1="107" x2="438" y2="107" stroke="#CE422B" stroke-width="2" marker-end="url(#a)"/>
+  <text x="411" y="100" class="small" text-anchor="middle">contiene</text>
+
+  <!-- Module (separate, compiled) -->
+  <rect x="20" y="164" width="150" height="70" rx="6" fill="#252526" stroke="#4ec9b0" stroke-width="2"/>
+  <rect x="20" y="164" width="150" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="176" width="150" height="14" fill="#2d2d2d"/>
+  <text x="95" y="183" class="label" text-anchor="middle" font-weight="bold" fill="#4ec9b0">Module</text>
+  <text x="30" y="206" class="small">Módulo WASM compilado</text>
+  <text x="30" y="222" class="small">Reutilizable / sin estado</text>
+  <text x="30" y="226" class="small">Module::new(&amp;engine, src)</text>
+
+  <!-- Arrow Module → Instance -->
+  <line x1="170" y1="199" x2="438" y2="135" stroke="#4ec9b0" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#a-green)"/>
+  <text x="310" y="158" class="small" text-anchor="middle">instancia</text>
+
+  <!-- Instance -->
+  <rect x="438" y="72" width="160" height="70" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="438" y="72" width="160" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="438" y="84" width="160" height="14" fill="#2d2d2d"/>
+  <text x="518" y="91" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">Instance</text>
+  <text x="448" y="114" class="small">Módulo + memoria lineal propia</text>
+  <text x="448" y="130" class="small">Exporta funciones, memoria...</text>
+  <text x="448" y="134" class="small">Instance::new(&amp;store, &amp;m, &amp;[])</text>
+
+  <!-- Arrow Instance → TypedFunc -->
+  <line x1="598" y1="107" x2="652" y2="107" stroke="#CE422B" stroke-width="2" marker-end="url(#a)"/>
+  <text x="625" y="100" class="small" text-anchor="middle">get</text>
+
+  <!-- TypedFunc -->
+  <rect x="652" y="72" width="188" height="70" rx="6" fill="#252526" stroke="#CE422B" stroke-width="2"/>
+  <rect x="652" y="72" width="188" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="652" y="84" width="188" height="14" fill="#2d2d2d"/>
+  <text x="746" y="91" class="label" text-anchor="middle" font-weight="bold" fill="#CE422B">TypedFunc&lt;P,R&gt;</text>
+  <text x="662" y="114" class="small">Función con tipos verificados</text>
+  <text x="662" y="130" class="small">get_typed_func::&lt;(i32,i32),i32&gt;</text>
+  <text x="662" y="134" class="small">func.call(&amp;mut store, (10, 32))</text>
+
+  <!-- ===== CÓDIGO DE EJEMPLO ===== -->
+  <rect x="20" y="252" width="820" height="232" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="252" width="820" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="264" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="271" class="label" font-weight="bold">Ejemplo completo: Wasmtime host en Rust</text>
+
+  <text x="36" y="298" class="kw">use </text><text x="58" y="298" class="ty">wasmtime</text><text x="106" y="298" class="code">::*;</text>
+
+  <text x="36" y="322" class="kw">fn </text><text x="52" y="322" class="fn">main</text><text x="76" y="322" class="code">() → </text><text x="110" y="322" class="ty">anyhow</text><text x="148" y="322" class="code">::</text><text x="154" y="322" class="ty">Result</text><text x="180" y="322" class="code">&lt;()&gt; {</text>
+
+  <text x="50" y="340" class="kw">let </text><text x="72" y="340" class="code">engine = </text><text x="126" y="340" class="ty">Engine</text><text x="162" y="340" class="code">::</text><text x="168" y="340" class="fn">default</text><text x="208" y="340" class="code">();</text>
+  <text x="50" y="356" class="kw">let mut </text><text x="90" y="356" class="code">store = </text><text x="138" y="356" class="ty">Store</text><text x="166" y="356" class="code">::</text><text x="172" y="356" class="fn">new</text><text x="191" y="356" class="code">(&amp;engine, ());</text>
+  <text x="50" y="372" class="kw">let </text><text x="72" y="372" class="code">module = </text><text x="126" y="372" class="ty">Module</text><text x="162" y="372" class="code">::</text><text x="168" y="372" class="fn">new</text><text x="187" y="372" class="code">(&amp;engine, WAT_SRC)?;</text>
+  <text x="50" y="388" class="kw">let </text><text x="72" y="388" class="code">instance = </text><text x="134" y="388" class="ty">Instance</text><text x="178" y="388" class="code">::</text><text x="184" y="388" class="fn">new</text><text x="203" y="388" class="code">(&amp;</text><text x="209" y="388" class="kw">mut </text><text x="231" y="388" class="code">store, &amp;module, &amp;[])?;</text>
+
+  <text x="50" y="410" class="kw">let </text><text x="72" y="410" class="code">suma = instance.</text><text x="178" y="410" class="fn">get_typed_func</text><text x="262" y="410" class="ty">::&lt;(i32, i32), i32&gt;</text><text x="382" y="410" class="code">(&amp;</text><text x="388" y="410" class="kw">mut </text><text x="410" y="410" class="code">store, </text><text x="444" y="410" class="str">"suma"</text><text x="476" y="410" class="code">)?;</text>
+  <text x="50" y="428" class="kw">let </text><text x="72" y="428" class="code">res = suma.</text><text x="132" y="428" class="fn">call</text><text x="156" y="428" class="code">(&amp;</text><text x="162" y="428" class="kw">mut </text><text x="184" y="428" class="code">store, (10, 32))?;</text>
+  <text x="50" y="446" class="fn">println!</text><text x="98" y="446" class="code">(</text><text x="104" y="446" class="str">"suma(10, 32) = {res}"</text><text x="254" y="446" class="code">);</text>
+
+  <text x="36" y="464" class="code">}</text>
+
+  <!-- defs -->
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#CE422B"/>
+    </marker>
+    <marker id="a-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4ec9b0"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540">
+  <style>
+    .title    { font-family: 'Segoe UI', sans-serif; font-size: 22px; font-weight: bold; fill: #d4d4d4; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #808080; }
+    .label    { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #d4d4d4; }
+    .small    { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #808080; }
+    .code     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #d4d4d4; }
+    .kw       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #569cd6; }
+    .attr     { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #9cdcfe; }
+    .str      { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #ce9178; }
+    .fn       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #dcdcaa; }
+    .ty       { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #4ec9b0; }
+    .comment  { font-family: 'Fira Code', 'Consolas', monospace; font-size: 11px; fill: #6a9955; }
+    .good     { fill: #4ec9b0; }
+    .bad      { fill: #f44747; }
+  </style>
+
+  <!-- Fondo -->
+  <rect width="860" height="540" fill="#1e1e1e"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="860" height="56" fill="#252526"/>
+  <rect x="0" y="0" width="4" height="56" fill="#CE422B"/>
+  <text x="24" y="26" class="title">Semana 22 — wasm-bindgen: Tipos y Flujo</text>
+  <text x="24" y="45" class="subtitle">Conversión de tipos entre Rust y JavaScript · String · Vec · Struct</text>
+
+  <!-- ===== TABLA DE TIPOS ===== -->
+  <rect x="20" y="70" width="820" height="200" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="70" width="820" height="28" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="84" width="820" height="14" fill="#2d2d2d"/>
+  <text x="36" y="89" class="label" font-weight="bold">Tipos en la frontera Rust ↔ JavaScript</text>
+
+  <!-- Encabezados de tabla -->
+  <line x1="20" y1="98" x2="840" y2="98" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="36"  y="113" class="small" font-weight="bold">Tipo Rust</text>
+  <text x="200" y="113" class="small" font-weight="bold">Tipo JS generado</text>
+  <text x="370" y="113" class="small" font-weight="bold">Coste de copia</text>
+  <text x="520" y="113" class="small" font-weight="bold">Notas</text>
+  <line x1="20" y1="118" x2="840" y2="118" stroke="#3c3c3c" stroke-width="1"/>
+
+  <text x="36"  y="134" class="ty">i32, u32, f64</text>
+  <text x="200" y="134" class="fn">number</text>
+  <text x="370" y="134" class="good">Sin copia</text>
+  <text x="520" y="134" class="small">Registros de CPU directos</text>
+
+  <text x="36"  y="152" class="ty">bool</text>
+  <text x="200" y="152" class="fn">boolean</text>
+  <text x="370" y="152" class="good">Sin copia</text>
+  <text x="520" y="152" class="small">0 / 1 en memoria WASM</text>
+
+  <text x="36"  y="170" class="kw">&amp;str</text>
+  <text x="200" y="170" class="str">string</text>
+  <text x="370" y="170" class="bad">Copia UTF-8</text>
+  <text x="520" y="170" class="small">JS escribe en memoria WASM</text>
+
+  <text x="36"  y="188" class="ty">String</text>
+  <text x="200" y="188" class="str">string</text>
+  <text x="370" y="188" class="bad">Copia UTF-8</text>
+  <text x="520" y="188" class="small">Rust retorna ownership al caller</text>
+
+  <text x="36"  y="206" class="ty">Vec&lt;f64&gt;</text>
+  <text x="200" y="206" class="fn">Float64Array</text>
+  <text x="370" y="206" class="bad">Copia buffer</text>
+  <text x="520" y="206" class="small">Nuevo buffer JS en cada retorno</text>
+
+  <text x="36"  y="224" class="ty">Vec&lt;String&gt;</text>
+  <text x="200" y="224" class="fn">string[]</text>
+  <text x="370" y="224" class="bad">Copia múltiple</text>
+  <text x="520" y="224" class="small">Serializa cada string</text>
+
+  <text x="36"  y="242" class="ty">Struct #[wasm_bindgen]</text>
+  <text x="200" y="242" class="ty">Clase JS</text>
+  <text x="370" y="242" class="good">Referencia (ptr)</text>
+  <text x="520" y="242" class="small">Estado en memoria WASM; llamar .free()</text>
+
+  <text x="36"  y="260" class="ty">JsValue</text>
+  <text x="200" y="260" class="fn">any</text>
+  <text x="370" y="260" class="good">Handle opaco</text>
+  <text x="520" y="260" class="small">Tipo escape para cualquier valor JS</text>
+
+  <!-- ===== DIAGRAMA CONVERSIÓN STRING ===== -->
+  <rect x="20" y="284" width="400" height="120" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="20" y="284" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="20" y="296" width="400" height="14" fill="#2d2d2d"/>
+  <text x="36" y="303" class="label" font-weight="bold">Flujo de copia de String</text>
+
+  <!-- JS side -->
+  <rect x="36" y="320" width="100" height="36" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="1"/>
+  <text x="86" y="336" class="small" text-anchor="middle" fill="#569cd6">JavaScript</text>
+  <text x="86" y="350" class="code" text-anchor="middle">"Hola"</text>
+
+  <!-- Arrow: JS → WASM mem -->
+  <line x1="136" y1="338" x2="200" y2="338" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arrow-sm)"/>
+  <text x="168" y="330" class="small" text-anchor="middle">ptr, len</text>
+
+  <!-- WASM mem -->
+  <rect x="200" y="320" width="100" height="36" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="250" y="336" class="small" text-anchor="middle" fill="#CE422B">mem WASM</text>
+  <text x="250" y="350" class="code" text-anchor="middle">0x48 6F 6C 61</text>
+
+  <!-- Arrow: mem → &str -->
+  <line x1="300" y1="338" x2="364" y2="338" stroke="#CE422B" stroke-width="1.5" marker-end="url(#arrow-sm)"/>
+  <text x="332" y="330" class="small" text-anchor="middle">&amp;str</text>
+
+  <!-- Rust side -->
+  <rect x="364" y="320" width="40" height="36" rx="4" fill="#2d2d2d" stroke="#CE422B" stroke-width="1"/>
+  <text x="384" y="342" class="small" text-anchor="middle" fill="#CE422B">Rust</text>
+
+  <text x="36" y="392" class="comment">// wasm-bindgen genera automáticamente este glue code</text>
+
+  <!-- ===== DIAGRAMA STRUCT ===== -->
+  <rect x="440" y="284" width="400" height="200" rx="6" fill="#252526" stroke="#3c3c3c" stroke-width="1"/>
+  <rect x="440" y="284" width="400" height="26" rx="6" fill="#2d2d2d"/>
+  <rect x="440" y="296" width="400" height="14" fill="#2d2d2d"/>
+  <text x="456" y="303" class="label" font-weight="bold">Struct como Clase JavaScript</text>
+
+  <!-- Rust struct -->
+  <text x="456" y="330" class="attr">#[wasm_bindgen]</text>
+  <text x="456" y="346" class="kw">pub </text><text x="478" y="346" class="kw">struct </text><text x="518" y="346" class="ty">Contador </text><text x="568" y="346" class="code">{ valor: </text><text x="630" y="346" class="ty">i32 </text><text x="654" y="346" class="code">}</text>
+
+  <text x="456" y="364" class="attr">#[wasm_bindgen]</text>
+  <text x="456" y="380" class="kw">impl </text><text x="487" y="380" class="ty">Contador </text><text x="537" y="380" class="code">{</text>
+  <text x="470" y="396" class="attr">#[wasm_bindgen(constructor)]</text>
+  <text x="470" y="412" class="kw">pub fn </text><text x="508" y="412" class="fn">new</text><text x="526" y="412" class="code">(inicial: </text><text x="590" y="412" class="ty">i32</text><text x="606" y="412" class="code">) → ...</text>
+  <text x="456" y="428" class="code">}</text>
+
+  <!-- Arrow to JS class -->
+  <line x1="640" y1="380" x2="700" y2="380" stroke="#CE422B" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#arrow-sm)"/>
+
+  <!-- JS usage -->
+  <rect x="700" y="330" width="130" height="80" rx="4" fill="#2d2d2d" stroke="#569cd6" stroke-width="1"/>
+  <text x="765" y="348" class="small" text-anchor="middle" fill="#569cd6">JavaScript</text>
+  <text x="710" y="366" class="kw">const </text><text x="746" y="366" class="code">c = </text><text x="774" y="366" class="fn">new </text><text x="797" y="366" class="ty">Contador</text><text x="843" y="366" class="code">(0);</text>
+  <text x="710" y="382" class="code">c.</text><text x="722" y="382" class="fn">incrementar</text><text x="788" y="382" class="code">();</text>
+  <text x="710" y="398" class="fn">console</text><text x="754" y="398" class="code">.</text><text x="758" y="398" class="fn">log</text><text x="775" y="398" class="code">(c.</text><text x="793" y="398" class="fn">valor</text><text x="818" y="398" class="code">());</text>
+  <text x="710" y="414" class="code">c.</text><text x="722" y="414" class="fn">free</text><text x="746" y="414" class="code">();</text>
+
+  <!-- ===== NOTA FREE() ===== -->
+  <rect x="20" y="418" width="400" height="46" rx="6" fill="#2d2d2d" stroke="#dcdcaa" stroke-width="1"/>
+  <text x="36" y="436" class="warn" font-size="12px" font-weight="bold">⚠ Importante: llamar .free()</text>
+  <text x="36" y="455" class="small">Los objetos WASM no son GC por JS. Llamar c.free() para evitar memory leaks.</text>
+
+  <!-- Arrow marker small -->
+  <defs>
+    <marker id="arrow-sm" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L7,2.5 z" fill="#CE422B"/>
+    </marker>
+  </defs>
+</svg>
